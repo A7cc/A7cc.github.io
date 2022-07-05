@@ -1,0 +1,323 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>Python学习（六）——模块 | 小C♥天天</title>
+        <meta name="author" content="小C&天天">
+        <meta name="description" content="^v^">
+        <meta name="keywords" content="">
+        <link rel="icon" href="/images/icon.jpg">
+        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
+        <link rel="stylesheet" href="/css/fonts.min.css">
+        <link rel="stylesheet" href="/css/particlex.css">
+        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
+        <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+
+    <meta name="generator" content="Hexo 6.2.0"></head>
+    <body>
+        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:30vmin;height:30vmin;padding:60px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #dd20dd;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">正在加载</p><div><img alt="loading" src="/images/afde9fa65a5742a90b51d6e1211e841e.gif"></div></div></div></div></div>
+        <div id="layout">
+            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
+            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
+            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
+            <transition name="into">
+                <div v-show="show_page" style="display: -not-none">
+                    <div id="menu_show">
+                         
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">小C♥天天</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;档案</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+    </div>
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
+        <div :class="'title'" @click="menu_show = !menu_show">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;小C♥天天</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">档案</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+                    </div>
+                    <div id="main">
+                        
+<div class="article">
+    <div>
+        <h1>Python学习（六）——模块 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2022/6/18
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Python基础教程">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                </span>
+                Python基础教程
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Python" style="color: #00a596">
+                    Python
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/开发" style="color: #00a596">
+                    开发
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    <div class="content" v-pre>
+        <h1 id="一、这东西是啥，为什么要学它？？？"><a href="#一、这东西是啥，为什么要学它？？？" class="headerlink" title="一、这东西是啥，为什么要学它？？？"></a>一、这东西是啥，为什么要学它？？？</h1><p>因为它牛，Python因为有强大的第三方模块，加上简单易学的语法，使得python编程语言在这几年很快的挤入编程语言的前五强。Python的模块可以等价与C&#x2F;C++里面的库文件、Java里面的包。</p>
+<span id="more"></span>
+<p>模块是一个或者一些以“.py”为后缀名的为实现某一特定的功能而写代码的文件的总称，每一个模块在python里都被看做是一个独立的文件。通过将相关的代码分配到一个模块里能让你在未来想要再次使用相同时提供方便。模块可以调用模块使得资源共享，所以可以通过下载别人以及写好的模块为自己所用，简称白嫖。由于避免不同社区、组织或者团队使用的函数名称和变量名称重复，在不同的模块中可以存在相同名字的函数名和变量名。</p>
+<p><strong>注意：不要和系统内置的模块名称重复</strong></p>
+<h1 id="二、模块的分类"><a href="#二、模块的分类" class="headerlink" title="二、模块的分类"></a>二、模块的分类</h1><h2 id="1-内置模块"><a href="#1-内置模块" class="headerlink" title="1.内置模块"></a>1.内置模块</h2><p>内置模块又叫做系统模块，顾名思义就是Python官方提供的模块。我们可以通过了解和学习这些模块，实现很多功能，比如打开文件，产生随机数等。</p>
+<p>这是Python官方提供的内置模块文档：<a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/library/index.html">链接在此</a></p>
+<p>由于Python官方提供的内置模块比较多，这里我们只选几个常用的进行讲解：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/liangmingshen/p/8909376.html">链接在此</a></p>
+<h2 id="2-第三方模块"><a href="#2-第三方模块" class="headerlink" title="2.第三方模块"></a>2.第三方模块</h2><p>第三方模块就是非官方的，某些组织、社区或者爱好者编写的并发表在Github的开源社区上的模块。需要通过下载安装等途径才能调用</p>
+<p>可以通过以下网站查看和下载第三方模块：<a target="_blank" rel="noopener" href="https://www.lfd.uci.edu/~gohlke/pythonlibs/">链接在此</a></p>
+<p>或者</p>
+<p>使用豆瓣源进行安装（这个快，而且不容易失败）：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41734243/article/details/104820802">链接在此</a></p>
+<p>一般可以在终端输入<code>pip install 模块名</code>进行下载和安装。</p>
+<p><strong>pip install 模块名</strong>：用于安装第三方模块，当 pip 使用 install 作为参数时，后面的模块名不能省略。<br><strong>pip uninstall 模块名</strong>：用于卸载已经安装的第三方模块，选择 uninstall 作为参数时，后面的模块名也不能省略。<br><strong>pip list 模块名</strong>：用于显示已经安装的第三方模块。<br><strong>pip install –upgrade 模块名</strong>：用于更新模块，</p>
+<h2 id="3-自定义的模块"><a href="#3-自定义的模块" class="headerlink" title="3.自定义的模块"></a>3.自定义的模块</h2><p>自定义的模块就是自己定义的模块，当自己的项目比较庞大的时候，一般不会将所有代码都写在一个py文件，而是通过将有着相同的功能的代码块写在一个公共的文件中并以模块的形式导过去直接调用。</p>
+<h1 id="三、模块的导入"><a href="#三、模块的导入" class="headerlink" title="三、模块的导入"></a>三、模块的导入</h1><p>模块不想内置函数一样可以随便使用，需要导入程序里面，就是说要解方程式时的有未知数的概念一样。</p>
+<p>通过使用关键字<code>import</code>、<code>as</code>、<code>from</code></p>
+<p>下面是模块导入的四种方法：</p>
+<pre><code class="python">import 模块名		#使用import关键字导入模块
+import 模块名 as 重命名		# 通过as给复杂的模块，使用别名
+import 母模块.子模块		#由于很多模块里面有子模块，所以需要.来区分
+from 母模块 import 函数名/子模块	#通过from导入子模块
+</code></pre>
+<h1 id="四、模块内方法的使用"><a href="#四、模块内方法的使用" class="headerlink" title="四、模块内方法的使用"></a>四、模块内方法的使用</h1><p>导入完模块后，我们就可以使用模块里面的方法或者函数了。和平时使用的函数一样，知道函数名字和参数就可以直接调用。</p>
+<h2 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h2><p>格式根据模块的导入进行调用的。可以分为四种（这是个人的理解，非官方）。</p>
+<p><strong>注意：以下代码是在cmd上演示的，在cmd中是可以不使用print自动输出的</strong></p>
+<h2 id="第一种"><a href="#第一种" class="headerlink" title="第一种"></a>第一种</h2><blockquote>
+<p>import 模块名<br>模块名.函数名([参数])</p>
+</blockquote>
+<p><strong>代码</strong></p>
+<pre><code class="python">import random
+random.random()
+</code></pre>
+<p><strong>结果显示</strong><br><img src="https://img-blog.csdnimg.cn/20200227154005253.png" alt="在这里插入图片描述"></p>
+<h2 id="第二种"><a href="#第二种" class="headerlink" title="第二种"></a>第二种</h2><blockquote>
+<p>import 模块名 as 重命名<br>重命名.函数名([参数])</p>
+</blockquote>
+<p><strong>注意：这种方法使用的话，就不可以使用原来的模块名，除非重新导入</strong></p>
+<p><strong>代码</strong></p>
+<pre><code class="python">import random as r
+r.random()
+</code></pre>
+<p><strong>结果显示</strong><br><img src="https://img-blog.csdnimg.cn/20200227153906587.png" alt="在这里插入图片描述"></p>
+<h2 id="第三种"><a href="#第三种" class="headerlink" title="第三种"></a>第三种</h2><blockquote>
+<p>import 母模块.子模块<br>母模块.子模块.函数名([参数])</p>
+</blockquote>
+<p><strong>代码</strong></p>
+<pre><code class="python">import os.path
+os.path.getsize(&quot;K:\\Dev-Cpp 5.11 TDM-GCC 4.9.2 Setup.exe&quot;)
+</code></pre>
+<p><strong>结果显示</strong><br><img src="https://img-blog.csdnimg.cn/20200227153445253.png" alt="在这里插入图片描述"></p>
+<h2 id="第四种"><a href="#第四种" class="headerlink" title="第四种"></a>第四种</h2><blockquote>
+<p>from 母模块 import 子模块<br>子模块.函数名([参数])</p>
+</blockquote>
+<p><strong>代码</strong></p>
+<pre><code class="python">from os import path
+path.getsize(&quot;K:\\Dev-Cpp 5.11 TDM-GCC 4.9.2 Setup.exe&quot;)
+</code></pre>
+<p><strong>结果显示</strong><br><img src="https://img-blog.csdnimg.cn/20200227154329592.png" alt="在这里插入图片描述"><br>根据上面的使用情况，可以得出，在模块名很长的时候使用第二种重命名的方法（注意不可以使用原来的模块名了），在使用子模块的时候推荐第四种，其实第二和第四种可以混合使用，就是在子模块名后面加<code>as</code>再加重命名即可。</p>
+<h1 id="五、python文件的另一种用法"><a href="#五、python文件的另一种用法" class="headerlink" title="五、python文件的另一种用法"></a>五、python文件的另一种用法</h1><p>一个python文件通常有两种使用方法，第一种是平常我们写的脚本，直接执行，第二种是 import导入到其他的 python 脚本中被调用执行，就是导入模块。</p>
+<p><strong>那么这么导入呢？</strong></p>
+<p>这时候我们就要认识一下包（package）的概念，Python中的包就是用来存放模块的文件夹，在Python中，我们可以用<code>import</code>导入普通文件夹，但是我们必须清楚普通文件夹并不是包。那何为文件夹为一个Python的包呢？如果一个文件夹存在<code>__init__.py</code>文件（该文件规定py文件的一些控制着包的导入行为），如果<code>__init__.py</code>为空，那么我们在程序中导入包，就会自动导入模块的函数，即用的时候就是<strong>包名.py文件名.函数名</strong>。</p>
+<p>在Python中，如果导入了某个包，该包的初始化会自动创建并执行<code>__init__.py</code>文件，在<code>__init__.py</code>文件中，一般用来书写一些初始化该包的代码，即在<code>__init__.py</code>文件的<code>__all__</code>容器内。</p>
+<p>而<code>if __name__ == &#39;__main__&#39;:</code> 的作用就是控制Python文件是脚本形式还是包的形式这两种情况执行代码的过程。<code>if __name__ == &#39;__main__&#39;:</code> 下的代码就是让py文件只作为脚本执行，也就是第一种情况下才会被执行，而这句话之上的代码将可以用<code>import</code>导入到其他脚本中是不会被执行的。</p>
+<p>一般<code>if __name__ == &#39;__main__&#39;:</code> 内的代码是用来做测试用到，就是说在写包文件时想要测试包里面的方法或者类时写的代码块。当别人导入这个包时，将不会被导入。</p>
+<p><code>if __name__ == &#39;__main__&#39;:</code>中的<code>__main__</code>是每个Python文件默认有的，就相当于C语言里的<code>main</code>函数，是进入代码的执行入口，<code>__name__</code>是一个变量，如果在本文件里值为<code>__main__</code>，如果是当成导入的模块的话，值为模块名，通过与<code>__main__</code>进行判断。而将此文件当成包使用时，由于其值不等于<code>__mian__</code>，所以不进入代码块。</p>
+<p>如果还不是很清楚<code>if __name = = &#39;__main__&#39;: </code>用法可以看这篇博文：<a target="_blank" rel="noopener" href="https://blog.csdn.net/heqiang525/article/details/89879056">链接</a></p>
+<p><strong>代码</strong></p>
+<pre><code class="python">import os	#导入os模块
+class P:
+    def printf(self):
+        print(&quot;这是导入的模块&quot;)
+
+print(__name__) #显示该文件值
+print(os.__name__)	#显示os模块名称
+if __name__ == &#39;__main__&#39;:
+    p = P()
+    p.printf()
+    print(&quot;qq&quot;)
+</code></pre>
+<p><strong>显示结果</strong><br><img src="https://img-blog.csdnimg.cn/20200305150844330.png" alt="在这里插入图片描述"></p>
+
+    </div>
+    
+</div>
+                         
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2022 小C♥天天
+            <span class="footer-icon">
+                <i class="fa-brands fa-github fa-fw"></i>
+            </span>
+            @小C&天天
+        </div>
+        <div>
+            备案号：小C&天天の窝
+        </div>
+    </div>
+</footer>
+                    </div>
+                </div>
+            </transition>
+            <div id="img_show">
+                <img id="img_content" alt="img_show">
+            </div>
+        </div>
+        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
+        <script src="/js/particlex.js"></script>
+        <script src="/js/showimg.js"></script>
+        <!-- 2D模型 -->
+        <div id="L2dCanvas" style="position: relative;"></div>
+        <script src="/js/live2d.min.js"></script>
+        <script src="/css/live2d.css"></script>
+        <script>
+            var v = new Viewer({
+                basePath: "/model",
+                role: "zhala_2",
+                mobile: true,
+            });
+        </script>
+        
+
+        <!-- 点击 -->
+        <script>
+            let body = document.getElementsByTagName('body')[0];
+            body.addEventListener('click', (e) => {
+                let contentArr = ['✊','😘','😍','😊','😭','😡','😋','👍','🐷','😱','💷','💵','×','🆗','№','⭐','🌙','♥','💴','☀','🐎','🐂','🐏','√'];
+                let randomNum = function (n) {
+                    return Math.floor(Math.random() * n)
+                }
+                let span = document.createElement('span');
+                span.innerHTML = `${contentArr[randomNum(contentArr.length)]}`;
+                span.style.color = `rgb(${randomNum(256)},${randomNum(256)},${randomNum(256)})`;
+                span.style.position = 'absolute';
+                span.style.top = `${e.pageY}px`;
+                span.style.left = `${e.pageX}px`;
+                span.style.transition = 'all 1s ease';
+                span.style.zIndex = 20000;
+                body.appendChild(span)
+                setTimeout(()=>{
+                    span.style.top = span.offsetTop - 100 + 'px';
+                    span.style.opacity = 0;
+                    setTimeout(()=>{span.remove()},700)
+                },0)
+            })
+        </script>
+        <!-- 流星背景特效 -->
+        <canvas
+            id="background"
+            style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"
+        ></canvas>
+        <script src="/js/background.js"></script>
+        <!-- 背景音乐 -->
+        <audio id="audio" src="/music/fhhkdrz9f0bad299687c62334182178bfd75d8.mp3" loop="loop" style="height: 0" controls="controls" preload="auto" autoplay="autoplay" hidden="true" ></audio>
+    </body>
+</html>
