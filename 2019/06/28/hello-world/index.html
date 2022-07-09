@@ -58,6 +58,11 @@
             <span>&ensp;标签</span>
         </a>
         
+        <a href="/tools">
+            <i class="fa-solid fa-tools fa-fw"></i>
+            <span>&ensp;工具</span>
+        </a>
+        
     </div>
     <div :class="'phone-menu ' + menu_show" id="phone-menu">
         <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
@@ -113,6 +118,15 @@
                 </div>
             </a>
             
+            <a href="/tools">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tools fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">工具</div>
+                </div>
+            </a>
+            
         </div>
         </transition>
     </div>
@@ -149,7 +163,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/hexo" style="color: #ff7d73">
+                <a href="/tags/hexo" style="color: #00bcd4">
                     hexo
                 </a>
             </span>

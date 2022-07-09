@@ -58,6 +58,11 @@
             <span>&ensp;标签</span>
         </a>
         
+        <a href="/tools">
+            <i class="fa-solid fa-tools fa-fw"></i>
+            <span>&ensp;工具</span>
+        </a>
+        
     </div>
     <div :class="'phone-menu ' + menu_show" id="phone-menu">
         <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
@@ -113,6 +118,15 @@
                 </div>
             </a>
             
+            <a href="/tools">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tools fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">工具</div>
+                </div>
+            </a>
+            
         </div>
         </transition>
     </div>
@@ -126,26 +140,6 @@
         
         
         <span>
-            <a href="/tags/Go/" style="background: #03a9f4">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-                </span>
-                Go
-            </a>
-        </span>
-        
-        
-        <span>
-            <a href="/tags/开发/" style="background: #00bcd4">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-                </span>
-                开发
-            </a>
-        </span>
-        
-        
-        <span>
             <a href="/tags/hexo/" style="background: #00bcd4">
                 <span class="icon">
                     <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
@@ -156,11 +150,61 @@
         
         
         <span>
-            <a href="/tags/Python/" style="background: #ffa2c4">
+            <a href="/tags/Go/" style="background: #03a9f4">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+                </span>
+                Go
+            </a>
+        </span>
+        
+        
+        <span>
+            <a href="/tags/开发/" style="background: #ffa2c4">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+                </span>
+                开发
+            </a>
+        </span>
+        
+        
+        <span>
+            <a href="/tags/Python/" style="background: #03a9f4">
                 <span class="icon">
                     <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
                 </span>
                 Python
+            </a>
+        </span>
+        
+        
+        <span>
+            <a href="/tags/服务器/" style="background: #ffa2c4">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+                </span>
+                服务器
+            </a>
+        </span>
+        
+        
+        <span>
+            <a href="/tags/安装/" style="background: #03a9f4">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+                </span>
+                安装
+            </a>
+        </span>
+        
+        
+        <span>
+            <a href="/tags/ESXI/" style="background: #ffa2c4">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+                </span>
+                ESXI
             </a>
         </span>
         
@@ -186,37 +230,7 @@
         
         
         <span>
-            <a href="/tags/服务器/" style="background: #00bcd4">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-                </span>
-                服务器
-            </a>
-        </span>
-        
-        
-        <span>
-            <a href="/tags/安装/" style="background: #03a9f4">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-                </span>
-                安装
-            </a>
-        </span>
-        
-        
-        <span>
-            <a href="/tags/ESXI/" style="background: #00bcd4">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-                </span>
-                ESXI
-            </a>
-        </span>
-        
-        
-        <span>
-            <a href="/tags/域/" style="background: #00bcd4">
+            <a href="/tags/域/" style="background: #00a596">
                 <span class="icon">
                     <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
                 </span>
@@ -226,7 +240,7 @@
         
         
         <span>
-            <a href="/tags/漏洞复现/" style="background: #00a596">
+            <a href="/tags/漏洞复现/" style="background: #ff7d73">
                 <span class="icon">
                     <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
                 </span>
@@ -273,14 +287,14 @@
                         
                         <span class="tag">
                             
-                            <a href="/tags/工具" style="color: #ffa2c4">
+                            <a href="/tags/工具" style="color: #03a9f4">
                                 工具
                             </a>
                         </span>
                         
                         <span class="tag">
                             
-                            <a href="/tags/代理" style="color: #ff7d73">
+                            <a href="/tags/代理" style="color: #ffa2c4">
                                 代理
                             </a>
                         </span>

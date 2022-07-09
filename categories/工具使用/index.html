@@ -58,6 +58,11 @@
             <span>&ensp;标签</span>
         </a>
         
+        <a href="/tools">
+            <i class="fa-solid fa-tools fa-fw"></i>
+            <span>&ensp;工具</span>
+        </a>
+        
     </div>
     <div :class="'phone-menu ' + menu_show" id="phone-menu">
         <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
@@ -113,6 +118,15 @@
                 </div>
             </a>
             
+            <a href="/tools">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tools fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">工具</div>
+                </div>
+            </a>
+            
         </div>
         </transition>
     </div>
@@ -126,21 +140,21 @@
         
         
         <span>
-            <a href="/categories/Go基础教程/" style="background: #03a9f4">
+            <a href="/categories/hexo/" style="background: #ff7d73">
                 <span class="icon">
                     <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
                 </span>
-                Go基础教程
+                hexo
             </a>
         </span>
         
         
         <span>
-            <a href="/categories/hexo/" style="background: #00bcd4">
+            <a href="/categories/Go基础教程/" style="background: #ff7d73">
                 <span class="icon">
                     <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
                 </span>
-                hexo
+                Go基础教程
             </a>
         </span>
         
@@ -156,6 +170,16 @@
         
         
         <span>
+            <a href="/categories/乱七八糟/" style="background: #03a9f4">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                </span>
+                乱七八糟
+            </a>
+        </span>
+        
+        
+        <span>
             <a href="/categories/工具使用/" style="background: linear-gradient(120deg, #9abbf7 0%, #ffbbf4 100%)">
                 <span class="icon">
                     <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
@@ -166,17 +190,7 @@
         
         
         <span>
-            <a href="/categories/乱七八糟/" style="background: #ffa2c4">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
-                </span>
-                乱七八糟
-            </a>
-        </span>
-        
-        
-        <span>
-            <a href="/categories/漏洞复现/" style="background: #ffa2c4">
+            <a href="/categories/漏洞复现/" style="background: #03a9f4">
                 <span class="icon">
                     <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
                 </span>
@@ -213,7 +227,7 @@
                         
                         <span class="tag">
                             
-                            <a href="/tags/工具" style="color: #00bcd4">
+                            <a href="/tags/工具" style="color: #00a596">
                                 工具
                             </a>
                         </span>
