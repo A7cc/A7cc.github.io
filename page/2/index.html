@@ -15,9 +15,9 @@
         <link rel="stylesheet" href="/css/particlex.css">
         <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
         <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
-
     <meta name="generator" content="Hexo 6.2.0"></head>
     <body>
+         
         <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:30vmin;height:30vmin;padding:60px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #dd20dd;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">正在加载</p><div><img alt="loading" src="/images/afde9fa65a5742a90b51d6e1211e841e.gif"></div></div></div></div></div>
         <div id="layout">
             <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
@@ -196,14 +196,14 @@
         
         <span class="tag">
             
-            <a href="/tags/开发" style="color: #00a596">
+            <a href="/tags/开发" style="color: #00bcd4">
                 开发
             </a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/Python" style="color: #00bcd4">
+            <a href="/tags/Python" style="color: #ffa2c4">
                 Python
             </a>
         </span>
@@ -253,14 +253,14 @@
         
         <span class="tag">
             
-            <a href="/tags/开发" style="color: #00bcd4">
+            <a href="/tags/开发" style="color: #00a596">
                 开发
             </a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/Python" style="color: #ffa2c4">
+            <a href="/tags/Python" style="color: #00a596">
                 Python
             </a>
         </span>
@@ -311,14 +311,14 @@
         
         <span class="tag">
             
-            <a href="/tags/开发" style="color: #03a9f4">
+            <a href="/tags/开发" style="color: #ff7d73">
                 开发
             </a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/Python" style="color: #ff7d73">
+            <a href="/tags/Python" style="color: #00a596">
                 Python
             </a>
         </span>
@@ -368,14 +368,14 @@
         
         <span class="tag">
             
-            <a href="/tags/开发" style="color: #ff7d73">
+            <a href="/tags/开发" style="color: #ffa2c4">
                 开发
             </a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/Python" style="color: #ff7d73">
+            <a href="/tags/Python" style="color: #00bcd4">
                 Python
             </a>
         </span>
@@ -425,14 +425,14 @@
         
         <span class="tag">
             
-            <a href="/tags/Go" style="color: #ffa2c4">
+            <a href="/tags/Go" style="color: #ff7d73">
                 Go
             </a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/开发" style="color: #ff7d73">
+            <a href="/tags/开发" style="color: #00a596">
                 开发
             </a>
         </span>
@@ -488,7 +488,7 @@
         
         <span class="tag">
             
-            <a href="/tags/Go" style="color: #ffa2c4">
+            <a href="/tags/Go" style="color: #00a596">
                 Go
             </a>
         </span>
@@ -545,14 +545,14 @@
         
         <span class="tag">
             
-            <a href="/tags/Go" style="color: #ffa2c4">
+            <a href="/tags/Go" style="color: #03a9f4">
                 Go
             </a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/开发" style="color: #ff7d73">
+            <a href="/tags/开发" style="color: #00bcd4">
                 开发
             </a>
         </span>
@@ -602,7 +602,7 @@
         
         <span class="tag">
             
-            <a href="/tags/Go" style="color: #00a596">
+            <a href="/tags/Go" style="color: #03a9f4">
                 Go
             </a>
         </span>
@@ -661,14 +661,14 @@
         
         <span class="tag">
             
-            <a href="/tags/Go" style="color: #ff7d73">
+            <a href="/tags/Go" style="color: #03a9f4">
                 Go
             </a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/开发" style="color: #ffa2c4">
+            <a href="/tags/开发" style="color: #00a596">
                 开发
             </a>
         </span>
@@ -719,14 +719,14 @@
         
         <span class="tag">
             
-            <a href="/tags/Go" style="color: #00a596">
+            <a href="/tags/Go" style="color: #ffa2c4">
                 Go
             </a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/开发" style="color: #ffa2c4">
+            <a href="/tags/开发" style="color: #00a596">
                 开发
             </a>
         </span>
@@ -885,6 +885,12 @@
         </script>
         
 
+        <!-- 背景音乐 -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.0/dist/APlayer.min.css">
+        <script src="/js/APlayer.min.js"></script>
+        <div id="aplayer" class="aplayer" data-id="3027446018" data-server="netease" data-type="playlist" data-autoplay="true" data-fixed="true" data-listfolded="true" data-order="random" data-theme="#F58EA8"></div>
+        <script src="/js/Meting.min.js"></script>
+        
         <!-- 点击 -->
         <script>
             let body = document.getElementsByTagName('body')[0];
@@ -909,13 +915,8 @@
                 },0)
             })
         </script>
-            <!-- 流星背景特效 -->
-            <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <!-- 流星背景特效 -->
+        <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
         <script src="/js/background.js"></script>
-        <!-- 背景音乐 -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.0/dist/APlayer.min.css">
-        <script src="/js/APlayer.min.js"></script>
-        <div id="aplayer" class="aplayer" data-id="3027446018" data-server="netease" data-type="playlist" data-autoplay="true" data-fixed="true" data-listfolded="true" data-order="random" data-theme="#F58EA8"></div>
-        <script src="/js/Meting.min.js"></script>
     </body>
 </html>

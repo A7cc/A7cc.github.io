@@ -15,9 +15,9 @@
         <link rel="stylesheet" href="/css/particlex.css">
         <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
         <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
-
     <meta name="generator" content="Hexo 6.2.0"></head>
     <body>
+         
         <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:30vmin;height:30vmin;padding:60px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #dd20dd;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">正在加载</p><div><img alt="loading" src="/images/afde9fa65a5742a90b51d6e1211e841e.gif"></div></div></div></div></div>
         <div id="layout">
             <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
@@ -163,14 +163,14 @@
             
             <span class="tag">
                 
-                <a href="/tags/Go" style="color: #00a596">
+                <a href="/tags/Go" style="color: #00bcd4">
                     Go
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/开发" style="color: #ffa2c4">
+                <a href="/tags/开发" style="color: #00a596">
                     开发
                 </a>
             </span>
@@ -1668,59 +1668,59 @@ func sum(a, b int) int &#123;
 </tr>
 </thead>
 <tbody><tr>
-<td align="left">&#x3D;</td>
+<td align="left"><code>=</code></td>
 <td align="left">简单的赋值运算符，将一个表达式的值赋给一个左值</td>
 <td align="left">C &#x3D; A + B 将 A + B 表达式结果赋值给 C</td>
 </tr>
 <tr>
-<td align="left">+&#x3D;</td>
+<td align="left"><code>+=</code></td>
 <td align="left">相加后再赋值</td>
-<td align="left">C +&#x3D; A 等于 C &#x3D; C + A</td>
+<td align="left"><code>C += A 等于 C = C + A</code></td>
 </tr>
 <tr>
-<td align="left">-&#x3D;</td>
+<td align="left"><code>-=</code></td>
 <td align="left">相减后再赋值</td>
-<td align="left">C -&#x3D; A 等于 C &#x3D; C - A</td>
+<td align="left"><code>C -= A 等于 C = C - A</code></td>
 </tr>
 <tr>
-<td align="left">*&#x3D;</td>
+<td align="left"><code>*=</code></td>
 <td align="left">相乘后再赋值</td>
-<td align="left">C *&#x3D; A 等于 C &#x3D; C * A</td>
+<td align="left"><code>C *= A 等于 C = C * A</code></td>
 </tr>
 <tr>
-<td align="left">&#x2F;&#x3D;</td>
+<td align="left"><code>/=</code></td>
 <td align="left">相除后再赋值</td>
-<td align="left">C &#x2F;&#x3D; A 等于 C &#x3D; C &#x2F; A</td>
+<td align="left"><code>C /= A 等于 C = C / A</code></td>
 </tr>
 <tr>
-<td align="left">%&#x3D;</td>
+<td align="left"><code>%=</code></td>
 <td align="left">求余后再赋值</td>
 <td align="left">C %&#x3D; A 等于 C &#x3D; C % A</td>
 </tr>
 <tr>
-<td align="left">&lt;&lt;&#x3D;</td>
+<td align="left"><code>&lt;&lt;=</code></td>
 <td align="left">左移后赋值</td>
 <td align="left">C &lt;&lt;&#x3D; 2 等于 C &#x3D; C &lt;&lt; 2</td>
 </tr>
 <tr>
-<td align="left">&gt;&gt;&#x3D;</td>
+<td align="left"><code>&gt;&gt;=</code></td>
 <td align="left">右移后赋值</td>
 <td align="left">C &gt;&gt;&#x3D; 2 等于 C &#x3D; C &gt;&gt; 2</td>
 </tr>
 <tr>
-<td align="left">&amp;&#x3D;</td>
+<td align="left"><code>&amp;=</code></td>
 <td align="left">按位与后赋值</td>
 <td align="left">C &amp;&#x3D; 2 等于 C &#x3D; C &amp; 2</td>
 </tr>
 <tr>
-<td align="left">^&#x3D;</td>
+<td align="left"><code>^=</code></td>
 <td align="left">按位异或后赋值</td>
 <td align="left">C ^&#x3D; 2 等于 C &#x3D; C ^ 2</td>
 </tr>
 <tr>
-<td align="left">|&#x3D;</td>
+<td align="left"><code>|=</code></td>
 <td align="left">按位或后赋值</td>
-<td align="left">C |&#x3D; 2 等于 C &#x3D; C | 2</td>
+<td align="left"><code>C |= 2 等于 C = C | 2</code></td>
 </tr>
 </tbody></table>
 <h2 id="10-6-其他运算符"><a href="#10-6-其他运算符" class="headerlink" title="10.6 其他运算符"></a>10.6 其他运算符</h2><p>下表列出了Go语言的其他运算符。</p>
@@ -1733,14 +1733,14 @@ func sum(a, b int) int &#123;
 </tr>
 </thead>
 <tbody><tr>
-<td align="left">&amp;</td>
+<td align="left"><code>&amp;</code></td>
 <td align="left">返回变量存储地址，可以发下与位运算符的&amp;一样，但是位运算符需要空格隔开</td>
-<td align="left">&amp;a; 将给出变量的实际地址。</td>
+<td align="left"><code>&amp;a;</code>将给出变量的实际地址。</td>
 </tr>
 <tr>
-<td align="left">*</td>
+<td align="left"><code>*</code></td>
 <td align="left">指针变量。</td>
-<td align="left">*a; 是一个指针变量</td>
+<td align="left"><code>*a;</code>是一个指针变量</td>
 </tr>
 </tbody></table>
 <h2 id="10-7-运算符优先级"><a href="#10-7-运算符优先级" class="headerlink" title="10.7 运算符优先级"></a>10.7 运算符优先级</h2><p>有些运算符拥有较高的优先级，二元运算符的运算方向均是从左至右。下表列出了所有运算符以及它们的优先级，由上至下代表优先级由高到低：</p>
@@ -1753,23 +1753,23 @@ func sum(a, b int) int &#123;
 </thead>
 <tbody><tr>
 <td align="left">5</td>
-<td align="left">* &#x2F; % &lt;&lt; &gt;&gt; &amp; &amp;^</td>
+<td align="left"><code>*</code>、<code>/</code>、<code>%</code>、<code>&lt;&lt;</code>、<code>&gt;&gt;</code>、<code>&amp;</code>、<code>&amp;^</code></td>
 </tr>
 <tr>
 <td align="left">4</td>
-<td align="left">+ - | ^</td>
+<td align="left">&#96;+ -</td>
 </tr>
 <tr>
 <td align="left">3</td>
-<td align="left">&#x3D;&#x3D; !&#x3D; &lt; &lt;&#x3D; &gt; &gt;&#x3D;</td>
+<td align="left"><code>==</code>、<code>!=</code>、<code>&lt;</code>、<code>&lt;=</code>、<code>&gt;</code>、<code>&gt;=</code></td>
 </tr>
 <tr>
 <td align="left">2</td>
-<td align="left">&amp;&amp;</td>
+<td align="left"><code>&amp;&amp;</code></td>
 </tr>
 <tr>
 <td align="left">1</td>
-<td align="left">||</td>
+<td align="left">&#96;</td>
 </tr>
 </tbody></table>
 <h2 id="10-8-其他符号"><a href="#10-8-其他符号" class="headerlink" title="10.8 其他符号"></a>10.8 其他符号</h2><ul>
@@ -1882,6 +1882,12 @@ Good.`
         </script>
         
 
+        <!-- 背景音乐 -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.0/dist/APlayer.min.css">
+        <script src="/js/APlayer.min.js"></script>
+        <div id="aplayer" class="aplayer" data-id="3027446018" data-server="netease" data-type="playlist" data-autoplay="true" data-fixed="true" data-listfolded="true" data-order="random" data-theme="#F58EA8"></div>
+        <script src="/js/Meting.min.js"></script>
+        
         <!-- 点击 -->
         <script>
             let body = document.getElementsByTagName('body')[0];
@@ -1906,13 +1912,8 @@ Good.`
                 },0)
             })
         </script>
-            <!-- 流星背景特效 -->
-            <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <!-- 流星背景特效 -->
+        <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
         <script src="/js/background.js"></script>
-        <!-- 背景音乐 -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.0/dist/APlayer.min.css">
-        <script src="/js/APlayer.min.js"></script>
-        <div id="aplayer" class="aplayer" data-id="3027446018" data-server="netease" data-type="playlist" data-autoplay="true" data-fixed="true" data-listfolded="true" data-order="random" data-theme="#F58EA8"></div>
-        <script src="/js/Meting.min.js"></script>
     </body>
 </html>
