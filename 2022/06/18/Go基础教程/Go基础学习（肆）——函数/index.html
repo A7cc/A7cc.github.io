@@ -170,7 +170,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/开发" style="color: #00a596">
+                <a href="/tags/开发" style="color: #00bcd4">
                     开发
                 </a>
             </span>
@@ -467,19 +467,29 @@ func main() &#123;
 </code></pre>
 <p><img src="/images/Go%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/d7342241e34645c6619cf2825ce48c66.png" alt="d7342241e34645c6619cf2825ce48c66.png"></p>
 <h2 id="9-2-闭包"><a href="#9-2-闭包" class="headerlink" title="9.2 闭包"></a>9.2 闭包</h2><p>闭包指的是一个函数和与其相关的引用环境组合而成的实体。简单来说，<code>闭包=函数+引用环境</code>。 首先我们来看一个例子：</p>
-<pre><code class="go">func adder() func(int) int &#123;
+<pre><code class="go">// func(int)是adder()函数返回值，而int是func(int)返回值
+func adder() func(int) int &#123;
     var x int
+    // fmt.Println(x)
+    // x不进行赋值默认是0
     return func(y int) int &#123;
         x += y
         return x
     &#125;
 &#125;
 func main() &#123;
+    // 这就就是将func(y int) int &#123;
+    // 			x += y
+    // 			return x
+    // 		&#125;
+    // 这个匿名函数传给f，这时候x已经进行了实例化，即为0，这样就直接保留了x这个变量的值
     var f = adder()
+    // 接着我们将10赋值到f里，就是将10赋值给y，然后进行x=x+y运算
     fmt.Println(f(10)) //10
+    // 接着我们将20赋值到f里，就是将20赋值给y，然后进行x=x+y运算，由于前面x的已经被f(10)改变为10，所以这里x=x+y=10+20=30
     fmt.Println(f(20)) //30
     fmt.Println(f(30)) //60
-
+    // 由于这里是新的变量赋值，所以重新实例化一个adder函数，x也被重新实例化，但是不影响之前的x
     f1 := adder()
     fmt.Println(f1(40)) //40
     fmt.Println(f1(50)) //90
