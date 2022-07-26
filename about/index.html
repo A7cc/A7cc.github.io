@@ -1,0 +1,214 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>About | 小C♥天天</title>
+        <meta name="author" content="小C&天天">
+        <meta name="description" content="^v^">
+        <meta name="keywords" content="">
+        <link rel="icon" href="/images/icon.jpg">
+        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
+        <link rel="stylesheet" href="/css/fonts.min.css">
+        <link rel="stylesheet" href="/css/particlex.css">
+        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
+        <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+    <meta name="generator" content="Hexo 6.2.0"></head>
+    <body>
+        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:30vmin;height:30vmin;padding:60px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #dd20dd;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">正在加载</p><div><img alt="loading" src="/images/afde9fa65a5742a90b51d6e1211e841e.gif"></div></div></div></div></div>
+        <div id="layout">
+            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
+            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
+            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
+            <transition name="into">
+                <div v-show="show_page" style="display: -not-none">
+                    <div id="menu_show">
+                         
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">小C♥天天</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;文章</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+    </div>
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
+        <div :class="'title'" @click="menu_show = !menu_show">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;小C♥天天</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+                    </div>
+                    <div id="main">
+                        
+<div class="about">
+    <div>
+        <h1>About</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                以下是关于我的介绍，你品你细品
+            </span>
+        </span>
+        <div class="solidline"></div>
+        <h1>🔱 作者</h1>
+        最菜打工仔就是我 A7cc 啊！！！
+        <h1>💘 内容</h1>
+        这个博客的目的就是平时要查知识点的时候，发现没有电脑，就可以访问这个博客查资料！
+        <h1>💀 能力</h1>
+        摸鱼大王
+        <h1>😋 格言</h1>
+        修学储能，先博后渊！
+    </div>
+</div>
+                         
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2022 小C♥天天
+            <span class="footer-icon">
+                <i class="fa-brands fa-github fa-fw"></i>
+            </span>
+            @小C&天天
+        </div>
+        <div>
+            备案号：小C&天天の窝
+        </div>
+    </div>
+</footer>
+                    </div>
+                </div>
+            </transition>
+            <div id="img_show">
+                <img id="img_content" alt="img_show">
+            </div>
+        </div>
+        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
+        <script src="/js/particlex.js"></script>
+        <script src="/js/showimg.js"></script>
+        
+
+        <!-- 2D模型 -->
+        <div id="L2dCanvas" style="position: relative;"></div>
+        <script src="/js/live2d.min.js"></script>
+        <script src="/css/live2d.css"></script>
+        <script>
+            var v = new Viewer({
+                basePath: "/model",
+                role: "zhala_2",
+                mobile: true,
+            });
+        </script>
+        <!-- 背景音乐 -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.0/dist/APlayer.min.css">
+        <script src="/js/APlayer.min.js"></script>
+        <div id="aplayer" class="aplayer" data-id="3027446018" data-server="netease" data-type="playlist" data-autoplay="true" data-fixed="true" data-listfolded="true" data-order="random" data-theme="#F58EA8"></div>
+        <script src="/js/Meting.min.js"></script>
+        <!-- 点击 -->
+        <script>
+            let body = document.getElementsByTagName('body')[0];
+            body.addEventListener('click', (e) => {
+                let contentArr = ['✊','😘','😍','😊','😭','😡','😋','👍','🐷','😱','💷','💵','×','🆗','№','⭐','🌙','♥','💴','☀','🐎','🐂','🐏','√'];
+                let randomNum = function (n) {
+                    return Math.floor(Math.random() * n)
+                }
+                let span = document.createElement('span');
+                span.innerHTML = `${contentArr[randomNum(contentArr.length)]}`;
+                span.style.color = `rgb(${randomNum(256)},${randomNum(256)},${randomNum(256)})`;
+                span.style.position = 'absolute';
+                span.style.top = `${e.pageY}px`;
+                span.style.left = `${e.pageX}px`;
+                span.style.transition = 'all 1s ease';
+                span.style.zIndex = 20000;
+                body.appendChild(span)
+                setTimeout(()=>{
+                    span.style.top = span.offsetTop - 100 + 'px';
+                    span.style.opacity = 0;
+                    setTimeout(()=>{span.remove()},700)
+                },0)
+            })
+        </script>
+        <!-- 流星背景特效 -->
+        <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/background.js"></script>
+    </body>
+</html>

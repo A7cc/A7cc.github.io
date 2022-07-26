@@ -1002,6 +1002,32 @@ footer .footer-icon {
 #archives .item-time {
     color: #5c6b72;
 }
+
+.about {
+    margin: auto;
+    position: relative;
+    top: 100px;
+    color: #1e3e3f;
+    padding:0 25%;
+    font-size: 15px;
+    display: inline-block;
+    margin-right: 20px;
+}
+.about h1 {
+    font-weight: bold;
+    margin: 20px 0;
+}
+.about .info .date {
+    color: #5c6b72;
+    display: inline-block;
+    margin-right: 20px;
+}
+.about .info .solidline{
+    margin-top: 30px;
+    border-top: 1px solid #aaa;
+    width: 900px;
+    color: #5c6b72;
+}
 .categories-tags {
     position: relative;
     top: 100px;
