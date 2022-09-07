@@ -148,15 +148,15 @@
             
             <span class="tag">
                 
-                <a href="/tags/开发" style="color: #00bcd4">
-                    开发
+                <a href="/tags/Go" style="color: #ff7d73">
+                    Go
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/Go" style="color: #ffa2c4">
-                    Go
+                <a href="/tags/开发" style="color: #ffa2c4">
+                    开发
                 </a>
             </span>
             
@@ -273,15 +273,36 @@ import (
     &quot;fmt&quot;
 )
 func main() &#123;
-    var user struct &#123;
+    user := struct &#123;
         Name string
         Age  int
+    &#125;&#123;
+        &quot;A7cc&quot;,
+        18,
     &#125;
-    user.Name = &quot;A7cc&quot;
-    user.Age = 18
-    fmt.Printf(&quot;%#v\n&quot;, user)	//struct &#123; Name string; Age int &#125;&#123;Name:&quot;A7cc&quot;, Age:18&#125;
+    fmt.Printf(&quot;%#v\n&quot;, user) //struct &#123; Name string; Age int &#125;&#123;Name:&quot;A7cc&quot;, Age:18&#125;
 &#125;
 </code></pre>
+<blockquote>
+<p>小知识：<br>有些项目会有这种情况：struct {}、struct {} {}<br>struct {}是一个无元素的结构体类型，通常在没有信息存储时使用。优点是大小为0，不需要内存来存储struct {}类型的值，注意是没有没有内存存储<br>struct {} {}是一个复合字面量，它构造了一个struct {}类型的值，该值也是空<br>这种形式的结构体不占据内存空间，因此被广泛作为各种场景下的占位符使用。一是节省资源，二是空结构体本身就具备很强的语义，即这里不需要任何值，仅作为占位符。</p>
+</blockquote>
+<pre><code class="go">var set map[string]struct&#123;&#125; 
+set = make(map[string]struct&#123;&#125;)
+
+set[&quot;red&quot;] = struct&#123;&#125;&#123;&#125; // struct&#123;&#125;&#123;&#125;  构造了一个struct &#123;&#125;类型的值
+set[&quot;blue&quot;] = struct&#123;&#125;&#123;&#125;
+
+_, ok := set[&quot;red&quot;]
+fmt.Println(&quot;Is red in the map?&quot;, ok)
+_, ok = set[&quot;green&quot;]
+fmt.Println(&quot;Is green in the map?&quot;, ok)
+// Is red in the map? true
+// Is green in the map? false
+</code></pre>
+<p><code>map</code>可以通过<code>comma ok</code>机制来获取该<code>key</code>是否存在<code>_, ok := map[&quot;key&quot;]</code>，如果没有对应的值，<code>ok</code>为<code>false</code>，这样可以通过定义成<code>map[string]struct&#123;&#125;</code>的形式，值不再占用内存。其值仅有两种状态：有或无。</p>
+<ul>
+<li>其他知识点<br><code>chan struct&#123;&#125;</code>：可以用作通道的退出<br>两个<code>structt&#123;&#125;&#123;&#125;</code>地址相等</li>
+</ul>
 <h2 id="4-4-创建指针类型结构体"><a href="#4-4-创建指针类型结构体" class="headerlink" title="4.4 创建指针类型结构体"></a>4.4 创建指针类型结构体</h2><p>我们还可以通过使用<code>new</code>关键字对结构体进行实例化，得到的是结构体的地址。 格式如下：</p>
 <pre><code class="go">var p2 = new(person)
 fmt.Printf(&quot;%T\n&quot;, p2)     //*main.person

@@ -148,15 +148,15 @@
             
             <span class="tag">
                 
-                <a href="/tags/开发" style="color: #ffa2c4">
-                    开发
+                <a href="/tags/Go" style="color: #00bcd4">
+                    Go
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/Go" style="color: #00a596">
-                    Go
+                <a href="/tags/开发" style="color: #ffa2c4">
+                    开发
                 </a>
             </span>
             
@@ -323,7 +323,7 @@ func swap(x *int, y *int) &#123;
     fmt.Println(*a)
 &#125;
 </code></pre>
-<h2 id="7-2-new与make的区别"><a href="#7-2-new与make的区别" class="headerlink" title="7.2 new与make的区别"></a>7.2 new与make的区别</h2><p>a.  二者都是用来做内存分配的<br>b.  make只用于slice、map以及channel的初始化，返回的还是这三个引用类型本身，new是代替不了make的<br>c.  而new用于类型的内存分配，并且内存对应的值为类型零值，返回的是指向类型的指针</p>
+<h2 id="7-2-new与make的区别"><a href="#7-2-new与make的区别" class="headerlink" title="7.2 new与make的区别"></a>7.2 new与make的区别</h2><p>a.  二者都是用来做内存分配的<br>b.  make只用于slice、map以及channel的初始化，会被编译器翻译成具体的创建函数，由其分配内存和初始化成员结构，<font color="red">返回的还是这三个引用类型本身</font>，new是代替不了make的<br>c.  而new用于类型的内存分配，并且内存对应的值为类型零值，<font color="red">返回的是指向类型的指针</font></p>
 <h1 id="捌-什么情况下使用指针（注意）"><a href="#捌-什么情况下使用指针（注意）" class="headerlink" title="捌 什么情况下使用指针（注意）"></a>捌 什么情况下使用指针（注意）</h1><ul>
 <li>a.不要对 map、slice、channel 这类引用类型使用指针；</li>
 <li>b.如果需要修改参数的值或者内部数据时，也需要使用指针类型的参数；</li>

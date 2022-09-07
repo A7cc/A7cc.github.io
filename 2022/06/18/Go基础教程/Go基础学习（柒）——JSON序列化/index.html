@@ -148,15 +148,15 @@
             
             <span class="tag">
                 
-                <a href="/tags/开发" style="color: #03a9f4">
-                    开发
+                <a href="/tags/Go" style="color: #ffa2c4">
+                    Go
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/Go" style="color: #ffa2c4">
-                    Go
+                <a href="/tags/开发" style="color: #ffa2c4">
+                    开发
                 </a>
             </span>
             
@@ -328,6 +328,39 @@ func main() &#123;
 &#125;
 </code></pre>
 <p>从结果中可以看出，无论是<code>string</code>，<code>int</code>，<code>bool</code>，还是指针类型等，都可赋值给<code>interface&#123;&#125;</code>类型，且正常编码，效果与前面的例子一样。</p>
+<h2 id="2-3-MarshalIndent函数——将JSON字符串格式化"><a href="#2-3-MarshalIndent函数——将JSON字符串格式化" class="headerlink" title="2.3 MarshalIndent函数——将JSON字符串格式化"></a>2.3 MarshalIndent函数——将JSON字符串格式化</h2><p>我们都知道<code>json</code>格式一般是下面这种格式：</p>
+<pre><code class="json">&#123;
+ &quot;user_id&quot;: 1,
+ &quot;user_name&quot;: &quot;demo&quot;
+&#125;
+</code></pre>
+<p>而在用<code>Marshal</code>函数时，我们会发现输出的是一行<code>json</code>字符串，并不美观，这时候我们就可以使用<code>MarshalIndent</code>函数：</p>
+<pre><code class="go">func MarshalIndent(v any, prefix, indent string) ([]byte, error)
+# prefix表示json每一行都会输出的字符串
+# indent表示在prefix基础上再输出
+</code></pre>
+<p>例子：</p>
+<pre><code class="go">package main
+import (
+    &quot;encoding/json&quot;
+    &quot;fmt&quot;
+)
+func main() &#123;
+    type User struct &#123;
+        UserId   int    `json:&quot;user_id&quot;`
+        UserName string `json:&quot;user_name&quot;`
+    &#125;
+    // 输出json格式
+    u := User&#123;UserId: 1, UserName: &quot;demo&quot;&#125;
+    j, _ := json.MarshalIndent(u, &quot;=&quot;, &quot;++&quot;)
+    fmt.Println(string(j))
+    // 输出内容：
+    // &#123;
+    // =++&quot;user_id&quot;: 1,
+    // =++&quot;user_name&quot;: &quot;demo&quot;
+    // =&#125;
+&#125;
+</code></pre>
 <h1 id="叁-JSON与Map、struct转化"><a href="#叁-JSON与Map、struct转化" class="headerlink" title="叁 JSON与Map、struct转化"></a>叁 JSON与Map、struct转化</h1><p>例如我们在爬虫时，可能会获取到的时<code>JSON</code>格式的数据，这时候我们就需要将其转化为Go语言常用的数据类型，才能对<code>JSON</code>数据内容进行操作。</p>
 <h2 id="3-1-JSON与struct转化"><a href="#3-1-JSON与struct转化" class="headerlink" title="3.1 JSON与struct转化"></a>3.1 JSON与struct转化</h2><p><code>JSON</code>转化为<code>struct</code>有伍种：普通<code>JSON</code>、<code>JSON</code>内嵌普通<code>JSON</code>、<code>JSON</code>内嵌数组<code>JSON</code>、<code>JSON</code>内嵌具有动态<code>Key</code>的<code>JSON</code>、使用空接口。</p>
 <p><font color="red">思路就是创建一个与<code>JSON</code>一样格式的<code>struct</code>数据类型，使用<code>Unmarshal</code>函数将JSON格式的字符串转化为结构体。</font></p>
