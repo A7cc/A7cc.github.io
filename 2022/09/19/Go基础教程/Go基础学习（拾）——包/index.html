@@ -1,0 +1,739 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>Go基础学习（拾）——包 | 小C♥天天</title>
+        <meta name="author" content="小C&天天">
+        <meta name="description" content="^v^">
+        <meta name="keywords" content="">
+        <link rel="icon" href="/images/icon.jpg">
+        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
+        <link rel="stylesheet" href="/css/fonts.min.css">
+        <link rel="stylesheet" href="/css/particlex.css">
+        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
+        <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+    <meta name="generator" content="Hexo 6.2.0"></head>
+    <body>
+        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:30vmin;height:30vmin;padding:60px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #dd20dd;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">正在加载</p><div><img alt="loading" src="/images/afde9fa65a5742a90b51d6e1211e841e.gif"></div></div></div></div></div>
+        <div id="layout">
+            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
+            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
+            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
+            <transition name="into">
+                <div v-show="show_page" style="display: -not-none">
+                    <div id="menu_show">
+                         
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">小C♥天天</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;文章</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+    </div>
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
+        <div :class="'title'" @click="menu_show = !menu_show">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;小C♥天天</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+                    </div>
+                    <div id="main">
+                        
+<div class="article">
+    <div>
+        <h1>Go基础学习（拾）——包 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2022/9/19
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Go基础教程">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                </span>
+                Go基础教程
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Go" style="color: #03a9f4">
+                    Go
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/开发" style="color: #00bcd4">
+                    开发
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    <div class="content" v-pre>
+        <h1 id="壹-包的介绍"><a href="#壹-包的介绍" class="headerlink" title="壹 包的介绍"></a>壹 包的介绍</h1><p><code>Go</code>语言是支持模块化的开发理念的，在<code>Go</code>语言项目开发中使用包<code>（package）</code>来支持代码模块化和代码复用。一个包是由一个或多个<code>Go</code>源码文件（<code>.go</code>结尾的文件）组成，是一种高级的代码复用方案，<code>Go</code>语言为我们提供了很多内置包，如<code>fmt</code>、<code>os</code>、<code>io</code>等。</p>
+<h1 id="贰-包的定义"><a href="#贰-包的定义" class="headerlink" title="贰 包的定义"></a>贰 包的定义</h1><p>我们可以根据自己的需要创建自定义包。一个包可以简单理解为一个存放<code>.go</code>文件的文件夹，该文件夹下面的所有<code>.go</code>文件都要在非注释的第一行添加如下声明，声明该文件归属的哪个包。</p>
+<pre><code class="go">package 自定义包的名字
+// package：声明包的关键字
+// packagename：包名，可以不与文件夹的名称一致，但是不能包含 - 符号，所有的包名都应该使用小写字母，最好与其实现的功能相对应。
+</code></pre>
+<p><font color="red">注意：一个文件夹下存放的所有<code>.go</code>文件只能归属一个包，归属在同一个包的<code>.go</code>文件不能存放在多个文件夹下。</font>包名为<code>main</code>的包是<code>Go</code>语言的应用程序的入口包，这种包编译后会得到一个可执行文件，而编译不包含<code>main</code>包的源代码则不会得到可执行文件，而是。</p>
+<h1 id="叁-标识符可见性"><a href="#叁-标识符可见性" class="headerlink" title="叁 标识符可见性"></a>叁 标识符可见性</h1><p>在同一个包内部声明的标识符都归属与同一个命名空间，而在不同的包内部声明的标识符就属于各自的命名空间。想要在包的外部使用包内部的标识符就需要添加包名前缀，例如<code>fmt.Println(&quot;Hello world!&quot;)</code>，就是指调用<code>fmt</code>包中的<code>Println</code>函数。</p>
+<p>如果想让一个包中的标识符（如变量、常量、类型、函数等）能被外部的包使用，那么标识符必须是对外可见的，这就像<code>Java</code>的权限修饰符<code>(public)</code>公共权限一样。<font color="red">而在<code>Go</code>语言中是通过标识符的首字母大<code>/</code>小写来控制标识符的对外可见<code>(public)</code>&#x2F;不可见<code>(private)</code>的</font>。在一个包内部只有首字母大写的标识符才是对外可见的，才能被外部使用。</p>
+<pre><code class="go">package pkg2
+ 
+import &quot;fmt&quot;
+ 
+// 包变量可见性
+ 
+var a = 100 // 首字母小写，外部包不可见，只能在当前包内使用
+ 
+// 首字母大写外部包可见，可在其他包中使用
+const Mode = 1
+ 
+type person struct &#123; // 首字母小写，外部包不可见，只能在当前包内使用
+    name string
+&#125;
+ 
+// 首字母大写，外部包可见，可在其他包中使用
+func Add(x, y int) int &#123;
+    return x + y
+&#125;
+ 
+func age() &#123; // 首字母小写，外部包不可见，只能在当前包内使用
+    var Age = 18 // 函数局部变量无论开头是大小写，由于只在当前函数内部的作用域，外部包不可见，只能在当前函数内使用
+    fmt.Println(Age)
+&#125;
+</code></pre>
+<p>结构体中的字段名和接口中的方法名如果首字母都是大写，外部包可以访问这些字段和方法。</p>
+<pre><code class="go">type Student struct &#123;
+    Name  string // 可在包外访问的方法
+    class string // 仅限包内访问的字段
+&#125;
+type Payer interface &#123;
+    init() //仅限包内访问的方法
+    Pay()  //可在包外访问的方法
+&#125;
+</code></pre>
+<h1 id="肆-包的引用"><a href="#肆-包的引用" class="headerlink" title="肆 包的引用"></a>肆 包的引用</h1><p>当我们需要在当前包中使用另外一个包的内容时，就需要使用<code>import</code>关键字引入这个包，并且<code>import</code>语句通常放在<code>package</code>声明语句的下方。完整的引入声明语句格式如下：</p>
+<pre><code class="go">import importname &quot;path/to/package&quot;
+// importname：为引入包取的别名，通常都省略，省略的话，默认值为引入包的包名
+// path/to/package：引入包的路径名称，包名是从$GOPATH/src/后开始计算的，，使用/进行路径分隔，必须使用双引号包裹起来
+// Go语言中禁止循环导入包
+</code></pre>
+<p>引入包可以使用如下格式：</p>
+<pre><code class="go">import &quot;包1&quot;
+import &quot;包2&quot;
+</code></pre>
+<p>也可以批量引用：</p>
+<pre><code class="go">import (
+    &quot;包1&quot;
+    &quot;包2&quot;
+)
+</code></pre>
+<p>当引入的多个包中存在相同的包名或者想为某个引入的包设置一个新包名时，都需要通过<code>importname</code>指定一个在当前文件中使用的新包名。例如，在引入<code>fmt</code>包时为其指定一个新包名<code>f</code>。</p>
+<pre><code class="go">import f &quot;fmt&quot;
+</code></pre>
+<p>或者批量：</p>
+<pre><code class="go">import (
+    f &quot;fmt&quot;
+    o &quot;os&quot;
+)
+</code></pre>
+<p>使用包里面的函数就可以通过别名进行调用：</p>
+<pre><code class="go">f.Println(&quot;Hello world!&quot;)
+</code></pre>
+<p>如果引入一个包的时候为其设置了一个特殊<code>_</code>作为别名，那么这个包的引入方式就称为<font color="red">匿名引入</font>。一个包被匿名引入的目的主要是为了加载这个包，从而使得这个包中的资源得以初始化。 被匿名引入的包中的<code>init</code>函数（这个函数下面会仔细讲解）将被执行并且仅执行一遍。</p>
+<pre><code class="go">// 该包是引用mysql数据库包，需要进行初始化
+import _ &quot;github.com/go-sql-driver/mysql&quot;
+</code></pre>
+<p>匿名引入的包与其他方式导入的包一样都会被编译到可执行文件中。需要注意的是，<code>Go</code>语言中不允许引入包却不在代码中使用这个包的内容，如果引入了未使用的包则会触发编译错误，但是使用<code>_</code>设置别名，导入的包是已经加载使用的了，不会报错！<br>还有一种使用点的操作：</p>
+<pre><code>import(
+    . &quot;fmt&quot; 
+)
+</code></pre>
+<p>这个点操作的含义就是这个包导入之后在你调用这个包的函数时，你可以省略前缀的包名，也就是前面你调用的：</p>
+<pre><code>fmt.Println( &quot;hello go&quot; )
+</code></pre>
+<p>可以写成：</p>
+<pre><code>Println( &quot;hello go&quot; )
+</code></pre>
+<h1 id="伍-init初始化函数"><a href="#伍-init初始化函数" class="headerlink" title="伍 init初始化函数"></a>伍 init初始化函数</h1><p><code>Go</code>语言有一个特殊的函数<code>init</code>，会在每个包完成初始化后自动执行，并且执行的优先级比<code>main</code>函数高，实现包级别的一些初始化操作！该函数默认没有执行代码，需要用户自定义初始化！<br><code>init</code>函数有一下特性：</p>
+<ul>
+<li><code>init</code>函数是程序执行前对包进行初始化的函数</li>
+<li>每个包可以有多个<code>init</code>函数，并且是以顺序方式执行</li>
+<li>包的每个源文件也可以有多个<code>init</code>函数</li>
+<li>同一个包中多个<code>init</code>函数的执行顺序是顺序执行</li>
+<li>不同包的<code>init</code>函数按照包导入的依赖关系决定该初始化函数的执行顺序</li>
+<li><code>init</code>函数不能被其他函数调用，而是在<code>main</code>函数执行之前，自动被调用，如果被其他函数调用会出现<code>undefined：init</code>错误</li>
+<li><code>init</code>函数没有参数也没有返回值</li>
+</ul>
+<p><code>init</code>函数的主要作用：</p>
+<ul>
+<li>初始化不能采用初始化表达式的初始化变量</li>
+<li>需要在<code>main</code>函数运行前的执行的代码，就是对包的初始化</li>
+<li>实现<code>sync.Once</code>功能（后面的并发会讲解该功能）</li>
+</ul>
+<p>对于单个包的初始化，总是以单线程执行，初始化的顺序是<strong>全局声明 <code>=&gt;</code> <code>init</code>函数 <code>=&gt;</code> <code>main</code>函数</strong>：</p>
+<pre><code class="go">package main
+
+// 1.初始化全局声明
+var value int
+
+func init() &#123;
+    // 2.初始化init函数内的语句
+    print(&quot;开始初始化变量value！\n&quot;)
+    value = 1
+&#125;
+
+func main() &#123;
+    // 3.运行main函数内的语句
+    print(&quot;初始化后的变量value：&quot;, value)
+&#125;
+</code></pre>
+<p>上面是没有引入其他包的情况下，对于引入其他包，应用程序的初始化是<strong>最前面的包初始化（进入其他包还是按照单个包初始化顺序进行） <code>=&gt;</code> 全局声明 <code>=&gt;</code> <code>init</code>函数 <code>=&gt;</code> <code>main</code>函数</strong>：<br><img src="/images/Go%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/bb1cbce6376d4be56081e7f41f592a55.png" alt="bb1cbce6376d4be56081e7f41f592a55.png"></p>
+<p>像前面一样，如果只需要一个包的<code>init</code>初始化函数，不需要这个包的其他方法，可以使用匿名引入，这样就表示只执行这个包的<code>init</code>函数。</p>
+<pre><code class="go">import _ &quot;github.com/go-sql-driver/mysql&quot;
+</code></pre>
+<p><font color="red">这里需要注意无论包被导入多少次，初始化只需要一次</font>。这样的好处是开发者如果引用第三方库的时候，本地的库引用了与第三方库的引用的库重复，就不会多次初始化库，这也使得<code>Go</code>语言允许开发者对外发布包或者库，也支持开发者在自己的代码中引入第三方库。</p>
+<h1 id="陆-Go包的依赖管理介绍"><a href="#陆-Go包的依赖管理介绍" class="headerlink" title="陆 Go包的依赖管理介绍"></a>陆 Go包的依赖管理介绍</h1><p>最早的时候，<code>Go</code>所依赖的所有的第三方库都放在<code>GOPATH</code>这个目录下面。这就导致了同一个库只能保存一个版本的代码。如果不同的项目依赖同一个第三方的库的不同版本，就成为了<code>Go</code>语言一个致命的缺陷。</p>
+<p>首先我们看看<code>Go</code>官方对依赖管理的小历史：</p>
+<ul>
+<li>2012年3月 <code>Go 1</code> 发布，此时没有版本的概念</li>
+<li>2013年 <code>Golang</code> 团队在 <code>FAQ</code> 中提议开发者保证相同 <code>import path</code> 的兼容性，后来成为一纸空文</li>
+<li>2013年10月出现 <code>Godep</code></li>
+<li>2014年7月出现 <code>glide</code></li>
+<li>2014年有人提出 <code>external packages</code> 的概念，在项目的目录下增加一个 <code>vendor</code> 目录来存放外部的包</li>
+<li>2015年8月 <code>Go 1.5</code> 实验性质加入 <code>vendor</code> 机制</li>
+<li>2015年有人提出了采用语义化版本的草案</li>
+<li>2016年2月 <code>Go 1.6</code> <code>vendor</code> 机制 默认开启</li>
+<li>2016年5月 <code>Go</code> 团队的 <code>Peter Bourgon</code> 建立委员会，讨论依赖管理工具，也就是后面的 <code>dep</code></li>
+<li>2016年8月 <code>Go 1.7</code> <code>vendor</code> 目录永远启用</li>
+<li>2017年1月 <code>Go</code> 团队发布 <code>Dep</code>，作为准官方试验</li>
+<li>2018年8月 <code>Go 1.11</code> 发布 <code>Modules</code> 作为官方试验</li>
+<li>2019年2月 <code>Go 1.13</code> 发布 <code>Modules</code> 将是 <code>Go</code> 语言默认的依赖管理工具</li>
+<li>2019年9月 <code>Go 1.16</code> 版本默认开启 <code>Modules</code> 模式</li>
+</ul>
+<p>根据小历史，我们可以看出<code>GO</code>依赖管理分三个阶段：<code>GOPATH</code>、<code>GOVENDOR</code>、<code>go module</code>，所以<code>Go</code>官方为了解决这个问题，<code>Go</code>在<code>v1.5</code>发布之后，首先引入了<code>vender</code>路径查找的解决方案。</p>
+<p><code>vender</code>路径被添加到除了<code>GOROOT</code>和<code>GOPATH</code>之外的依赖目录，查找依赖包路径的的顺序如下：</p>
+<ul>
+<li>当前包的 <code>vender</code> 目录</li>
+<li>向上级目录查找，直到找到 <code>src</code> 下的 <code>vender</code> 目录</li>
+<li>在 <code>GOPATH</code> 下查找依赖包</li>
+<li>在 <code>GOROOT</code> 目录下查找依赖包</li>
+</ul>
+<p>后来<code>Go</code>官方继续优化依赖管理，后来在<code> Go1.11</code>提出了 <code>Modules</code>。由于<code>vender</code>依赖模式比较老旧，所以我们这里主要讲的Go包的依赖管理是<code>Modules</code>。如果对<code>vender</code>模式感兴趣的兄弟可以自行谷歌查找对应的使用！推荐阅读官方文档：<a target="_blank" rel="noopener" href="https://go.dev/blog/modules2019">传送门1</a>、<a target="_blank" rel="noopener" href="https://go.dev/blog/">传送门2</a>、<a target="_blank" rel="noopener" href="https://go.dev/doc/devel/release">传送门3</a>。</p>
+<h1 id="柒-go-module介绍"><a href="#柒-go-module介绍" class="headerlink" title="柒 go module介绍"></a>柒 go module介绍</h1><p><code>Go module</code> 是 <code>Go1.11</code> 版本发布的依赖管理方案，于<code>Go1.16</code>版本默认开启。</p>
+<h2 id="7-1-GO111MODULE"><a href="#7-1-GO111MODULE" class="headerlink" title="7.1 GO111MODULE"></a>7.1 GO111MODULE</h2><p><font color="red"><code>Go</code>语言在 <code>go module</code> 的过渡阶段提供了 <code>GO111MODULE</code> 这个环境变量来作为是否启用 <code>go module</code> 功能的开关。</font>其实在 <code>Go1.16</code> 之后 <code>go module</code> 已经默认开启，这里只是简单了解即可！</p>
+<p>要启用<code>go module</code>支持首先要设置环境变量<code>GO111MODULE</code>，通过它可以开启或关闭模块支持，它有三个可选值：<code>off</code>、<code>on</code>、<code>auto</code>，默认值是<code>auto</code>。</p>
+<ul>
+<li><code>GO111MODULE=off</code>：禁用模块支持，编译时会从<code>GOPATH</code>和<code>vendor</code>文件夹中查找包</li>
+<li><code>GO111MODULE=on</code>：启用模块支持，编译时会忽略<code>GOPATH</code>和<code>vendor</code>文件夹，只根据 <code>go.mod</code>下载依赖</li>
+<li><code>GO111MODULE=auto</code>：当项目在<code>$GOPATH/src</code>外且项目根目录有<code>go.mod</code>文件时，开启模块支持</li>
+</ul>
+<p>设置<code>GO111MODULE=on</code>之后就可以使用<code>go module</code>了，以后就没有必要在<code>GOPATH</code>中创建项目了，并且还能够很好的管理项目依赖的第三方包信息。使用 <code>go module</code> 管理依赖后会在项目根目录下生成两个文件<code>go.mod</code>和<code>go.sum</code>。</p>
+<h2 id="7-2-GOPROXY"><a href="#7-2-GOPROXY" class="headerlink" title="7.2 GOPROXY"></a>7.2 GOPROXY</h2><p>这个环境变量主要是用于设置 <code>Go</code> 模块代理，其作用是用于使 <code>Go</code> 在后续拉取模块版本时能够脱离传统的 <code>VCS</code> 方式，直接通过镜像站点来快速拉取。</p>
+<p>Go1.13之后 <code>GOPROXY</code> 的默认值是：<code>https://proxy.golang.org,direct</code>，由于某些原因国内无法正常访问该地址，所以我们通常需要配置一个可访问的地址。目前社区使用比较多的有两个<code>https://goproxy.cn</code>和<code>https://goproxy.io</code>，当然如果有私有的<code>GOPROXY</code>地址那么就直接使用。设置<code>GOPAROXY</code>的命令如下：</p>
+<pre><code class="bash">go env -w GOPROXY=https://goproxy.cn,direct
+</code></pre>
+<p><code>GOPROXY</code> 允许设置多个代理地址，多个地址之间需使用英文逗号 <code>,</code> 分隔。最后的 <code>direct</code> 是一个特殊指示符，用于指示 <code>Go</code> 回源到源地址去抓取（比如 <code>GitHub</code> 等）。当配置有多个代理地址时，如果第一个代理地址返回 <code>404</code> 或 <code>410</code> 错误时，<code>Go</code> 会自动尝试下一个代理地址，当遇见 <code>direct</code> 时触发回源，也就是回到源地址去抓取。</p>
+<h2 id="7-3-GOPRIVATE"><a href="#7-3-GOPRIVATE" class="headerlink" title="7.3 GOPRIVATE"></a>7.3 GOPRIVATE</h2><p>设置了 <code>GOPROXY</code> 之后，<code>Go</code> 命令就会从配置的代理地址拉取和校验依赖包。当我们在项目中引入了非公开的包（内部<code>git</code>仓库或 <code>github</code> 私有仓库等），此时便无法正常从代理拉取到这些非公开的依赖包，这个时候就需要配置 <code>GOPRIVATE</code> 环境变量。<code>GOPRIVATE</code>用来告诉 <code>Go</code> 命令哪些仓库属于私有仓库，不必通过代理服务器拉取和校验。</p>
+<p><code>GOPRIVATE</code> 的值也可以设置多个，多个地址之间使用英文逗号 <code>,</code> 分隔。我们通常会把自己公司内部的代码仓库设置到 <code>GOPRIVATE</code> 中，例如：</p>
+<pre><code class="bash">$ go env -w GOPRIVATE=&quot;git.mycompany.com&quot;
+</code></pre>
+<p>这样在拉取以<code>git.mycompany.com</code>为路径前缀的依赖包时就能正常拉取了。此外，如果公司内部自建了 <code>GOPROXY</code> 服务，那么我们可以通过设置 <code>GONOPROXY=none</code>，允许通内部代理拉取私有仓库的包。一般情况下，我们都会设置 <code>GONOPROXY=none</code>。</p>
+<h2 id="7-4-go-mod命令"><a href="#7-4-go-mod命令" class="headerlink" title="7.4 go mod命令"></a>7.4 go mod命令</h2><p>对于 <code>Go module</code> 的使用，官方提供了以下命令：</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>介绍</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>go mod init</code></td>
+<td>初始化项目依赖，生成<code>go.mod</code>文件</td>
+</tr>
+<tr>
+<td><code>go mod download</code></td>
+<td>根据<code>go.mod</code>文件下载依赖（默认为<code>$GOPATH/pkg/mod</code>目录）</td>
+</tr>
+<tr>
+<td><code>go mod tidy</code></td>
+<td>比对项目文件中引入的依赖与<code>go.mod</code>进行比对</td>
+</tr>
+<tr>
+<td><code>go mod graph</code></td>
+<td>输出依赖关系图</td>
+</tr>
+<tr>
+<td><code>go mod edit</code></td>
+<td>编辑<code>go.mod</code>文件</td>
+</tr>
+<tr>
+<td><code>go mod vendor</code></td>
+<td>将项目的所有依赖导出至<code>vendor</code>目录下</td>
+</tr>
+<tr>
+<td><code>go mod verify</code></td>
+<td>检验一个依赖包是否被篡改过</td>
+</tr>
+<tr>
+<td><code>go mod why</code></td>
+<td>解释为什么需要某个依赖</td>
+</tr>
+</tbody></table>
+<h1 id="捌-使用go-module引入包"><a href="#捌-使用go-module引入包" class="headerlink" title="捌 使用go module引入包"></a>捌 使用go module引入包</h1><h2 id="8-1-初始化项目"><a href="#8-1-初始化项目" class="headerlink" title="8.1 初始化项目"></a>8.1 初始化项目</h2><p>如何使用 <code>go module</code> 拉取和管理项目依赖呢？首先需要我们初始化项目，在本地创建一个名为<code>demo</code>的文件夹并切换到该目录下，然后执行下面命令初始化项目：</p>
+<pre><code class="bash">PS C:\Desktop\demo&gt; go mod init demo
+go: creating new go.mod: module demo
+</code></pre>
+<p>该命令会自动在项目目录下创建一个<code>go.mod</code>文件，其内容如下：</p>
+<pre><code class="go">// 定义当前项目的导入路径
+module demo
+// 标识当前项目使用的 Go 版本
+go 1.18
+</code></pre>
+<p><img src="/images/Go%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/368e7d26079bd3a1450b3735631b0197.png" alt="368e7d26079bd3a1450b3735631b0197.png"></p>
+<p><code>go.mod</code>文件会记录项目使用的第三方依赖包信息，包括包名和版本，由于我们的<code>demo</code>项目目前还没有使用到第三方依赖包，所以<code>go.mod</code>文件暂时还没有记录任何依赖包信息，只有当前项目的一些基本信息。</p>
+<p>接着我们在<code>demo</code>目录下创建一个<code>main.go</code>文件：</p>
+<pre><code class="go">// demo/main.go
+package main
+import &quot;fmt&quot;
+func main() &#123;
+    fmt.Println(&quot;demo&quot;)
+&#125;
+</code></pre>
+<p>然后我们来学习如何引入一个第三方包，我们以<code>github.com/A7cc/GoHello</code>（之前我用来测试用的）这个第三方包为例子实现引入包。我们需要先将依赖包下载到本地同时在<code>go.mod</code>中记录依赖信息，然后才能在我们的代码中引入对应的包。</p>
+<h2 id="8-2-下载第三方依赖包"><a href="#8-2-下载第三方依赖包" class="headerlink" title="8.2 下载第三方依赖包"></a>8.2 下载第三方依赖包</h2><p>下载依赖有两种方法：</p>
+<ul>
+<li>第一种方法是在项目目录下使用终端执行<code>go get</code>命令手动下载依赖的包：<pre><code class="go">PS C:\Desktop\demo&gt; go get -u github.com/A7cc/GoHello
+go: added github.com/A7cc/GoHello v0.1.0
+// 上面这种方法会下载最新发布的版本，如果我们需要指定版本，只需要在url的最后拼接@指定版本号即可
+PS C:\Desktop\demo&gt; go get -u github.com/A7cc/GoHello@v0.1.0
+</code></pre>
+可以看到<code>go.mod</code>的内容添加了一行：<code>require github.com/A7cc/GoHello v0.1.0 // indirect</code><br><img src="/images/Go%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/70a6198609884120ce6296baf5724e67.png" alt="70a6198609884120ce6296baf5724e67.png"><br>行尾的<code>indirect</code>表示该依赖包为间接依赖，说明在当前程序中的所有 <code>import</code> 语句中没有发现引入这个包。</li>
+</ul>
+<p>同时还会生成<code>go.sum</code>文件：<br><img src="/images/Go%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/5fcc6000cf4daaef8d1b6618fdfeea20.png" alt="5fcc6000cf4daaef8d1b6618fdfeea20.png"></p>
+<p>如果依赖包没有发布任何版本则会拉取最新的提交，最终<code>go.mod</code>中的依赖信息会变成类似下面这种由默认<code>v0.0.0</code>的版本号和最新一次<code>commit</code>的时间和<code>hash</code>组成的版本格式：</p>
+<pre><code class="go">// 这里是我举例的demo，由于已经有发布版本了所以不会出现下面这种情况
+require github.com/A7cc/GoHello v0.0.0-20220820074646-45b0acd320e
+</code></pre>
+<p>如果想指定下载某个<code>commit</code>对应的代码，可以直接指定<code>commit hash</code>，不过没有必要写出完整的<code>commit hash</code>，一般前7位即可。例如：</p>
+<pre><code class="bash">// 我们通过commit下载v0.1.0版本的
+PS C:\Desktop\demo&gt; go get github.com/A7cc/GoHello@e876c7c
+go: added github.com/A7cc/GoHello v0.1.0
+</code></pre>
+<p><img src="/images/Go%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/0656afb7dfaf3d238cd861cd263583ee.png" alt="0656afb7dfaf3d238cd861cd263583ee.png"></p>
+<p>另外在执行<code>go get</code>命令还有其他方法：</p>
+<blockquote>
+<p>运行<code>go get -u</code>将会升级到最新的次要版本或者修订版本（x.y.z, z是修订版本号， y是次要版本号）<br>运行<code>go get -u=patch</code>将会升级到最新的修订版本<br>运行<code>go get package@version</code>将会升级到指定的版本号<code>version</code></p>
+</blockquote>
+<ul>
+<li>第二种方式是我们直接编辑<code>go.mod</code>文件，将依赖包和版本信息写入该文件。我们修改<code>demo/go.mod</code>文件内容如下：<pre><code class="go">module demo
+go 1.18
+require github.com/A7cc/GoHello latest
+// latest表示对外发布的最新版本
+// 当然了如果想下载知道版本，直接将latest改为对应的版本即可
+</code></pre>
+然后在项目目录下使用终端执行<code>go mod download</code>下载依赖包：<pre><code class="go">PS C:\Desktop\demo&gt; go mod download
+</code></pre>
+如果不输出其它提示信息就说明依赖已经下载成功，此时<code>go.mod</code>文件已经更新到对应版本！</li>
+</ul>
+<p>这种方法同样支持指定想要下载的<code>commit</code>进行下载，例如直接在<code>go.mod</code>文件中按如下方式指定<code>commit hash</code>，这里只写出来了<code>commit hash</code>的前7位，然后在项目目录下使用终端执行<code>go mod download</code>即可：</p>
+<pre><code class="go">module demo
+
+go 1.18
+
+require github.com/A7cc/GoHello e876c7c
+</code></pre>
+<h2 id="8-3-第三方依赖包的使用"><a href="#8-3-第三方依赖包的使用" class="headerlink" title="8.3 第三方依赖包的使用"></a>8.3 第三方依赖包的使用</h2><p>下载好依赖包后，我们引入该包，使用里面的函数方法并编译运行：</p>
+<pre><code class="go">// demo/main.go
+package main
+import (
+    &quot;fmt&quot;
+    &quot;github.com/A7cc/GoHello&quot;
+)
+func main() &#123;
+    GoHello.PrintHello()
+    fmt.Println(&quot;demo&quot;)
+&#125;
+// Hello World！这是Go的测试库！
+// demo
+</code></pre>
+<p><code>Go</code>语言支持在一个项目下定义多个包，比如我们在<code>demo</code>项目内部创建一个新的包——<code>test</code>，此时新的项目目录结构如下：</p>
+<pre><code class="go">demo
+├ go.mod
+├ go.sum
+├ main.go
+└ test
+  └ test.go
+</code></pre>
+<p>其中<code>demo/test/test.go</code>文件内容如下：</p>
+<pre><code class="go">// 注意这里的包是test包不是main，因为它不是完整的程序
+package test
+
+import &quot;fmt&quot;
+
+func Run() &#123;
+    fmt.Println(&quot;正在运动！&quot;)
+&#125;
+</code></pre>
+<p>此时想要在当前项目目录下的其他包或者<code>main.go</code>中调用这个<code>Run</code>函数需要在<code>main.go</code>中引入该包，然后调用<code>Run</code>方法：</p>
+<pre><code class="go">// demo/main.go
+package main
+
+import (
+    &quot;demo/test&quot; // 导入当前项目下的包
+    &quot;fmt&quot;
+
+    &quot;github.com/A7cc/GoHello&quot; // 导入github上第三方包
+)
+
+func main() &#123;
+    // 调用第三方的包
+    GoHello.PrintHello()
+    fmt.Println(&quot;demo&quot;)
+    // 调用本地的包
+    test.Run()
+&#125;
+</code></pre>
+<p>从上面的示例可以看出，项目中定义的包都会以项目的导入路径为前缀，一般是在项目当前路径下索引的。如果需要索引其他位置的包，可以使用如下方法。</p>
+<p>首先在<code>go.mod</code>文件中使用<code>replace</code>语句将依赖临时替换为本地的代码包，例如在我的电脑上有另外一个名为<code>Desktop/demo2</code>的项目，它位于<code>demo</code>项目同级目录下：</p>
+<pre><code class="go">├ holiday
+│├ go.mod
+│├ go.sum
+│├ main.go
+│└ test
+│  └ test.go
+└ demo2
+  ├ go.mod
+  └ demo2.go
+</code></pre>
+<p>我们可以在<code>demo/go.mod</code>文件中正常引入<code>Desktop/demo2</code>包，这里<code>demo2</code>包的内容为：</p>
+<pre><code class="go">// go.mod
+module demo2
+go 1.18
+</code></pre>
+<pre><code class="go">// demo2/main.go
+// 注意这里的包是demo2包不是main
+package demo2
+
+import &quot;fmt&quot;
+
+func Run() &#123;
+    fmt.Println(&quot;这是demo2包！&quot;)
+&#125;
+</code></pre>
+<p>然后像下面的示例那样使用<code>replace</code>语句将这个依赖替换为使用相对路径表示的本地包：</p>
+<pre><code class="go">module demo
+
+go 1.18
+
+require github.com/A7cc/GoHello v0.1.0
+require Desktop/demo2 v0.0.0
+
+replace Desktop/demo2  =&gt; ../demo2
+</code></pre>
+<p>根据这个原理我们可以使用<code>replace</code>将项目依赖中的某个包，替换为其他版本的代码包或我们自己修改后的本地代码包。</p>
+<h2 id="8-4-go-mod文件"><a href="#8-4-go-mod文件" class="headerlink" title="8.4 go.mod文件"></a>8.4 go.mod文件</h2><p><code>go.mod</code>文件中记录了当前项目中所有依赖包的相关信息，声明依赖的格式如下：</p>
+<pre><code class="go">require module/path v1.2.3
+// require：声明依赖的关键字
+// module/path：依赖包的引入路径
+// v1.2.3：依赖包的版本号。支持以下几种格式：
+//	latest：官方发布的最新版本
+//	v1.0.0：详细版本号
+//	commit hash：指定某次commit hash
+</code></pre>
+<p>引入某些没有发布过<code>tag</code>版本标识的依赖包时，<code>go.mod</code>中记录的依赖版本信息就会出现类似<code>v0.0.0-20210218074646-139b0bcd549d</code>的格式，由版本号、<code>commit</code>时间和<code>commit</code>的<code>hash</code>值组成：<br><img src="/images/Go%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/bf8177ef19e8f9e301cc4fa3783b4f39.png" alt="bf8177ef19e8f9e301cc4fa3783b4f39.png"></p>
+<h2 id="8-5-go-sum文件"><a href="#8-5-go-sum文件" class="headerlink" title="8.5 go.sum文件"></a>8.5 go.sum文件</h2><p>使用<code>go module</code>下载了依赖后，项目目录下还会生成一个<code>go.sum</code>文件，这个文件中详细记录了当前项目中引入的依赖包的信息及其hash 值。<code>go.sum</code>文件内容通常是下面的格式：</p>
+<pre><code class="go">&lt;module&gt; &lt;version&gt;/go.mod &lt;hash&gt;
+</code></pre>
+<p>或者：</p>
+<pre><code class="go">&lt;module&gt; &lt;version&gt; &lt;hash&gt;
+&lt;module&gt; &lt;version&gt;/go.mod &lt;hash&gt;
+</code></pre>
+<p><img src="/images/Go%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/eb701b2252c64a94bd42a305c6603738.png" alt="eb701b2252c64a94bd42a305c6603738.png"><br>不同于其他语言提供的基于中心的包管理机制，例如 <code>npm</code> 和 <code>pypi</code>等，<code>Go</code>并没有提供一个中央仓库来管理所有依赖包，而是采用分布式的方式来管理包。为了防止依赖包被非法篡改，<code>Go module</code> 引入了<code>go.sum</code>机制来对依赖包进行校验。</p>
+<h2 id="8-6-依赖的保存位置"><a href="#8-6-依赖的保存位置" class="headerlink" title="8.6 依赖的保存位置"></a>8.6 依赖的保存位置</h2><p><code>Go module</code> 会把下载到本地的依赖包会以类似下面的形式保存在 <code>$GOPATH/pkg/mod</code>目录下，每个依赖包都会带有版本号进行区分，这样就允许在本地存在同一个包的多个不同版本。</p>
+<pre><code class="bash">mod
+├ cache
+├ cloud.google.com
+├ github.com
+  └ A7cc
+    ├ GoHello@v0.0.0-20220820074646-45b0acd320e
+    ├ GoHello@v0.1.1
+    └ GoHello@v0.1.0
+...
+</code></pre>
+<p><font color="red">如果想清除所有本地已缓存的依赖包数据，可以执行 <code>go clean -modcache</code> 命令</font>。</p>
+<h2 id="8-7-依赖的移除"><a href="#8-7-依赖的移除" class="headerlink" title="8.7 依赖的移除"></a>8.7 依赖的移除</h2><p>我们在代码中删除依赖代码后，相关的依赖库并不会在<code>go.mod</code>文件中自动移除。这种情况下我们可以使用下面这个命令更新<code>go.mod</code>中的依赖关系：</p>
+<pre><code class="go">go mod tidy
+</code></pre>
+<h2 id="8-8-编辑go-mod文件的依赖——go-mod-edit"><a href="#8-8-编辑go-mod文件的依赖——go-mod-edit" class="headerlink" title="8.8 编辑go.mod文件的依赖——go mod edit"></a>8.8 编辑<code>go.mod</code>文件的依赖——go mod edit</h2><ul>
+<li>格式化</li>
+</ul>
+<p>因为我们可以手动修改go.mod文件，所以有些时候需要格式化该文件。Go提供了一下命令：</p>
+<pre><code class="bash">go mod edit -fmt
+</code></pre>
+<ul>
+<li><p>添加依赖项</p>
+<pre><code class="bash">go mod edit -require=golang.org/x/text
+</code></pre>
+</li>
+<li><p>移除依赖项</p>
+</li>
+</ul>
+<p>如果只是想修改<code>go.mod</code>文件中的内容，那么可以运行<code>go mod edit -droprequire=package path</code>，比如要在<code>go.mod</code>中移除<code>golang.org/x/text</code>包，可以使用如下命令：</p>
+<pre><code class="bash">go mod edit -droprequire=golang.org/x/text
+</code></pre>
+<p>关于<code>go mod edit</code>的更多用法可以通过<code>go help mod edit</code>查看。</p>
+<h1 id="玖-使用go-module发布包"><a href="#玖-使用go-module发布包" class="headerlink" title="玖 使用go module发布包"></a>玖 使用go module发布包</h1><h2 id="9-1-上传和发布包"><a href="#9-1-上传和发布包" class="headerlink" title="9.1 上传和发布包"></a>9.1 上传和发布包</h2><p>当我们需要发布一个自己编写的代码包到公司内部或者<code>github.com</code>仓库上。首先我们需要在自己的<code>github</code>上创建一个项目，例如创建和发布一个名为<code>GoHello</code>的项目：<br><img src="/images/Go%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/0f089842c206adc22823a8f61b356c64.png" alt="0f089842c206adc22823a8f61b356c64.png"><br>然后再我们本地目录创建一个<code>GoHello</code>项目目录，在<code>GoHello</code>项目目录下，初始化该项目，创建<code>go.mod</code>文件，需要注意的是这里定义项目的引入路径为项目的<code>URL</code>：</p>
+<pre><code class="bash">go mod init github.com/A7cc/GoHello
+</code></pre>
+<p><img src="/images/Go%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/ee8942c1bc67fcd0f8ea270c4bb6d1b3.png" alt="ee8942c1bc67fcd0f8ea270c4bb6d1b3.png"></p>
+<p>接着在该项目下创建<code>GoHello.go</code>文件，内容为：</p>
+<pre><code class="go">// GoHello.go
+package GoHello
+
+import &quot;fmt&quot;
+
+func PrintHello() &#123;
+    fmt.Println(&quot;Hello World！这是Go的测试库！&quot;)
+&#125;
+</code></pre>
+<p>然后将该项目的代码 <code>push</code> 到自己的仓库的远端分支，这样就对外发布了一个<code>Go</code>包：</p>
+<pre><code class="bash">git init	\\ 在目录中创建新的 Git 仓库
+git add.	\\ 将项目添加到仓库
+git commit -m &quot;第一次提交&quot;	\\ 把项目提交到本地的 Git 仓库，-m 后的内容是对本次提交内容的注释
+</code></pre>
+<p>接着使用SSH加密传输将本地仓库与Github仓库建立链接，首先创建<code>SSH KEY</code>，在前面的终端运行：</p>
+<pre><code class="bash">ssh-keygen -t rsa -C &quot;youremail@example.com&quot;
+</code></pre>
+<p><img src="/images/Go%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/19124fe07bfad5f1060a3ca77a40f1d9.png" alt="19124fe07bfad5f1060a3ca77a40f1d9.png"><br>在对应的目录下的<code>.ssh</code>目录里可以看到<code>id_rsa</code>和<code>id_rsa.pub</code>这两个文件：<br><img src="/images/Go%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/cfe03a0fb1b84e9190287d26c7923c66.png" alt="cfe03a0fb1b84e9190287d26c7923c66.png"><br>登录<code>Github</code>找到右上角的图标，打开点进里面的<code>Settings</code>，再选中里面的<code>SSH and GPG KEYS</code>，点击右上角的<code>New SSH key</code>，<code>Title</code>里面随便填，再把刚才<code>id_rsa.pub</code>里面的内容复制到<code>Title</code>下面的<code>Key</code>内容框里面，最后点击<code>Add SSH key</code>，这样就完成了<code>SSH Key</code>的加密：<br><img src="/images/Go%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/31811f2669bd88c3ffe4220ce8eb054b.png" alt="31811f2669bd88c3ffe4220ce8eb054b.png"></p>
+<pre><code class="bash">// 将本地仓库与Github仓库进行关联
+git remote add origin https://github.com/A7cc/GoHello.git
+// 把本地库的所有内容推送到远程仓库
+git push -u origin master
+</code></pre>
+<p>这时我们就可以使用<code>go get -u github.com/A7cc/GoHello</code>下载并使用这个包！一个设计完善的包应该包含开源许可证及说明文档等内容，并且我们还应该维护并适时发布适当的版本，<code>github</code> 上发布版本号使用<code>git tag</code>为代码包打上标签：</p>
+<pre><code class="bash">// -a是标签名字
+// -m是对本次提交内容的注释
+git tag -a v0.1.0 -m &quot;发布版本v0.1.0&quot;
+// 将本地的 v0.1.0 分支推送到 origin 主机的 v0.1.0 分支
+git push origin v0.1.0
+</code></pre>
+<p>经过上面的操作我们就发布了一个版本号为<code>v0.1.0</code>的版本。在<code>Go modules</code>中建议使用语义化版本控制，其建议的版本号格式如下：<br><img src="/images/Go%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/1b3a953e881d2508f5efabaee0735162.png" alt="1b3a953e881d2508f5efabaee0735162.png"></p>
+<ul>
+<li>主版本号：发布了不兼容的版本迭代时递增</li>
+<li>次版本号：发布了功能性更新时递增</li>
+<li>修订号：发布了<code>bug</code>修复类更新时递增</li>
+</ul>
+<h2 id="9-2-发布新的主版本包"><a href="#9-2-发布新的主版本包" class="headerlink" title="9.2 发布新的主版本包"></a>9.2 发布新的主版本包</h2><p>假设我们现在的<code>GoHello</code>包需要提交交互的输入，需要传参：</p>
+<pre><code class="go">package GoHello
+import &quot;fmt&quot;
+func PrintHello(name string) &#123;
+    fmt.Println(&quot;Hello World！这是Go的测试库！&quot;)
+    fmt.Println(&quot;你好！用户：&quot;, name)
+&#125;
+</code></pre>
+<p>可以看到我们的修改后的项目与之前的版本并不兼容或者说改动的比较巨大影响之前版本的使用，那么我们就需要递增添加一个<code>v2</code>版本，做法是修改当前包的引入路径：</p>
+<pre><code class="go">module github.com/A7cc/GoHello/v2
+go 1.18
+</code></pre>
+<p>修改后提交代码到<code>github.com</code>上：</p>
+<pre><code class="bash">git add .
+git commit -m &quot;添加了交互&quot;
+git tag -a v2.0.0 -m &quot;release version v2.0.0&quot;
+git push origin v2.0.0
+</code></pre>
+<p>这样在不影响使用旧版本的用户的前提下，我们新的版本也发布出去了。想要使用<code>v2</code>版本的代码包的用户只需按修改后的引入路径下载即可：</p>
+<pre><code class="bash">go get github.com/q1mi/hello/v2@v2.0.0
+</code></pre>
+<p>在代码中的实现只需要注意后面追加版本<code>v2</code>即可：</p>
+<pre><code class="go">// demo/main.go
+package main
+
+import (
+    &quot;Desktop/demo2&quot;
+    &quot;demo/test&quot; // 导入当前项目下的包
+    &quot;fmt&quot;
+
+    &quot;github.com/A7cc/GoHello/v2&quot; // 引入v2版本
+)
+
+func main() &#123;
+    GoHello.PrintHello(&quot;A7cc&quot;)
+    fmt.Println(&quot;demo&quot;)
+    test.Run()
+    demo2.Run()
+&#125;
+</code></pre>
+<h2 id="9-3-废弃已发布版本包"><a href="#9-3-废弃已发布版本包" class="headerlink" title="9.3 废弃已发布版本包"></a>9.3 废弃已发布版本包</h2><p>如果某个发布的版本不再想让用户使用时，我们可以使用<code>retract</code>声明该版本是废弃版本，例如我们在<code>GoHello/go.mod</code>文件中按如下方式声明即可对外废弃<code>v0.1.1</code>版本：</p>
+<pre><code class="go">module github.com/a7cc/GoHello
+go 1.18
+retract v0.1.1
+</code></pre>
+<p>用户使用<code>go get</code>下载<code>v0.1.1</code>版本时就会收到提示，催促其升级到其他版本。</p>
+
+    </div>
+    
+</div>
+                         
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2022 小C♥天天
+            <span class="footer-icon">
+                <i class="fa-brands fa-github fa-fw"></i>
+            </span>
+            @小C&天天
+        </div>
+        <div>
+            备案号：小C&天天の窝
+        </div>
+    </div>
+</footer>
+                    </div>
+                </div>
+            </transition>
+            <div id="img_show">
+                <img id="img_content" alt="img_show">
+            </div>
+        </div>
+        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
+        <script src="/js/particlex.js"></script>
+        <script src="/js/showimg.js"></script>
+        
+
+        <!-- 3D模型 -->
+        <div id="L2dCanvas" style="position: relative;"></div>
+        <script src="/js/live2d.min.js"></script>
+        <script src="/css/live2d.css"></script>
+        <script>
+            var v = new Viewer({
+                basePath: "/model",
+                role: "zhala_2",
+                mobile: true,
+            });
+        </script>
+        <!-- 点击 -->
+        <script>
+            let body = document.getElementsByTagName('body')[0];
+            body.addEventListener('click', (e) => {
+                let contentArr = ['✊','😘','😍','😊','😭','😡','😋','👍','🐷','😱','💷','💵','×','🆗','№','⭐','🌙','♥','💴','☀','🐎','🐂','🐏','√'];
+                let randomNum = function (n) {
+                    return Math.floor(Math.random() * n)
+                }
+                let span = document.createElement('span');
+                span.innerHTML = `${contentArr[randomNum(contentArr.length)]}`;
+                span.style.color = `rgb(${randomNum(256)},${randomNum(256)},${randomNum(256)})`;
+                span.style.position = 'absolute';
+                span.style.top = `${e.pageY}px`;
+                span.style.left = `${e.pageX}px`;
+                span.style.transition = 'all 1s ease';
+                span.style.zIndex = 20000;
+                body.appendChild(span)
+                setTimeout(()=>{
+                    span.style.top = span.offsetTop - 100 + 'px';
+                    span.style.opacity = 0;
+                    setTimeout(()=>{span.remove()},700)
+                },0)
+            })
+        </script>
+        <!-- 流星背景特效 -->
+        <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/background.js"></script>
+    </body>
+</html>
