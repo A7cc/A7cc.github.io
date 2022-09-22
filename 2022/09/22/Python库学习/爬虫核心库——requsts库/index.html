@@ -1,0 +1,687 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>爬虫核心库——Requsts库 | 小C♥天天</title>
+        <meta name="author" content="小C&天天">
+        <meta name="description" content="^v^">
+        <meta name="keywords" content="">
+        <link rel="icon" href="/images/icon.jpg">
+        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
+        <link rel="stylesheet" href="/css/fonts.min.css">
+        <link rel="stylesheet" href="/css/particlex.css">
+        <link rel="stylesheet" href="/css/main.css">
+        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
+        <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+    <meta name="generator" content="Hexo 6.2.0"></head>
+    <body>
+        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:30vmin;height:30vmin;padding:60px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #dd20dd;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">正在加载</p><div><img alt="loading" src="/images/afde9fa65a5742a90b51d6e1211e841e.gif"></div></div></div></div></div>
+        <div id="layout">
+            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
+            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
+            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
+            <transition name="into">
+                <div v-show="show_page" style="display: -not-none">
+                    <div id="menu_show">
+                         
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">小C♥天天</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;文章</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+    </div>
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
+        <div :class="'title'" @click="menu_show = !menu_show">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;小C♥天天</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+                    </div>
+                    <div id="main">
+                        
+<div class="article">
+    <div>
+        <h1>爬虫核心库——Requsts库 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2022/9/22
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Python库学习">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                </span>
+                Python库学习
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Python" style="color: #00bcd4">
+                    Python
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/开发" style="color: #03a9f4">
+                    开发
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    <div class="content" v-pre>
+        <h1 id="壹-爬虫基础"><a href="#壹-爬虫基础" class="headerlink" title="壹 爬虫基础"></a>壹 爬虫基础</h1><h2 id="1-1-概念"><a href="#1-1-概念" class="headerlink" title="1.1 概念"></a>1.1 概念</h2><p>随着万维网的迅速发展，加上大数据的出现，快速提取并利用大量的有效数据信息成了焦点，<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/5162711?fr=aladdin">网络爬虫</a>也应运而生。网络爬虫是一种按照一定的规则，自动地抓取万维网信息的程序或者脚本(这是百度百科对爬虫的解释)。</p>
+<span id="more"></span>
+<h2 id="1-2-分类"><a href="#1-2-分类" class="headerlink" title="1.2 分类"></a>1.2 分类</h2><p><strong>网络爬虫按照系统结构和实现技术，大致可以分为以下几种类型：</strong></p>
+<ul>
+<li><p><strong>通用网络爬虫</strong>：又叫全网爬虫，爬行对象从一些种子 URL 扩充到整个 Web，主要为门户站点搜索引擎和大型 Web 服务提供商采集数据。简而言之就是，爬取一个网站所有信息，通用网络爬虫适用于为搜索引擎搜索广泛的主题，有较强的应用价值。</p>
+</li>
+<li><p><strong>聚焦网络爬虫</strong>：又称主题网络爬虫，指选择性地爬行那些与预先定义好的主题相关页面的网络爬虫，意思就是说爬取用户想要的数据。</p>
+</li>
+<li><p><strong>增量式网络爬虫</strong>：是指对已下载网页采取增量式更新和只爬行新产生的或者已经发生变化网页的爬虫，它能够在一定程度上保证所爬行的页面是尽可能新的页面，就是在已经爬取的数据上再爬取网页更新后的数据，而保持原来的数据不变。</p>
+</li>
+<li><p><strong>深层网络爬虫</strong>：是爬取那些大部分内容不能通过静态链接获取的、隐藏在搜索表单后的，只有用户提交一些关键词才能获得的 Web 页面，比如：暗网，隐藏的登陆表单等等。</p>
+</li>
+</ul>
+<h2 id="1-3-爬虫结构"><a href="#1-3-爬虫结构" class="headerlink" title="1.3 爬虫结构"></a>1.3 爬虫结构</h2><p><img src="/images/Python%E5%BA%93%E5%AD%A6%E4%B9%A0/46d53faf3cf3d36bf36c4dc38057ab0d.png" alt="46d53faf3cf3d36bf36c4dc38057ab0d.png"><br><strong>爬虫的基本工作流程</strong></p>
+<blockquote>
+<p>a.选取需要爬取的URL（可以理解为网站链接）<br>b.将URL放入待抓取的URL队列上<br>c.从待抓取URL队列中读取带抓取队列的URL，解析DNS，并得到主机IP，下载对应网页存储到已下载的网页库中<br>d.在从下载好的网页数据中分析出其他URL，然后对比已下载的URL去重，进入下一个循环</p>
+</blockquote>
+<h1 id="贰-初识requsts库"><a href="#贰-初识requsts库" class="headerlink" title="贰 初识requsts库"></a>贰 初识requsts库</h1><p>requsts库一般用在Python的爬虫技术中，这个库是用于构建HTTP请求与解析响应的HTTP库，是由urllib库发展而来，由于requsts库使用方便，导致urllib库一般用在学习Python爬虫基础上，而真正爬取数据所用到的库是requsts库。</p>
+<p>requsts库是第三方开源库，需要额外安装，才能使用，源码在<a target="_blank" rel="noopener" href="https://github.com/psf/requests">GitHub</a>上。</p>
+<p><strong>关于库&#x2F;模块的介绍可以看这篇博文：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41734243/article/details/104483571">链接在此</a></strong></p>
+<p><strong>安装requsts库</strong></p>
+<pre><code class="python">#在命令解释器上输入
+pip install requsts
+#注意：这是针对Windows系统的
+</code></pre>
+<h2 id="2-1-请求方式"><a href="#2-1-请求方式" class="headerlink" title="2.1 请求方式"></a>2.1 请求方式</h2><p>requests库有7个主要方式，返回Response对象类型</p>
+<table>
+<thead>
+<tr>
+<th>请求方式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>requsts.requst(method,url,**kwargs)</td>
+<td>构造一个请求，最基本的方法，用的比较多</td>
+</tr>
+<tr>
+<td>requsts.get(url,params&#x3D;None,**kwargs)</td>
+<td>获取网页，对应HTTP中的GET方法，用的比较多</td>
+</tr>
+<tr>
+<td>requsts.post(url,data&#x3D;None,json&#x3D;None,**kwargs)</td>
+<td>向网页提交信息，对应HTTP中的POST方法，用的比较多</td>
+</tr>
+<tr>
+<td>requsts.head(url,**kwargs)</td>
+<td>获取html网页的头信息，对应HTTP中的HEAD方法</td>
+</tr>
+<tr>
+<td>requsts.put(url,data&#x3D;None,**kwargs)</td>
+<td>向html提交put方法，当数据存在时更新数据，当数据不存在是创建数据，对应HTTP中的PUT方法</td>
+</tr>
+<tr>
+<td>requsts.options(url, **kwargs)</td>
+<td>获取服务器对于某些接口等资源的支持情况的，对应HTTP中的OPTIONS方法</td>
+</tr>
+<tr>
+<td>requsts.patch(url,data&#x3D;None,**kwargs)</td>
+<td>向html网页提交局部请求修改的的请求，更新数据，对应HTTP中的PATCH方法</td>
+</tr>
+<tr>
+<td>requsts.delete(url,**kwargs)</td>
+<td>向html提交删除请求，对应HTTP中的DELETE方法</td>
+</tr>
+</tbody></table>
+<p>以上方法中，<code>GET</code>，<code>HEAD</code>，<code>OPTIONS</code>是从服务器获取信息到本地，<code>PUT</code>，<code>POST</code>，<code>PATCH</code>，<code>DELETE</code>是从本地向服务器提交信息。</p>
+<blockquote>
+<p>method是请求方式，对应get&#x2F;put&#x2F;post&#x2F;options&#x2F;head&#x2F;patch&#x2F;delete等7种方法<br>url是获取html的网页的url<br>params是url后面添加参数，字典&#x2F;字节流格式，可选<br>json是JSON格式的数据，作为Request的内容<br>data是字典&#x2F;字节序列&#x2F;文件对象，作为Request的内容<br>kwargs是控制访问的参数，有些请求没有个别参数，根据不同请求方式确定，其实七种方法都是调用了requsts.requst方法，所以我们只需要了解requsts.requst的参数即可。</p>
+</blockquote>
+<p><strong>kwargs有以下控制访问的参数</strong></p>
+<p><strong>params</strong>：字典&#x2F;字节序列类型，在URL后面添加参数</p>
+<pre><code class="python">import requests
+params=&#123;&#39;a&#39;:&#39;one&#39;,&#39;b&#39;:&#39;two&#39;&#125;
+url=requests.request(&#39;put&#39;,&#39;http://httpbin.org/put&#39;,params=params)
+print(url.text)#http://httpbin.org/put?a=one&amp;b=two
+#url.url表示实际请求的url
+</code></pre>
+<p><strong>data</strong>：字符串类型，作为Request的内容</p>
+<pre><code class="python">import requests
+data=&quot;shuju&quot;
+url=requests.request(&#39;put&#39;,&#39;http://httpbin.org/put&#39;,data=data)
+print(url.text)#在返回结果的data中有&quot;data&quot;: &quot;shuju&quot;
+</code></pre>
+<p><strong>json</strong>：JSON数据类型，作为Request的内容</p>
+<pre><code class="python">import requests
+json=&#123;&#39;key1&#39;:&#39;1&#39;, &#39;key2&#39;:&#39;2&#39;&#125;
+url=requests.request(&#39;put&#39;,&#39;http://httpbin.org/put&#39;,json=json)
+print(url.text)#在返回结果的json中有&quot;json&quot;:&#123;&quot;key1&quot;: &quot;1&quot;,&quot;key2&quot;:&quot;2&quot;&#125; 
+</code></pre>
+<p><strong>headers</strong>：字典类型，就是HTTP请求头，为了隐藏爬虫信息，模拟浏览器的头部信息</p>
+<pre><code class="python">import requests
+headers = &#123;&quot;User-Agent&quot;:&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36&quot;&#125;
+url=requests.request(&#39;put&#39;, &#39;http://httpbin.org/put&#39;, headers=headers)
+print(url.text)#在返回结果的User-Agent中有&quot;User-Agent&quot;: &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36&quot;
+</code></pre>
+<p><strong>cookies</strong>：字典&#x2F;CooKiJar，Request中的cookie</p>
+<pre><code class="python">import requests
+cookies=&#123;&#39;mycookies&#39;:&#39;working&#39;&#125;
+url=requests.request(&#39;get&#39;,&#39;http://httpbin.org/cookies&#39;,cookies = cookies)
+print(url.text)#在返回结果的&quot;cookies&quot;中有&quot;cookies&quot;: &#123;&quot;mycookies&quot;: &quot;working&quot;&#125;
+</code></pre>
+<p><strong>auth</strong>：元组类型，HTTP认证功能</p>
+<pre><code class="python">import requests
+url=requests.get(&#39;http://httpbin.org/auth&#39;,auth=requests.auth.HTTPBasicAuth(&#39;user&#39;, &#39;123&#39;))
+print(url.status_code)
+#url.status_code表示状态码
+</code></pre>
+<p><strong>files</strong>：字典类型，向网站发送图片、文档等</p>
+<pre><code class="python">import requests
+fs = &#123;file:open(&#39;data.txt&#39;,&#39;rb&#39;)&#125;
+url = requests.request(&#39;POST&#39;,&#39;http://httpbin.org/post&#39;,files=fs)
+</code></pre>
+<p><strong>timeout</strong>：设定超时时间，秒为单位</p>
+<pre><code class="python">import requests
+#设置必须在1000ms内收到响应，不然抛出异常
+url=requests.request(&#39;get&#39;,&#39;http://www.baidu.com/get&#39;,timeout=1)
+print(url.status_code)
+</code></pre>
+<p><strong>proxies</strong>：字典类型，设定访问代理服务器，可以增加登录认证</p>
+<pre><code class="python">import requests
+#普通代理
+proxies_1=&#123;&quot;http&quot;:&quot;http://127.0.0.1:1080&quot;&#125;#格式是&quot;协议&quot;:&quot;代理地址:端口&quot;
+#带有用户名和密码的代理
+proxies_2=&#123;&quot;http&quot;:&quot;http://user:password@127.0.0.1:9743/&quot;&#125;#格式是&quot;协议&quot;:&quot;用户名:密码@代理地址:端口&quot;
+#设置socks代理
+proxies_3=&#123;&#39;http&#39;:&#39;socks5://127.0.0.1:1080&#39;&#125;#格式是&quot;协议&quot;:&quot;socks5://代理地址:端口&quot;
+
+url=requests.request(&#39;get&#39;,&quot;https://www.google.com&quot;,proxies=proxies_1)
+print(url.status_code)
+</code></pre>
+<p><strong>allow_redirects</strong>：True&#x2F;False,默认为True，重定向开关</p>
+<pre><code class="python">import requests
+url=requests.request(&#39;GET&#39;,&#39;http://httpbin.org/get&#39;,allow_redirects=False)
+</code></pre>
+<p><strong>stream</strong>: True&#x2F;False，默认为True，获取内容立即下载开关</p>
+<pre><code class="python">import requests
+url=requests.request(&#39;GET&#39;,&#39;http://httpbin.org/get/**.txt&#39;,stream=False)
+</code></pre>
+<p><strong>verity</strong>: True&#x2F;False默认Ture，用于认证SSL证书开关，如果关闭验证，仍然会报出证书警告</p>
+<pre><code class="python">import requests
+requests.packages.urllib3.disable_warnings()#关闭警告，如果没有就会出现警告
+url = requests.get(&#39;https://www.12306.cn&#39;,verify=False)
+print(url.status_code)#200
+</code></pre>
+<p><strong>cert</strong>: 设置本地SSL证书路径</p>
+<pre><code class="python">import requests
+cert=(&#39;/home/youdi/Download/**.crt&#39;, &#39;/hone/youdi/.ssh/**.key&#39;)
+url=requests.request(&#39;get&#39;,&#39;https://www.12306.cn&#39;,cert=cert)
+print(url.status_code)
+</code></pre>
+<p><strong>到这里后，可以直接跳到第九个标题，中间的博文了解即可。</strong></p>
+<h2 id="2-2-异常"><a href="#2-2-异常" class="headerlink" title="2.2 异常"></a>2.2 异常</h2><table>
+<thead>
+<tr>
+<th>异常</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>requests.ConnectTimeout</td>
+<td>连接远程服务器超时异常</td>
+</tr>
+<tr>
+<td>requests.ConnectionError</td>
+<td>网络连接异常，如DNS查询失败，拒绝连接等</td>
+</tr>
+<tr>
+<td>requests.DependencyWarning</td>
+<td>尝试导入缺少可选依赖项的模块时发出警告。</td>
+</tr>
+<tr>
+<td>requests.FileModeWarning</td>
+<td>文件以文本模式打开，但是请求决定了它的二进制长度</td>
+</tr>
+<tr>
+<td>requests.HTTPError</td>
+<td>HTTP错误异常</td>
+</tr>
+<tr>
+<td>requests.NullHandler</td>
+<td>如果库的用户未配置日志记录，则可能会产生一次性警告</td>
+</tr>
+<tr>
+<td>requests.ReadTimeout</td>
+<td>服务器没有在分配的时间内发送任何数据</td>
+</tr>
+<tr>
+<td>requests.RequestException</td>
+<td>处理您的请求时出现不明确的异常。</td>
+</tr>
+<tr>
+<td>requests.RequestsDependencyWarning</td>
+<td>导入的依赖项与预期的版本范围不匹配</td>
+</tr>
+<tr>
+<td>requests.Timeout</td>
+<td>请求URL超时，产生超时异常</td>
+</tr>
+<tr>
+<td>requests.TooManyRedirects</td>
+<td>超过最大重定向次数，产生重定向异常</td>
+</tr>
+<tr>
+<td>requests.URLRequired</td>
+<td>URL缺失异常</td>
+</tr>
+</tbody></table>
+<h2 id="2-3-类"><a href="#2-3-类" class="headerlink" title="2.3 类"></a>2.3 类</h2><p>在requsts库中用<code>dir</code>函数显示出有这些库类，由于不是很了解，所以就不做说明了，等以后有空在详细介绍。</p>
+<pre><code class="python">codes
+</code></pre>
+<h2 id="2-4-模块"><a href="#2-4-模块" class="headerlink" title="2.4 模块"></a>2.4 模块</h2><p>在requsts库中用<code>dir</code>函数显示出有这些模块，由于不是很了解，所以就不做说明了，等以后有空在详细介绍。</p>
+<pre><code class="python">adapters、api、auth、certs、compat、cookies、exceptions、hooks、models、packages、sessions、status_codes、structures、utils、warnings
+</code></pre>
+<h2 id="2-5-库"><a href="#2-5-库" class="headerlink" title="2.5 库"></a>2.5 库</h2><p>在requsts库中用<code>dir</code>函数显示出有这些库，由于不是很了解，所以就不做说明了，等以后有空在详细介绍。</p>
+<pre><code class="python">chardet、logging、urllib3
+</code></pre>
+<h2 id="2-6-函数"><a href="#2-6-函数" class="headerlink" title="2.6 函数"></a>2.6 函数</h2><p>在requsts库中用<code>dir</code>函数显示出有这些函数</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>check_compatibility</td>
+<td>检查版本兼容性</td>
+</tr>
+<tr>
+<td>session</td>
+<td>使用session对象登录某个网站，再次使用该对象请求该网站的其他网页都会默认使用该session之前使用的cookie等参数</td>
+</tr>
+</tbody></table>
+<h2 id="2-8-对象"><a href="#2-8-对象" class="headerlink" title="2.8 对象"></a>2.8 对象</h2><table>
+<thead>
+<tr>
+<th>对象</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PreparedRequest</td>
+<td>针对get&#x2F;post&#x2F;put&#x2F;patch&#x2F;delete请求提供的参数进行加工处理，以确保目标服务器能正常识别这些数据</td>
+</tr>
+<tr>
+<td>Response</td>
+<td>一个数据集合体，这个对象可以说是requsts库的核心对象，就是上面请求方式返回的对象，但是要注意的是虽然是同类型对象，但是存在的方法不同，比较重要后面会详细介绍</td>
+</tr>
+<tr>
+<td>Request</td>
+<td>这个对象把浏览器访问请求的许多东西都结合在一起，为我们后续工作节省了许多步骤</td>
+</tr>
+<tr>
+<td>Session</td>
+<td>维护一个cookie集合，保留你所有请求痕迹的对象，一个线程安全的连接池，通过这种方式可以让你无间断地进行数据交互，不用每次请求都需要单独认证</td>
+</tr>
+</tbody></table>
+<h2 id="2-9-重要——Response对象"><a href="#2-9-重要——Response对象" class="headerlink" title="2.9 重要——Response对象"></a>2.9 重要——Response对象</h2><p><strong>我们这里说的Response对象是使用了请求方式后，返回的对象，不是单纯的Response对象。</strong><br>在爬虫里面我们几乎都会使用到这个对象，它是服务器对http请求的响应并返回，然后我们可以对其返回数据进行自定义的操作。</p>
+<p><strong>a、apparent_encoding属性</strong><br><code>apparent_encoding</code>属性是从网页的内容中分析网页编码的方式，并且返回的是<code>str</code>数据类型，但是需要注意的是，这有些消耗计算资源。</p>
+<pre><code class="python">#例子
+import requests
+r = requests.get(&quot;https://blog.csdn.net/qq_41734243&quot;)
+print(r.apparent_encoding)#utf-8
+</code></pre>
+<p><strong>b、close函数</strong><br><code>close</code>函数是关闭连接，去除内存，可以防止内存溢出，一般不用。</p>
+<pre><code class="python">#例子
+import requests
+r = requests.get(&quot;https://blog.csdn.net/qq_41734243&quot;)
+r.close()
+</code></pre>
+<p><strong>c、content属性</strong><br><code>content</code>属性是将爬取的网页内容以二进制的存储，并返回<code>byte</code>类型，一般用这种类型下载图片或者视频。</p>
+<pre><code class="python">import requests
+r = requests.get(&quot;https://blog.csdn.net/qq_41734243&quot;)
+print(r.content)#b&#39;二进制形式网页内容&#39;
+</code></pre>
+<p><strong>d、cookies属性</strong><br><code>cookies</code>属性是网页的cookie值，返回一个requests.cookies.RequestsCookieJar对象。</p>
+<pre><code class="python">import requests
+r = requests.get(&quot;https://blog.csdn.net/qq_41734243&quot;)
+print(r.cookies)
+</code></pre>
+<p><strong>e、elapsed属性</strong><br><code>elapsed</code>属性是从发送请求到响应到达之间经过的时间，返回一个datetime.timedelta对象。</p>
+<pre><code class="python">import requests
+r = requests.get(&quot;https://blog.csdn.net/qq_41734243&quot;)
+print(r.elapsed)#0:00:00.608318
+</code></pre>
+<p><strong>f、encoding属性</strong><br><code>encoding</code>属性是一个属性，与上面的<code>apparent_encoding</code>一样，但是是从<code>http</code>中的<code>header</code>中的<code>charset</code>字段中提取的编码方式，并且返回的是<code>str</code>数据类型，它决定了<code>text</code>属性的编码，若<code>header</code>中没有<code>charset</code>字段则默认为<code>ISO-8859-1</code>编码模式，则无法解析中文，这是乱码的原因。</p>
+<blockquote>
+<p>当乱码时可以使用apparent_encoding赋值给encoding</p>
+</blockquote>
+<pre><code class="python">#例子
+import requests
+r = requests.get(&quot;https://blog.csdn.net/qq_41734243&quot;)
+print(r.encoding)#UTF-8
+</code></pre>
+<p><strong>g、headers属性</strong><br><code>headers</code>属性与前面<code>kwargs</code>的参数中的<code>headers</code>是一样的，就是HTTP请求头，为了隐藏爬虫信息，模拟浏览器的头部信息，以字典的形式存储，可单独取出某个字段的值，返回一个<code>requests.structures.CaseInsensitiveDict</code>对象。</p>
+<pre><code class="python">#例子
+import requests
+r = requests.get(&quot;https://blog.csdn.net/qq_41734243&quot;)
+print(r.headers)#&#123;&#39;Server&#39;: &#39;openresty&#39;, xxxxxxxxxxx&#125;
+</code></pre>
+<p><strong>h、history属性</strong><br><code>history</code>属性是追踪重定向，为了完成请求而创建，按照从最老到最近的请求进行排序，与前面<code>kwargs</code>的参数中的<code>allow_redirects</code>搭配使用，返回一个<code>list</code>数据类型。</p>
+<pre><code class="python">r = requests.get(&quot;http://github.com&quot;)
+print(r.history)#[&lt;Response [301]&gt;]
+</code></pre>
+<p><strong>i、is_permanent_redirect属性</strong><br><code>is_permanent_redirect</code>属性是判断是否永久重定向，<code>True</code>(是)和<code>False</code>(否)，返回一个<code>bool</code>类型。</p>
+<pre><code class="python">import requests
+r = requests.get(&quot;https://blog.csdn.net/qq_41734243&quot;)
+print(r.is_permanent_redirect)#False
+</code></pre>
+<p><strong>j、is_redirect属性</strong><br><code>is_redirect</code>属性是判断是否重定向，<code>True</code>(是)和<code>False</code>(否)，返回一个<code>list</code>类型。</p>
+<pre><code class="python">import requests
+r = requests.get(&quot;https://blog.csdn.net/qq_41734243&quot;)
+print(r.is_redirect)#False
+</code></pre>
+<p><strong>k、iter_content函数</strong><br><code>iter_content(chunk_size=1, decode_unicode=False)</code>函数是为了避免下载内容过大占用大量内存而使用的函数，在响应数据上迭代，返回<code>generator</code>类型。<br><code>chunk_size</code>必须为<code>int</code>或<code>None</code>类型，是应该读入内存的字节数。根据<code>stream</code>的值，<code>None</code>的值将有不同的功能，<code>stream</code>值为<code>True</code>将在数据到达时读取数据，无论数据块大小是多少。如果<code>stream</code>值为<code>False</code>，数据将作为单个块返回。<br><code>decode_unicode</code>为<code>True</code>，则将使用基于响应的最佳可用编码对内容进行解码。</p>
+<pre><code class="python">import requests
+r = requests.get(&quot;https://blog.csdn.net/qq_41734243&quot;)
+File = open(&#39;H:\\1\\csdn.txt&#39;, &#39;wb&#39;)
+for data in r.iter_content(100):
+    File.write(data)
+    print(data)
+#b&#39;&lt;!DOCTYPE html&gt;\n&lt;html lang=&quot;zh-CN&quot;&gt;\n&lt;xxxxxxxx&#39;
+</code></pre>
+<p><strong>l、iter_lines函数</strong><br><code>iter_lines(chunk_size=512, decode_unicode=False, delimiter=None)</code>函数与<code>iter_content</code>函数一样为了避免下载内容过大占用大量内存而使用的函数，但是每次只迭代一行数据，多次调用该方法会导致部分收到的数据丢失，返回<code>generator</code>类型。</p>
+<pre><code class="python">import requests
+r = requests.get(&quot;https://blog.csdn.net/qq_41734243&quot;)
+File = open(&#39;H:\\1\\csdn.txt&#39;, &#39;wb&#39;)
+for data in r.iter_lines():
+    File.write(data)
+    print(data)
+</code></pre>
+<p><strong>n、json</strong><br><code>json</code>是用于将响应解析成json格式，如果响应数据里面有字典类型的话，否则，抛出异常，返回一个<code>dict</code>类型。</p>
+<pre><code class="python">import requests
+url=requests.request(&#39;put&#39;,&#39;http://httpbin.org/put&#39;)
+print(url.json())
+</code></pre>
+<p><strong>m、links属性</strong><br><code>links</code>属性是响应的解析头链接，返回一个<code>dict</code>类型。许多HTTP API都有响应头链接字段的特性，使得 API 能够更好地自我描述和自我显露，例如：GitHub 在 API 中为分页使用这些特性。（自己也不是太懂这玩意，是网上的代码）</p>
+<pre><code class="python">url = &#39;https://api.github.com/users/kennethreitz/repos?page=1&amp;per_page=10&#39;
+r = requests.head(url=url)
+r.headers[&#39;link&#39;]
+print(r.links[&quot;next&quot;])#&#123;&#39;url&#39;: &#39;https://api.github.com/users/kennethreitz/repos?page=2&amp;per_page=10&#39;, &#39;rel&#39;: &#39;next&#39;&#125;
+</code></pre>
+<p><strong>o、next</strong><br><code>next</code>是返回重定向链中下一个请求的PreparedRequest对象，如果有的话。</p>
+<pre><code class="python">import requests
+r = requests.get(&quot;https://blog.csdn.net/qq_41734243&quot;)
+print(r.next)
+</code></pre>
+<p><strong>p、ok属性</strong><br><code>ok</code>属性是检查<code>status_code</code>的值是否小于400，<code>True</code>(是)和<code>False</code>(否)，返回一个<code>bool</code>类型。</p>
+<pre><code class="python">import requests
+r = requests.get(&quot;https://blog.csdn.net/qq_41734243&quot;)
+print(r.ok)#True
+</code></pre>
+<p><strong>q、raise_for_status函数</strong><br><code>raise_for_status</code>函数是抛出异常。说实话这个真不知道干嘛的。zzzzz</p>
+<pre><code class="python">import requests
+r = requests.get(&quot;https://blog.csdn.net/&quot;)
+print(r.raise_for_status())
+</code></pre>
+<p><strong>r、raw</strong><br><code>raw</code>是获取来自服务器的原始套接字响应，表示urllib3.response.HTTPResponse对象。使用raw时，要求在请求时设置<code>stream=True</code>。（自己也不是太懂这玩意，个人感觉应该是服务器发来的没有被解析的数据，以下是网上的代码）</p>
+<pre><code class="python">import requests
+r = requests.post(&quot;https://blog.csdn.net/qq_4173424&quot;,stream=True)
+print(r.raw.read(10))
+</code></pre>
+<p><strong>s、reason属性</strong><br><code>reason</code>属性是对响应状态的描述，即<code>Not Found</code>or<code>OK</code>，感觉通过<code>ok</code>属性或者<code>status_code</code>属性也可以判断，返回一个<code>str</code>类型。</p>
+<pre><code class="python">import requests
+r = requests.post(&quot;https://blog.csdn.net/qq_41734243&quot;)
+print(r.reason)#OK
+</code></pre>
+<p><strong>t、request属性</strong><br><code>request</code>属性是可以用于查看发送请求时的信息，可以在后面添加一些参数，如：r.request.headers就是查看请求头，返回一个<code>PreparedRequest</code>对象。</p>
+<pre><code class="python">import requests
+r = requests.get(&quot;https://blog.csdn.net/qq_41734243&quot;)
+print(r.request)#&lt;PreparedRequest [GET]&gt;
+</code></pre>
+<p><strong>u、status_code属性</strong><br><code>status_code</code>属性是http状态码，并返回<code>int</code>类型。</p>
+<pre><code class="python">import requests
+r = requests.get(&quot;https://blog.csdn.net/qq_41734243&quot;)
+print(r.status_code)#200
+</code></pre>
+<p><strong>v、text属性</strong><br><code>text</code>属性是将爬取的网页内容以<code>encoding</code>内的编码格式为编码存储的字符串，并返回<code>str</code>类型。</p>
+<pre><code class="python">import requests
+r = requests.get(&quot;https://blog.csdn.net/qq_41734243&quot;)
+print(r.text)#&lt;!DOCTYPE html&gt;xxxxxx
+</code></pre>
+<p><strong>w、url属性</strong><br><code>url</code>属性是存储最终访问网站的URL，返回<code>str</code>类型。</p>
+<pre><code class="python">import requests
+r = requests.get(&quot;https://blog.csdn.net/qq_41734243&quot;)
+print(r.url)
+</code></pre>
+<h1 id="叁-项目：百度图片爬取脚本"><a href="#叁-项目：百度图片爬取脚本" class="headerlink" title="叁 项目：百度图片爬取脚本"></a>叁 项目：百度图片爬取脚本</h1><p><strong>这里介绍几个知识点：</strong><br><strong>1、re库是python正则表达式所用到的库，这里有正则表达式的介绍：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41734243/article/details/104756592">链接</a></strong><br><strong>2、fake_useragent库可以用来虚拟请求头，就是User-Agent</strong><br><strong>3、open函数就是通常说的IO流操作，这里有open函数的介绍：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41734243/article/details/104546078">链接</a></strong><br><strong>4、try:…except:…语句是捕抓异常，这里有捕抓异常的介绍：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41734243/article/details/104636465">链接</a></strong><br><strong>5、os模块是管理的系统模块</strong></p>
+<pre><code class="python">import requests #http请求库
+import re       #正则表达式
+import fake_useragent#虚拟请求头，即User-Agent
+import os       #系统模块
+
+
+#获取网页
+#get_url函数是用来获取网页响应的，并返Response
+def get_url(url, headers, timeout = 7):
+    #获取网页
+    r = requests.get(url=url, headers=headers, timeout = timeout)
+    # 修改编码
+    r.encoding = r.apparent_encoding
+    return r
+
+
+#对响应的文件操作
+def text_url(r, headers):
+    #利用正则表达式筛选图片网页
+    url_list = re.findall(r&#39;&quot;objURL&quot;:&quot;(http.*?)&quot;&#39;, r.text)
+    #图片数量计数
+    count = 1
+    #os.getcwd()函数是显示当前目录
+    print(&quot;图片在目录下哦!路径是：&#123;&#125;&quot;.format(os.getcwd()))
+    #利用open函数进行文件操作
+    for i in url_list:
+        try:
+            img = get_url(i, headers)
+            #利用open函数下载图片到当前目录下，os.sep()函数是系统分隔符
+            with open(r&quot;&#123;&#125;&#123;&#125;html&#123;&#125;.jpg&quot;.format(os.getcwd(), os.sep, count), &#39;wb&#39;) as f:
+                f.write(img.content)
+                print(&quot;下载第&#123;&#125;张成功！&quot;.format(count))
+        except Exception as e:
+            print(&#39;下载第&#123;&#125;张失败！抓取源代码失败:&#123;&#125;&#39;.format(count, e))
+        count += 1
+    print(&quot;下载完成结束!共有&#123;&#125;张！路径在&#123;&#125;下&quot;.format(count, os.getcwd()))
+
+
+#main函数
+def main():
+    name = input(&quot;请输入需要下载的图片名称：&quot;)
+    url = &quot;http://image.baidu.com/search/index?tn=baiduimage&amp;word=&#123;&#125;&quot;.format(name)
+    #调用fake_useragent虚拟请求头User-Agent
+    headers = &#123;&quot;User-Agent&quot;:fake_useragent.UserAgent().random&#125;
+    #print(headers)
+    #调用get_url函数获取网页数据
+    try:
+        text = get_url(url, headers)
+        # 处理网页数据
+        text_url(text, headers)
+    except Exception as e:
+        print(&#39;抓取源代码失败:&#123;&#125;&#39;.format(e))
+
+
+#程序开头
+if __name__ == &quot;__main__&quot;:
+    main()
+</code></pre>
+<p><strong>以上是request库介绍及爬取百度图片的脚本，如有发现博文有什么问题或者对博文有什么疑惑，可以私信我！</strong></p>
+<p><strong>注意：本文章仅供学习和参考！非法的爬虫技术已经属于违法！！！</strong></p>
+
+    </div>
+    
+</div>
+                         
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2022 小C♥天天
+            <span class="footer-icon">
+                <i class="fa-brands fa-github fa-fw"></i>
+            </span>
+            @小C&天天
+        </div>
+        <div>
+            备案号：小C&天天の窝
+        </div>
+    </div>
+</footer>
+                    </div>
+                </div>
+            </transition>
+            <div id="img_show">
+                <img id="img_content" alt="img_show">
+            </div>
+        </div>
+        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
+        <script src="/js/particlex.js"></script>
+        <script src="/js/showimg.js"></script>
+        
+
+        <!-- 3D模型 -->
+        <div id="L2dCanvas" style="position: relative;"></div>
+        <script src="/js/live2d.min.js"></script>
+        <script src="/css/live2d.css"></script>
+        <script>
+            var v = new Viewer({
+                basePath: "/model",
+                role: "zhala_2",
+                mobile: true,
+            });
+        </script>
+        <!-- 点击 -->
+        <script>
+            let body = document.getElementsByTagName('body')[0];
+            body.addEventListener('click', (e) => {
+                let contentArr = ['✊','😘','😍','😊','😭','😡','😋','👍','🐷','😱','💷','💵','×','🆗','№','⭐','🌙','♥','💴','☀','🐎','🐂','🐏','√'];
+                let randomNum = function (n) {
+                    return Math.floor(Math.random() * n)
+                }
+                let span = document.createElement('span');
+                span.innerHTML = `${contentArr[randomNum(contentArr.length)]}`;
+                span.style.color = `rgb(${randomNum(256)},${randomNum(256)},${randomNum(256)})`;
+                span.style.position = 'absolute';
+                span.style.top = `${e.pageY}px`;
+                span.style.left = `${e.pageX}px`;
+                span.style.transition = 'all 1s ease';
+                span.style.zIndex = 20000;
+                body.appendChild(span)
+                setTimeout(()=>{
+                    span.style.top = span.offsetTop - 100 + 'px';
+                    span.style.opacity = 0;
+                    setTimeout(()=>{span.remove()},700)
+                },0)
+            })
+        </script>
+        <!-- 流星背景特效 -->
+        <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/background.js"></script>
+    </body>
+</html>

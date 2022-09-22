@@ -1,0 +1,471 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>轻量级数据库——Sqlite3库 | 小C♥天天</title>
+        <meta name="author" content="小C&天天">
+        <meta name="description" content="^v^">
+        <meta name="keywords" content="">
+        <link rel="icon" href="/images/icon.jpg">
+        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
+        <link rel="stylesheet" href="/css/fonts.min.css">
+        <link rel="stylesheet" href="/css/particlex.css">
+        <link rel="stylesheet" href="/css/main.css">
+        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
+        <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+    <meta name="generator" content="Hexo 6.2.0"></head>
+    <body>
+        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:30vmin;height:30vmin;padding:60px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #dd20dd;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">正在加载</p><div><img alt="loading" src="/images/afde9fa65a5742a90b51d6e1211e841e.gif"></div></div></div></div></div>
+        <div id="layout">
+            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
+            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
+            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
+            <transition name="into">
+                <div v-show="show_page" style="display: -not-none">
+                    <div id="menu_show">
+                         
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">小C♥天天</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;文章</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+    </div>
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
+        <div :class="'title'" @click="menu_show = !menu_show">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;小C♥天天</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+                    </div>
+                    <div id="main">
+                        
+<div class="article">
+    <div>
+        <h1>轻量级数据库——Sqlite3库 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2022/9/22
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Python库学习">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                </span>
+                Python库学习
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Python" style="color: #ff7d73">
+                    Python
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/开发" style="color: #03a9f4">
+                    开发
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    <div class="content" v-pre>
+        <h1 id="壹-简介"><a href="#壹-简介" class="headerlink" title="壹 简介"></a>壹 简介</h1><p>Python的SQLITE数据库是一款非常小巧的嵌入式开源数据库软件，也就是说没有独立的维护进程，所有的维护都来自于程序本身。它使用一个文件存储整个数据库，操作十分方便。它的最大优点是使用方便，功能相比于其它大型数据库来说，确实有些差距。但是性能表现上，SQLITE并不逊色。麻雀虽小，五脏俱全， sqlite 实现了多数 sql-92 的标准，比如说 transaction 、 trigger 和复杂的查询等。</p>
+<span id="more"></span>
+<h1 id="贰-安装"><a href="#贰-安装" class="headerlink" title="贰 安装"></a>贰 安装</h1><p>内置库。</p>
+<h1 id="叁-查看所有类和方法"><a href="#叁-查看所有类和方法" class="headerlink" title="叁 查看所有类和方法"></a>叁 查看所有类和方法</h1><pre><code class="python">import sqlite3
+print(dir(sqlite3))
+
+# [&#39;Binary&#39;, &#39;Connection&#39;, &#39;Cursor&#39;, &#39;DataError&#39;, &#39;DatabaseError&#39;, &#39;Date&#39;, &#39;DateFromTicks&#39;, &#39;Error&#39;, &#39;IntegrityError&#39;, &#39;InterfaceError&#39;, &#39;InternalError&#39;, &#39;NotSupportedError&#39;, &#39;OperationalError&#39;, &#39;OptimizedUnicode&#39;, &#39;PARSE_COLNAMES&#39;, &#39;PARSE_DECLTYPES&#39;, &#39;PrepareProtocol&#39;, &#39;ProgrammingError&#39;, &#39;Row&#39;, &#39;SQLITE_ALTER_TABLE&#39;, &#39;SQLITE_ANALYZE&#39;, &#39;SQLITE_ATTACH&#39;, &#39;SQLITE_CREATE_INDEX&#39;, &#39;SQLITE_CREATE_TABLE&#39;, &#39;SQLITE_CREATE_TEMP_INDEX&#39;, &#39;SQLITE_CREATE_TEMP_TABLE&#39;, &#39;SQLITE_CREATE_TEMP_TRIGGER&#39;, &#39;SQLITE_CREATE_TEMP_VIEW&#39;, &#39;SQLITE_CREATE_TRIGGER&#39;, &#39;SQLITE_CREATE_VIEW&#39;, &#39;SQLITE_CREATE_VTABLE&#39;, &#39;SQLITE_DELETE&#39;, &#39;SQLITE_DENY&#39;, &#39;SQLITE_DETACH&#39;, &#39;SQLITE_DONE&#39;, &#39;SQLITE_DROP_INDEX&#39;, &#39;SQLITE_DROP_TABLE&#39;, &#39;SQLITE_DROP_TEMP_INDEX&#39;, &#39;SQLITE_DROP_TEMP_TABLE&#39;, &#39;SQLITE_DROP_TEMP_TRIGGER&#39;, &#39;SQLITE_DROP_TEMP_VIEW&#39;, &#39;SQLITE_DROP_TRIGGER&#39;, &#39;SQLITE_DROP_VIEW&#39;, &#39;SQLITE_DROP_VTABLE&#39;, &#39;SQLITE_FUNCTION&#39;, &#39;SQLITE_IGNORE&#39;, &#39;SQLITE_INSERT&#39;, &#39;SQLITE_OK&#39;, &#39;SQLITE_PRAGMA&#39;, &#39;SQLITE_READ&#39;, &#39;SQLITE_RECURSIVE&#39;, &#39;SQLITE_REINDEX&#39;, &#39;SQLITE_SAVEPOINT&#39;, &#39;SQLITE_SELECT&#39;, &#39;SQLITE_TRANSACTION&#39;, &#39;SQLITE_UPDATE&#39;, &#39;Time&#39;, &#39;TimeFromTicks&#39;, &#39;Timestamp&#39;, &#39;TimestampFromTicks&#39;, &#39;Warning&#39;, &#39;__builtins__&#39;, &#39;__cached__&#39;, &#39;__doc__&#39;, &#39;__file__&#39;, &#39;__loader__&#39;, &#39;__name__&#39;, &#39;__package__&#39;, &#39;__path__&#39;, &#39;__spec__&#39;, &#39;adapt&#39;, &#39;adapters&#39;, &#39;apilevel&#39;, &#39;collections&#39;, &#39;complete_statement&#39;, &#39;connect&#39;, &#39;converters&#39;, &#39;datetime&#39;, &#39;dbapi2&#39;, &#39;enable_callback_tracebacks&#39;, &#39;enable_shared_cache&#39;, &#39;paramstyle&#39;, &#39;register_adapter&#39;, &#39;register_converter&#39;, &#39;sqlite_version&#39;, &#39;sqlite_version_info&#39;, &#39;threadsafety&#39;, &#39;time&#39;, &#39;version&#39;, &#39;version_info&#39;]
+</code></pre>
+<h1 id="肆-方法说明"><a href="#肆-方法说明" class="headerlink" title="肆 方法说明"></a>肆 方法说明</h1><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>sqlite3.connect(database [,timeout ,other optional arguments])</td>
+<td>该 API 打开一个到 SQLite 数据库文件 database 的链接。您可以使用 “:memory:” 来在 RAM 中打开一个到 database 的数据库连接，而不是在磁盘上打开。如果数据库成功打开，则返回一个连接对象。当一个数据库被多个连接访问，且其中一个修改了数据库，此时 SQLite 数据库被锁定，直到事务提交。timeout 参数表示连接等待锁定的持续时间，直到发生异常断开连接。timeout 参数默认是 5.0（5 秒）。如果给定的数据库名称 filename 不存在，则该调用将创建一个数据库。如果您不想在当前目录中创建数据库，那么您可以指定带有路径的文件名，这样您就能在任意地方创建数据库。</td>
+</tr>
+<tr>
+<td>connection.cursor([cursorClass])</td>
+<td>该例程创建一个 <strong>cursor</strong>，将在 Python 数据库编程中用到。该方法接受一个单一的可选的参数 cursorClass。如果提供了该参数，则它必须是一个扩展自 sqlite3.Cursor 的自定义的 cursor 类。</td>
+</tr>
+<tr>
+<td>cursor.execute(sql [, optional parameters])</td>
+<td>该例程执行一个 SQL 语句。该 SQL 语句可以被参数化（即使用占位符代替 SQL 文本）。sqlite3 模块支持两种类型的占位符：问号和命名占位符（命名样式）。例如：cursor.execute(“insert into people values (?, ?)”, (who, age))</td>
+</tr>
+<tr>
+<td>connection.execute(sql[, optional parameters])</td>
+<td>该例程是上面执行的由光标（cursor）对象提供的方法的快捷方式，它通过调用光标（cursor）方法创建了一个中间的光标对象，然后通过给定的参数调用光标的 execute 方法。</td>
+</tr>
+<tr>
+<td>cursor.executemany(sql, seq_of_parameters)</td>
+<td>该例程对 seq_of_parameters 中的所有参数或映射执行一个 SQL 命令。</td>
+</tr>
+<tr>
+<td>connection.executemany(sql[, parameters])</td>
+<td>该例程是一个由调用光标（cursor）方法创建的中间的光标对象的快捷方式，然后通过给定的参数调用光标的 executemany 方法。</td>
+</tr>
+<tr>
+<td>cursor.executescript(sql_script)</td>
+<td>该例程一旦接收到脚本，会执行多个 SQL 语句。它首先执行 COMMIT 语句，然后执行作为参数传入的 SQL 脚本。所有的 SQL 语句应该用分号 ; 分隔。</td>
+</tr>
+<tr>
+<td>connection.executescript(sql_script)</td>
+<td>该例程是一个由调用光标（cursor）方法创建的中间的光标对象的快捷方式，然后通过给定的参数调用光标的 executescript 方法。</td>
+</tr>
+<tr>
+<td>connection.total_changes()</td>
+<td>该例程返回自数据库连接打开以来被修改、插入或删除的数据库总行数。</td>
+</tr>
+<tr>
+<td>connection.commit()</td>
+<td>该方法提交当前的事务。如果您未调用该方法，那么自您上一次调用 commit() 以来所做的任何动作对其他数据库连接来说是不可见的。</td>
+</tr>
+<tr>
+<td>connection.rollback()</td>
+<td>该方法回滚自上一次调用 commit() 以来对数据库所做的更改。</td>
+</tr>
+<tr>
+<td>connection.close()</td>
+<td>该方法关闭数据库连接。请注意，这不会自动调用 commit()。如果您之前未调用 commit() 方法，就直接关闭数据库连接，您所做的所有更改将全部丢失！</td>
+</tr>
+<tr>
+<td>cursor.fetchone()</td>
+<td>该方法获取查询结果集中的下一行，返回一个单一的序列，当没有更多可用的数据时，则返回 None。</td>
+</tr>
+<tr>
+<td>cursor.fetchmany([size&#x3D;cursor.arraysize])</td>
+<td>该方法获取查询结果集中的下一行组，返回一个列表。当没有更多的可用的行时，则返回一个空的列表。该方法尝试获取由 size 参数指定的尽可能多的行。</td>
+</tr>
+<tr>
+<td>cursor.fetchall()</td>
+<td>该例程获取查询结果集中所有（剩余）的行，返回一个列表。当没有可用的行时，则返回一个空的列表。</td>
+</tr>
+</tbody></table>
+<h1 id="伍-简单使用"><a href="#伍-简单使用" class="headerlink" title="伍 简单使用"></a>伍 简单使用</h1><p>python的数据库模块有统一的接口标准，所以数据库操作都有统一的模式，基本上都是下面几步（假设数据库模块名为db）：</p>
+<ul>
+<li>a.用db.connect创建数据库连接，假设连接对象为conn</li>
+<li>b.如果该数据库操作不需要返回结果，就直接用conn.execute查询，根据数据库事务隔离级别的不同，可能修改数据库需要conn.commit</li>
+<li>c.如果需要返回查询结果则用conn.cursor创建游标对象cur, 通过cur.execute查询数据库，用cur.fetchall&#x2F;cur.fetchone&#x2F;cur.fetchmany返回查询结果。根据数据库事 务隔离级别的不同，可能修改数据库需要conn.commit</li>
+<li>d.关闭cur, conn</li>
+</ul>
+<h2 id="5-1-导入模块"><a href="#5-1-导入模块" class="headerlink" title="5.1 导入模块"></a>5.1 导入模块</h2><pre><code class="python">import sqlite3
+</code></pre>
+<h2 id="5-2-连接数据库"><a href="#5-2-连接数据库" class="headerlink" title="5.2 连接数据库"></a>5.2 连接数据库</h2><pre><code class="python"># 创建并连接test.db数据库
+conn = sqlite3.connect(&#39;test.db&#39;)
+print(&quot;成功创建数据库！&quot;)
+</code></pre>
+<p>其实我们不需要特地创建一个sqlite数据库，在调用connect函数的时候，指定库名称，如果指定的数据库存在就直接打开这个数据库，如果不存在就新创建一个再打开。<br>有以下操作：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>conn.commit()</td>
+<td>事务提交</td>
+</tr>
+<tr>
+<td>conn.rollback()</td>
+<td>事务回滚</td>
+</tr>
+<tr>
+<td>conn.close()</td>
+<td>关闭一个数据库连接</td>
+</tr>
+<tr>
+<td>conn.cursor()</td>
+<td>创建一个游标</td>
+</tr>
+</tbody></table>
+<h2 id="5-3-创建游标"><a href="#5-3-创建游标" class="headerlink" title="5.3 创建游标"></a>5.3 创建游标</h2><p>游标提供了一种对从表中检索出的数据进行操作的灵活手段，就本质而言，游标实际上是一种能从包括多条数据记录的结果集中每次提取一条记录的机制。游标总是与一条SQL 选择语句相关联。因为游标由结果集（可以是零条、一条或由相关的选择语句检索出的多条记录）和结果集中指向特定记录的游标位置组成。当决定对结果集进行处理时，必须声明一个指向该结果集的游标。如果曾经用 C 语言写过对文件进行处理的程序，那么游标就像您打开文件所得到的文件句柄一样，只要文件打开成功， 该文件句柄就可代表该文件。对于游标而言，其道理是相同的。可见游标能够实现按与传统程序读取平面文件类似的方式处理来自基础表的结果集，从而把表中数据以平面文件的形式呈现给程序。<br>我们知道关系数据库管理系统实质是面向集合的，在Sqlite中并没有一种描述表中单一记录的表达形式，除非使用where 子句来限制只有一条记录被选中。因此我们必须借助于游标来进行面向单条记录的数据处理。<br><strong>个人理解：就是在索引数据库时，数据会放到一个集合中（除非使用where子句限制），这时候要想读取修改集合中的某一个数据，那么就需要标记他，游标就起到这个重要。</strong></p>
+<pre><code class="python"># 创建游标
+cu = conn.cursor()
+</code></pre>
+<p>游标对象有以下的操作：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>cu.execute()</td>
+<td>执行sql语句</td>
+</tr>
+<tr>
+<td>cu.executemany()</td>
+<td>执行多条sql语句</td>
+</tr>
+<tr>
+<td>cu.close()</td>
+<td>关闭游标</td>
+</tr>
+<tr>
+<td>cu.fetchone()</td>
+<td>从结果中取一条记录，并将游标指向下一条记录</td>
+</tr>
+<tr>
+<td>cu.fetchmany()</td>
+<td>从结果中取多条记录</td>
+</tr>
+<tr>
+<td>cu.scroll()</td>
+<td>游标滚动</td>
+</tr>
+</tbody></table>
+<h2 id="5-4-创建表"><a href="#5-4-创建表" class="headerlink" title="5.4 创建表"></a>5.4 创建表</h2><pre><code class="python"># 创建一个名叫COMPANY的表，键有ID、NAME、AGADDRESS、SALARY
+cu.execute(&#39;&#39;&#39;
+    CREATE TABLE IF NOT EXISTS TABLE COMPANY
+    (ID INT PRIMARY KEY NOT NULL, --只能这样备注
+    NAME TEXT NOT NULL,
+    AGE INT NOT NULL,
+    ADDRESS CHAR(50),
+    SALARY REAL);
+&#39;&#39;&#39;)
+print(&quot;Table created successfully&quot;)
+# 注意这里执行完要加下面这句提交事务
+conn.commit()
+</code></pre>
+<p>在执行完语句后记得提交事务，原因在这篇文章：<a href="../../../undefined">数据库事务概念理解：已完成</a></p>
+<h2 id="5-5-INSERT-操作"><a href="#5-5-INSERT-操作" class="headerlink" title="5.5 INSERT 操作"></a>5.5 INSERT 操作</h2><pre><code class="python"># 插入操作，值为(1, &#39;Paul&#39;, 32, &#39;California&#39;, 20000.00 )
+cu.execute(&quot;INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) VALUES (1, &#39;Paul&#39;, 32, &#39;California&#39;, 20000.00 )&quot;)
+# 注意这里执行完要加下面这句提交事务
+conn.commit()
+</code></pre>
+<h2 id="5-6-SELECT-操作"><a href="#5-6-SELECT-操作" class="headerlink" title="5.6 SELECT 操作"></a>5.6 SELECT 操作</h2><pre><code class="python"># 查询操作，查询COMPANY表的id、name、address、salary
+cursor = cu.execute(&quot;SELECT id, name, address, salary  from COMPANY&quot;)
+for row in cursor:
+   print(&quot;ID = &#123;&#125;&quot;.format(row[0]))
+   print(&quot;NAME = &#123;&#125;&quot;.format(row[1]))
+   print(&quot;ADDRESS = &#123;&#125;&quot;.format(row[2]))
+   print(&quot;SALARY = &#123;&#125;&quot;.format(row[3]))
+# 或者使用cu.fetchone一个一个输出
+print(cu.fetchone())
+# 或者使用cu.fetchmany全部输出
+print(cu.fetchmany())
+</code></pre>
+<p>可以看到查询不需要加conn.commit()语句。</p>
+<h2 id="5-7-UPDATE-操作"><a href="#5-7-UPDATE-操作" class="headerlink" title="5.7 UPDATE 操作"></a>5.7 UPDATE 操作</h2><pre><code class="python"># 修改操作，查询COMPANY表中id=1的SALARY值
+cu.execute(&quot;UPDATE COMPANY set SALARY = 25000.00 where ID=1&quot;)
+conn.commit()
+</code></pre>
+<h2 id="5-8-DELETE-操作"><a href="#5-8-DELETE-操作" class="headerlink" title="5.8 DELETE 操作"></a>5.8 DELETE 操作</h2><pre><code class="python"># 修改操作，查询COMPANY表中id=2的值
+cu.execute(&quot;DELETE from COMPANY where ID=2;&quot;)
+conn.commit()
+</code></pre>
+<h2 id="5-9-关闭连接"><a href="#5-9-关闭连接" class="headerlink" title="5.9 关闭连接"></a>5.9 关闭连接</h2><pre><code class="python"># 关闭游标
+cu.close()
+# 关闭连接
+conn.close()
+</code></pre>
+<h1 id="陆-例子"><a href="#陆-例子" class="headerlink" title="陆 例子"></a>陆 例子</h1><pre><code class="python">#导入sqlite3模块
+import sqlite3
+# 创建与数据库的连接
+conn = sqlite3.connect(r&#39;C:\Users\11231\Desktop\数据库测试\A7.db&#39;)
+# 创建一个游标 cursor
+cur = conn.cursor()
+# 建表的sql语句
+sql_text_1 = &#39;&#39;&#39;CREATE TABLE IF NOT EXISTS TABLE scores
+           (姓名 TEXT,
+            班级 TEXT,
+            性别 TEXT,
+            语文 NUMBER,
+            数学 NUMBER,
+            英语 NUMBER);&#39;&#39;&#39;
+# 执行sql语句
+cur.execute(sql_text_1)
+# 插入单条数据
+sql_text_2 = &quot;INSERT INTO scores VALUES(&#39;A&#39;, &#39;一班&#39;, &#39;男&#39;, 96, 94, 98)&quot;
+cur.execute(sql_text_2)
+data = [
+    (&#39;B&#39;, &#39;一班&#39;, &#39;女&#39;, 78, 87, 85),
+    (&#39;C&#39;, &#39;一班&#39;, &#39;男&#39;, 98, 84, 90),
+]
+cur.executemany(&#39;INSERT INTO scores VALUES (?,?,?,?,?,?)&#39;, data)
+# 连接完数据库并不会自动提交，所以需要手动 commit 你的改动conn.commit()
+# 查询数学成绩大于90分的学生
+sql_text_3 = &quot;SELECT * FROM scores WHERE 数学&gt;90&quot;
+cur.execute(sql_text_3)
+# 获取查询结果
+print(cur.fetchall())
+# 提交改动的方法
+conn.commit()
+# 关闭游标
+cur.close()
+# 关闭连接
+conn.close()
+</code></pre>
+
+    </div>
+    
+</div>
+                         
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2022 小C♥天天
+            <span class="footer-icon">
+                <i class="fa-brands fa-github fa-fw"></i>
+            </span>
+            @小C&天天
+        </div>
+        <div>
+            备案号：小C&天天の窝
+        </div>
+    </div>
+</footer>
+                    </div>
+                </div>
+            </transition>
+            <div id="img_show">
+                <img id="img_content" alt="img_show">
+            </div>
+        </div>
+        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
+        <script src="/js/particlex.js"></script>
+        <script src="/js/showimg.js"></script>
+        
+
+        <!-- 3D模型 -->
+        <div id="L2dCanvas" style="position: relative;"></div>
+        <script src="/js/live2d.min.js"></script>
+        <script src="/css/live2d.css"></script>
+        <script>
+            var v = new Viewer({
+                basePath: "/model",
+                role: "zhala_2",
+                mobile: true,
+            });
+        </script>
+        <!-- 点击 -->
+        <script>
+            let body = document.getElementsByTagName('body')[0];
+            body.addEventListener('click', (e) => {
+                let contentArr = ['✊','😘','😍','😊','😭','😡','😋','👍','🐷','😱','💷','💵','×','🆗','№','⭐','🌙','♥','💴','☀','🐎','🐂','🐏','√'];
+                let randomNum = function (n) {
+                    return Math.floor(Math.random() * n)
+                }
+                let span = document.createElement('span');
+                span.innerHTML = `${contentArr[randomNum(contentArr.length)]}`;
+                span.style.color = `rgb(${randomNum(256)},${randomNum(256)},${randomNum(256)})`;
+                span.style.position = 'absolute';
+                span.style.top = `${e.pageY}px`;
+                span.style.left = `${e.pageX}px`;
+                span.style.transition = 'all 1s ease';
+                span.style.zIndex = 20000;
+                body.appendChild(span)
+                setTimeout(()=>{
+                    span.style.top = span.offsetTop - 100 + 'px';
+                    span.style.opacity = 0;
+                    setTimeout(()=>{span.remove()},700)
+                },0)
+            })
+        </script>
+        <!-- 流星背景特效 -->
+        <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/background.js"></script>
+    </body>
+</html>

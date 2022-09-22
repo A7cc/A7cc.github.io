@@ -1,0 +1,522 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>密码学（贰）——对称加密算法介绍 | 小C♥天天</title>
+        <meta name="author" content="小C&天天">
+        <meta name="description" content="^v^">
+        <meta name="keywords" content="">
+        <link rel="icon" href="/images/icon.jpg">
+        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
+        <link rel="stylesheet" href="/css/fonts.min.css">
+        <link rel="stylesheet" href="/css/particlex.css">
+        <link rel="stylesheet" href="/css/main.css">
+        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
+        <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+    <meta name="generator" content="Hexo 6.2.0"></head>
+    <body>
+        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:30vmin;height:30vmin;padding:60px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #dd20dd;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">正在加载</p><div><img alt="loading" src="/images/afde9fa65a5742a90b51d6e1211e841e.gif"></div></div></div></div></div>
+        <div id="layout">
+            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
+            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
+            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
+            <transition name="into">
+                <div v-show="show_page" style="display: -not-none">
+                    <div id="menu_show">
+                         
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">小C♥天天</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;文章</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+    </div>
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
+        <div :class="'title'" @click="menu_show = !menu_show">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;小C♥天天</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+                    </div>
+                    <div id="main">
+                        
+<div class="article">
+    <div>
+        <h1>密码学（贰）——对称加密算法介绍 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2022/9/22
+        </span>
+        
+        <span class="category">
+            <a href="/categories/密码学">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                </span>
+                密码学
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/对称加密" style="color: #03a9f4">
+                    对称加密
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/DES" style="color: #ff7d73">
+                    DES
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/3DES" style="color: #00bcd4">
+                    3DES
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/AES" style="color: #ffa2c4">
+                    AES
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/分组模式" style="color: #00bcd4">
+                    分组模式
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    <div class="content" v-pre>
+        <h1 id="壹-对称加密算法介绍"><a href="#壹-对称加密算法介绍" class="headerlink" title="壹 对称加密算法介绍"></a>壹 对称加密算法介绍</h1><p><strong>对称加密</strong>：指双方使用<font color="red">同一个密钥</font>，既可以加密，也可以解密，可以看出这个密钥不能被其他人知道，只能是对应的人，这个就会造成如果要和多个人进行数据传输，那么保管大量的密钥和密钥传输就成为对称加密的两个致命问题。</p>
+<span id="more"></span>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>优点：加密效率高，加解密速度快，通常发送大量数据时使用</li>
+<li>缺点：加密强度低，密钥分发困难，因为需要约定好相同的密钥，而且若与多个用户发送数据，都需要不同的密钥，就需要保管大量的密钥成为负担</li>
+</ul>
+<h1 id="贰-DES——数据加密标准"><a href="#贰-DES——数据加密标准" class="headerlink" title="贰 DES——数据加密标准"></a>贰 DES——数据加密标准</h1><h2 id="2-1-概念"><a href="#2-1-概念" class="headerlink" title="2.1 概念"></a>2.1 概念</h2><p>DES（Data Encryption Standard，即标准加密算法）是一种使用密钥加密的块算法，1977年被美国联邦政府的国家标准局确定为联邦资料处理标准（FIPS），并授权在非密级政府通信中使用，随后该算法在国际上广泛流传开来。慢慢的被暴力破解，后来RSA公司举办过破译DES密钥的比赛，使得DES现在可以在短时间内被破译，因此一般情况下除了用它来解密之前的密文以外，基本上不会用DES加密。（百度的）</p>
+<h2 id="2-2-原理分析"><a href="#2-2-原理分析" class="headerlink" title="2.2 原理分析"></a>2.2 原理分析</h2><p><strong>密钥长度</strong>——DES是一种将64位的明文加密成64位的密文的对称密码算法，<font color="red">它的密钥长度是56位</font>。尽管从规格上来说，DES的密钥长度是64位，但<font color="red">由于每隔7位会设置一个用于错误检查的校验位比特，因此实质上其密钥长度是56位</font>。</p>
+<p><strong>数据分组长度</strong>——DES是以64比特的明文（比特序列）为一个单位来进行加密的，这个64比特的单位称为分组，或者叫块。一般来说，<font color="red">以分组为单位进行处理的密码算法称为分组密码（blockcipher）</font>，DES就是分组密码的一种。所以<font color="red">DES每次只能加密64比特的数据，如果要加密的明文比较长，就会对明文进行64比特为单位分组切割，切割完后，再对其进行DES加密，然后反复迭代，而迭代的具体方式就称为后面说的分组模式（mode）</font>。<br><img src="/images/%E5%AF%86%E7%A0%81%E5%AD%A6/554b255b5feb40796dec0acf90320d0d.png" alt="554b255b5feb40796dec0acf90320d0d.png"><br>可以看到密钥提供了64比特，但实际上只用了56比特，而且明文是64比如，密文也是64比特。</p>
+<h2 id="2-3-特点"><a href="#2-3-特点" class="headerlink" title="2.3 特点"></a>2.3 特点</h2><ul>
+<li>不安全，一般情况下除了用它来解密之前的密文以外，基本上不会用DES加密</li>
+<li>密钥为64比特，也就是8字节，但实际上只用了56比特，因为每7个比特会设置一个校验位</li>
+<li>分组加密，分组最小单位也是64位，<font color="red">注意这是数据的分组不是密钥</font></li>
+<li>加解密效率高</li>
+</ul>
+<h1 id="叁-3DES——三次数据加密标准"><a href="#叁-3DES——三次数据加密标准" class="headerlink" title="叁 3DES——三次数据加密标准"></a>叁 3DES——三次数据加密标准</h1><h2 id="3-1-概念"><a href="#3-1-概念" class="headerlink" title="3.1 概念"></a>3.1 概念</h2><p>现在DES已经可以在现实的时间内被暴力破解，因此我们需要一种用来替代DES的分组密码， 三重DES就是出于这个目的被开发出来的。<strong>3DES</strong>（Triple Data Encryption Standard）是<strong>为了增加DES的强度</strong>，将DES重复3次所得到的一种密码算法，通常缩写为3DES。</p>
+<h2 id="3-2-原理分析"><a href="#3-2-原理分析" class="headerlink" title="3.2 原理分析"></a>3.2 原理分析</h2><p><strong>3DES加密的原理</strong>就是<font color="red">分别用3个不同的密钥对数据依次进行DES加密、DES解密、DES加密操作，本质是是进行了三次加密</font>，为什么怎么说呢？虽然中间用了解密，但是3次使用的密钥都不同，这就导致虽然是对数据进行了解密，但是解不回去，所以是进行了三次加密，&#x3D;&#x3D;中间使用解密的原因是为了兼容以前的DES&#x3D;&#x3D;。<br><strong>3DES解密的原理</strong>与3DES加密差不多，即：<font color="red">分别用3个不同的密钥对数据依次进行DES解密、DES加密、DES解密操作，本质是是进行了三次解密</font>。<br><strong>3DES的密钥</strong>应该是24字节，因为需要三个不同的DES密钥，但是<strong>3DES的数据分组长度</strong>与DES相同为8字节。<br><img src="/images/%E5%AF%86%E7%A0%81%E5%AD%A6/61bea3ba3358f7551310baf5f0c82464.png" alt="61bea3ba3358f7551310baf5f0c82464.png"><br><img src="/images/%E5%AF%86%E7%A0%81%E5%AD%A6/6f20c512d3277ca28a275f60a870c59a.png" alt="6f20c512d3277ca28a275f60a870c59a.png"><br>对于密钥会出现以下情况：</p>
+<ul>
+<li>如果秘钥1与秘钥相同，或者秘钥2与秘钥3相同，这就相当于DES</li>
+<li>如果秘钥1与秘钥3相同，相当于有两个秘钥，专业名字：3DES-EDE2</li>
+<li>如果三个秘钥都不相同，专业名字：3DES-EDE3</li>
+</ul>
+<h2 id="3-3-特点"><a href="#3-3-特点" class="headerlink" title="3.3 特点"></a>3.3 特点</h2><ul>
+<li>相对安全</li>
+<li>密钥为192比特，也就是24字节</li>
+<li>分组加密，分组最小单位也是64位</li>
+<li>加解密效率低</li>
+</ul>
+<h1 id="肆-AES——高级加密标准"><a href="#肆-AES——高级加密标准" class="headerlink" title="肆 AES——高级加密标准"></a>肆 AES——高级加密标准</h1><h2 id="4-1-概念"><a href="#4-1-概念" class="headerlink" title="4.1 概念"></a>4.1 概念</h2><p>AES（Advanced Encryption Standard）是取代其前任标准（DES）而成为新标准的一种对称密码算法。全世界的企业和密码学家提交了多个封称密码算法作为AES的候选，最终在2000年从这些候选算法中选出了一种名为Rijndael的对称密码算法，并将其确定为了AES。Rindael是由比利时密码学家Joan Daemen和Vincent Rijmen设计的分组密码算法，今后会有越来越多的密码软件支持这种算法。</p>
+<h2 id="4-2-原理分析"><a href="#4-2-原理分析" class="headerlink" title="4.2 原理分析"></a>4.2 原理分析</h2><p>Rijmen设计出来的AES分组长度为128比特，密钥长度可以以32比特为单位在128比特到256比特的范围内进行选择，但是<font color="red">在AES的规格中，密钥长度只有128、192和256比特三种</font>。可以看到AES的密钥长度是变化的，而且数据分组长度变成了128比特（16字节），加解密流程就和DES差不多！</p>
+<h2 id="4-3-特点"><a href="#4-3-特点" class="headerlink" title="4.3 特点"></a>4.3 特点</h2><ul>
+<li>较为安全</li>
+<li>密钥长度是可选的，有16字节、24字节、32字节三种</li>
+<li>分组加密，分组长度为16字节</li>
+<li>加解密效率高，推荐使用</li>
+</ul>
+<h1 id="伍-三种对称加密算法总结"><a href="#伍-三种对称加密算法总结" class="headerlink" title="伍 三种对称加密算法总结"></a>伍 三种对称加密算法总结</h1><ul>
+<li>对称加密算法使用的加解密密钥是样同</li>
+<li>在一定程度上实现了数据的机密性，且简单、快速</li>
+<li>但是由于算法一般都是公开的，因此机密性几乎完全依赖于密钥</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>加密算法名字</th>
+<th>密钥长度</th>
+<th>分组长度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DES</td>
+<td>8字节</td>
+<td>8字节</td>
+</tr>
+<tr>
+<td>3DES</td>
+<td>24字节</td>
+<td>8字节</td>
+</tr>
+<tr>
+<td>AES</td>
+<td>16字节、24字节、32字节</td>
+<td>16字节</td>
+</tr>
+</tbody></table>
+<h1 id="陆-分组模式"><a href="#陆-分组模式" class="headerlink" title="陆 分组模式"></a>陆 分组模式</h1><h2 id="6-1-分组模式概念"><a href="#6-1-分组模式概念" class="headerlink" title="6.1 分组模式概念"></a>6.1 分组模式概念</h2><p>为什么要分组？上面说到的加密算法只是单单对算法的最小分组单位长度进行说明的，但是一般情况下数据并不是8字节、16字节或者是24字节，而是其以上，这时候我们就需要进行分组处理，分组处理并不是简单的将其分割，而是需要将这些分组进行迭代反复处理，这就涉及到<strong>分组模式</strong>的概念！</p>
+<blockquote>
+<p>这里有一个概念叫明文分组和密文分组：</p>
+<ul>
+<li>明文分组是指分组模式中作为加密对象的明文。明文分组的长度与分组密码算法的分组长度是相等的。</li>
+<li>密文分组是指使用分组密码算法将明文分组加密之后所生成的密文。</li>
+<li>需要区别的是明文分组不一定是加密算法的输入值，也就是说明文分组与加密算法的输入值不是一个概念，这个可能会有点绕，但是连接模式后就会明白了，加密算法的输入值可能是一个密钥值iv，也可能是用户的数据由于没有直接对明文分组进行加密，所以不需要填充，其实这里我绕了半天，后来想想确实是，假设最后一个明文分组只有1位，那么只要取加密后的密文的1位进行异或就可以了，后面的七位就可以不需要关注</li>
+<li>而且分组模式的分组长度与加密的分组长度是不同的概念，但是为啥很多模式的分组长度都取决与算法的分组长度呢？是因为模式的分组长度实际是用户的数据，通常模式都是进行直接加密或者进行异或，这个时候就需要所有的数据都必须确保有一一对应的坑位，例如分组模式的分组长度比算法分组长度多，那么多出来的那一位就无法运算了，如果分组模式的分组长度比算法分组长度少，那少的那部分对于算法分组并无任何意义，但是有几个模式的最后一组就是属于后面这种情况</li>
+</ul>
+</blockquote>
+<p><img src="/images/%E5%AF%86%E7%A0%81%E5%AD%A6/2fb8502b0aef23986d3990dc127d2c41.png" alt="2fb8502b0aef23986d3990dc127d2c41.png"></p>
+<p><font color="red">为了描述简单后面说的加密均表示使用三个加密模式其中任意一种。</font></p>
+<h2 id="6-1-五种分组模式概念"><a href="#6-1-五种分组模式概念" class="headerlink" title="6.1 五种分组模式概念"></a>6.1 五种分组模式概念</h2><p>分组模式有五种：ECB、CBC、CFB、OFB、CTR，其中推荐使用的是CBC、CTR。</p>
+<table>
+<thead>
+<tr>
+<th>简称</th>
+<th>名称</th>
+<th>使用情况</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ECB</td>
+<td>Electronic Coding Book，电子密码本模式</td>
+<td>不使用，淘汰</td>
+</tr>
+<tr>
+<td>CBC</td>
+<td>Cypher Block Chaining，密文分组链接模式</td>
+<td>常用</td>
+</tr>
+<tr>
+<td>CFB</td>
+<td>Cypher FeedBack，密文反馈模式</td>
+<td>也有使用，建议使用CTR</td>
+</tr>
+<tr>
+<td>OFB</td>
+<td>Output FeedBack，输出反馈模式</td>
+<td>也有使用，建议使用CTR</td>
+</tr>
+<tr>
+<td>CTR</td>
+<td>Cont，计数器模式</td>
+<td>建议使用</td>
+</tr>
+</tbody></table>
+<h2 id="6-2-加密算法与分组模式关系"><a href="#6-2-加密算法与分组模式关系" class="headerlink" title="6.2 加密算法与分组模式关系"></a>6.2 加密算法与分组模式关系</h2><p><img src="/images/%E5%AF%86%E7%A0%81%E5%AD%A6/6f264757969caaaf3b834aa157d091bf.png" alt="6f264757969caaaf3b834aa157d091bf.png"></p>
+<h1 id="柒-ECB——电子密码本模式"><a href="#柒-ECB——电子密码本模式" class="headerlink" title="柒 ECB——电子密码本模式"></a>柒 ECB——电子密码本模式</h1><h2 id="7-1-概念"><a href="#7-1-概念" class="headerlink" title="7.1 概念"></a>7.1 概念</h2><p>ECB（Electronic Code Book，电子密码本）模式是分组密码的一种最基本的工作模式。在该模式下，待处理信息被分为大小合适的分组，然后分别对每一分组独立进行加密或解密处理。</p>
+<h2 id="7-2-原理分析"><a href="#7-2-原理分析" class="headerlink" title="7.2 原理分析"></a>7.2 原理分析</h2><p>ECB模式的原理就是将明文数据根据使用的加密算法规定分组长度，来分成固定大小的块（分组），并且每个块被单独加密。每个块的加密和解密都是独立的，且使用相同的加密算法进行加密，所以可以进行并行计算，但是这种方法一旦有一个块被破解，使用相同的方法可以解密所有的明文数据。<br><img src="/images/%E5%AF%86%E7%A0%81%E5%AD%A6/f5ec10133c4f191d3294ae7109aa609b.png" alt="f5ec10133c4f191d3294ae7109aa609b.png"></p>
+<blockquote>
+<p><font color="red">为了描述简单后面说的加密均表示使用三个加密模式其中任意一种。</font></p>
+</blockquote>
+<p>可以看到明文分组与密文分组是一一对应的，可以并行的，即加密明文分组1的同时也可以加密明文分组2，但是如果在最后一组时，出现数据不满足算法需要的数据长度时，怎么办呢？那就需要进行填充，就需要加额外数据，补全最后一组数据使其符合算法需要的数据长度。<br><img src="/images/%E5%AF%86%E7%A0%81%E5%AD%A6/d51ae336d534fd6745e3d8c5e9d764f8.png" alt="d51ae336d534fd6745e3d8c5e9d764f8.png"><br>使用ECB模式加密时，相同的明文分组会被转换为相同的密文分组，也就是说，我们可以将其理解为是一个巨大的<strong>明文分组&#x3D;&#x3D;》密文分组</strong>的对应表，因此ECB模式也称为电子密码本模式，当最后一个明文分组的内容小于分组长度时，需要用一特定的数据进行填充（padding），让最后的值成为一个分组长度。<br>ECB模式是所有模式中最简单的一种。ECB模式中，明文分组与密文分组是一对应的关系，因此，如果明文中存在多个相同的明文分组，则这些明文分组最终都将被转换为相同的密文分组。这样一来，只要观察一下密文，就可以知道明文中存在怎样的重复组合，并可以以此为线索来破译密码，因此ECB模式是存在一定风险的。</p>
+<h2 id="7-3-特点"><a href="#7-3-特点" class="headerlink" title="7.3 特点"></a>7.3 特点</h2><ul>
+<li>加密效率高，但是安全性比较差，加密不彻底</li>
+<li>加密前需要把明文数据填充到块大小的整倍数</li>
+<li>每一个分组独立的进行加解密，一一对应</li>
+<li>只要有一个分组被破解，所有的分组都被破解</li>
+<li>不推荐使用，Go语言不支持这种分组模式</li>
+<li>分组长度由加密算法决定，这里说的分组长度是模式的分组长度（DES为8字节，AES为16字节）</li>
+</ul>
+<h1 id="捌-CBC——密文分组链接模式"><a href="#捌-CBC——密文分组链接模式" class="headerlink" title="捌 CBC——密文分组链接模式"></a>捌 CBC——密文分组链接模式</h1><h2 id="8-1-前言"><a href="#8-1-前言" class="headerlink" title="8.1 前言"></a>8.1 前言</h2><p>CBC模式需要用到按位操作的异或运算，这里说明一下按位操作：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>按位操作符</th>
+<th>口诀</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>与</td>
+<td><code>&amp;</code>或者<code>and</code></td>
+<td>全真为真，有假为假</td>
+</tr>
+<tr>
+<td>或</td>
+<td>&#96;</td>
+<td><code>或者</code>or&#96;</td>
+</tr>
+<tr>
+<td>非</td>
+<td><code>~</code>或者<code>!</code></td>
+<td>要么是假，要么是真</td>
+</tr>
+<tr>
+<td>异或</td>
+<td><code>^</code>或者<code>XOR</code></td>
+<td>相同为假，不同为真</td>
+</tr>
+</tbody></table>
+<pre><code># 与运算
+0000 1001
+0010 1000
+----&amp;----
+0000 1000
+
+# 或运算
+0000 1001
+0010 1000
+----|----
+0010 1001
+
+# 非运算
+0000 1001
+----~----
+1111 0110
+
+# 异或运算，可以发现异或运算是不管与哪个都可以倒退的
+0000 1001
+0010 1000
+----^----
+0010 0001
+</code></pre>
+<p><font color="red">异或是一个比较重要的概念！需要非常熟悉！</font></p>
+<h2 id="8-2-概念"><a href="#8-2-概念" class="headerlink" title="8.2 概念"></a>8.2 概念</h2><p>CBC（Cipher Block Chaining，密文分组链接）模式是一种最常用的加密模式，它主要缺点是加密是连续的，不能并行处理，并且与ECB一样消息块必须填充到块大小的整倍数。</p>
+<h2 id="8-3-原理分析"><a href="#8-3-原理分析" class="headerlink" title="8.3 原理分析"></a>8.3 原理分析</h2><p>CBC模式中每一个分组要先和前一个分组加密后的数据进行XOR异或操作，然后再进行加密。这样每个密文块依赖该块之前的所有明文块，为了保持每条消息都具有唯一性，第一个数据块进行加密之前需要用初始化向量<code>iv</code>进行异或操作。<br><img src="/images/%E5%AF%86%E7%A0%81%E5%AD%A6/4df1dcdac46a8749a43c7e89df1da6b3.png" alt="4df1dcdac46a8749a43c7e89df1da6b3.png"><br>可以看到其加密的过程是串连的，只要其中一个环节数据改变，后面的所有数据都会不一样，即加密一定是串行的，但是由于解密时需要解密的密文与前一个密文是已知的，所以解密是可以并行的！<br><img src="/images/%E5%AF%86%E7%A0%81%E5%AD%A6/19426fe2ebaeab974dc04076cc25454f.png" alt="19426fe2ebaeab974dc04076cc25454f.png"><br>如果将一个分组的加密过程分离出来，我们就可以很容易地比较出ECB模式和CBC模式的区别。ECB模式只进行了加密，而CBC模式则是在加密之前进行了一次XOR。明文分组在加密之前一定会与前一个密文分组进行XOR运算，因此即便明文分组1和2的值是相等的，密文分组1和2的值也不一定是相等的。这样一来，ECB模式的缺陷在CBC模式中就不存在了。</p>
+<h2 id="8-4-特点"><a href="#8-4-特点" class="headerlink" title="8.4 特点"></a>8.4 特点</h2><ul>
+<li>分组长度由加密算法决定</li>
+<li>需要提供初始化向量（Initialize Vector），同时初始化向量长度必须与分组长度相同</li>
+<li>每一个密文都是下一次加密操作的输入，第一次的加密操作的输入是初始化向量</li>
+<li>由于是链式架构不能够并行加密，但可以并行解密</li>
+<li>加密强度高</li>
+<li>加密前需要把明文数据填充到块大小的整倍数</li>
+</ul>
+<h1 id="玖-CFB——密文反馈模式"><a href="#玖-CFB——密文反馈模式" class="headerlink" title="玖 CFB——密文反馈模式"></a>玖 CFB——密文反馈模式</h1><h2 id="9-1-概念"><a href="#9-1-概念" class="headerlink" title="9.1 概念"></a>9.1 概念</h2><p>CFB（Cipher FeedBack，密文反馈模式）模式与CBC模式差不多，只是颠倒了一下异或运算与加密算法的顺序，换一种说法就是通过对密文使用加密算法的得到的输出反馈到异或的输入中。</p>
+<h2 id="9-2-原理分析"><a href="#9-2-原理分析" class="headerlink" title="9.2 原理分析"></a>9.2 原理分析</h2><p>CFB模式与CBC模式差不多，就是将异或运算与加密算法的顺序调换了，前一个分组的密文加密后和当前分组的明文XOR异或操作生成当前分组的密文。所谓反馈，这里指的就是返回输入端的意思，这里是让密文进行反馈，所以叫密文反馈，即前一个密文分组会被送回到密码算法的输入端。<br>CFB模式的解密和CBC模式的加密在流程上其实是非常相似的。<br><img src="/images/%E5%AF%86%E7%A0%81%E5%AD%A6/e78cd6a0aea047dd1ab662b32bc5377d.png" alt="e78cd6a0aea047dd1ab662b32bc5377d.png"><br><img src="/images/%E5%AF%86%E7%A0%81%E5%AD%A6/6ad0c3cb8bb7b46d91742425c7835498.png" alt="6ad0c3cb8bb7b46d91742425c7835498.png"><br>在ECB模式和CBC模式中，明文分组都是通过加密算法进行加密的，然而，在CFB模式中，明文分组并没有通过密码算法来直接进行加密，加密的是上一次的密文，而不是本次的明文。从上图可以看出，在CFB模式中，明文分组和密文分组之间并没有经过加密这一步骤，只有一个XOR，而且CFB的解密过程也没有使用解密算法。我们将CBC模式与CFB模式对比一下，就可以看出其中的差异了。在CBC模式中，明文分组和密文分组之间有XOR和密码算法两个步骤，而在CFB模式中，明文分组和密文分组之间则只有XOR。<br><img src="/images/%E5%AF%86%E7%A0%81%E5%AD%A6/6603f8c37e57bcf93913889ec388a19d.png" alt="6603f8c37e57bcf93913889ec388a19d.png"><br>可以看出两个模式的最大区别就是加密算法位置与异或位置替换了！</p>
+<h2 id="9-3-特点"><a href="#9-3-特点" class="headerlink" title="9.3 特点"></a>9.3 特点</h2><ul>
+<li>分组长度由加密算法决定</li>
+<li>需要提供初始化向量（Initialize Vector），同时初始化向量长度必须与分组长度相同</li>
+<li>先对密文进行加密，然后再与明文分组进行异或，区别与CBC模式</li>
+<li>由于没有直接对明文分组进行加密，所以不需要填充，其实这里我绕了半天，后来想想确实是，假设最后一个明文分组只有1位，那么只要取加密后的密文的1位进行异或就可以了，后面的七位就可以不需要关注，没意义</li>
+<li>解密时由于密文和密文间不存在加密过程，所以不需要使用解密算法</li>
+</ul>
+<h1 id="拾-OFB——输出反馈模式"><a href="#拾-OFB——输出反馈模式" class="headerlink" title="拾 OFB——输出反馈模式"></a>拾 OFB——输出反馈模式</h1><h2 id="10-1-概念"><a href="#10-1-概念" class="headerlink" title="10.1 概念"></a>10.1 概念</h2><p>OFB（Output-Feedback，输出反馈模式）模式是通过对初始向量使用加密算法的得到的输出反馈到加密算法的输入中，以此进行循环，即上一个分组密码算法的输出是当前分组密码算法的输入。</p>
+<h2 id="10-2-原理分析"><a href="#10-2-原理分析" class="headerlink" title="10.2 原理分析"></a>10.2 原理分析</h2><p>OFB模式是通过加密算法的输出反馈到加密法的输入中，即上一个分组密码算法的输出是当前分组密码算法的输入，也就是说OFB模式并不是通过密码算法对明文直接进行加密的，而是通过将明文分组和密码算法的输出进行异或来产生密文分的，在这一点上OFB模式和CFB模式非常相似。<br><img src="/images/%E5%AF%86%E7%A0%81%E5%AD%A6/b4060ace8d6bb3fc96933c82201f220c.png" alt="b4060ace8d6bb3fc96933c82201f220c.png"><br>可以看到加密算法加密的是前一个加密算法的输出，而且只是对初始化向量进行不断加密，所以是输出进行反馈。<br><img src="/images/%E5%AF%86%E7%A0%81%E5%AD%A6/cf266c086175dff6436e3ba0a6326fa8.png" alt="cf266c086175dff6436e3ba0a6326fa8.png"><br>可以看到OFB与CFB最大的区别就在于反馈的输入值是什么！</p>
+<h2 id="10-3-特点"><a href="#10-3-特点" class="headerlink" title="10.3 特点"></a>10.3 特点</h2><ul>
+<li>分组长度由加密算法决定</li>
+<li>需要提供初始化向量（Initialize Vector），同时初始化向量长度必须与分组长度相同</li>
+<li>不断对初始向量的输出进行加密，从而得到异或的输入数据来源</li>
+<li>由于没有直接对明文分组进行加密，所以不需要填充</li>
+</ul>
+<h1 id="拾壹-CTR——计数器模式"><a href="#拾壹-CTR——计数器模式" class="headerlink" title="拾壹 CTR——计数器模式"></a>拾壹 CTR——计数器模式</h1><h2 id="11-1-概念"><a href="#11-1-概念" class="headerlink" title="11.1 概念"></a>11.1 概念</h2><p>CTR（CounTeR，计数器模式）模式是一种通过将逐次累加的计数器进行加密来生成密钥流的流密码。</p>
+<h2 id="11-2-原理分析"><a href="#11-2-原理分析" class="headerlink" title="11.2 原理分析"></a>11.2 原理分析</h2><p>CTR模式其实很简单就是每个分组都有对应一个逐次累加的计数器，并通过对计数器进行加密来生成密钥流。也就是说，最终的密文分组是通过将计数器加密得到的比特序列与明文分组进行XOR而得到的。<br><img src="/images/%E5%AF%86%E7%A0%81%E5%AD%A6/81df9602b99a9dba2f00d0d45775e870.png" alt="81df9602b99a9dba2f00d0d45775e870.png"><br><img src="/images/%E5%AF%86%E7%A0%81%E5%AD%A6/fb05b7c032833ac93b1b00ea670f618a.png" alt="fb05b7c032833ac93b1b00ea670f618a.png"></p>
+<blockquote>
+<ul>
+<li>计数器的生成方法<br>每次加密时都会生成一个不同的值（nonce）来作为计数器的初始值。当分组长度为16字节时，计数器的初始值可能是像下面这样的形式。其中前8个字节为nonce（随机数），这个值在每次加密时必须都是不同的，后8个字节为分组序号，这个部分是会逐次累加的。在加密的过程中，计数器的值会产生如下变化：<br><img src="/images/%E5%AF%86%E7%A0%81%E5%AD%A6/2553eb2543dfdfb126dfcd4ec7b26b06.png" alt="2553eb2543dfdfb126dfcd4ec7b26b06.png"><br>按照上述生成方法，可以保证计数器的值每次都不同。由于计数器的值每次都不同，因此每个分组中将计数器进行加密所得到的密钥流也是不同的。也是说，这种方法就是用分组密码来模拟生成随机的比特序列。</li>
+</ul>
+</blockquote>
+<p><img src="/images/%E5%AF%86%E7%A0%81%E5%AD%A6/ce2ce66f1a7404f02e74f14d8e9de7fd.png" alt="ce2ce66f1a7404f02e74f14d8e9de7fd.png"><br>可以看出来CTR模式和OFB模式一样，都属于流密码。如果我们将单个分组的加密过程拿出来，那么FB模式是将加密的输出反愦到输入，而CTR模式则是将计数器的值用作输入。.</p>
+<h2 id="11-3-特点"><a href="#11-3-特点" class="headerlink" title="11.3 特点"></a>11.3 特点</h2><ul>
+<li>分组长度由加密算法决定</li>
+<li>需要一个逐次累加的计数器，同时初始化向量长度必须与分组长度相同</li>
+<li>由于没有直接对明文分组进行加密，所以不需要填充</li>
+<li>可以并行加密和并行解密，效率高，推荐使用</li>
+</ul>
+<h1 id="拾贰-分组模式总结"><a href="#拾贰-分组模式总结" class="headerlink" title="拾贰 分组模式总结"></a>拾贰 分组模式总结</h1><table>
+<thead>
+<tr>
+<th>模式名称</th>
+<th>优点</th>
+<th>缺点</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ECB模式</td>
+<td>* 简单、快速</br>* 支持并行计算（加解密均可）</td>
+<td>* 明文中的重复排列会反映在密文中</br>* 通过删除、替换密文分组可以对明文进行操作</br>* 对包含某些比特错误的密文进行解密时，对应的分组会出错</br>* 不能抵御重放攻击</br>* 需要填充</td>
+<td>不建议使用</td>
+</tr>
+<tr>
+<td>CBC模式</td>
+<td>* 明文的重复排列不会反映在密文中</br>* 支持并行计算（仅解密）</br>* 能够解密任意密文分组</td>
+<td>* 加密不支持并行计算</br>* 对包含某些错误比特的密文进行解密时，第一个分组的全部比特以及后一个分组的相应比特会出错</br>* 需要填充</td>
+<td>推荐使用</td>
+</tr>
+<tr>
+<td>CFB模式</td>
+<td>* 不需要填充</br>* 支持并行计算（仅解密）</br>* 能够解密任意密文分组</td>
+<td>* 加密不支持并行计算</br>* 对包含某些错误比特的密文进行解密时，第一个分组的全部比特以及后一个分组的相应比特会出错</br>* 不能抵御重放攻击</td>
+<td>不推荐使用</td>
+</tr>
+<tr>
+<td>OFB模式</td>
+<td>* 不需要填充</br>* 可事先进行加密、解密的准备</br>* 加密、解密使用相同结构</br>* 对包含某些错误比特的密文进行解密时，只有明文中相对应的比特会出错</td>
+<td>* 不支持并行计算</br>* 主动攻击者反转密文分组中的某些比特时，明文分组中相对应的比特也会被反转</td>
+<td>不推荐使用</td>
+</tr>
+<tr>
+<td>CTR模式</td>
+<td>* 不需要填充</br>* 可事先进行加密、解密的准备</br>* 加密、解密使用相同结构</br>* 对包含某些错误比特的密文进行解密时，只有明文中相对应的比特会出错</br>* 支持并行计算（加解密均可）</td>
+<td>主动攻击者反转密文分组中的某些比特时，明文分组中相对应的比特也会被反转</td>
+<td>推荐使用</td>
+</tr>
+</tbody></table>
+
+    </div>
+    
+</div>
+                         
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2022 小C♥天天
+            <span class="footer-icon">
+                <i class="fa-brands fa-github fa-fw"></i>
+            </span>
+            @小C&天天
+        </div>
+        <div>
+            备案号：小C&天天の窝
+        </div>
+    </div>
+</footer>
+                    </div>
+                </div>
+            </transition>
+            <div id="img_show">
+                <img id="img_content" alt="img_show">
+            </div>
+        </div>
+        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
+        <script src="/js/particlex.js"></script>
+        <script src="/js/showimg.js"></script>
+        
+
+        <!-- 3D模型 -->
+        <div id="L2dCanvas" style="position: relative;"></div>
+        <script src="/js/live2d.min.js"></script>
+        <script src="/css/live2d.css"></script>
+        <script>
+            var v = new Viewer({
+                basePath: "/model",
+                role: "zhala_2",
+                mobile: true,
+            });
+        </script>
+        <!-- 点击 -->
+        <script>
+            let body = document.getElementsByTagName('body')[0];
+            body.addEventListener('click', (e) => {
+                let contentArr = ['✊','😘','😍','😊','😭','😡','😋','👍','🐷','😱','💷','💵','×','🆗','№','⭐','🌙','♥','💴','☀','🐎','🐂','🐏','√'];
+                let randomNum = function (n) {
+                    return Math.floor(Math.random() * n)
+                }
+                let span = document.createElement('span');
+                span.innerHTML = `${contentArr[randomNum(contentArr.length)]}`;
+                span.style.color = `rgb(${randomNum(256)},${randomNum(256)},${randomNum(256)})`;
+                span.style.position = 'absolute';
+                span.style.top = `${e.pageY}px`;
+                span.style.left = `${e.pageX}px`;
+                span.style.transition = 'all 1s ease';
+                span.style.zIndex = 20000;
+                body.appendChild(span)
+                setTimeout(()=>{
+                    span.style.top = span.offsetTop - 100 + 'px';
+                    span.style.opacity = 0;
+                    setTimeout(()=>{span.remove()},700)
+                },0)
+            })
+        </script>
+        <!-- 流星背景特效 -->
+        <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/background.js"></script>
+    </body>
+</html>

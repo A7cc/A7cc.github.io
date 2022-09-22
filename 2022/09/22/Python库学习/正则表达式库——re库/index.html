@@ -1,0 +1,595 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>正则表达式库——Re库 | 小C♥天天</title>
+        <meta name="author" content="小C&天天">
+        <meta name="description" content="^v^">
+        <meta name="keywords" content="">
+        <link rel="icon" href="/images/icon.jpg">
+        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
+        <link rel="stylesheet" href="/css/fonts.min.css">
+        <link rel="stylesheet" href="/css/particlex.css">
+        <link rel="stylesheet" href="/css/main.css">
+        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
+        <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+    <meta name="generator" content="Hexo 6.2.0"></head>
+    <body>
+        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:30vmin;height:30vmin;padding:60px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #dd20dd;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">正在加载</p><div><img alt="loading" src="/images/afde9fa65a5742a90b51d6e1211e841e.gif"></div></div></div></div></div>
+        <div id="layout">
+            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
+            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
+            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
+            <transition name="into">
+                <div v-show="show_page" style="display: -not-none">
+                    <div id="menu_show">
+                         
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">小C♥天天</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;文章</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+    </div>
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
+        <div :class="'title'" @click="menu_show = !menu_show">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;小C♥天天</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+                    </div>
+                    <div id="main">
+                        
+<div class="article">
+    <div>
+        <h1>正则表达式库——Re库 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2022/9/22
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Python库学习">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                </span>
+                Python库学习
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Python" style="color: #ff7d73">
+                    Python
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/开发" style="color: #00bcd4">
+                    开发
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    <div class="content" v-pre>
+        <h1 id="壹-为什么要学正则表达式"><a href="#壹-为什么要学正则表达式" class="headerlink" title="壹 为什么要学正则表达式"></a>壹 为什么要学正则表达式</h1><p>我们先不急着回答上面这个问题，我们来假设一个场景，我们打算在图书馆里面找一些有关于讲解TCP&#x2F;IP的书籍，这时候如果我们不使用图书馆里面的电脑来进行查找的话，就得一本一本地找，但是当我们使用电脑时，就可以大概知道这类书籍在几层楼，第几个书架上，有没有被借走，这样是不是会很省事呢？而这里的<strong>电脑查找方式</strong>就是我们这篇文章的主题——<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/1700215?fr=aladdin"><strong>正则表达式</strong></a>。</p>
+<span id="more"></span>
+<p>根据上面的例子，我们就可以认识到正则表达式的重要作用了，在软件开发或者办公的过程中，经常会涉及到大量的关键字等各种字符串的操作，我们就会使用正则表达式简化其复杂度和效率。</p>
+<h1 id="贰-什么是正则表达式"><a href="#贰-什么是正则表达式" class="headerlink" title="贰 什么是正则表达式"></a>贰 什么是正则表达式</h1><p>正则表达式也叫做匹配模式、正规表示法、常规表示法，是对字符串操作的一种逻辑公式，就是用事先定义好的一些特定字符及这些特定字符的组合，组成一个“规则字符串”，这个“规则字符串”用来表达对字符串的一种过滤逻辑。</p>
+<p>在计算机科学中，是指一个用来描述或者匹配一系列符合某个模式或者规则的文本。而在很多文本编辑器或其他工具里，正则表达式通常被用来检索或替换那些符合某个模式或者规则的文本内容。许多程序设计语言都支持利用正则表达式进行字符串操作。</p>
+<p><strong>正则表达式通常缩写成regex，单数有regexp、regex，复数有 regexps、regexes、regexen</strong> </p>
+<h1 id="叁-正则表达式历史"><a href="#叁-正则表达式历史" class="headerlink" title="叁 正则表达式历史"></a>叁 正则表达式历史</h1><p>正则表达式的鼻祖可一直追溯到科学家对人类神经系统工作原理的早期研究。美国新泽西州的Warren McCulloch和出生在美国底特律的Walter Pitts这两位神经生理方面 的科学家，研究出了一种用数学方式来描述神经网络的新方法，他们创新地将神经系统中的 神经元描述成了小而简单的自动控制元，从而作出了一项伟大的工作革新。 在1956年,出生在被马克·吐温称为“美国最美丽的城市之一的”哈特福 德市的一位名叫Stephen Kleene的数学科学家，他在Warren McCulloch和Walter Pitts早期工作的基础之上，发表了一篇题目是《神经网事件的表示法》的论文，利用称之为正则集合的数学符号来描述此模型，引入了正则表达式的概念。正则表达式被作为用来描述其称之为<strong>正则集的代数</strong>的一种表达式，因而采用了<strong>正则表达式</strong>这个术语。 之后一段时间，人们发现可以将这一工作成果应用于其他方面。Ken Thompson就把这 一成果应用于计算搜索算法的一些早期研究，Ken Thompson是Unix的主要发明人，也就是大名鼎鼎的Unix之父。Unix之父将此符号系统引入编辑器QED，然后是Unix上的编辑器ed，并最终引入grep。Jeffrey Friedl在其著作《Mastering Regular Expressions》中对此作了进一步阐述讲解，自此以后，正则表达式被广泛地应用到各种UNIX或类似于UNIX的工具中，如大家熟知的Perl。</p>
+<p><strong>如果想深入了解正则表达式历史的读者可以阅读Jeffrey Friedl的著作《Mastering Regular Expressions》</strong></p>
+<h1 id="肆-语法"><a href="#肆-语法" class="headerlink" title="肆 语法"></a>肆 语法</h1><p>由于在不同场合正则表达式的语法也会有一些不同，这里我们以Python为例。</p>
+<p><strong>注意：以下这些符号都是放在函数的<code>pattern</code>参数里面的</strong></p>
+<p><strong>正则表达式符号区分大小写，大小写之间是互补关系</strong></p>
+<h2 id="4-1-元符号"><a href="#4-1-元符号" class="headerlink" title="4.1 元符号"></a>4.1 元符号</h2><table>
+<thead>
+<tr>
+<th>符号</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>.</td>
+<td>匹配除换行符<code>\n</code>以外的任意字符</td>
+</tr>
+<tr>
+<td>\w</td>
+<td>匹配大小写字母、数字、下划线、汉字和其他国家的语言符号</td>
+</tr>
+<tr>
+<td>\W</td>
+<td>匹配非字母、数字、下划线、汉字和其他国家的语言符号</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>匹配任意的空白符</td>
+</tr>
+<tr>
+<td>\S</td>
+<td>匹配任意非空白符</td>
+</tr>
+<tr>
+<td>\d</td>
+<td>匹配数字</td>
+</tr>
+<tr>
+<td>\D</td>
+<td>匹配非数字</td>
+</tr>
+<tr>
+<td>[]</td>
+<td>匹配<code>[]</code>中列举的字符，可以根据ASCII表，进行连用，<code>a-z</code>表示<code>a</code>到<code>z</code>间</td>
+</tr>
+</tbody></table>
+<p><strong>注意：上面符号除非有其它符号搭配，如：<code>*</code>，否则都只匹配一次</strong></p>
+<h2 id="4-2-数量"><a href="#4-2-数量" class="headerlink" title="4.2 数量"></a>4.2 数量</h2><table>
+<thead>
+<tr>
+<th>字符</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>*</td>
+<td>匹配前一个字符出现0次或者无限次，匹配到的字符可有可无</td>
+</tr>
+<tr>
+<td>+</td>
+<td>匹配前一个字符出现1次或者无限次，匹配到的字符至少有1次</td>
+</tr>
+<tr>
+<td>?</td>
+<td>匹配前一个字符出现1次或者0次，匹配到的字符要么有1次，要么没有</td>
+</tr>
+<tr>
+<td>{m}</td>
+<td>匹配前一个字符出现m次</td>
+</tr>
+<tr>
+<td>{m,}</td>
+<td>匹配前一个字符至少出现m次</td>
+</tr>
+<tr>
+<td>{m,n}</td>
+<td>匹配前一个字符出现从m到n次</td>
+</tr>
+</tbody></table>
+<p><strong>注意：上面字符前面必须有元字符等字符，否则抛出异常</strong></p>
+<h2 id="4-3-边界"><a href="#4-3-边界" class="headerlink" title="4.3 边界"></a>4.3 边界</h2><table>
+<thead>
+<tr>
+<th>字符</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>^</td>
+<td>匹配字符串开头向后，后面可以有字符搭配，也可以没有</td>
+</tr>
+<tr>
+<td>$</td>
+<td>匹配字符串结尾向前，前面可以有字符搭配，也可以没有</td>
+</tr>
+<tr>
+<td>\b</td>
+<td>匹配符合一个单词的所有边界，根据需要匹配的边界搭配字符，没有字符则匹配所有空边界</td>
+</tr>
+<tr>
+<td>\B</td>
+<td>匹配符合非单词的所有边界</td>
+</tr>
+</tbody></table>
+<h2 id="4-4-分组"><a href="#4-4-分组" class="headerlink" title="4.4 分组"></a>4.4 分组</h2><table>
+<thead>
+<tr>
+<th>字符</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>|</td>
+<td>匹配左右任意一个表达式</td>
+</tr>
+<tr>
+<td>(ab)</td>
+<td>将括号中字符作为一个分组</td>
+</tr>
+<tr>
+<td>\num</td>
+<td>引用分组num匹配到的字符串</td>
+</tr>
+<tr>
+<td>(?P&lt;name&gt;)</td>
+<td>分组起别名</td>
+</tr>
+<tr>
+<td>(?P&#x3D;name)</td>
+<td>引用别名为name分组匹配到的字符串</td>
+</tr>
+<tr>
+<td>(?:..)</td>
+<td>取消分组符号里面有分组和没分组的情况，就是无论分不分组都输出</td>
+</tr>
+</tbody></table>
+<p>有时需要查找不属于某个能简单定义的字符类的字符，那么就是需要反义。</p>
+<blockquote>
+<p>前面的四个和上面一样，重点是第五个</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>字符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>\W</td>
+<td>匹配任意不是字母，数字，下划线，汉字的字符</td>
+</tr>
+<tr>
+<td>\S</td>
+<td>匹配任意不是空白符的字符</td>
+</tr>
+<tr>
+<td>\D</td>
+<td>匹配任意非数字的字符</td>
+</tr>
+<tr>
+<td>\B</td>
+<td>匹配不是单词开头或结束的位置</td>
+</tr>
+<tr>
+<td>[^aeiou]</td>
+<td>匹配除了 aeiou 这几个字母以外的任意字符</td>
+</tr>
+</tbody></table>
+<p>其他情况看一看：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_36072270/article/details/103497024">链接</a><br>在python中，如果我们需要对一个特殊字符进行转义(取消其特殊性)，那么我们可以使用<code>\</code>，但是遇到好几个<code>\</code>要输出时，就需要用双倍的反斜杠对本身进行转义，这时就会非常麻烦，所以python提供了原生字符串，就是在正则表达式前面加<code>r</code>。</p>
+<pre><code class="python">#例子
+import re
+string = &quot;d\\7787&quot;
+data = re.match(r&#39;d\\7\d&#39;,string)#在正则表达式前面加`r`
+print(data)
+#注意：这里只对\\不转义，其他单斜杠特殊字符还是会转义的
+</code></pre>
+<h1 id="伍-Python的re模块"><a href="#伍-Python的re模块" class="headerlink" title="伍 Python的re模块"></a>伍 Python的re模块</h1><p>为了使用正则表达式，Python使用re模块进行操作。</p>
+<h2 id="5-1-属性"><a href="#5-1-属性" class="headerlink" title="5.1 属性"></a>5.1 属性</h2><p>这些属性主要是用来改变re方法内的<code>flags</code>参数，即指定匹配模式，默认值为0。</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>别名</th>
+<th>作用</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ASCII</td>
+<td>A</td>
+<td>使元字符<code>\w</code>,<code>\W</code>,<code>\b</code>,<code>\B</code>,<code>\d</code>,<code>\D</code>,<code>\s</code>和<code>\S</code>仅匹配ASCII字符</td>
+<td>只在<code>string</code>模式下有意义，在<code>byte</code>模式下将被忽略</td>
+</tr>
+<tr>
+<td>DEBUG</td>
+<td></td>
+<td>显示debug信息</td>
+<td></td>
+</tr>
+<tr>
+<td>I</td>
+<td>IGNORECASE</td>
+<td>忽略大小写匹配</td>
+<td>对<code>Unicode</code>字符同样生效，除非指定了<code>re.ASCII</code>禁止匹配非ASCII字符</td>
+</tr>
+<tr>
+<td>L</td>
+<td>LOCALE</td>
+<td>让<code>\w</code>,<code>\W</code>,<code>\b</code>,<code>\B</code>和大小写的匹配取决于当前的语言环境</td>
+<td>该标志只能与<code>byte</code>模式一起使用</td>
+</tr>
+<tr>
+<td>M</td>
+<td>MULTILINE</td>
+<td>多行模式，改变元字符<code>^</code>和<code>$</code>的行为</td>
+<td>默认<code>^</code>只匹配字符串开始，指定后还会匹配每行的开始；默认<code>$</code>只匹配字符串结尾，指定后还会匹配每行结尾</td>
+</tr>
+<tr>
+<td>S</td>
+<td>DOTALL</td>
+<td>元字符<code>.</code>匹配任意字符，包括换行符</td>
+<td></td>
+</tr>
+<tr>
+<td>X</td>
+<td>VERBOSE</td>
+<td>冗余模式，可以在表达式中添加注释</td>
+<td>在编译时会忽略多余的空格和注释</td>
+</tr>
+</tbody></table>
+<p><strong>不建议使用<code>L</code>属性，因为语言环境机制非常不可靠，它一次只能处理一种区域性，并且仅适用于8位语言环境。默认情况下，Python3中已为<code>string</code>模式启用了<code>Unicode</code>匹配，并且能够处理不同的语言环境&#x2F;语言</strong></p>
+<h2 id="5-2-类型及模块"><a href="#5-2-类型及模块" class="headerlink" title="5.2 类型及模块"></a>5.2 类型及模块</h2><p>目前还没涉及到，了解即可。<br><strong>类型</strong></p>
+<pre><code class="python">error,Match,Pattern,RegexFlag,Scanner
+</code></pre>
+<p><strong>模块</strong></p>
+<pre><code class="python">copyreg,enum,functools,sre_compile,sre_parse
+</code></pre>
+<h2 id="5-3-常用方法"><a href="#5-3-常用方法" class="headerlink" title="5.3 常用方法"></a>5.3 常用方法</h2><p><strong>注意：下面方法的参数有以下三个</strong><br><code>pattern</code>为匹配的正则表达式<br><code>string</code>为需要被匹配的文本<br><code>flags</code>为标志位，用于控制正则表达式的编译方式</p>
+<h3 id="5-3-1-compile方法"><a href="#5-3-1-compile方法" class="headerlink" title="5.3.1 compile方法"></a>5.3.1 compile方法</h3><p><code>compile(pattern,flags=0)</code>方法是将正则表达式pattern编译成pattern对象，并返回一个<code>re.Pattern</code>对象，其实个人感觉这个方法有时候很多余。比如在使用match方法时，可以不使用这个方法。</p>
+<p><strong>例子</strong></p>
+<pre><code class="python">import re
+string = &#39;15468&#39;
+prog = re.compile(&#39;.&#39;)
+data = prog.match(string)
+print(data)#&lt;re.Match object; span=(0, 1), match=&#39;1&#39;&gt;
+#等价于data=re.match(string)
+</code></pre>
+<h3 id="5-3-2-escape方法"><a href="#5-3-2-escape方法" class="headerlink" title="5.3.2 escape方法"></a>5.3.2 escape方法</h3><p><code>escape(string)</code>方法是可以对<code>string</code>中所有可能被解释为正则运算符的字符进行转义，并返回一个<code>str</code>对象。如果字符串很长且包含很多特殊技字符，而你又不想输入一大堆反斜杠，或者字符串来自于用户，且要用作正则表达式的一部分的时候，可以使用这个函数。</p>
+<p><strong>例子</strong></p>
+<pre><code class="python">import re
+string = &#39;154\t6\n8&#39;
+data = re.escape(string)
+print(data)#154\	6\
+            #8
+</code></pre>
+<h3 id="5-3-3-findall方法"><a href="#5-3-3-findall方法" class="headerlink" title="5.3.3 findall方法"></a>5.3.3 findall方法</h3><p><code>findall(pattern,string,flags=0)</code>方法是从左到右匹配<code>string</code>中<code>pattern</code>的所有匹配项，并以找到的顺序组成<code>list</code>对象返回，若没有，则返回空列表。</p>
+<p><strong>例子</strong></p>
+<pre><code class="python">import re
+string = &#39;154685958&#39;
+data = re.findall(&#39;5&#39;,string)
+print(data)#[&#39;5&#39;, &#39;5&#39;, &#39;5&#39;]
+</code></pre>
+<h3 id="5-3-4-finditer方法"><a href="#5-3-4-finditer方法" class="headerlink" title="5.3.4 finditer方法"></a>5.3.4 finditer方法</h3><p><code>finditer(pattern,string,flags=0)</code>方法是与<code>findall</code>方法一样，但是返回的是一个<code>callable_iterator</code>对象，即迭代器对象。</p>
+<p><strong>例子</strong></p>
+<pre><code class="python">import re
+string = &#39;154685958&#39;
+data = re.finditer(&#39;5&#39;,string)
+print(data)#&lt;callable_iterator object at 0x000001BBCAF06760&gt;
+</code></pre>
+<h3 id="5-3-5-fullmatch方法"><a href="#5-3-5-fullmatch方法" class="headerlink" title="5.3.5 fullmatch方法"></a>5.3.5 fullmatch方法</h3><p><code>fullmatch(pattern,string,flags=0)</code>方法是判断<code>string</code>与<code>pattern</code>是否匹配，匹配则返回一个<code>re.Match</code>对象，不匹配则返回<code>None</code>。</p>
+<p><strong>例子</strong></p>
+<pre><code class="python">import re
+string = &#39;15468&#39;
+data = re.fullmatch(&#39;15468&#39;,string)
+print(data)#&lt;re.Match object; span=(0, 5), match=&#39;15468&#39;&gt;
+</code></pre>
+<h3 id="5-3-6-match方法"><a href="#5-3-6-match方法" class="headerlink" title="5.3.6 match方法"></a>5.3.6 match方法</h3><p><code>match(pattern,string,flags=0)</code>方法是匹配以pattern正则表达式开头的字符串，并返回一个<code>re.Match</code>对象实例，而不是在每个行的开头，若匹配不成功，则返回None。所以在使用正则表达式时，如果用<code>$</code>是返回空值的。</p>
+<p><strong>例子</strong></p>
+<pre><code class="python">import re
+string = &#39;15468&#39;
+data = re.match(&#39;.5&#39;,string)
+print(data)#&lt;re.Match object; span=(0, 2), match=&#39;15&#39;&gt;
+</code></pre>
+<h3 id="5-3-7-purge方法"><a href="#5-3-7-purge方法" class="headerlink" title="5.3.7 purge方法"></a>5.3.7 purge方法</h3><p><code>re.purge()</code>方法是清除正则表达式缓存。</p>
+<p><strong>例子</strong></p>
+<pre><code class="python">import re
+data = re.purge()
+print(data)
+</code></pre>
+<h3 id="5-3-8-search方法"><a href="#5-3-8-search方法" class="headerlink" title="5.3.8 search方法"></a>5.3.8 search方法</h3><p><code>search(pattern,string,flags=0)</code>方法是匹配<code>string</code>中第一次出现<code>pattern</code>中的表达式，并返回相应的<code>re.Match</code>对象，若匹配不成功，则返回None。</p>
+<p><strong>例子</strong></p>
+<pre><code class="python">import re
+string = &#39;15468&#39;
+data = re.search(&#39;5&#39;,string)
+print(data)#&lt;re.Match object; span=(1, 2), match=&#39;5&#39;&gt;
+</code></pre>
+<h3 id="5-3-9-split方法"><a href="#5-3-9-split方法" class="headerlink" title="5.3.9 split方法"></a>5.3.9 split方法</h3><p><code>split(pattern,string,maxsplit=0,flags=0)</code>方法是匹配到string中的pattern并将其拆分对应次数，并返回一个<code>list</code>对象，若没有，则返回一个有整个string的列表。如果maxsplit不为零，则返回maxsplit数目+1。</p>
+<p><strong>例子</strong></p>
+<pre><code class="python">import re
+string = &#39;154648485&#39;
+data = re.split(&#39;4&#39;,string,1)
+print(data)#[&#39;15&#39;, &#39;648485&#39;]
+</code></pre>
+<h3 id="5-3-10-sub方法"><a href="#5-3-10-sub方法" class="headerlink" title="5.3.10 sub方法"></a>5.3.10 sub方法</h3><p><code>sub(pattern,repl,string,count=0,flags=0)</code>方法是先用匹配<code>string</code>中的<code>pattern</code>，然后将其转换成<code>repl</code>，并返回一个<code>str</code>对象，若没有，则返回原<code>sting</code>。repl可以是字符串或函数，如果是字符串，则处理其中的任何反斜杠转义。count表示替换的次数。</p>
+<p><strong>例子</strong></p>
+<pre><code class="python">import re
+string = &#39;154648485&#39;
+data = re.sub(&#39;4&#39;,&#39;-&#39;,string,1)
+print(data)#15-648485
+</code></pre>
+<h3 id="5-3-11-subn方法"><a href="#5-3-11-subn方法" class="headerlink" title="5.3.11 subn方法"></a>5.3.11 subn方法</h3><p><code>subn(pattern,repl, string,count=0,flags=0)</code>方法是与<code>sub</code>方法一样，但返回一个由转换后的<code>string</code>与次数组成的<code>tuple</code>对象。</p>
+<p><strong>例子</strong></p>
+<pre><code class="python">import re
+string = &#39;154648485&#39;
+data = re.subn(&#39;4&#39;,&#39;-&#39;,string,2)
+print(data)#(&#39;15-6-8485&#39;, 2)
+</code></pre>
+<h3 id="5-3-12-template方法"><a href="#5-3-12-template方法" class="headerlink" title="5.3.12 template方法"></a>5.3.12 template方法</h3><p><code>template</code>方法是编译模板模式，返回一个<code>re.Pattern</code>对象。</p>
+<pre><code class="python">import re
+data = re.template(&#39;.&#39;)
+print(data)
+</code></pre>
+<h2 id="5-4-贪婪模式"><a href="#5-4-贪婪模式" class="headerlink" title="5.4 贪婪模式"></a>5.4 贪婪模式</h2><p>贪婪模式就是通过正则表达式尽可能多地匹配符合的字符，而在Python中正则表达式默认是贪婪模式(个别语言中也可能是非贪婪模式)。非贪婪模式则相反，尽可能少地匹配符合的字符。<br>如何将贪婪模式改成非贪婪模式呢？<br>那么我们可以在<code>*</code>、<code>?</code>、<code>+</code>、<code>&#123;m,n&#125;</code>等符号后面加上<code>?</code> </p>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>*?</td>
+<td>重复任意次，但尽可能少重复</td>
+</tr>
+<tr>
+<td>+?</td>
+<td>重复 1 次或更多次，但尽可能少重复</td>
+</tr>
+<tr>
+<td>??</td>
+<td>重复 0 次或 1 次，但尽可能少重复</td>
+</tr>
+<tr>
+<td>{n,m}?</td>
+<td>重复 n 到 m 次，但尽可能少重复</td>
+</tr>
+<tr>
+<td>{n,}?</td>
+<td>重复 n 次以上，但尽可能少重复</td>
+</tr>
+</tbody></table>
+<p>上面介绍的只是一些常用的，如果想深入了解可以查看官方文件：<a target="_blank" rel="noopener" href="https://docs.python.org/3.6/library/re.html">https://docs.python.org/3.6/library/re.html</a></p>
+
+    </div>
+    
+</div>
+                         
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2022 小C♥天天
+            <span class="footer-icon">
+                <i class="fa-brands fa-github fa-fw"></i>
+            </span>
+            @小C&天天
+        </div>
+        <div>
+            备案号：小C&天天の窝
+        </div>
+    </div>
+</footer>
+                    </div>
+                </div>
+            </transition>
+            <div id="img_show">
+                <img id="img_content" alt="img_show">
+            </div>
+        </div>
+        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
+        <script src="/js/particlex.js"></script>
+        <script src="/js/showimg.js"></script>
+        
+
+        <!-- 3D模型 -->
+        <div id="L2dCanvas" style="position: relative;"></div>
+        <script src="/js/live2d.min.js"></script>
+        <script src="/css/live2d.css"></script>
+        <script>
+            var v = new Viewer({
+                basePath: "/model",
+                role: "zhala_2",
+                mobile: true,
+            });
+        </script>
+        <!-- 点击 -->
+        <script>
+            let body = document.getElementsByTagName('body')[0];
+            body.addEventListener('click', (e) => {
+                let contentArr = ['✊','😘','😍','😊','😭','😡','😋','👍','🐷','😱','💷','💵','×','🆗','№','⭐','🌙','♥','💴','☀','🐎','🐂','🐏','√'];
+                let randomNum = function (n) {
+                    return Math.floor(Math.random() * n)
+                }
+                let span = document.createElement('span');
+                span.innerHTML = `${contentArr[randomNum(contentArr.length)]}`;
+                span.style.color = `rgb(${randomNum(256)},${randomNum(256)},${randomNum(256)})`;
+                span.style.position = 'absolute';
+                span.style.top = `${e.pageY}px`;
+                span.style.left = `${e.pageX}px`;
+                span.style.transition = 'all 1s ease';
+                span.style.zIndex = 20000;
+                body.appendChild(span)
+                setTimeout(()=>{
+                    span.style.top = span.offsetTop - 100 + 'px';
+                    span.style.opacity = 0;
+                    setTimeout(()=>{span.remove()},700)
+                },0)
+            })
+        </script>
+        <!-- 流星背景特效 -->
+        <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/background.js"></script>
+    </body>
+</html>

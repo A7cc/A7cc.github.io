@@ -1,0 +1,277 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>密码学（壹）——基础知识 | 小C♥天天</title>
+        <meta name="author" content="小C&天天">
+        <meta name="description" content="^v^">
+        <meta name="keywords" content="">
+        <link rel="icon" href="/images/icon.jpg">
+        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
+        <link rel="stylesheet" href="/css/fonts.min.css">
+        <link rel="stylesheet" href="/css/particlex.css">
+        <link rel="stylesheet" href="/css/main.css">
+        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
+        <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+    <meta name="generator" content="Hexo 6.2.0"></head>
+    <body>
+        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:30vmin;height:30vmin;padding:60px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #dd20dd;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">正在加载</p><div><img alt="loading" src="/images/afde9fa65a5742a90b51d6e1211e841e.gif"></div></div></div></div></div>
+        <div id="layout">
+            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
+            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
+            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
+            <transition name="into">
+                <div v-show="show_page" style="display: -not-none">
+                    <div id="menu_show">
+                         
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">小C♥天天</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;文章</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+    </div>
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
+        <div :class="'title'" @click="menu_show = !menu_show">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;小C♥天天</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+                    </div>
+                    <div id="main">
+                        
+<div class="article">
+    <div>
+        <h1>密码学（壹）——基础知识 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2022/9/22
+        </span>
+        
+        <span class="category">
+            <a href="/categories/密码学">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                </span>
+                密码学
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/密码学" style="color: #ffa2c4">
+                    密码学
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    <div class="content" v-pre>
+        <h1 id="壹-前言"><a href="#壹-前言" class="headerlink" title="壹 前言"></a>壹 前言</h1><p><font color="red">这系列为本人学习密码学的笔记，是基于《图解密码技术》为基础学习的。</font><br>在现实生活中，当我们进行数据传输时，可能会面临的安全问题无非就是三点：数据窃取、数据篡改、身份伪装。</p>
+<span id="more"></span>
+
+<p><img src="/images/%E5%AF%86%E7%A0%81%E5%AD%A6/386e55097c72e5f0777c423895150d17.png" alt="386e55097c72e5f0777c423895150d17.png"><br>这时候为了保密我们就需要将数据进行加密，防止别人窃取或者篡改等操作。</p>
+<p><strong>一些概念</strong>：</p>
+<ul>
+<li>明文：明文就是可以直接了解到的数据信息</li>
+<li>密文：密文就是通过某种特殊的算法改变原有的明文数据信息</li>
+<li>加密：加密是以某种特殊的算法将明文转换为密文的过程</li>
+<li>解密：解密是根据某种特殊的算法将密文转换为明文的过程</li>
+<li>可以看出加密和解密是相反的，并且互相依赖！</li>
+<li>破译：破译也是根据某种特殊的算法将密文转换为明文的过程，不过破译是未授权的人进行的，而解密是被授权的人进行的</li>
+</ul>
+<p><strong>一些密码信息使用常识</strong>：</p>
+<ul>
+<li>不要使用保密的密码算法。我觉得这个不仅仅局限于密码，还包括其他领域等，因为一般情况下公开的东西很多人都在用，是经过了无数次检验的，就算有问题也会有人帮忙解决，推出新版本，而私有的由于只是特定的人使用，很容易出现bug，很若依不经推敲，就算有问题也是部分人会修改，很局限。</li>
+<li>低密码其实比无密码更威胁。因为人在本能里会觉得一个页面肯定会有密码存在，而不会想到无密码这种情况。</li>
+<li>任何的加密算法都会被破解。例如非对称加密算法由英国安全局1973年发明，后由RSA于1977公开</li>
+</ul>
+<h1 id="贰-加密解密三要素"><a href="#贰-加密解密三要素" class="headerlink" title="贰 加密解密三要素"></a>贰 加密解密三要素</h1><h2 id="2-1-三要素分析"><a href="#2-1-三要素分析" class="headerlink" title="2.1 三要素分析"></a>2.1 三要素分析</h2><p><font color="red">个人见解：</font>当A需要将数据传输给B时，为了不让其他人窃取，这时候A就需要对数据进行加密，如何加密呢？首先需要传输的数据（明文），通过特定的规则或者算法（加密算法）对数据进行加密，这个时候就算完成一次<font color="red">加密</font>操作，但是通常情况下加密算法是公开的，全世界人都知道，所以我们通常叫这种方式为<font color="red">编码</font>，因为这种加密方式所有人都知道，如果只希望A和B知道加密数据，而其他人不知道，那么就需要<font color="red">密钥</font>，即解开这个算法的自定义钥匙，所以<font color="red">加密三要素为：明文、加密算法、密钥</font>。解密也一样，需要解密算法和密钥对密文进行解密。<font color="red">其实如何区别加密和编码，就看有没有密钥！</font>例如Base64不叫加密，而是编码，就是因为没有密钥！</p>
+<h2 id="2-2-加密三要素"><a href="#2-2-加密三要素" class="headerlink" title="2.2 加密三要素"></a>2.2 加密三要素</h2><ul>
+<li>明文：指要传输的数据</li>
+<li>加密算法：通过一个什么样的算法或者说是规则，对传输的数据进行加密，一般是公开的</li>
+<li>密钥：加密用的一段字符串，会根据算法的不同，而长度也不同，需要自己自定义</li>
+</ul>
+<h2 id="2-3-解密三要素"><a href="#2-3-解密三要素" class="headerlink" title="2.3 解密三要素"></a>2.3 解密三要素</h2><ul>
+<li>密文：明文经过加密后的数据</li>
+<li>解密算法：解密算法可能与加密算法相同，也可能不同</li>
+<li>密钥：解密用的一段字符串，会根据算法的不同，而长度也不同，需要自己自定义</li>
+</ul>
+<h1 id="叁-加密的类型"><a href="#叁-加密的类型" class="headerlink" title="叁 加密的类型"></a>叁 加密的类型</h1><h2 id="3-1-加密类型"><a href="#3-1-加密类型" class="headerlink" title="3.1 加密类型"></a>3.1 加密类型</h2><p>加密一般有两种：对称加密与非对称加密</p>
+<h2 id="3-2-对称加密"><a href="#3-2-对称加密" class="headerlink" title="3.2 对称加密"></a>3.2 对称加密</h2><p><strong>对称加密</strong>：指双方使用<font color="red">同一个密钥</font>，既可以加密，也可以解密，可以看出这个密钥不能被其他人知道，只能是对应的人，这个就会造成如果要和多个人进行数据传输，那么保管大量的密钥就成为一个问题。</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>优点：加密效率高，加解密速度快，通常发送大量数据时使用</li>
+<li>缺点：加密强度低，密钥分发困难，因为需要约定好相同的密钥，而且若与多个用户发送数据，都需要不同的密钥，就需要保管大量的密钥成为负担</li>
+</ul>
+<h2 id="3-3-非对称加密"><a href="#3-3-非对称加密" class="headerlink" title="3.3 非对称加密"></a>3.3 非对称加密</h2><p><strong>非对称加密</strong>：指由密钥对，即公钥与私钥组成，公钥可以分发，私钥不能泄露。<font color="red">如果用公开密钥对数据进行加密，只有用对应的私有密钥才能解密；如果用私有密钥对数据进行加密，那么只有用对应的公开密钥才能解密</font>。例如A需要传信息给B，那么A就需要用B的公钥进行加密，传给B，这时候B需要使用B的私钥进行解密，这时候倾听者C只知道B的公钥是不能对密文进行解密的。</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>优点：加密强度高，因为密钥比对称加密的长度长</li>
+<li>缺点：加密效率低，加密解密速度慢</li>
+</ul>
+<h1 id="肆-参考"><a href="#肆-参考" class="headerlink" title="肆 参考"></a>肆 参考</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45093118/article/details/104219710">密码学基础</a></li>
+</ul>
+
+    </div>
+    
+</div>
+                         
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2022 小C♥天天
+            <span class="footer-icon">
+                <i class="fa-brands fa-github fa-fw"></i>
+            </span>
+            @小C&天天
+        </div>
+        <div>
+            备案号：小C&天天の窝
+        </div>
+    </div>
+</footer>
+                    </div>
+                </div>
+            </transition>
+            <div id="img_show">
+                <img id="img_content" alt="img_show">
+            </div>
+        </div>
+        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
+        <script src="/js/particlex.js"></script>
+        <script src="/js/showimg.js"></script>
+        
+
+        <!-- 3D模型 -->
+        <div id="L2dCanvas" style="position: relative;"></div>
+        <script src="/js/live2d.min.js"></script>
+        <script src="/css/live2d.css"></script>
+        <script>
+            var v = new Viewer({
+                basePath: "/model",
+                role: "zhala_2",
+                mobile: true,
+            });
+        </script>
+        <!-- 点击 -->
+        <script>
+            let body = document.getElementsByTagName('body')[0];
+            body.addEventListener('click', (e) => {
+                let contentArr = ['✊','😘','😍','😊','😭','😡','😋','👍','🐷','😱','💷','💵','×','🆗','№','⭐','🌙','♥','💴','☀','🐎','🐂','🐏','√'];
+                let randomNum = function (n) {
+                    return Math.floor(Math.random() * n)
+                }
+                let span = document.createElement('span');
+                span.innerHTML = `${contentArr[randomNum(contentArr.length)]}`;
+                span.style.color = `rgb(${randomNum(256)},${randomNum(256)},${randomNum(256)})`;
+                span.style.position = 'absolute';
+                span.style.top = `${e.pageY}px`;
+                span.style.left = `${e.pageX}px`;
+                span.style.transition = 'all 1s ease';
+                span.style.zIndex = 20000;
+                body.appendChild(span)
+                setTimeout(()=>{
+                    span.style.top = span.offsetTop - 100 + 'px';
+                    span.style.opacity = 0;
+                    setTimeout(()=>{span.remove()},700)
+                },0)
+            })
+        </script>
+        <!-- 流星背景特效 -->
+        <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/background.js"></script>
+    </body>
+</html>

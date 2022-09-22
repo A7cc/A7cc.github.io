@@ -1,0 +1,362 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>DELL服务器安装ESXI | 小C♥天天</title>
+        <meta name="author" content="小C&天天">
+        <meta name="description" content="^v^">
+        <meta name="keywords" content="">
+        <link rel="icon" href="/images/icon.jpg">
+        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
+        <link rel="stylesheet" href="/css/fonts.min.css">
+        <link rel="stylesheet" href="/css/particlex.css">
+        <link rel="stylesheet" href="/css/main.css">
+        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
+        <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+    <meta name="generator" content="Hexo 6.2.0"></head>
+    <body>
+        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:30vmin;height:30vmin;padding:60px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #dd20dd;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">正在加载</p><div><img alt="loading" src="/images/afde9fa65a5742a90b51d6e1211e841e.gif"></div></div></div></div></div>
+        <div id="layout">
+            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
+            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
+            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
+            <transition name="into">
+                <div v-show="show_page" style="display: -not-none">
+                    <div id="menu_show">
+                         
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">小C♥天天</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;文章</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+    </div>
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
+        <div :class="'title'" @click="menu_show = !menu_show">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;小C♥天天</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+                    </div>
+                    <div id="main">
+                        
+<div class="article">
+    <div>
+        <h1>DELL服务器安装ESXI </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2022/9/22
+        </span>
+        
+        <span class="category">
+            <a href="/categories/乱七八糟">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                </span>
+                乱七八糟
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/服务器" style="color: #03a9f4">
+                    服务器
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/ESXI" style="color: #00a596">
+                    ESXI
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    <div class="content" v-pre>
+        <h1 id="壹-DELL服务器（工作站）安装ESXi"><a href="#壹-DELL服务器（工作站）安装ESXi" class="headerlink" title="壹 DELL服务器（工作站）安装ESXi"></a>壹 DELL服务器（工作站）安装ESXi</h1><p>本安装环境所需ESXi镜像：6.5 版本</p>
+<span id="more"></span>
+<h1 id="贰-安装"><a href="#贰-安装" class="headerlink" title="贰 安装"></a>贰 安装</h1><p>首先使用UltaISO进行U盘刻录（前提），接着插入U盘，设置为U盘启动，进入引导（前面这些基本上是服务器的引导界面做的，不仔细说明，包括Reid，引导）</p>
+<p>假设我们已经把前面的步骤搞完，也就是可以正常进入ESXI安装界面，如下：</p>
+<p><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/83615e3acbbb1fa27925bb0f9f54b236.png" alt="83615e3acbbb1fa27925bb0f9f54b236.png"><br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/e00d225957fc6f5d368fc22f1216ce55.png" alt="e00d225957fc6f5d368fc22f1216ce55.png"></p>
+<p>出现一系列页面后，出现以下界面，按Enter确认安装：<br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/54f844482c96f3e0a91e37f6bf76843a.png" alt="54f844482c96f3e0a91e37f6bf76843a.png"><br>F11 接受协议并继续：<br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/47cbb7c398b4a89d4d31133b2c35bf0e.png" alt="47cbb7c398b4a89d4d31133b2c35bf0e.png"><br>此界面为选择安装位置，Enter 确认，安装到本地磁盘中：<br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/23d3534d59cd1700f9989149cee6c3bd.png" alt="23d3534d59cd1700f9989149cee6c3bd.png"><br>键盘类型，保持默认美式键盘，Enter 继续：<br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/4993dde26d6d9de2b11e544f546a4687.png" alt="4993dde26d6d9de2b11e544f546a4687.png"><br>输入root密码，密码要求7位以上，按 Enter 继续（Tab是换行）：<br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/769dfc3ed6c6ad623a67539b3ff46244.png" alt="769dfc3ed6c6ad623a67539b3ff46244.png"><br>选择F11 安装：<br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/f66206cc55efc4bbfa7bbd76c7150dc5.png" alt="f66206cc55efc4bbfa7bbd76c7150dc5.png"></p>
+<p>选择第一行，重新开机，这时候记得把U盘取出来，否则会重新安装之前的步骤：<br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/3c933fee3c17a27b76cdcbbff4cc80f5.png" alt="3c933fee3c17a27b76cdcbbff4cc80f5.png"></p>
+<p>至此安装完成，进入控制台，通过控制台可以看到服务器的基本信息以及IP地址，可以看到IP为0.0.0.0，不可用需要配置网络，看叁配置！<br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/3fbf64f0431355be0011e693488d02cb.png" alt="3fbf64f0431355be0011e693488d02cb.png"></p>
+<h1 id="叁-配置"><a href="#叁-配置" class="headerlink" title="叁 配置"></a>叁 配置</h1><p>按F2进入配置<br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/bf6dbc3461dbc8cfd6bfbb61b6ea0f18.png" alt="bf6dbc3461dbc8cfd6bfbb61b6ea0f18.png"></p>
+<table>
+<thead>
+<tr>
+<th>配置页面英文</th>
+<th>配置页面翻译</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ConfigurePassword</td>
+<td>配置root密码</td>
+</tr>
+<tr>
+<td>ConfigureLockdown Mode</td>
+<td>配置锁定模式。启用锁定模式后，除vpxuser以外的任何用户都没有身份验证权限，也无法直接对ESXi执行操作。锁定模式将强制所有操作都通过vCenter Server执行</td>
+</tr>
+<tr>
+<td>Configure Management Network</td>
+<td>配置网络</td>
+</tr>
+<tr>
+<td>Restart Management Network</td>
+<td>重启网络</td>
+</tr>
+<tr>
+<td>Test Management Network</td>
+<td>使用Ping命令测试网络</td>
+</tr>
+<tr>
+<td>Network Restore Options</td>
+<td>还原网络配置</td>
+</tr>
+<tr>
+<td>Configure Keyboard</td>
+<td>配置键盘布局</td>
+</tr>
+<tr>
+<td>Troubleshooting Options</td>
+<td>故障排除设置</td>
+</tr>
+<tr>
+<td>ViewSystem Logs</td>
+<td>查看系统日志</td>
+</tr>
+<tr>
+<td>ViewSupport Information</td>
+<td>查看支持信息</td>
+</tr>
+</tbody></table>
+<p><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/b06029b695aca1dd7643d9cf092c57cd.png" alt="b06029b695aca1dd7643d9cf092c57cd.png"></p>
+<h2 id="3-1-更改密码"><a href="#3-1-更改密码" class="headerlink" title="3.1 更改密码"></a>3.1 更改密码</h2><p>选中第一项Configure Password，按Enter确认，提示输入老密码和二次新密码，按Enter，密码修改完成：<br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/74dd366ba13a2a26cbece32747099b1c.png" alt="74dd366ba13a2a26cbece32747099b1c.png"></p>
+<h2 id="3-2-网络设置"><a href="#3-2-网络设置" class="headerlink" title="3.2 网络设置"></a>3.2 网络设置</h2><p>设置静态IP地址由于IP地址默认是DHCP获取的，企业环境中都要配置静态IP地址，选中Configure Management Network按“回车”键确认，选择IPV4</p>
+<table>
+<thead>
+<tr>
+<th>网络配置页面英文</th>
+<th>网络配置页面翻译</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>NetworkAdapters</td>
+<td>网卡选择</td>
+</tr>
+<tr>
+<td>VLAN（optional）</td>
+<td>设置VLan</td>
+</tr>
+<tr>
+<td>IPv4Configuration</td>
+<td>设置IPv4地址</td>
+</tr>
+<tr>
+<td>IPv6Configuration</td>
+<td>设置IPv4地址</td>
+</tr>
+<tr>
+<td>DNSConfiguration</td>
+<td>设置DNS地址</td>
+</tr>
+<tr>
+<td>CustomDNS Suffixes</td>
+<td>自定义DNS后缀</td>
+</tr>
+</tbody></table>
+<p><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/7de7862bddb2d29e1db0343172a6bc07.png" alt="7de7862bddb2d29e1db0343172a6bc07.png"></p>
+<p>按空格键选中第三项，设置静态IP地址、掩码、网关的信息</p>
+<table>
+<thead>
+<tr>
+<th>配置页面英文</th>
+<th>配置页面翻译</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DisableIPv4 configuration for management network</td>
+<td>禁用IPv4地址</td>
+</tr>
+<tr>
+<td>Usedynamic IPv4 address and network configuration</td>
+<td>配置动态IPv4地址</td>
+</tr>
+<tr>
+<td>Setstatic IPv4 address and network configuration</td>
+<td>配置静态IPv4地址</td>
+</tr>
+</tbody></table>
+<p><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/39769d4fa235e0c6bb41f9d2e6da8618.png" alt="39769d4fa235e0c6bb41f9d2e6da8618.png"></p>
+<p>选中DNS Configuration，按Enter键确认，可根据实际需要更改DNS和本机名，按Enter键确认：<br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/9f30427fecb76bb602eac7be12652f96.png" alt="9f30427fecb76bb602eac7be12652f96.png"></p>
+<h1 id="肆-密钥"><a href="#肆-密钥" class="headerlink" title="肆 密钥"></a>肆 密钥</h1><p>配置完网络后，重启服务器，重启后使用浏览器访问ESXI，登录，选择管理 —&#x3D;&gt; 许可 -&#x3D;&gt; 分配许可证，许可证：</p>
+<pre><code>0A65P-00HD0-3Z5M1-M097M-22P7H
+MZ0TJ-8V307-GZ919-QT876-13YPV
+0V0VU-06KD6-CZU48-Q2150-03WLU
+MY0R3-2W04J-9Z340-8CAQP-1AJ56
+</code></pre>
+<p><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/b1957fbb5a421f09696bfe4004659d6c.png" alt="b1957fbb5a421f09696bfe4004659d6c.png"></p>
+<h1 id="伍-参考"><a href="#伍-参考" class="headerlink" title="伍 参考"></a>伍 参考</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_35428201/article/details/80933733">DELL服务器（工作站）安装ESXi(详细过程）</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41235530/article/details/118080597">ESXI 6.5安装详细步骤</a></p>
+
+    </div>
+    
+</div>
+                         
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2022 小C♥天天
+            <span class="footer-icon">
+                <i class="fa-brands fa-github fa-fw"></i>
+            </span>
+            @小C&天天
+        </div>
+        <div>
+            备案号：小C&天天の窝
+        </div>
+    </div>
+</footer>
+                    </div>
+                </div>
+            </transition>
+            <div id="img_show">
+                <img id="img_content" alt="img_show">
+            </div>
+        </div>
+        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
+        <script src="/js/particlex.js"></script>
+        <script src="/js/showimg.js"></script>
+        
+
+        <!-- 3D模型 -->
+        <div id="L2dCanvas" style="position: relative;"></div>
+        <script src="/js/live2d.min.js"></script>
+        <script src="/css/live2d.css"></script>
+        <script>
+            var v = new Viewer({
+                basePath: "/model",
+                role: "zhala_2",
+                mobile: true,
+            });
+        </script>
+        <!-- 点击 -->
+        <script>
+            let body = document.getElementsByTagName('body')[0];
+            body.addEventListener('click', (e) => {
+                let contentArr = ['✊','😘','😍','😊','😭','😡','😋','👍','🐷','😱','💷','💵','×','🆗','№','⭐','🌙','♥','💴','☀','🐎','🐂','🐏','√'];
+                let randomNum = function (n) {
+                    return Math.floor(Math.random() * n)
+                }
+                let span = document.createElement('span');
+                span.innerHTML = `${contentArr[randomNum(contentArr.length)]}`;
+                span.style.color = `rgb(${randomNum(256)},${randomNum(256)},${randomNum(256)})`;
+                span.style.position = 'absolute';
+                span.style.top = `${e.pageY}px`;
+                span.style.left = `${e.pageX}px`;
+                span.style.transition = 'all 1s ease';
+                span.style.zIndex = 20000;
+                body.appendChild(span)
+                setTimeout(()=>{
+                    span.style.top = span.offsetTop - 100 + 'px';
+                    span.style.opacity = 0;
+                    setTimeout(()=>{span.remove()},700)
+                },0)
+            })
+        </script>
+        <!-- 流星背景特效 -->
+        <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/background.js"></script>
+    </body>
+</html>
