@@ -149,15 +149,15 @@
             
             <span class="tag">
                 
-                <a href="/tags/开发" style="color: #00a596">
-                    开发
+                <a href="/tags/Go" style="color: #ffa2c4">
+                    Go
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/Go" style="color: #00bcd4">
-                    Go
+                <a href="/tags/开发" style="color: #ffa2c4">
+                    开发
                 </a>
             </span>
             
@@ -291,6 +291,13 @@ name := make([]type, len)
 <p>切片拥有自己的长度和容量，可以指定容量， length是当前容量，capacity是最大容量，其中capacity为可选参数，默认等于length。我们可以通过使用内置的<code>len()</code>函数求长度，使用内置的<code>cap()</code>函数求切片的容量。</p>
 <pre><code class="go">make([]T, length, capacity)
 </code></pre>
+<blockquote>
+<p>为什么切片需要容量？</p>
+<ul>
+<li>a.可以隐藏数组中暂时不使用的空间</li>
+<li>b.当使用数组达到闸值时，重新分配空间，实现动态数组效果</li>
+</ul>
+</blockquote>
 <h2 id="3-3-切片初始化"><a href="#3-3-切片初始化" class="headerlink" title="3.3 切片初始化"></a>3.3 切片初始化</h2><p>切片的初始化比较灵活：</p>
 <pre><code class="go">//直接初始化切片，[] 表示是切片类型，&#123;1,2,3&#125; 初始化值依次是 1,2,3，其 cap=len=3，一般使用这种方式定义
 s :=[]int&#123;1,2,3&#125; 

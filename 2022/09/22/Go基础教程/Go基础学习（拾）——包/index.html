@@ -149,15 +149,15 @@
             
             <span class="tag">
                 
-                <a href="/tags/开发" style="color: #00bcd4">
-                    开发
+                <a href="/tags/Go" style="color: #00bcd4">
+                    Go
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/Go" style="color: #03a9f4">
-                    Go
+                <a href="/tags/开发" style="color: #ff7d73">
+                    开发
                 </a>
             </span>
             
@@ -456,7 +456,7 @@ func main() &#123;
 // Hello World！这是Go的测试库！
 // demo
 </code></pre>
-<p><code>Go</code>语言支持在一个项目下定义多个包，比如我们在<code>demo</code>项目内部创建一个新的包——<code>test</code>，此时新的项目目录结构如下：</p>
+<p><code>Go</code>语言支持在一个项目下定义多个包，比如我们在<code>demo</code>项目内部创建一个新的包——<code>test</code>，此时新的项目目录结构如下（必须要有<code>go.mod</code>文件去确定<code>test</code>包的位置）：</p>
 <pre><code class="go">demo
 ├ go.mod
 ├ go.sum
@@ -466,6 +466,7 @@ func main() &#123;
 </code></pre>
 <p>其中<code>demo/test/test.go</code>文件内容如下：</p>
 <pre><code class="go">// 注意这里的包是test包不是main，因为它不是完整的程序
+// 这里的包名、文件名和文件夹尽量一致，因为在引入包时不容易混淆，当然也可以不一致，这时候引入包的名字也行，文件的名字也行，不过建议引入的是包名
 package test
 
 import &quot;fmt&quot;
