@@ -1,0 +1,713 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>Go基础学习（陆）——结构体 | 小C♥天天</title>
+        <meta name="author" content="小C&天天">
+        <meta name="description" content="^v^">
+        <meta name="keywords" content="">
+        <link rel="icon" href="/images/icon.jpg">
+        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
+        <link rel="stylesheet" href="/css/fonts.min.css">
+        <link rel="stylesheet" href="/css/particlex.css">
+        <link rel="stylesheet" href="/css/main.css">
+        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
+        <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+    <meta name="generator" content="Hexo 6.2.0"></head>
+    <body>
+        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:30vmin;height:30vmin;padding:60px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #dd20dd;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">正在加载</p><div><img alt="loading" src="/images/afde9fa65a5742a90b51d6e1211e841e.gif"></div></div></div></div></div>
+        <div id="layout">
+            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
+            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
+            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
+            <transition name="into">
+                <div v-show="show_page" style="display: -not-none">
+                    <div id="menu_show">
+                         
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">小C♥天天</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;文章</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+    </div>
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
+        <div :class="'title'" @click="menu_show = !menu_show">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;小C♥天天</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+                    </div>
+                    <div id="main">
+                        
+<div class="article">
+    <div>
+        <h1>Go基础学习（陆）——结构体 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2022/10/21
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Go基础教程">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                </span>
+                Go基础教程
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Go" style="color: #03a9f4">
+                    Go
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/开发" style="color: #00a596">
+                    开发
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    <div class="content" v-pre>
+        <h1 id="壹-介绍"><a href="#壹-介绍" class="headerlink" title="壹 介绍"></a>壹 介绍</h1><p>Go语言中的基础数据类型可以表示一些事物的基本属性，但是当我们想表达一个事物的全部或部分属性时，这时候再用单一的基本数据类型明显就无法满足需求了，Go语言提供了一种自定义数据类型，可以封装多个基本数据类型（<strong>这是数组与结构体区别</strong>），这种数据类型叫<strong>结构体</strong>，英文名称<code>struct</code>。 </p>
+<span id="more"></span>
+<p>结构体是由一系列具有相同类型或不同类型的数据构成的数据集合。<font color="red">Go语言内置的基础数据类型是用来描述一个值的，而结构体是用来描述一组值的</font>。结构体表示一项记录，比如保存图书馆的书籍记录，每本书有以下属性：</p>
+<ul>
+<li>Title ：标题</li>
+<li>Author ： 作者</li>
+<li>Subject：学科</li>
+<li>ID：书籍ID</li>
+</ul>
+<p>这些都可以用结构体包装起来。在Go语言中没有类的概念，也不支持类的继承等面向对象的概念。Go语言中通过结构体的内嵌再配合接口比面向对象具有更高的扩展性和灵活性。</p>
+<h1 id="贰-类型别名和自定义类型"><a href="#贰-类型别名和自定义类型" class="headerlink" title="贰 类型别名和自定义类型"></a>贰 类型别名和自定义类型</h1><h2 id="2-1-自定义类型"><a href="#2-1-自定义类型" class="headerlink" title="2.1 自定义类型"></a>2.1 自定义类型</h2><p>在Go语言中有一些基本的数据类型，如<code>string</code>、<code>整型</code>、<code>浮点型</code>、<code>布尔</code>等数据类型， Go语言中可以使用<code>type</code>关键字来定义自定义类型。</p>
+<p>自定义类型是定义了一个全新的类型。我们可以基于内置的基本类型定义，也可以通过struct定义。例如：</p>
+<pre><code class="go">//将MyInt定义为int类型
+type MyInt int
+</code></pre>
+<p>通过<code>type</code>关键字的定义，<code>MyInt</code>就是一种新的类型，它具有<code>int</code>的特性。</p>
+<h2 id="2-2-类型别名"><a href="#2-2-类型别名" class="headerlink" title="2.2 类型别名"></a>2.2 类型别名</h2><p>类型别名是<code>Go1.9</code>版本添加的新功能。类型别名规定：TypeAlias只是Type的别名，本质上TypeAlias与Type是同一个类型。就像一个孩子小时候有小名、乳名，上学后用学名，英语老师又会给他起英文名，但这些名字都指的是他本人。</p>
+<pre><code class="go">type TypeAlias = Type
+</code></pre>
+<p>我们之前见过的<code>rune</code>和<code>byte</code>就是类型别名，他们的定义如下：</p>
+<pre><code class="go">type byte = uint8
+type rune = int32
+</code></pre>
+<h2 id="2-3-类型定义和类型别名的区别"><a href="#2-3-类型定义和类型别名的区别" class="headerlink" title="2.3 类型定义和类型别名的区别"></a>2.3 类型定义和类型别名的区别</h2><p>类型别名与类型定义表面上看只有一个等号的差异，我们通过下面的这段代码来理解它们之间的区别。</p>
+<pre><code class="go">//类型定义
+type NewInt int
+
+//类型别名
+type MyInt = int
+
+func main() &#123;
+    var a NewInt
+    var b MyInt
+
+    fmt.Printf(&quot;type of a:%T\n&quot;, a) //type of a:main.NewInt		可以看到是一个全新的类型
+    fmt.Printf(&quot;type of b:%T\n&quot;, b) //type of b:int		只是给int取了别名
+&#125;
+</code></pre>
+<p>结果显示a的类型是<code>main.NewInt</code>，表示main包下定义的<code>NewInt</code>类型。b的类型是<code>int</code>。<code>MyInt</code>类型只会在代码中存在，编译完成时并不会有<code>MyInt</code>类型。</p>
+<h1 id="叁-定义声明结构体"><a href="#叁-定义声明结构体" class="headerlink" title="叁 定义声明结构体"></a>叁 定义声明结构体</h1><p>结构体定义需要使用<code>type</code>和<code>struct</code>语句。</p>
+<ul>
+<li><code>struct</code>语句定义一个新的数据类型，这个数据类型就是一个结构体，结构体中有一个或多个成员，这些成员有不同的数据类型组成。</li>
+</ul>
+<p>结构体的格式如下：</p>
+<pre><code class="go">type 类型名 struct&#123;
+    //可以看出不需要加var
+    字段名 字段类型
+    字段名 字段类型
+    ...
+&#125;
+// 类型名：标识自定义结构体的名称，在同一个包内不能重复,就类似与int、string这些类型名。
+// 字段名：表示结构体内的属性名。结构体中的字段名必须唯一，结构体中字段大写开头表示可公开访问，小写表示私有（仅在定义当前结构体的包中可访问）
+// 字段类型：表示结构体内属性具体的类型。
+</code></pre>
+<p>例子：</p>
+<pre><code class="go">package main
+import &quot;fmt&quot;
+type Books struct &#123;
+    title, author   string //标题、作者，可以看到该定义可以像定义变量语言多个定义
+    subject string //学科
+    book_id int    //书籍ID
+&#125;
+// 上面结构体的类型名：Books，有title、 author、subject、book_id这些属性
+func main() &#123;
+    //变量创建一个结构体
+    Book1 := Books&#123;&quot;假如给我三天光明&quot;, &quot;海伦凯勒&quot;, &quot;文学&quot;, 1&#125;
+    fmt.Println(Book1)
+    //直接输出创建一个结构体
+    fmt.Println(Books&#123;&quot;假如给我三天光明&quot;, &quot;海伦凯勒&quot;, &quot;文学&quot;, 1&#125;)
+    //使用 key =&gt; value 格式
+    fmt.Println(Books&#123;title: &quot;假如给我三天光明&quot;, author: &quot;海伦凯勒&quot;, subject: &quot;文学&quot;, book_id: 1&#125;)
+    //忽略的字段为 0 或 空
+    fmt.Println(Books&#123;title: &quot;假如给我三天光明&quot;&#125;)
+&#125;
+</code></pre>
+<p><img src="/images/Go%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/08e66b6cc1fb0b93f62d64b619a8e897.png" alt="08e66b6cc1fb0b93f62d64b619a8e897.png"></p>
+<h1 id="肆-结构体实例化与访问结构体成员"><a href="#肆-结构体实例化与访问结构体成员" class="headerlink" title="肆 结构体实例化与访问结构体成员"></a>肆 结构体实例化与访问结构体成员</h1><h2 id="4-1-实例化与访问结构体成员"><a href="#4-1-实例化与访问结构体成员" class="headerlink" title="4.1 实例化与访问结构体成员"></a>4.1 实例化与访问结构体成员</h2><ul>
+<li><p>结构体实例化<br>同样结构体与其他数据类型一样需要实例化，才能分配内存空间，也就是必须实例化后才能使用结构体的字段。由于结构体本身也是一种类型，我们可以像之前声明内置类型一样使用<code>var</code>关键字声明结构体类型。</p>
+<pre><code class="go">var 结构体实例 结构体类型
+</code></pre>
+</li>
+<li><p>访问结构体成员<br>如果要访问结构体成员，需要使用点号<code>.</code>操作符，格式为：</p>
+<pre><code class="go">结构体.成员名
+</code></pre>
+</li>
+</ul>
+<h2 id="4-2-基本实例化"><a href="#4-2-基本实例化" class="headerlink" title="4.2 基本实例化"></a>4.2 基本实例化</h2><pre><code class="go">package main
+
+import &quot;fmt&quot;
+
+type person struct &#123;
+    name, city string
+    age		int8
+&#125;
+func main() &#123;
+    var p1 person
+    p1.name = &quot;A7cc&quot;
+    p1.city = &quot;中国&quot;
+    p1.age = 18
+    fmt.Printf(&quot;p1=%v\n&quot;, p1)  //p1=&#123;A7cc 中国 18&#125;
+    fmt.Printf(&quot;p1=%#v\n&quot;, p1) //p1=main.person&#123;name:&quot;A7cc&quot;, city:&quot;中国&quot;, age:18&#125;
+&#125;
+</code></pre>
+<h2 id="4-3-匿名结构体"><a href="#4-3-匿名结构体" class="headerlink" title="4.3 匿名结构体"></a>4.3 匿名结构体</h2><p>在定义一些临时数据结构等场景下还可以使用匿名结构体。</p>
+<pre><code class="go">package main
+import (
+    &quot;fmt&quot;
+)
+func main() &#123;
+    user := struct &#123;
+        Name string
+        Age  int
+    &#125;&#123;
+        &quot;A7cc&quot;,
+        18,
+    &#125;
+    fmt.Printf(&quot;%#v\n&quot;, user) //struct &#123; Name string; Age int &#125;&#123;Name:&quot;A7cc&quot;, Age:18&#125;
+&#125;
+</code></pre>
+<blockquote>
+<p>小知识：<br>有些项目会有这种情况：struct {}、struct {} {}<br>struct {}是一个无元素的结构体类型，通常在没有信息存储时使用。优点是大小为0，不需要内存来存储struct {}类型的值，注意是没有没有内存存储<br>struct {} {}是一个复合字面量，它构造了一个struct {}类型的值，该值也是空<br>这种形式的结构体不占据内存空间，因此被广泛作为各种场景下的占位符使用。一是节省资源，二是空结构体本身就具备很强的语义，即这里不需要任何值，仅作为占位符。</p>
+</blockquote>
+<pre><code class="go">var set map[string]struct&#123;&#125; 
+set = make(map[string]struct&#123;&#125;)
+
+set[&quot;red&quot;] = struct&#123;&#125;&#123;&#125; // struct&#123;&#125;&#123;&#125;  构造了一个struct &#123;&#125;类型的值
+set[&quot;blue&quot;] = struct&#123;&#125;&#123;&#125;
+
+_, ok := set[&quot;red&quot;]
+fmt.Println(&quot;Is red in the map?&quot;, ok)
+_, ok = set[&quot;green&quot;]
+fmt.Println(&quot;Is green in the map?&quot;, ok)
+// Is red in the map? true
+// Is green in the map? false
+</code></pre>
+<p><code>map</code>可以通过<code>comma ok</code>机制来获取该<code>key</code>是否存在<code>_, ok := map[&quot;key&quot;]</code>，如果没有对应的值，<code>ok</code>为<code>false</code>，这样可以通过定义成<code>map[string]struct&#123;&#125;</code>的形式，值不再占用内存。其值仅有两种状态：有或无。</p>
+<ul>
+<li>其他知识点<br><code>chan struct&#123;&#125;</code>：可以用作通道的退出<br>两个<code>structt&#123;&#125;&#123;&#125;</code>地址相等</li>
+</ul>
+<h2 id="4-4-创建指针类型结构体"><a href="#4-4-创建指针类型结构体" class="headerlink" title="4.4 创建指针类型结构体"></a>4.4 创建指针类型结构体</h2><p>我们还可以通过使用<code>new</code>关键字对结构体进行实例化，得到的是结构体的地址。 格式如下：</p>
+<pre><code class="go">var p2 = new(person)
+fmt.Printf(&quot;%T\n&quot;, p2)     //*main.person
+fmt.Printf(&quot;p2=%#v\n&quot;, p2) //p2=&amp;main.person&#123;name:&quot;&quot;, city:&quot;&quot;, age:0&#125;
+</code></pre>
+<p>从打印的结果中我们可以看出<code>p2</code>是一个结构体指针。<font color="red">需要注意的是在Go语言中支持对结构体指针直接使用<code>.</code>来访问结构体的成员</font>。</p>
+<pre><code class="go">var p2 = new(person)
+p2.name = &quot;小王子&quot;
+p2.age = 28
+p2.city = &quot;上海&quot;
+fmt.Printf(&quot;p2=%#v\n&quot;, p2) //p2=&amp;main.person&#123;name:&quot;小王子&quot;, city:&quot;上海&quot;, age:28&#125;
+</code></pre>
+<h2 id="4-5-取结构体的地址实例化"><a href="#4-5-取结构体的地址实例化" class="headerlink" title="4.5 取结构体的地址实例化"></a>4.5 取结构体的地址实例化</h2><p>使用<code>&amp;</code>对结构体进行取地址操作相当于对该结构体类型进行了一次<code>new</code>实例化操作。</p>
+<pre><code class="go">p3 := &amp;person&#123;&#125;
+fmt.Printf(&quot;%T\n&quot;, p3)     //*main.person
+fmt.Printf(&quot;p3=%#v\n&quot;, p3) //p3=&amp;main.person&#123;name:&quot;&quot;, city:&quot;&quot;, age:0&#125;
+p3.name = &quot;七米&quot;
+p3.age = 30
+p3.city = &quot;成都&quot;
+fmt.Printf(&quot;p3=%#v\n&quot;, p3) //p3=&amp;main.person&#123;name:&quot;七米&quot;, city:&quot;成都&quot;, age:30&#125;
+</code></pre>
+<p><code>p3.name = &quot;七米&quot;</code>其实在底层是<code>(*p3).name = &quot;七米&quot;</code>，这是Go语言帮我们实现的语法糖。</p>
+<h1 id="伍-结构体初始化"><a href="#伍-结构体初始化" class="headerlink" title="伍 结构体初始化"></a>伍 结构体初始化</h1><p>没有初始化的结构体，其成员变量都是对应其类型的零值。</p>
+<pre><code class="go">type person struct &#123;
+    name string
+    city string
+    age  int8
+&#125;
+// 这个结构体会在下面小节延用
+
+func main() &#123;
+    var p4 person
+    fmt.Printf(&quot;p4=%#v\n&quot;, p4) //p4=main.person&#123;name:&quot;&quot;, city:&quot;&quot;, age:0&#125;
+&#125;
+</code></pre>
+<h2 id="5-1-使用键值对初始化"><a href="#5-1-使用键值对初始化" class="headerlink" title="5.1 使用键值对初始化"></a>5.1 使用键值对初始化</h2><p>使用键值对对结构体进行初始化时，键对应结构体的字段，值对应该字段的初始值。</p>
+<pre><code class="go">p5 := person&#123;
+    name: &quot;A7cc&quot;,
+    city: &quot;中国&quot;,
+    age:  18,
+    // 初始化最后一定要加英文的 , 逗号
+&#125;
+fmt.Printf(&quot;p5=%#v\n&quot;, p5) //p5=main.person&#123;name:&quot;A7cc&quot;, city:&quot;中国&quot;, age:18&#125;
+</code></pre>
+<p>也可以对结构体指针进行键值对初始化，例如：</p>
+<pre><code class="go">p6 := &amp;person&#123;
+    name: &quot;A7cc&quot;,
+    city: &quot;中国&quot;,
+    age:  18,
+&#125;
+fmt.Printf(&quot;p6=%#v\n&quot;, p6) //p6=&amp;main.person&#123;name:&quot;A7cc&quot;, city:&quot;中国&quot;, age:18&#125;
+</code></pre>
+<p>当某些字段没有初始值的时候，该字段可以不写。此时，没有指定初始值的字段的值就是该字段类型的零值。</p>
+<pre><code class="go">p7 := &amp;person&#123;
+    city: &quot;中国&quot;,
+&#125;
+fmt.Printf(&quot;p7=%#v\n&quot;, p7) //p7=&amp;main.person&#123;name:&quot;&quot;, city:&quot;中国&quot;, age:0&#125;
+</code></pre>
+<h2 id="5-2-使用值的列表初始化"><a href="#5-2-使用值的列表初始化" class="headerlink" title="5.2 使用值的列表初始化"></a>5.2 使用值的列表初始化</h2><p>初始化结构体的时候可以简写，也就是初始化的时候不写键，直接写值：</p>
+<pre><code class="go">// 也可以对结构体指针这样定义
+p8 := person&#123;
+    &quot;A7cc&quot;,
+    &quot;中国&quot;,
+    18,
+&#125;
+fmt.Printf(&quot;p8=%#v\n&quot;, p8) //p8=main.person&#123;name:&quot;A7cc&quot;, city:&quot;中国&quot;, age:18&#125;
+</code></pre>
+<p>使用这种格式初始化时，需要注意：</p>
+<ul>
+<li>a.必须初始化结构体的所有字段。</li>
+<li>b.初始值的填充顺序必须与字段在结构体中的声明顺序一致。</li>
+<li>c.该方式不能和键值初始化方式混用。</li>
+</ul>
+<h2 id="5-3-结构体内存布局"><a href="#5-3-结构体内存布局" class="headerlink" title="5.3 结构体内存布局"></a>5.3 结构体内存布局</h2><p>结构体占用的是一块连续的内存。</p>
+<pre><code class="go">type test struct &#123;
+    a int8
+    b int8
+    c int8
+    d int8
+&#125;
+n := test&#123;
+    1, 2, 3, 4,
+&#125;
+fmt.Printf(&quot;n.a %p\n&quot;, &amp;n.a)	// n.a 0xc0000a0060
+fmt.Printf(&quot;n.b %p\n&quot;, &amp;n.b)	// n.b 0xc0000a0061
+fmt.Printf(&quot;n.c %p\n&quot;, &amp;n.c)	// n.c 0xc0000a0062
+fmt.Printf(&quot;n.d %p\n&quot;, &amp;n.d)	// n.d 0xc0000a0063
+</code></pre>
+<p>【进阶知识点】关于Go语言中的内存对齐推荐阅读:<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000017527311?utm_campaign=studygolang.com&utm_medium=studygolang.com&utm_source=studygolang.com">在 Go 中恰到好处的内存对齐</a></p>
+<h2 id="5-4-空结构体"><a href="#5-4-空结构体" class="headerlink" title="5.4 空结构体"></a>5.4 空结构体</h2><p>空结构体是不占用空间的。</p>
+<pre><code class="go">var v struct&#123;&#125;
+fmt.Println(unsafe.Sizeof(v))  // 0
+</code></pre>
+<h1 id="陆-结构体标签（Tag）"><a href="#陆-结构体标签（Tag）" class="headerlink" title="陆 结构体标签（Tag）"></a>陆 结构体标签（Tag）</h1><h2 id="6-1-struct成员变量标签（Tag）说明"><a href="#6-1-struct成员变量标签（Tag）说明" class="headerlink" title="6.1 struct成员变量标签（Tag）说明"></a>6.1 struct成员变量标签（Tag）说明</h2><p>在<code>golang</code>中，命名都是推荐都是用驼峰方式，并且在首字母大小写有特殊的语法含义：包外无法引用。但是由经常需要和其它的系统进行数据交互，例如转成JSON格式，存储到<code>mongodb</code>等等。这个时候如果用属性名来作为键值可能不一定会符合项目要求。所以就多了反引号的内容，在<code>golang</code>中叫标签（<code>Tag</code>），在转换成其它数据格式的时候，会使用其中特定的字段作为键值。</p>
+<pre><code class="go">package main
+
+import (
+    &quot;encoding/json&quot;
+    &quot;fmt&quot;
+)
+
+type User struct &#123;
+    // Tag标签说明，我们只需要在元素后面加上`json:&quot;自定义属性名&quot;`
+    UserId   int    `json:&quot;user_id&quot; bson:&quot;user_id&quot;`
+    UserName string `json:&quot;user_name&quot; bson:&quot;user_name&quot;`
+&#125;
+
+func main() &#123;
+    u := &amp;User&#123;UserId: 1, UserName: &quot;tony&quot;&#125;
+    j, _ := json.Marshal(u)
+    fmt.Println(string(j))
+
+    // 输出内容：
+    // &#123;&quot;user_id&quot;:1,&quot;user_name&quot;:&quot;tony&quot;&#125;
+    // 如果在属性中不增加标签说明，则输出：
+    // &#123;&quot;UserId&quot;:1,&quot;UserName&quot;:&quot;tony&quot;&#125;
+    // 可以看到直接用struct的属性名做键值。
+    // ==其中还有一个bson的声明，这个是用在将数据存储到mongodb使用的==
+&#125;
+</code></pre>
+<h2 id="6-2-struct成员变量标签（Tag）获取"><a href="#6-2-struct成员变量标签（Tag）获取" class="headerlink" title="6.2 struct成员变量标签（Tag）获取"></a>6.2 struct成员变量标签（Tag）获取</h2><p>那么当我们需要自己封装一些操作，需要用到Tag中的内容时，咋样去获取呢？这边可以使用反射包<code>reflect</code>中的方法来获取：</p>
+<pre><code class="go">package main
+
+import (
+    &quot;encoding/json&quot;
+    &quot;fmt&quot;
+    &quot;reflect&quot;
+)
+
+func main() &#123;
+    type User struct &#123;
+        UserId   int    `json:&quot;user_id&quot; bson:&quot;user_id&quot;`
+        UserName string `json:&quot;user_name&quot; bson:&quot;user_name&quot;`
+    &#125;
+    // 输出json格式
+    u := &amp;User&#123;UserId: 1, UserName: &quot;tony&quot;&#125;
+    j, _ := json.Marshal(u)
+    fmt.Println(string(j))
+    // 输出内容：&#123;&quot;user_id&quot;:1,&quot;user_name&quot;:&quot;tony&quot;&#125;
+
+    // 获取tag中的内容
+    t := reflect.TypeOf(u)
+    field := t.Elem().Field(0)
+    fmt.Println(field.Tag.Get(&quot;json&quot;))
+    // 输出：user_id
+    fmt.Println(field.Tag.Get(&quot;bson&quot;))
+    // 输出：user_id
+&#125;
+</code></pre>
+<h2 id="6-3-自定义tag"><a href="#6-3-自定义tag" class="headerlink" title="6.3 自定义tag"></a>6.3 自定义tag</h2><p>我们还可以自定义Tag。</p>
+<pre><code class="go">// 获取tag中的内容
+typeof := reflect.TypeOf(u)
+field := typeof.Elem().Field(0)
+fmt.Println(field.Tag.Get(&quot;json&quot;))
+// 输出：user_id
+fmt.Println(field.Tag.Get(&quot;bson&quot;))
+// 输出：user_id
+fmt.Println(field.Tag.Get(&quot;test&quot;))
+// 输出：test
+</code></pre>
+<h2 id="6-4-omitempty——可以忽略不必要的信息"><a href="#6-4-omitempty——可以忽略不必要的信息" class="headerlink" title="6.4 omitempty——可以忽略不必要的信息"></a>6.4 omitempty——可以忽略不必要的信息</h2><h3 id="6-4-1-使用介绍"><a href="#6-4-1-使用介绍" class="headerlink" title="6.4.1 使用介绍"></a>6.4.1 使用介绍</h3><p>在 <code>Golang</code> 的结构体定义中添加 <code>omitempty</code> 关键字，来表示一条信息如果没有提供，在序列化成 <code>JSON</code> 的时候就不要包含其默认值。</p>
+<p>例如：</p>
+<pre><code class="go">package main
+
+import (
+    &quot;encoding/json&quot;
+    &quot;fmt&quot;
+)
+
+type address struct &#123;
+    Street  string `json:&quot;street&quot;`  // 街道
+    Ste     string `json:&quot;suite&quot;`   // 单元（可以不存在）
+    City    string `json:&quot;city&quot;`    // 城市
+    State   string `json:&quot;state&quot;`   // 州/省
+    Zipcode string `json:&quot;zipcode&quot;` // 邮编
+&#125;
+
+func main() &#123;
+    data := `&#123;
+    &quot;street&quot;: &quot;200 Larkin St&quot;,
+    &quot;city&quot;: &quot;San Francisco&quot;,
+    &quot;state&quot;: &quot;CA&quot;,
+    &quot;zipcode&quot;: &quot;94102&quot;
+&#125;`
+    addr := new(address)
+    json.Unmarshal([]byte(data), &amp;addr)
+
+    // 处理了一番 addr 变量...
+
+    addressBytes, _ := json.MarshalIndent(addr, &quot;&quot;, &quot;    &quot;)
+    fmt.Printf(&quot;%s\n&quot;, string(addressBytes))
+&#125;
+</code></pre>
+<p>输出的是：</p>
+<pre><code class="go">&#123;
+    &quot;street&quot;: &quot;200 Larkin St&quot;,
+    &quot;suite&quot;: &quot;&quot;,
+    &quot;city&quot;: &quot;San Francisco&quot;,
+    &quot;state&quot;: &quot;CA&quot;,
+    &quot;zipcode&quot;: &quot;94102&quot;
+&#125;
+</code></pre>
+<p>多了一行 <code>&quot;suite&quot;: &quot;&quot;</code>，而这则信息在原本的 JSON 数据中是没有的，我们更希望的是，在一个地址有 <code>suite</code> 号码的时候输出，不存在 <code>suite</code> 的时候就不输出，这时候我们就需要使用<code>omitempty</code>关键字。修改例子：</p>
+<pre><code class="go">package main
+
+import (
+    &quot;encoding/json&quot;
+    &quot;fmt&quot;
+)
+
+type address struct &#123;
+    Street  string `json:&quot;street&quot;`  // 街道
+    // 在json内追加omitempty即可
+    Ste     string `json:&quot;suite,omitempty&quot;`   // 单元
+    City    string `json:&quot;city&quot;`    // 城市
+    State   string `json:&quot;state&quot;`   // 州/省
+    Zipcode string `json:&quot;zipcode&quot;` // 邮编
+&#125;
+
+func main() &#123;
+    data := `&#123;
+    &quot;street&quot;: &quot;200 Larkin St&quot;,
+    &quot;city&quot;: &quot;San Francisco&quot;,
+    &quot;state&quot;: &quot;CA&quot;,
+    &quot;zipcode&quot;: &quot;94102&quot;
+&#125;`
+    addr := new(address)
+    json.Unmarshal([]byte(data), &amp;addr)
+
+    // 处理了一番 addr 变量...
+
+    addressBytes, _ := json.MarshalIndent(addr, &quot;&quot;, &quot;    &quot;)
+    fmt.Printf(&quot;%s\n&quot;, string(addressBytes))
+&#125;
+// &#123;
+//     &quot;street&quot;: &quot;200 Larkin St&quot;,
+//     &quot;city&quot;: &quot;San Francisco&quot;,
+//     &quot;state&quot;: &quot;CA&quot;,
+//     &quot;zipcode&quot;: &quot;94102&quot;
+// &#125;
+</code></pre>
+<h3 id="6-4-2-陷阱"><a href="#6-4-2-陷阱" class="headerlink" title="6.4.2 陷阱"></a>6.4.2 陷阱</h3><p>带来方便的同时，使用 <code>omitempty</code> 也有些小陷阱。</p>
+<h4 id="6-4-2-1-关键字无法忽略掉嵌套结构体"><a href="#6-4-2-1-关键字无法忽略掉嵌套结构体" class="headerlink" title="6.4.2.1 关键字无法忽略掉嵌套结构体"></a>6.4.2.1 关键字无法忽略掉嵌套结构体</h4><p>还是拿地址类型说事，这回我们想要往地址结构体中加一个新 <code>Coordinate</code> 来表示经纬度，如果没有缺乏相关的数据，暂时可以忽略。</p>
+<pre><code class="go">type Address struct &#123;
+    City       string     `json:&quot;city&quot;`
+    Street     string     `json:&quot;street&quot;`
+    ZipCode    string     `json:&quot;zip_code,omitempty&quot;`
+    Coordinate coordinate `json:&quot;coordinate,omitempty&quot;`
+&#125;
+
+type coordinate struct &#123;
+    Lat float64 `json:&quot;latitude&quot;`
+    Lng float64 `json:&quot;longitude&quot;`
+&#125;
+
+func TestMarshal(t *testing.T) &#123;
+    data := `&#123;
+        &quot;city&quot;: &quot;Beijing&quot;,
+        &quot;street&quot;: &quot;a&quot;
+    &#125;`
+    addr := &amp;Address&#123;&#125;
+    json.Unmarshal([]byte(data), addr)
+
+    addressBytes, _ := json.MarshalIndent(addr, &quot;&quot;, &quot;    &quot;)
+    fmt.Printf(&quot;%s\n&quot;, string(addressBytes))
+&#125;
+
+// 输出是：
+// &#123;
+//     &quot;city&quot;: &quot;Beijing&quot;,
+//     &quot;street&quot;: &quot;a&quot;,
+//     &quot;coordinate&quot;: &#123;
+//         &quot;latitude&quot;: 0,
+//         &quot;longitude&quot;: 0
+//     &#125;
+// &#125;
+</code></pre>
+<p>读入原来的地址数据，处理后序列化输出，我们就会发现<strong>即使加上了 <code>omitempty</code> 关键字，输出的 <code>JSON</code> 还是带上了一个空的坐标信息</strong>。为了达到我们想要的效果，可以<strong>把坐标定义为指针类型</strong>，这样 <code>Golang</code> 就能知道一个指针的空值是多少了，否则面对一个我们自定义的结构， <code>Golang</code> 是猜不出我们想要的空值的。于是有了如下的结构体定义：</p>
+<pre><code class="go">type address struct &#123;
+    Street     string      `json:&quot;street&quot;`
+    Ste        string      `json:&quot;suite,omitempty&quot;`
+    City       string      `json:&quot;city&quot;`
+    State      string      `json:&quot;state&quot;`
+    Zipcode    string      `json:&quot;zipcode&quot;`
+    Coordinate *coordinate `json:&quot;coordinate,omitempty&quot;`
+&#125;
+
+type coordinate struct &#123;
+    Lat float64 `json:&quot;latitude&quot;`
+    Lng float64 `json:&quot;longitude&quot;`
+&#125;
+// 输出是：
+// &#123;
+//     &quot;street&quot;: &quot;200 Larkin St&quot;,
+//     &quot;city&quot;: &quot;San Francisco&quot;,
+//     &quot;state&quot;: &quot;CA&quot;,
+//     &quot;zipcode&quot;: &quot;94102&quot;
+// &#125;
+</code></pre>
+<h4 id="6-4-2-2-想要传入零值"><a href="#6-4-2-2-想要传入零值" class="headerlink" title="6.4.2.2 想要传入零值"></a>6.4.2.2 想要传入零值</h4><p>对于用 <code>omitempty</code> 定义的 字段 ，<strong>如果给它赋的值恰好等于默认空值的话</strong>，在转为 json 之后也不会输出这个 字段 。比如说上面定义的经纬度坐标结构体，如果我们将经纬度两个 字段 都加上 <code>omitempty</code>。</p>
+<pre><code class="go">type coordinate struct &#123;
+    Lat float64 `json:&quot;latitude,omitempty&quot;`
+    Lng float64 `json:&quot;longitude,omitempty&quot;`
+&#125;
+
+func TestMarshal(t *testing.T) &#123;
+    data := `&#123;
+        &quot;latitude&quot;: 1.0,
+        &quot;longitude&quot;: 0.0
+    &#125;`
+    c := &amp;coordinate&#123;&#125;
+    json.Unmarshal([]byte(data), c)
+    fmt.Printf(&quot;%#v\n&quot;, c)
+
+    addressBytes, _ := json.MarshalIndent(c, &quot;&quot;, &quot;    &quot;)
+    fmt.Printf(&quot;%s\n&quot;, string(addressBytes))
+&#125;
+
+// &amp;omitempty.coordinate&#123;Lat:1, Lng:0&#125;
+// &#123;
+//     &quot;latitude&quot;: 1
+// &#125;
+</code></pre>
+<p>这个坐标的<code>longitude</code>消失不见了！但我们的设想是，如果一个地点没有经纬度信息，则悬空，这没有问题，但对于原点坐标，我们在确切知道它的经纬度的情况下，<code>0.0</code>仍然被忽略了。正确的写法也是将结构体内的定义改为指针：</p>
+<pre><code class="go">type coordinate struct &#123;
+    Lat *float64 `json:&quot;latitude,omitempty&quot;`
+    Lng *float64 `json:&quot;longitude,omitempty&quot;`
+&#125;
+
+// &amp;omitempty.coordinate&#123;Lat:(*float64)(0xc0000a6288), Lng:(*float64)(0xc0000a6298)&#125;
+// &#123;
+//     &quot;latitude&quot;: 1,
+//     &quot;longitude&quot;: 0
+// &#125;
+</code></pre>
+<p>这样空值就从 <code>float64</code> 的 <code>0.0</code> 变为了指针类型的 <code>nil</code> ，我们就能看到正确的经纬度输出。</p>
+
+    </div>
+    
+</div>
+                         
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2022 小C♥天天
+            <span class="footer-icon">
+                <i class="fa-brands fa-github fa-fw"></i>
+            </span>
+            @小C&天天
+        </div>
+        <div>
+            备案号：小C&天天の窝
+        </div>
+    </div>
+</footer>
+                    </div>
+                </div>
+            </transition>
+            <div id="img_show">
+                <img id="img_content" alt="img_show">
+            </div>
+        </div>
+        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
+        <script src="/js/particlex.js"></script>
+        <script src="/js/showimg.js"></script>
+        
+
+        <!-- 3D模型 -->
+        <div id="L2dCanvas" style="position: relative;"></div>
+        <script src="/js/live2d.min.js"></script>
+        <script src="/css/live2d.css"></script>
+        <script>
+            var v = new Viewer({
+                basePath: "/model",
+                role: "zhala_2",
+                mobile: true,
+            });
+        </script>
+        <!-- 点击 -->
+        <script>
+            let body = document.getElementsByTagName('body')[0];
+            body.addEventListener('click', (e) => {
+                let contentArr = ['✊','😘','😍','😊','😭','😡','😋','👍','🐷','😱','💷','💵','×','🆗','№','⭐','🌙','♥','💴','☀','🐎','🐂','🐏','√'];
+                let randomNum = function (n) {
+                    return Math.floor(Math.random() * n)
+                }
+                let span = document.createElement('span');
+                span.innerHTML = `${contentArr[randomNum(contentArr.length)]}`;
+                span.style.color = `rgb(${randomNum(256)},${randomNum(256)},${randomNum(256)})`;
+                span.style.position = 'absolute';
+                span.style.top = `${e.pageY}px`;
+                span.style.left = `${e.pageX}px`;
+                span.style.transition = 'all 1s ease';
+                span.style.zIndex = 20000;
+                body.appendChild(span)
+                setTimeout(()=>{
+                    span.style.top = span.offsetTop - 100 + 'px';
+                    span.style.opacity = 0;
+                    setTimeout(()=>{span.remove()},700)
+                },0)
+            })
+        </script>
+        <!-- 流星背景特效 -->
+        <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/background.js"></script>
+    </body>
+</html>

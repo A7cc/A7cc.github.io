@@ -1,0 +1,487 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>Python学习（一）——基础 | 小C♥天天</title>
+        <meta name="author" content="小C&天天">
+        <meta name="description" content="^v^">
+        <meta name="keywords" content="">
+        <link rel="icon" href="/images/icon.jpg">
+        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
+        <link rel="stylesheet" href="/css/fonts.min.css">
+        <link rel="stylesheet" href="/css/particlex.css">
+        <link rel="stylesheet" href="/css/main.css">
+        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
+        <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+    <meta name="generator" content="Hexo 6.2.0"></head>
+    <body>
+        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:30vmin;height:30vmin;padding:60px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #dd20dd;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">正在加载</p><div><img alt="loading" src="/images/afde9fa65a5742a90b51d6e1211e841e.gif"></div></div></div></div></div>
+        <div id="layout">
+            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
+            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
+            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
+            <transition name="into">
+                <div v-show="show_page" style="display: -not-none">
+                    <div id="menu_show">
+                         
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">小C♥天天</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;文章</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+    </div>
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
+        <div :class="'title'" @click="menu_show = !menu_show">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;小C♥天天</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+                    </div>
+                    <div id="main">
+                        
+<div class="article">
+    <div>
+        <h1>Python学习（一）——基础 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2022/10/21
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Python基础教程">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                </span>
+                Python基础教程
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/开发" style="color: #00bcd4">
+                    开发
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Python" style="color: #00a596">
+                    Python
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    <div class="content" v-pre>
+        <h1 id="壹-计算机编程语言的发展历史"><a href="#壹-计算机编程语言的发展历史" class="headerlink" title="壹 计算机编程语言的发展历史"></a>壹 计算机编程语言的发展历史</h1><p>1946年在费城第一代计算机——<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/ENIAC/431133?fr=aladdin">ENIAC</a>公诸于世，标志现代计算机的诞生，是计算机发展史上的里程碑。<br>计算机终究是一种机器，在没有人类的驱动下是无法运行的，所以需要人类对其内部进行相关的配置，才能运行，但计算机却采用二进制进行运算和存储，而人类通常使用十进制数进行逻辑运算，这样使得人类不容易理解、编写计算机程序，由此<strong>计算机编程语言</strong>也就随着诞生了。<br>计算机的第一代编程语言也就是机器语言，一条机器指令规定了计算机系统的一个特定动作，使得计算机可以按照人们的意识去运行，但由于这种语言需要专业的计算机编程人员才能编写，加上对计算机系统的兼容性问题使得二代编程语言应运而生——汇编语言，这种语言相对于机器语言更容易让人理解和接受，但还是没有得到广泛的认可，其复杂性有待提高因此人们有发明了第三代编程语言高级语言也就是我们平时说的C&#x2F;C++语言等编程语言。<br>第三代编程语言在目前为止已经是非常成熟的编程语言了，但是呢，由于人们为了缩短传统的编写-编译-链接-运行过程就就创建了脚本编程语言。目前世界上主流的脚本语言有javascript、Python等。</p>
+<span id="more"></span>
+<blockquote>
+<p><strong>在许多方面，高级编程语言和脚本语言之间互相交叉，二者之间没有明确的界限。</strong></p>
+</blockquote>
+<h1 id="贰-Python编程语言的历史"><a href="#贰-Python编程语言的历史" class="headerlink" title="贰 Python编程语言的历史"></a>贰 Python编程语言的历史</h1><h2 id="2-1-简介"><a href="#2-1-简介" class="headerlink" title="2.1 简介"></a>2.1 简介</h2><p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Python/407313?fr=aladdin">Python</a>是一种面向对象（其实看使用者的思想，可以看我的另一篇文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41734243/article/details/104263828">链接在这</a>）的动态类型语言。</p>
+<p>Python是脚本语言，也是弱类型语言，还是动态语言，更是面向对象语言。</p>
+<h2 id="2-2-历史"><a href="#2-2-历史" class="headerlink" title="2.2 历史"></a>2.2 历史</h2><p>1989年圣诞节期间，在阿姆斯特丹Guido（也就是Python语言创始人，头发比其他编程语言创始人头发多，这应该是Guido写Python语言最自豪的地方吧！）为了打发圣诞节的无趣加上向让编程更容易让人们学习和编写，也就是人人码代码，决心开发一个新的脚本解释程序（大佬的兴趣就是不一样）。1991年推进如开源社区，并且得到编写、升级、扩展。<br>Python语言在开始时还没有引起非常大的轰动，后来因为因为shell的语法有点非人性化，使得运维人员开始使用，之后跌跌撞撞到了如今21世纪，人工智能热点出现，Python再一次进入人们的视野，到今天为止也就是2020年2月16日，位居所有编程语言第三名。<br><strong>下图是编程语言排行</strong><br><img src="/images/Python%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/0f171f9c2bd33a8332d203efbb751789.png" alt="0f171f9c2bd33a8332d203efbb751789.png"></p>
+<h2 id="2-3-python的版本变迁"><a href="#2-3-python的版本变迁" class="headerlink" title="2.3 python的版本变迁"></a>2.3 python的版本变迁</h2><p>Python语言目前的版本有2.x和3.x两种。<br>python 2：不推荐学习，18年官方2020年之后python不在免费维护2这个版本<br>python 3：3.5版本以上</p>
+<h2 id="2-4-Python安装配置"><a href="#2-4-Python安装配置" class="headerlink" title="2.4 Python安装配置"></a>2.4 Python安装配置</h2><h3 id="2-4-1-安装"><a href="#2-4-1-安装" class="headerlink" title="2.4.1 安装"></a>2.4.1 安装</h3><p>windows安装：去官网下就行：<a target="_blank" rel="noopener" href="https://www.python.org/">链接</a><br>这里推荐一个老哥的博客：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/approx/p/12284210.html">链接在这里</a><br>Centos8安装：<code>dnf install python3</code></p>
+<h3 id="2-4-2-环境"><a href="#2-4-2-环境" class="headerlink" title="2.4.2 环境"></a>2.4.2 环境</h3><p>在安装的时候如果选择Add Python 3.x to PATH选项就没必要了，但是如果没有选中，则需要配置！<br>如果不会可以看这篇文章：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/huangbiquan/p/7784533.html">链接</a></p>
+<h3 id="2-4-3-编辑器"><a href="#2-4-3-编辑器" class="headerlink" title="2.4.3 编辑器"></a>2.4.3 编辑器</h3><p>码代码嘛！所以肯定要写的啦！那拿什么东西写呢？一般我们用编辑器码代码。<br>下面是推荐的几个编辑器：<br>1、记事本（只要是有电脑就可以用）<br>2、Vim（挚爱，真的很好用，强力推荐，神一样编辑器）<br>3、PyCharm（专门用于Python开发的IDE，强调专业的，你懂的！！！）<br>4、VSCode（微软开发，一般Windows用户推荐使用）<br>5、SublimeText（轻量级的代码编辑器）</p>
+<h3 id="2-4-4-测试"><a href="#2-4-4-测试" class="headerlink" title="2.4.4 测试"></a>2.4.4 测试</h3><p>测试：在键盘是键入Win+R -&gt; cmd -&gt; python<br>如果出现如下图片则为安装成功！<br><img src="/images/Python%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/fcbb22cede4a39a1cb5c8fa6dc4af344.png" alt="fcbb22cede4a39a1cb5c8fa6dc4af344.png"></p>
+<h1 id="叁-第一个python程序"><a href="#叁-第一个python程序" class="headerlink" title="叁 第一个python程序"></a>叁 第一个python程序</h1><pre><code class="python">print(&quot;Hello!World!&quot;)
+</code></pre>
+<p>这里的print()是Python内置函数，是系统标准输出函数<br>作用：将括号中的字符串数据输出控制台上<br>可以理解为在屏幕上显示东西。</p>
+<p><strong>注意：Python的语法规则是通过换行符作为一个语句结束的标识</strong></p>
+<h1 id="肆-Python的注释"><a href="#肆-Python的注释" class="headerlink" title="肆 Python的注释"></a>肆 Python的注释</h1><h2 id="4-1-什么是注释"><a href="#4-1-什么是注释" class="headerlink" title="4.1 什么是注释"></a>4.1 什么是注释</h2><p>注释就是对编程代码含义的让人类可以理解的解释，<strong>注释跟程序无关</strong>，不会被编译器编译，是用来给程序员的看的，以便理解代码的意思。		</p>
+<h2 id="4-2-注释的分类"><a href="#4-2-注释的分类" class="headerlink" title="4.2 注释的分类"></a>4.2 注释的分类</h2><p>在Python语言中（其实其他编程语言也是），有两种注释的方法：单行注释和多行注释</p>
+<p><strong>（1）单行注释</strong>：</p>
+<pre><code class="python"># 单行注释
+</code></pre>
+<p><strong>（2）多行注释</strong>:</p>
+<pre><code class="python">&quot;&quot;&quot;
+这是多行注释
+&quot;&quot;&quot;
+</code></pre>
+<h1 id="伍-变量"><a href="#伍-变量" class="headerlink" title="伍 变量"></a>伍 变量</h1><p>Python是弱数据类型语言！</p>
+<h2 id="5-1-什么是变量？"><a href="#5-1-什么是变量？" class="headerlink" title="5.1 什么是变量？"></a>5.1 什么是变量？</h2><p>就是符号来代表这个值，可以理解为一个人的名字吧！但是这个名字是独一无二的，它只能标识一个数据，如果给其他数据了，那么原来的数据就没有名字了，也就是变量名！有些人也叫标识符！</p>
+<h2 id="5-2-变量的定义"><a href="#5-2-变量的定义" class="headerlink" title="5.2 变量的定义"></a>5.2 变量的定义</h2><p>变量名称 &#x3D; 变量值</p>
+<h2 id="5-3-Python的变量类型不固定"><a href="#5-3-Python的变量类型不固定" class="headerlink" title="5.3 Python的变量类型不固定"></a>5.3 Python的变量类型不固定</h2><p>由于Python的变量类型不固定，所以变量接受到了什么值，那么类型随之就变成了对象的类型。<br>可以用内置函数<code>type()</code>查看变量类型。</p>
+<h2 id="5-4-变量命名规则"><a href="#5-4-变量命名规则" class="headerlink" title="5.4 变量命名规则"></a>5.4 变量命名规则</h2><p>（1）、变量名称的组成必须是有效符号（大小字母、数组、<code>_</code>下划线）<br>Python是大小写敏感的语言<br>（2）、不要使用关键字或者保留字作为变量名称<br>关键字：Python<br>保留字：目前的版本没有使用的单词，但是后面的版本可能或者准备<br>（3）、不要以数字开头！！！！<br>（4）、命名要有意义，尽量使用有意义的单词来表示变量，下面是普遍使用的命名习惯：</p>
+<blockquote>
+<p>驼峰法：	userName  classRoom<br>下划线发：	user_name class_room</p>
+</blockquote>
+<h2 id="5-5-Python关键字"><a href="#5-5-Python关键字" class="headerlink" title="5.5 Python关键字"></a>5.5 Python关键字</h2><pre><code class="python">[&#39;False&#39;, &#39;None&#39;, &#39;True&#39;, &#39;and&#39;, &#39;as&#39;, &#39;assert&#39;, &#39;break&#39;, &#39;class&#39;, &#39;continue&#39;, 
+&#39;def&#39;, &#39;del&#39;, &#39;elif&#39;, &#39;else&#39;, &#39;except&#39;, &#39;finally&#39;, &#39;for&#39;, &#39;from&#39;, &#39;global&#39;,
+&#39;if&#39;, &#39;import&#39;, &#39;in&#39;, &#39;is&#39;, &#39;lambda&#39;, &#39;nonlocal&#39;, &#39;not&#39;, &#39;or&#39;, &#39;pass&#39;,
+&#39;raise&#39;, &#39;return&#39;, &#39;try&#39;, &#39;while&#39;, &#39;with&#39;, &#39;yield&#39;]
+</code></pre>
+<h2 id="5-6-Python官方命名含义"><a href="#5-6-Python官方命名含义" class="headerlink" title="5.6 Python官方命名含义"></a>5.6 Python官方命名含义</h2><p><strong>前后置双下划线的变量</strong>：魔法方法，这样的方法会在类或对象的某些事件触发后执行<br><strong>前置单下划线的变量</strong>：表面上私有，最好是只在内部使用，意思就是：虽然我可以被访问，但是请把我视为私有变量，不要随意访问</p>
+<p><strong>前置双下划线的变量</strong>：真正的私有属性或者私有方法，可以使该属性变量或方法私有，不会被派生类区继承，仅能类自己使用，可以避免派生类和父类属性方法名称的冲突</p>
+<p><strong>后置单下划线的变量</strong>：没有特殊的含义，只是为和python关键字区分</p>
+<p><strong>全是小写的变量</strong>：小写单词，单词之间用_分割，一般使用在普通变量、模块名、包名、普通方法<br><strong>每个单词前面都大写的变量</strong>：类名称<br><strong>全是大写的变量</strong>：全局变量名，单词之间用_分割 ，即类变量(在C++中使用static声明)</p>
+<p><strong>前面没有星号的变量</strong>：arg，方法传输的一个形参</p>
+<p><strong>前面只有一个星号的变量</strong>：*args，方法传输的未知数量的形参，多个参数组成一个元组</p>
+<p><strong>前面有两个星号的变量</strong>：**kwargs，多个健值对形参，组成一个字典</p>
+<p>以上是一小部分的，官方建议命名规则，参考于这个博文：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/Maker-Liu/p/5528213.html">链接在此</a></p>
+<h2 id="5-7-变量的输入输出和格式化"><a href="#5-7-变量的输入输出和格式化" class="headerlink" title="5.7 变量的输入输出和格式化"></a>5.7 变量的输入输出和格式化</h2><p><strong>a.输出</strong><br>Python中我们使用<code>print()</code>函数进行输出，就是在屏幕上输出的信息，输出一个字符串类型</p>
+<pre><code class="python">#例子
+print(&quot;这是一个字符串&quot;)	#输出结果：这是一个字符串
+</code></pre>
+<p>还有一种输出方式，是原样输出：</p>
+<pre><code class="python">import pprint
+a = &quot;&quot;&quot;
+    asa
+        sas
+        da
+    aa
+&quot;&quot;&quot;
+pprint.pprint(a)
+</code></pre>
+<p><strong>b.输入</strong><br>Python中我们使用<code>input()</code>函数进行输入，就是用键盘在屏幕上输入的信息，括号里是提示用户的字符串，返回一个字符串数据类型</p>
+<pre><code class="python">#例子
+str_1=(&quot;请输入数据：&quot;)#假设输入Hello！python！
+print(str_1)	#输出结果：Hello！python！
+</code></pre>
+<p><strong>c.格式化</strong><br>在输出时我们想用<code>print()</code>中输出非字符串的数据，但是由于<code>print()</code>只能输出字符串类型，所以我们需要格式化(可以理解为数据的转化)</p>
+<p>第一种方法是使用函数在<code>print()</code>外面转化</p>
+<pre><code class="python">#例子
+a=10
+b=str(a)
+print(&quot;这是一个数字：&quot; + b)	#输出结果：这是一个数字：10
+#注意：+表示字符串拼接
+</code></pre>
+<p>第二种就是使用格式化字符串，即包含<code>%</code>的字符串转化<br>下面是占位符对照表：<br><img src="/images/Python%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/2157c4fb9a993485e0d7b6a0c4d339a3.png" alt="2157c4fb9a993485e0d7b6a0c4d339a3.png"></p>
+<pre><code class="python">#例子
+a=10
+print(&quot;这是一个数字：%d&quot; % (a))	#输出结果：这是一个数字：10
+</code></pre>
+<p>第三种就是字符串的<code>format</code>函数，详细可看这篇博文：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41734243/article/details/104444415">链接在此</a></p>
+<pre><code class="python">#例子
+a=10
+print(&quot;这是一个数字：&#123;&#125;&quot;.format(a))	#输出结果：这是一个数字：10
+</code></pre>
+<p>第四种使用花括号进行格式，即<code>f-string</code>格式化，<code>f-string</code>格式化 就是在字符串模板前面加上<code>f</code>，然后占位符使用<code>&#123;&#125;</code>，里面直接放入对应的数据对象，可以是变量或者表达式。</p>
+<pre><code class="python">a = &quot;测试&quot;
+salary = 10000
+print(f&#39;&#123;a&#125;：1+1=&#123;1+1&#125;&#39;)
+# 指定宽度，为了输出对齐，我们需要指定填入的字符串的宽度。方法是在括号里面的变量后面加上:宽度值
+print(f&#39;&#123;salary:10&#125;&#39;) 
+# 左对齐，如果想左对齐，可以在括号里使用 &lt; 符号
+print(f&#39;&#123;salary&lt;10&#125;&#39;)
+# 小数点后位数，如果我们想指定小数点后保留几位，可以像这样&#123;salary:&lt;8.1f&#125;后面的.1f就表示小数点后面保留1位
+print(f&#39;&#123;salary:&lt;8.1f&#125;&#39;)
+# 不足补零，如果我们想在不足指定宽度的时候不是补空格，而是补数字0
+print(f&#39;&#123;salary:08&#125;&#39;)
+# 16进制格式化数字：
+# 用 x 表示格式化为16进制，并采用小写格式
+print(f&#39;数字65535的16进制表示为：&#123;65535:x&#125;&#39;)
+# 用 X 表示格式化为16进制，并采用大写格式
+print(f&#39;数字65535的16进制表示为：&#123;65535:X&#125;&#39;)
+# 字符串内容里有花括号，采用 f-string 方式格式化的 字符串内容本身就有 &#123; 或者 &#125; 符号，一定要 双写 进行转义，否则会被当成是 格式化占位符
+print(f&#39;文章中 &#123; 符号 出现了 &#123;salary&#125; 次&#39;)
+</code></pre>
+<h1 id="陆-Python的数据类型"><a href="#陆-Python的数据类型" class="headerlink" title="陆 Python的数据类型"></a>陆 Python的数据类型</h1><p>数据类型就是我们通常所说的整数、小数、单词等这些数据，但是由于计算机不像人一样聪明（之所以有人说计算机很聪明是因为计算机是由历代的计算机大牛的智慧结合而成，俗话说三个臭皮匠赛过诸葛亮嘛！更何况是这些臭皮匠还是大牛呢！），它不能辨别这些数据的通用性，一般严格区分，所以导致编程语言出现数据类型。<br>在Python语言中，是可以不考虑数据类型的，但是还是有数据类型之分，只是不严格。<br>在Python语言里，分两大类数据类型：基本数据类型，复合数据类型<br>基本数据类型可以理解为汉语里的字、词或者英文里的单词。<br>复合数据类型可以在上句所理解的基础上为汉语和英文里的句子、文章。</p>
+<h2 id="6-1-基本数据类型"><a href="#6-1-基本数据类型" class="headerlink" title="6.1 基本数据类型"></a>6.1 基本数据类型</h2><p>以下是Python的基本数据类型：<br>（1）整数：<code>int</code>包括正整数、负整数。如：1024、-1024。整型有四种进制表示，分别为：二进制、八进制、十进制、十六进制，说明如下表所示：</p>
+<table>
+<thead>
+<tr>
+<th align="left">种类</th>
+<th align="left">描述</th>
+<th align="left">引导符</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">二进制</td>
+<td align="left">由 0 和 1 组成</td>
+<td align="left">0b 或 0B</td>
+</tr>
+<tr>
+<td align="left">八进制</td>
+<td align="left">由 0 到 7 组成</td>
+<td align="left">0o 或 0O</td>
+</tr>
+<tr>
+<td align="left">十进制</td>
+<td align="left">默认情况</td>
+<td align="left">无</td>
+</tr>
+<tr>
+<td align="left">十六进制</td>
+<td align="left">由 0 到 9、a 到 f、A 到 F 组成，不区分大小写</td>
+<td align="left">0x 或 0X</td>
+</tr>
+</tbody></table>
+<p>（2）浮点数：<code>float</code>，由整数部分和小数部分组成。<br>（3）布尔类型：<code>bool</code><br>（4）空：<code>None</code>，表示不存在 ，和其他语言中NULL一个道理<br>（5）字符串：<code>string</code></p>
+<p><strong>注意：一些数据类型之间是可以使用特定的函数相互转换的，比如：int可以转换成float</strong></p>
+<ul>
+<li>1、字符串一定要注意	在Python中，单引号和双引号引的数据都是字符串，类型是str（字符串）</li>
+<li>2、三引号在Python，也是字符串  </li>
+<li>3、字符串中的转移符号：<ul>
+<li>\n 换行</li>
+<li>\t 制表符</li>
+</ul>
+</li>
+</ul>
+<h2 id="6-2-复合数据类型"><a href="#6-2-复合数据类型" class="headerlink" title="6.2 复合数据类型"></a>6.2 复合数据类型</h2><p>以下是Python的复合数据类型：<br>（1）列表：<code>list</code><br>（2）集合：<code>set</code><br>（3）字典：<code>dict</code><br>（4）元组：<code>tuple</code></p>
+<h1 id="柒-常见的运算符"><a href="#柒-常见的运算符" class="headerlink" title="柒 常见的运算符"></a>柒 常见的运算符</h1><p>具有特殊含义，能够进行数据（数值）运输的符号，其实就是数学里的符号，<code>+-*/</code>等符号。</p>
+<h2 id="7-1-类别"><a href="#7-1-类别" class="headerlink" title="7.1 类别"></a>7.1 类别</h2><p>（1）算术运算符<br>（2）关系运算符<br>（3）逻辑运算符<br>（4）赋值运算符	<br>（5）位运算<br>（6）成员运算符<br>（7）身份运算符</p>
+<h2 id="7-2-算术运算符"><a href="#7-2-算术运算符" class="headerlink" title="7.2 算术运算符"></a>7.2 算术运算符</h2><p>算术运算符一般是说进行数学运输的符号。<br>在Python中算术运算符有如下：<br>（1）数学的加法运算：<code>+</code><br>（2）数学的减法运算：<code>-</code><br>（3）数学的乘法运算：<code>*</code><br>（4）数学的除法运算	注意：结果可能是小数：<code>/</code><br>（5）数学的求余数（求模、求余）：<code>%</code><br>（6）整除：<code>//</code><br>（7）幂次方：<code>**</code> </p>
+<h2 id="7-3-逻辑运算符"><a href="#7-3-逻辑运算符" class="headerlink" title="7.3 逻辑运算符"></a>7.3 逻辑运算符</h2><p>（1）与：<code>and</code><br>（2）或：<code>or</code><br>（3）非：<code>not</code></p>
+<h2 id="7-4-关系运算符"><a href="#7-4-关系运算符" class="headerlink" title="7.4 关系运算符"></a>7.4 关系运算符</h2><p>（1）等于： <code>==</code><br>（2）不等于：<code>!=</code><br>（3）大于： &gt;<br>（4）小于：<code>&lt;</code><br>（5）大于等于：<code>&gt;=</code><br>（6）小于等于：<code>&lt;=</code></p>
+<h2 id="7-5-赋值运算符"><a href="#7-5-赋值运算符" class="headerlink" title="7.5 赋值运算符"></a>7.5 赋值运算符</h2><p>（1）简单的赋值运算符：<code>=</code><br>（2）加法赋值运算符：<code>+=</code><br>（3）减法赋值运算符：<code>-=</code><br>（4）乘法赋值运算符：<code>*=</code><br>（5）除法赋值运算符：<code>/=</code><br>（6）取模赋值运算符：<code>%=</code><br>（7）幂赋值运算符：<code>**=</code><br>（8）取整除赋值运算符：<code>//=</code></p>
+<p><strong>注意：在Python中，<code>=</code>表示赋值，<code>==</code>表示数学上的等于</strong></p>
+<h2 id="7-6-位运算"><a href="#7-6-位运算" class="headerlink" title="7.6 位运算"></a>7.6 位运算</h2><p>（1）按位与运算符：<code>&amp;</code><br>（3）按位或运算符：<code>|</code><br>（4）按位异或运算符：<code>^</code><br>（5）按位取反运算符：<code>~</code><br>（6）左移动运算符：<code>&lt;&lt;</code><br>（7）右移动运算符：<code>&gt;&gt;</code></p>
+<h2 id="7-7-成员运算符"><a href="#7-7-成员运算符" class="headerlink" title="7.7 成员运算符"></a>7.7 成员运算符</h2><p>（1）如果在指定的序列中找到值返回 True，否则返回 False：<code>in</code><br>（2）如果在指定的序列中没有找到值返回 True，否则返回 False：<code>not in</code></p>
+<h2 id="7-8-身份运算符"><a href="#7-8-身份运算符" class="headerlink" title="7.8 身份运算符"></a>7.8 身份运算符</h2><p>（1）判断两个标识符是不是引用自一个对象：<code>is</code><br>（2）判断两个标识符是不是引用自不同对象：<code>is not</code>	</p>
+<h2 id="7-9-运算符优先级"><a href="#7-9-运算符优先级" class="headerlink" title="7.9 运算符优先级"></a>7.9 运算符优先级</h2><table>
+<thead>
+<tr>
+<th align="left">运算符</th>
+<th align="left">描述（由上至下对应优先级由高到低）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">**</td>
+<td align="left">幂运算</td>
+</tr>
+<tr>
+<td align="left">~ + -</td>
+<td align="left">取反、正号、负号</td>
+</tr>
+<tr>
+<td align="left">* &#x2F; % &#x2F;&#x2F;</td>
+<td align="left">乘、除、取模、取整除</td>
+</tr>
+<tr>
+<td align="left">+ -</td>
+<td align="left">加法、减法</td>
+</tr>
+<tr>
+<td align="left">&gt;&gt; &lt;&lt;</td>
+<td align="left">右移、左移</td>
+</tr>
+<tr>
+<td align="left">&amp;</td>
+<td align="left">与</td>
+</tr>
+<tr>
+<td align="left">^ |</td>
+<td align="left">异或、或</td>
+</tr>
+<tr>
+<td align="left">&lt;&#x3D; &lt; &gt; &gt;&#x3D;</td>
+<td align="left">比较运算符</td>
+</tr>
+<tr>
+<td align="left">&#x3D;&#x3D; !&#x3D;</td>
+<td align="left">是否等于、是否不等于</td>
+</tr>
+<tr>
+<td align="left">&#x3D; %&#x3D; &#x2F;&#x3D; &#x2F;&#x2F;&#x3D; -&#x3D; +&#x3D; *&#x3D; **&#x3D;</td>
+<td align="left">赋值运算符</td>
+</tr>
+<tr>
+<td align="left">is is not</td>
+<td align="left">身份运算符</td>
+</tr>
+<tr>
+<td align="left">in not in</td>
+<td align="left">成员运算符</td>
+</tr>
+<tr>
+<td align="left">not and or</td>
+<td align="left">逻辑运算符</td>
+</tr>
+</tbody></table>
+<h1 id="捌-帮助命令"><a href="#捌-帮助命令" class="headerlink" title="捌 帮助命令"></a>捌 帮助命令</h1><h2 id="8-1-dir"><a href="#8-1-dir" class="headerlink" title="8.1 dir()"></a>8.1 dir()</h2><p>dir()用来查询一个类或者对象所有属性。</p>
+<pre><code class="python">dir(list)
+</code></pre>
+<h2 id="8-2-help"><a href="#8-2-help" class="headerlink" title="8.2 help()"></a>8.2 help()</h2><p>help()函数帮助我们了解模块、类型、对象、方法、属性的详细信息。</p>
+<pre><code class="python">help(list)
+</code></pre>
+<h1 id="玖-其他"><a href="#玖-其他" class="headerlink" title="玖 其他"></a>玖 其他</h1><h2 id="9-1缩进"><a href="#9-1缩进" class="headerlink" title="9.1缩进"></a>9.1缩进</h2><p>Python 不使用 <code>&#123;&#125;</code> 来控制类、函数、逻辑判断等，而是使用缩进，缩进的空格可变。如下所示：</p>
+<pre><code>if True:
+    print(True)
+else:
+    print(False)
+</code></pre>
+<h2 id="9-2-多行显示"><a href="#9-2-多行显示" class="headerlink" title="9.2 多行显示"></a>9.2 多行显示</h2><pre><code>a = 128
+b = 1024
+c = 512
+d = a + \
+    b - \
+    c
+</code></pre>
+<p>如果包含在 <code>[]</code>、<code>&#123;&#125;</code>、<code>()</code> 括号中，则不需要使用 <code>\</code>。</p>
+<p>编码</p>
+<p>Python2 中默认编码为 <code>ASCII</code>，假如内容为汉字，不指定编码便不能正确的输出及读取，比如我们想要指定编码为 <code>UTF-8</code>，Python 中通过在开头加入 <code># -*- coding: UTF-8 -*-</code> 进行指定。</p>
+<p>Python3 中默认编码为 <code>UTF-8</code>，因此在使用 Python3 时，我们通常不需指定编码。</p>
+<h2 id="9-3-可以指定使用的编译器路径"><a href="#9-3-可以指定使用的编译器路径" class="headerlink" title="9.3 可以指定使用的编译器路径"></a>9.3 可以指定使用的编译器路径</h2><pre><code class="python">#! /etc/python
+#! 编译器绝对路径文件夹
+</code></pre>
+<h2 id="9-4-字符编码"><a href="#9-4-字符编码" class="headerlink" title="9.4 字符编码"></a>9.4 字符编码</h2><pre><code class="python"># 字符串编码
+print (&#39;你好&#39;.encode(&#39;utf8&#39;)) # 输出 b&#39;\xe4\xbd\xa0\xe5\xa5\xbd&#39;
+print (&#39;你好&#39;.encode(&#39;gbk&#39;))  # 输出 b&#39;\xc4\xe3\xba\xc3&#39;
+# 字节串解码
+</code></pre>
+
+    </div>
+    
+</div>
+                         
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2022 小C♥天天
+            <span class="footer-icon">
+                <i class="fa-brands fa-github fa-fw"></i>
+            </span>
+            @小C&天天
+        </div>
+        <div>
+            备案号：小C&天天の窝
+        </div>
+    </div>
+</footer>
+                    </div>
+                </div>
+            </transition>
+            <div id="img_show">
+                <img id="img_content" alt="img_show">
+            </div>
+        </div>
+        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
+        <script src="/js/particlex.js"></script>
+        <script src="/js/showimg.js"></script>
+        
+
+        <!-- 3D模型 -->
+        <div id="L2dCanvas" style="position: relative;"></div>
+        <script src="/js/live2d.min.js"></script>
+        <script src="/css/live2d.css"></script>
+        <script>
+            var v = new Viewer({
+                basePath: "/model",
+                role: "zhala_2",
+                mobile: true,
+            });
+        </script>
+        <!-- 点击 -->
+        <script>
+            let body = document.getElementsByTagName('body')[0];
+            body.addEventListener('click', (e) => {
+                let contentArr = ['✊','😘','😍','😊','😭','😡','😋','👍','🐷','😱','💷','💵','×','🆗','№','⭐','🌙','♥','💴','☀','🐎','🐂','🐏','√'];
+                let randomNum = function (n) {
+                    return Math.floor(Math.random() * n)
+                }
+                let span = document.createElement('span');
+                span.innerHTML = `${contentArr[randomNum(contentArr.length)]}`;
+                span.style.color = `rgb(${randomNum(256)},${randomNum(256)},${randomNum(256)})`;
+                span.style.position = 'absolute';
+                span.style.top = `${e.pageY}px`;
+                span.style.left = `${e.pageX}px`;
+                span.style.transition = 'all 1s ease';
+                span.style.zIndex = 20000;
+                body.appendChild(span)
+                setTimeout(()=>{
+                    span.style.top = span.offsetTop - 100 + 'px';
+                    span.style.opacity = 0;
+                    setTimeout(()=>{span.remove()},700)
+                },0)
+            })
+        </script>
+        <!-- 流星背景特效 -->
+        <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/background.js"></script>
+    </body>
+</html>
