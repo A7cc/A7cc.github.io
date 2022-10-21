@@ -149,14 +149,14 @@
             
             <span class="tag">
                 
-                <a href="/tags/Go" style="color: #00a596">
+                <a href="/tags/Go" style="color: #ff7d73">
                     Go
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/开发" style="color: #00bcd4">
+                <a href="/tags/开发" style="color: #03a9f4">
                     开发
                 </a>
             </span>
@@ -510,10 +510,14 @@ a, b, c = 5, 7, &quot;abc&quot;
 <p>上面这行假设了变量 a，b 和 c 都已经被声明，否则的话应该这样使用：</p>
 <pre><code class="go">a, b, c := 5, 7, &quot;abc&quot;
 </code></pre>
-<p>右边的这些值以相同的顺序赋值给左边的变量，所以 a 的值是 5，b 的值是 7，c 的值是 “abc”。</p>
-<p>这被称为并行或同时赋值。</p>
-<p>如果你想要交换两个变量的值，则可以简单地使用 <code>a, b = b, a</code>，两个变量的类型必须是相同。</p>
-<p><code>:=</code>不能使用在函数外</p>
+<p>右边的这些值以相同的顺序赋值右边的这些值以相同的顺序赋值给左边的变量，所以 a 的值是 5，b 的值是 7，c 的值是 “abc”。这被称为并行或同时赋值。如果你想要交换两个变量的值，则可以简单地使用 <code>a, b = b, a</code>，两个变量的类型必须是相同。<code>:=</code>不能使用在函数外。</p>
+<blockquote>
+<p>什么时候使用长声明？什么时候使用长声明？</p>
+<ul>
+<li>当需要全局变量或者不确定变量的值，但有需要变量时，可以进行变量长声明</li>
+<li>当需要重复声明变量（这里需要注意必须有新变量产生）或者搭配for、if等语句时，可以进行变量短声明</li>
+</ul>
+</blockquote>
 <h2 id="5-6-匿名变量"><a href="#5-6-匿名变量" class="headerlink" title="5.6 匿名变量"></a>5.6 匿名变量</h2><p>在使用多重赋值时，如果想要忽略某个值，可以使用<code>匿名变量（anonymous variable）</code>。 匿名变量用一个下划线<code>_</code>表示，例如：</p>
 <pre><code class="go">unc foo() (int, string) &#123;
     return 10, &quot;Q1mi&quot;

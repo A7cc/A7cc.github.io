@@ -149,14 +149,14 @@
             
             <span class="tag">
                 
-                <a href="/tags/Go" style="color: #ff7d73">
+                <a href="/tags/Go" style="color: #03a9f4">
                     Go
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/开发" style="color: #ff7d73">
+                <a href="/tags/开发" style="color: #03a9f4">
                     开发
                 </a>
             </span>
@@ -361,27 +361,31 @@ func main() &#123;
 </ul>
 <p>单从线程调度讲，Go语言相比起其他语言的优势在于OS线程是由OS内核来调度的， goroutine 则是由Go运行时（runtime）自己的调度器调度的，完全是在用户态下完成的， 不涉及内核态与用户态之间的频繁切换，包括内存的分配与释放，都是在用户态维护着一块大的内存池， 不直接调用系统的malloc函数（除非内存池需要改变），成本比调度OS线程低很多。 另一方面充分利用了多核的硬件资源，近似的把若干goroutine均分在物理线程上， 再加上本身 goroutine 的超轻量级，以上种种特性保证了 goroutine 调度方面的性能。</p>
 <ul>
-<li>小插曲：<br>&#96;&#96;&#96;go<br>package main</li>
+<li>小插曲：</li>
 </ul>
-<p>import (<br>    “fmt”<br>    “time”<br>)</p>
-<p>func main() {<br>    for i :&#x3D; 0; i &lt; 5; i++ {<br>        go func() {<br>            fmt.Println(i)<br>        }()<br>    }<br>    time.Sleep(1)<br>}<br>&#x2F;&#x2F; 在运行完这一段代码时，会输出值5，偶尔出现其他值，个人认为原因可能是匿名函数每一次运行都会清空，当要输出时，下一个循环就将其覆盖，导致最后只剩下一个赋值为5</p>
-<pre><code>
-# 叁 channel——通道类型
+<pre><code class="go">package main
 
-## 2.1 channel类型
+import (
+    &quot;fmt&quot;
+    &quot;time&quot;
+)
 
-单纯地将函数并发执行是没有意义的。函数与函数间需要交换数据才能体现并发执行函数的意义。
-
-虽然可以使用共享内存进行数据交换，但是共享内存在不同的 goroutine 中容易发生竞态问题。为了保证数据交换的正确性，很多并发模型中必须使用互斥量对内存进行加锁，这种做法势必造成性能问题。
-
-Go语言采用的并发模型是`CSP（Communicating Sequential Processes）`，提倡&lt;font color=&quot;red&quot;&gt;通过通信共享内存&lt;/font&gt;而不是&lt;font color=&quot;red&quot;&gt;通过共享内存而实现通信&lt;/font&gt;。
-
-&lt;font color=&quot;red&quot;&gt;如果说 goroutine 是Go程序并发的执行体，`channel`就是它们之间的连接。`channel`是可以让一个 goroutine 发送特定值到另一个 goroutine 的通信机制。&lt;/font&gt;
-
-Go 语言中的通道（channel）是一种特殊的类型。通道像一个传送带或者队列，总是&lt;font color=&quot;red&quot;&gt;遵循先入先出（First In First Out）的规则&lt;/font&gt;，保证收发数据的顺序。每一个通道都是一个具体类型的导管，也就是声明channel的时候需要为其指定元素类型。声明通道类型变量的格式如下：
-
-```go
-var 变量名称 chan 元素类型
+func main() &#123;
+    for i := 0; i &lt; 5; i++ &#123;
+        go func() &#123;
+            fmt.Println(i)
+        &#125;()
+    &#125;
+    time.Sleep(1)
+&#125;
+// 在运行完这一段代码时，会输出值5，偶尔出现其他值，个人认为原因可能是匿名函数每一次运行都会清空，当要输出时，下一个循环就将其覆盖，导致最后只剩下一个赋值为5
+</code></pre>
+<h1 id="叁-channel——通道类型"><a href="#叁-channel——通道类型" class="headerlink" title="叁 channel——通道类型"></a>叁 channel——通道类型</h1><h2 id="2-1-channel类型"><a href="#2-1-channel类型" class="headerlink" title="2.1 channel类型"></a>2.1 channel类型</h2><p>单纯地将函数并发执行是没有意义的。函数与函数间需要交换数据才能体现并发执行函数的意义。</p>
+<p>虽然可以使用共享内存进行数据交换，但是共享内存在不同的 goroutine 中容易发生竞态问题。为了保证数据交换的正确性，很多并发模型中必须使用互斥量对内存进行加锁，这种做法势必造成性能问题。</p>
+<p>Go语言采用的并发模型是<code>CSP（Communicating Sequential Processes）</code>，提倡<font color="red">通过通信共享内存</font>而不是<font color="red">通过共享内存而实现通信</font>。</p>
+<p><font color="red">如果说 goroutine 是Go程序并发的执行体，<code>channel</code>就是它们之间的连接。<code>channel</code>是可以让一个 goroutine 发送特定值到另一个 goroutine 的通信机制。</font></p>
+<p>Go 语言中的通道（channel）是一种特殊的类型。通道像一个传送带或者队列，总是<font color="red">遵循先入先出（First In First Out）的规则</font>，保证收发数据的顺序。每一个通道都是一个具体类型的导管，也就是声明channel的时候需要为其指定元素类型。声明通道类型变量的格式如下：</p>
+<pre><code class="go">var 变量名称 chan 元素类型
 // chan：是关键字
 // 元素类型：是指通道中传递元素的类型
 </code></pre>
