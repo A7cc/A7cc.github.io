@@ -15,7 +15,6 @@
         <link rel="stylesheet" href="/css/particlex.css">
         <link rel="stylesheet" href="/css/main.css">
         <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
-        <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
     <meta name="generator" content="Hexo 6.2.0"></head>
     <body>
         <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:30vmin;height:30vmin;padding:60px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #dd20dd;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">正在加载</p><div><img alt="loading" src="/images/afde9fa65a5742a90b51d6e1211e841e.gif"></div></div></div></div></div>
@@ -149,14 +148,14 @@
             
             <span class="tag">
                 
-                <a href="/tags/开发" style="color: #03a9f4">
+                <a href="/tags/开发" style="color: #00a596">
                     开发
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/Python" style="color: #00a596">
+                <a href="/tags/Python" style="color: #00bcd4">
                     Python
                 </a>
             </span>
@@ -252,6 +251,12 @@ with file_1 as f:
     print(f.read())
 </code></pre>
 <p><strong>显示结果</strong><br><img src="https://img-blog.csdnimg.cn/2020022801143261.png" alt="在这里插入图片描述"></p>
+<p>当我们只想一行的读取文件时，可以使用 <code>readlines()</code> 或 <code>readline()</code> 结合 <code>for</code> 迭代 来自己构成字符串：</p>
+<pre><code class="python">with open(&#39;test.txt&#39;, &#39;r&#39;,encoding=&#39;utf-8&#39;) as f:
+    for line in f.readlines():
+        line = line.strip()
+        print(line)
+</code></pre>
 <h1 id="五、对象的序列化和反序列化"><a href="#五、对象的序列化和反序列化" class="headerlink" title="五、对象的序列化和反序列化"></a>五、对象的序列化和反序列化</h1><p>对象概念是一个逻辑单位，它是比较抽象的一个概念。后面会详细讲解，目前暂时理解为，一种黑盒子或者一种思维。</p>
 <p>对象的序列化和反序列化也是一种抽象的概念，我们可以理解为，一种思维实体化，就是说，一个虚无的东西变成一种可以摸得到看的到的东西，比如开心这个感觉，它是虚无，看不到也摸不着的，但是我们通过文字开心就能明白这个东西是什么，从开心这个感觉到文字的展现的这个过程叫序列化，而反序列化，就是我们通过读懂文字知道开心这个感觉的这个过程。简而言之就是思维实体化。</p>
 <p>对象序列化就是将对象这个概念变成字节数据，反之，就是反序列化。我们可以通过导入<code>pickle</code>模块的<code>dump/dumps</code>方法进行序列化，<code>load/loads</code>方法进行反序列化。还有<code>json</code>模块也是，但是一般用来序列化字典类型的数据。</p>
@@ -314,17 +319,6 @@ print(list_2)
         <script src="/js/showimg.js"></script>
         
 
-        <!-- 3D模型 -->
-        <div id="L2dCanvas" style="position: relative;"></div>
-        <script src="/js/live2d.min.js"></script>
-        <script src="/css/live2d.css"></script>
-        <script>
-            var v = new Viewer({
-                basePath: "/model",
-                role: "zhala_2",
-                mobile: true,
-            });
-        </script>
         <!-- 点击 -->
         <script>
             let body = document.getElementsByTagName('body')[0];
