@@ -156,7 +156,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/开发" style="color: #ffa2c4">
+                <a href="/tags/开发" style="color: #03a9f4">
                     开发
                 </a>
             </span>
@@ -549,7 +549,7 @@ replace Desktop/demo2  =&gt; ../demo2
 <pre><code class="go">&lt;module&gt; &lt;version&gt; &lt;hash&gt;
 &lt;module&gt; &lt;version&gt;/go.mod &lt;hash&gt;
 </code></pre>
-<p><img src="/images/Go%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/eb701b2252c64a94bd42a305c6603738.png" alt="eb701b2252c64a94bd42a305c6603738.png"><br>不同于其他语言提供的基于中心的包管理机制，例如 <code>npm</code> 和 <code>pypi</code>等，<code>Go</code>并没有提供一个中央仓库来管理所有依赖包，而是采用分布式的方式来管理包。为了防止依赖包被非法篡改，<code>Go module</code> 引入了<code>go.sum</code>机制来对依赖包进行校验。</p>
+<p><img src="/images/Go%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/eb701b2252c64a94bd42a305c6603738.png" alt="eb701b2252c64a94bd42a305c6603738.png"><br>不同于其他语言提供的基于中心的包管理机制，例如 <code>npm</code> 和 <code>pypi</code>等，<code>Go</code>并没有提供一个中央仓库来管理所有依赖包，而是采用分布式的方式来管理包。为了防止依赖包被非法篡改，<code>Go module</code> 引入了<code>go.sum</code>机制来对依赖包进行校验。说白了，<code>go.sum</code>就是为了校验<code>go.mod</code>里面的包是否当前使用的包。</p>
 <h2 id="8-6-依赖的保存位置"><a href="#8-6-依赖的保存位置" class="headerlink" title="8.6 依赖的保存位置"></a>8.6 依赖的保存位置</h2><p><code>Go module</code> 会把下载到本地的依赖包会以类似下面的形式保存在 <code>$GOPATH/pkg/mod</code>目录下，每个依赖包都会带有版本号进行区分，这样就允许在本地存在同一个包的多个不同版本。</p>
 <pre><code class="bash">mod
 ├ cache

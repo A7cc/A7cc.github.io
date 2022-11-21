@@ -149,14 +149,14 @@
             
             <span class="tag">
                 
-                <a href="/tags/密码学" style="color: #03a9f4">
+                <a href="/tags/密码学" style="color: #00bcd4">
                     密码学
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/RSA" style="color: #00a596">
+                <a href="/tags/RSA" style="color: #ff7d73">
                     RSA
                 </a>
             </span>
@@ -225,8 +225,8 @@ openSSL&gt; exit #退出OpenSSL程序
 <thead>
 <tr>
 <th><code>D</code></th>
-<th><code>E * D = 5 * D</code></th>
-<th><code>(E * D) mod (p - 1)(q - 1) = (5 * D) mod 6</code></th>
+<th><code>E * D =&gt; 5 * D</code></th>
+<th><code>(E * D) mod (p - 1)(q - 1) =&gt; (5 * D) mod 6</code></th>
 </tr>
 </thead>
 <tbody><tr>
@@ -255,7 +255,7 @@ openSSL&gt; exit #退出OpenSSL程序
 <td>1（余数为1满足条件）</td>
 </tr>
 </tbody></table>
-<p>通过运算得，当<code>D = 5</code>时，<code>E * D≡ 1 mod f(N)</code>同余等式成立。因此，可令<code>D = 5</code>。从而我们得到的一对公私密钥，$公钥&#x3D;{E,N}&#x3D;{5,14}$，$私钥&#x3D;{D,N}&#x3D;{5,14}$。</p>
+<p>通过运算得，当<code>D = 5</code>时，<code>E * D≡ 1 mod f(N)</code>同余等式成立。因此，可令<code>D = 5</code>。从而我们得到的一对公私密钥，$公钥&#x3D;{E,N}&#x3D;{5,14}$，$私钥&#x3D;{D,N}&#x3D;{5,14}$。根据公式我们也可以发现，无论是<code>E</code>或者<code>D	</code>，一定比<code>N</code>小。</p>
 <h2 id="2-3-特点"><a href="#2-3-特点" class="headerlink" title="2.3 特点"></a>2.3 特点</h2><ul>
 <li>解决了对称加密的两个问题</li>
 <li>安全性较好，但效率较低</li>
