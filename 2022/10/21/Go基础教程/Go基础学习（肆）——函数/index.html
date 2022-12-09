@@ -149,14 +149,14 @@
             
             <span class="tag">
                 
-                <a href="/tags/Go" style="color: #ff7d73">
+                <a href="/tags/Go" style="color: #03a9f4">
                     Go
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/开发" style="color: #03a9f4">
+                <a href="/tags/开发" style="color: #00a596">
                     开发
                 </a>
             </span>
@@ -631,9 +631,14 @@ return io.Copy(dst, src)
 </code></pre>
 <p>以下是defer三条使用规则：</p>
 <ul>
-<li>当defer被声明时，其参数就会被实时解析<br>即defer的参数的变量值，在代码中defer使用后的位置改变并不会对改变defer用到的值</li>
-<li>defer执行顺序为先进后出<br>在函数中，先定义的defer将会在最后执行</li>
-<li>defer可以读取函数内变量<br>defer代码块的作用域仍然在函数之内，因此defer仍然可以读取函数内的变量</li>
+<li><p>当defer被声明时，其参数就会被实时解析<br>即defer的参数的变量值，在代码中defer使用后的位置改变并不会对改变defer用到的值</p>
+</li>
+<li><p>defer执行顺序为先进后出<br>在函数中，先定义的defer将会在最后执行</p>
+</li>
+<li><p>defer可以读取函数内变量<br>defer代码块的作用域仍然在函数之内，因此defer仍然可以读取函数内的变量</p>
+</li>
+<li><p>defer执行在panic语句之前<br>当出现panic语句的时候，会先按照defer的后进先出的顺序执行，最后才会执行panic</p>
+</li>
 </ul>
 
     </div>

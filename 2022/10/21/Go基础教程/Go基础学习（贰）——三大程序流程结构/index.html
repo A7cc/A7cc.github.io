@@ -149,14 +149,14 @@
             
             <span class="tag">
                 
-                <a href="/tags/Go" style="color: #00bcd4">
+                <a href="/tags/Go" style="color: #ff7d73">
                     Go
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/开发" style="color: #ffa2c4">
+                <a href="/tags/开发" style="color: #00a596">
                     开发
                 </a>
             </span>
@@ -497,6 +497,32 @@ func main() &#123;
 </code></pre>
 <strong>代码演示结果：</strong><br><img src="/images/Go%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/dad21e6795c4301e49e9fbf26833f4a8.png" alt="dad21e6795c4301e49e9fbf26833f4a8.png"></li>
 </ul>
+<p><font color="red">注意：在使用<code>for range</code>循环时经常会出现以下情况：</font></p>
+<pre><code class="go">func main() &#123;
+    slice := []int&#123;0,1,2,3&#125;
+    m := make(map[int]*int)
+
+    for key,val := range slice &#123;
+        // value := val
+        // m[key] = &amp;value
+        m[key] = &amp;val
+    &#125;
+    for k,v := range m &#123;
+        fmt.Println(k,&quot;-&gt;&quot;,*v)
+    &#125;
+&#125;
+# 我们预期的结果是：
+0 -&gt; 0
+1 -&gt; 1
+2 -&gt; 2
+3 -&gt; 3
+# 实际结果是：
+0 -&gt; 3
+1 -&gt; 3
+2 -&gt; 3
+3 -&gt; 3
+</code></pre>
+<p>出现上面情况的原因是因为<code>for range</code>循环会创建每个元素的副本，而不是元素的引用，所以<code>m[key] = &amp;val</code>取的都是变量<code>val</code>的地址，所以最后<code>map</code>中的所有元素的值都是变量<code>val</code>的地址，因为最后<code>val</code>被赋值为3，所有输出都是3。</p>
 <h2 id="4-3-break-语句——跳出循环"><a href="#4-3-break-语句——跳出循环" class="headerlink" title="4.3 break 语句——跳出循环"></a>4.3 break 语句——跳出循环</h2><p>Go 语言中 break 语句用于以下两方面：</p>
 <ul>
 <li>用于循环语句中跳出循环，并开始执行循环之后的语句。</li>

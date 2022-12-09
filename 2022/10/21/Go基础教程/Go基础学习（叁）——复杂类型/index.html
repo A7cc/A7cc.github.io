@@ -149,14 +149,14 @@
             
             <span class="tag">
                 
-                <a href="/tags/Go" style="color: #00a596">
+                <a href="/tags/Go" style="color: #ffa2c4">
                     Go
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/开发" style="color: #00bcd4">
+                <a href="/tags/开发" style="color: #ff7d73">
                     开发
                 </a>
             </span>
@@ -335,7 +335,7 @@ func main() &#123;
 </code></pre>
 <p><img src="/images/Go%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/98a8331125ff8b67eeab6099ac3982d3.png" alt="98a8331125ff8b67eeab6099ac3982d3.png"></p>
 <p>len函数使用：<a href="#len">链接</a><br>cap函数使用：<a href="#cap">链接</a></p>
-<h2 id="3-5-切片截取与遍历"><a href="#3-5-切片截取与遍历" class="headerlink" title="3.5 切片截取与遍历"></a>3.5 切片截取与遍历</h2><p>可以通过设置下限及上限来设置截取切片 <code>[lower-bound:upper-bound]</code>，实例如下：</p>
+<h2 id="3-5-切片截取与遍历"><a href="#3-5-切片截取与遍历" class="headerlink" title="3.5 切片截取与遍历"></a>3.5 切片截取与遍历</h2><p>可以通过设置下限、上限和容量（<code>cap</code>表示实际的容量，可以忽略）来设置截取切片 <code>[lower-bound:upper-bound:[cap]]</code>，实例如下：</p>
 <pre><code class="go">package main
 import &quot;fmt&quot;
 func printSlice(x []int) &#123;
