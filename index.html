@@ -144,6 +144,106 @@
             
 
 <div class="post">
+    <a href="/2023/02/03/乱七八糟/使用代理IP池ProxyPool/">
+        <h2>
+            
+        </h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2023/2/3
+        </span>
+    </div>
+    <div class="excerpt">
+        <div class="content" v-pre>
+            
+            <h1 id="壹-准备"><a href="#壹-准备" class="headerlink" title="壹 准备"></a>壹 准备</h1><p>当我们需要使用网上免费的代理池时，我们可以通过<code>jhao104</code>师傅的<a target="_blank" rel="noopener" href="https://github.com/jhao104/proxy_pool">proxy_pool</a>进行搭建自己的代理池。<br>工具：<a href="/tools/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/proxy_pool-2.4.0.zip">proxy_pool-2.4.0.zip</a><br>大致的使用方法是：</p>
+<ul>
+<li>下载必备的<code>ProxyPool</code>和<code>Redis</code>工具</li>
+<li>运行<code>Redis</code>，用于存储网上的代理<code>IP</code></li>
+<li>修改<code>Proxypool</code>配置文件</li>
+<li>启动<code>ProxyPool</code>工具</li>
+<li>直接使用<code>ProxyPool</code>的<code>API</code>接口获取代理<code>IP</code></li>
+</ul>
+<h1 id="贰-详细使用"><a href="#贰-详细使用" class="headerlink" title="贰 详细使用"></a>贰 详细使用</h1><h2 id="2-1-下载ProxyPool"><a href="#2-1-下载ProxyPool" class="headerlink" title="2.1 下载ProxyPool"></a>2.1 下载ProxyPool</h2><p>ProxyPool链接：<a target="_blank" rel="noopener" href="https://github.com/jhao104/proxy_pool">ProxyPool</a><br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/9c9536d230d6968ec32886c42a937286.png" alt="9c9536d230d6968ec32886c42a937286.png"></p>
+<h2 id="2-2-下载数据库Redis"><a href="#2-2-下载数据库Redis" class="headerlink" title="2.2 下载数据库Redis"></a>2.2 下载数据库Redis</h2><p>Redis链接：<a target="_blank" rel="noopener" href="https://github.com/microsoftarchive/redis">Redis</a></p>
+<p>在Releases里，下载压缩包：<br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/ce22f2ce1513ac188f7b4b841ca9a509.png" alt="ce22f2ce1513ac188f7b4b841ca9a509.png"></p>
+<h2 id="2-3-运行Redis"><a href="#2-3-运行Redis" class="headerlink" title="2.3 运行Redis"></a>2.3 运行Redis</h2><p>安装服务：输入命令安装Redis：<code>redis-server --service-install redis.windows.conf</code><br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/8e43e601caad8b4913a3ccd78241bff1.png" alt="8e43e601caad8b4913a3ccd78241bff1.png"><br>然后选择Redis服务运行：<br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/13222f2703b5ed3eb6cfa18864657cd7.png" alt="13222f2703b5ed3eb6cfa18864657cd7.png"><br>最后测试是否可以使用：</p>
+<pre><code class="bash"># 使用redis-cli.exe工具
+# 把redis-cli.exe拷贝到要使用代理池的PC，然后在测试
+redis-cli.exe -h 127.0.0.1 -p 6379
+</code></pre>
+<p><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/a113ab3299fb17ce43786306eea29256.png" alt="a113ab3299fb17ce43786306eea29256.png"><br>安装Redis是为了将ProxyPool工具获取的IP存放到数据库里，方便获取。</p>
+<h2 id="2-4-修改Proxypool配置文件"><a href="#2-4-修改Proxypool配置文件" class="headerlink" title="2.4 修改Proxypool配置文件"></a>2.4 修改Proxypool配置文件</h2><p>文件在前面下载的<code>Proxypool/setting.py</code>，主要修改两处：</p>
+<pre><code class="bash">DB_CONN：Redis数据库位置，注意ip和端口，不需要加后缀
+FROXY_FEYCHER：可用的代理ip地址，参考github上实时代理源有效信息
+</code></pre>
+<p><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/a5c7e72fa74f3a1d1723e59ebbdfcaea.png" alt="a5c7e72fa74f3a1d1723e59ebbdfcaea.png"></p>
+<h2 id="2-5-启动代理池服务"><a href="#2-5-启动代理池服务" class="headerlink" title="2.5 启动代理池服务"></a>2.5 启动代理池服务</h2><p>打开两个程序：</p>
+<pre><code class="bash">启动调度程序：python proxyPool.py schedule
+启动webApi服务：python proxyPool.py server
+</code></pre>
+<p><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/37905fa46cc2b197b4306188e7a9d650.png" alt="37905fa46cc2b197b4306188e7a9d650.png"><br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/cdfb8d510a0e79c8225e07915e01d8cf.png" alt="cdfb8d510a0e79c8225e07915e01d8cf.png"></p>
+<h2 id="2-6-最后就是使用了"><a href="#2-6-最后就是使用了" class="headerlink" title="2.6 最后就是使用了"></a>2.6 最后就是使用了</h2><p>这里需要注意的是代理池的<code>IP</code>很容易挂掉，当使用<code>proxies</code>参数进行代理时会非常容易出现代理用不了而出现本机<code>IP</code>的情况。</p>
+<pre><code class="python">import requests
+# 通过proxyPool的API获取代理IP
+def get_proxy():
+    #5000：settings中设置的监听端口，不是Redis服务的端口
+    return requests.get(&quot;http://127.0.0.1:5000/get/&quot;).json()
+# 使用完后，为了防止重复使用IP，可以通过proxyPool的API删除代理IP
+def delete_proxy(proxy):
+    requests.get(&quot;http://127.0.0.1:5000/delete/?proxy=&#123;&#125;&quot;.format(proxy))
+
+# 主代码
+def getHtml():
+    # 尝试的次数
+    retry_count = 5
+    # 获取代理IP
+    proxy = get_proxy().get(&quot;proxy&quot;)
+    print(proxy)
+    while retry_count &gt; 0:
+        try:
+            html = requests.get(&#39;http://www.baidu.com&#39;, proxies=&#123;&quot;http&quot;: &quot;http://&#123;&#125;&quot;.format(proxy)&#125;)
+            print(html.text)
+            break
+        except Exception:
+            retry_count -= 1
+    # 删除代理池中代理
+    delete_proxy(proxy)
+
+getHtml()
+</code></pre>
+<h1 id="叁-解决问题"><a href="#叁-解决问题" class="headerlink" title="叁 解决问题"></a>叁 解决问题</h1><ul>
+<li><p>Redis问题</p>
+<pre><code class="bash">1)先卸载服务：
+redis-server --service-uninstall
+2)然后再安装：
+redis-server--service-install redis.windows.conf
+</code></pre>
+</li>
+<li><p>Python问题<br>&#96;&#96;&#96;bash<br>错误：<br>ImportError: cannot import name ‘Markup’ from ‘jinja2’<br>pip install jinja2&#x3D;&#x3D;2.11.3</p>
+</li>
+</ul>
+<p>ImportError: cannot import name ‘soft_unicode’ from ‘markupsafe’<br>python -m pip install markupsafe&#x3D;&#x3D;2.0.1</p>
+<p>ImportError: cannot import name ‘json’ from ‘itsdangerous’<br>python -m pip install itsdangerous&#x3D;&#x3D;2.0.1<br>&#96;&#96;&#96;</p>
+
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        
+    </div>
+    <a href="/2023/02/03/乱七八糟/使用代理IP池ProxyPool/" class="go-post">
+        阅读全文
+    </a>
+</div>
+
+<div class="post">
     <a href="/2023/02/02/Python库学习/多线程与多进程库——threading库、multiprocessing库/">
         <h2>
             多线程与多进程库——Threading库、multiprocessing库
@@ -182,14 +282,14 @@
         
         <span class="tag">
             
-            <a href="/tags/开发" style="color: #00bcd4">
+            <a href="/tags/开发" style="color: #00a596">
                 开发
             </a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/Python" style="color: #00bcd4">
+            <a href="/tags/Python" style="color: #ff7d73">
                 Python
             </a>
         </span>
@@ -245,7 +345,7 @@
         
         <span class="tag">
             
-            <a href="/tags/代理与转发" style="color: #00bcd4">
+            <a href="/tags/代理与转发" style="color: #ffa2c4">
                 代理与转发
             </a>
         </span>
@@ -295,7 +395,7 @@
         
         <span class="tag">
             
-            <a href="/tags/JS逆向" style="color: #00a596">
+            <a href="/tags/JS逆向" style="color: #ff7d73">
                 JS逆向
             </a>
         </span>
@@ -352,14 +452,14 @@
         
         <span class="tag">
             
-            <a href="/tags/反制" style="color: #00a596">
+            <a href="/tags/反制" style="color: #ffa2c4">
                 反制
             </a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/未授权" style="color: #ffa2c4">
+            <a href="/tags/未授权" style="color: #00a596">
                 未授权
             </a>
         </span>
@@ -416,7 +516,7 @@
         
         <span class="tag">
             
-            <a href="/tags/中国蚁剑" style="color: #00a596">
+            <a href="/tags/中国蚁剑" style="color: #03a9f4">
                 中国蚁剑
             </a>
         </span>
@@ -473,7 +573,7 @@
         
         <span class="tag">
             
-            <a href="/tags/代理与转发" style="color: #ff7d73">
+            <a href="/tags/代理与转发" style="color: #00bcd4">
                 代理与转发
             </a>
         </span>
@@ -530,7 +630,7 @@
         
         <span class="tag">
             
-            <a href="/tags/提权" style="color: #00a596">
+            <a href="/tags/提权" style="color: #ffa2c4">
                 提权
             </a>
         </span>
@@ -580,7 +680,7 @@
         
         <span class="tag">
             
-            <a href="/tags/密码学" style="color: #00bcd4">
+            <a href="/tags/密码学" style="color: #ff7d73">
                 密码学
             </a>
         </span>
@@ -630,70 +730,20 @@
         
         <span class="tag">
             
-            <a href="/tags/工具" style="color: #00a596">
+            <a href="/tags/工具" style="color: #ffa2c4">
                 工具
             </a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/代理与转发" style="color: #ffa2c4">
+            <a href="/tags/代理与转发" style="color: #00a596">
                 代理与转发
             </a>
         </span>
         
     </div>
     <a href="/2022/10/21/工具使用/NPS代理工具/" class="go-post">
-        阅读全文
-    </a>
-</div>
-
-<div class="post">
-    <a href="/2022/10/21/密码学/密码学壹——基础知识/">
-        <h2>
-            密码学（壹）——基础知识
-        </h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/密码学">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
-                密码学
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
-            </span>
-            2022/10/21
-        </span>
-    </div>
-    <div class="excerpt">
-        <div class="content" v-pre>
-            
-            <h1 id="壹-前言"><a href="#壹-前言" class="headerlink" title="壹 前言"></a>壹 前言</h1><p><font color="red">这系列为本人学习密码学的笔记，是基于《图解密码技术》为基础学习的。</font><br>在现实生活中，当我们进行数据传输时，可能会面临的安全问题无非就是三点：数据窃取、数据篡改、身份伪装。</p>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-        </span>
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/密码学" style="color: #ffa2c4">
-                密码学
-            </a>
-        </span>
-        
-    </div>
-    <a href="/2022/10/21/密码学/密码学壹——基础知识/" class="go-post">
         阅读全文
     </a>
 </div>
