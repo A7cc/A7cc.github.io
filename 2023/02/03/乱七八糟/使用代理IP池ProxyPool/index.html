@@ -149,14 +149,14 @@
             
             <span class="tag">
                 
-                <a href="/tags/工具" style="color: #03a9f4">
+                <a href="/tags/工具" style="color: #ff7d73">
                     工具
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/代理" style="color: #03a9f4">
+                <a href="/tags/代理" style="color: #ffa2c4">
                     代理
                 </a>
             </span>
@@ -231,11 +231,18 @@ redis-server --service-uninstall
 redis-server--service-install redis.windows.conf
 </code></pre>
 </li>
-<li><p>Python问题<br>&#96;&#96;&#96;bash<br>错误：<br>ImportError: cannot import name ‘Markup’ from ‘jinja2’<br>pip install jinja2&#x3D;&#x3D;2.11.3</p>
+<li><p>Python问题</p>
 </li>
 </ul>
-<p>ImportError: cannot import name ‘soft_unicode’ from ‘markupsafe’<br>python -m pip install markupsafe&#x3D;&#x3D;2.0.1</p>
-<p>ImportError: cannot import name ‘json’ from ‘itsdangerous’<br>python -m pip install itsdangerous&#x3D;&#x3D;2.0.1<br>&#96;&#96;&#96;</p>
+<pre><code class="bash"># ImportError: cannot import name &#39;Markup&#39; from &#39;jinja2&#39;
+pip install jinja2==2.11.3
+
+# ImportError: cannot import name &#39;soft_unicode&#39; from &#39;markupsafe&#39;
+python -m pip install markupsafe==2.0.1
+
+# ImportError: cannot import name &#39;json&#39; from &#39;itsdangerous&#39;
+python -m pip install itsdangerous==2.0.1
+</code></pre>
 
     </div>
     
