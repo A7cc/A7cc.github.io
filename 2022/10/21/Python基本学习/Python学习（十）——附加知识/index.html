@@ -149,7 +149,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/开发" style="color: #00a596">
+                <a href="/tags/开发" style="color: #03a9f4">
                     开发
                 </a>
             </span>
@@ -370,34 +370,43 @@ for i in mi:
 <p>yield 是一个关键字，作用和 return 差不多，差别在于 yield 返回的是一个生成器（在 Python 中，一边循环一边计算的机制，称为生成器），它的作用是：有利于减小服务器资源，在列表中所有数据存入内存，而生成器相当于一种方法而不是具体的信息，用多少取多少，占用内存小。</p>
 </blockquote>
 <p>生成器的创建方式有很多种，比如：使用 <code>yield</code> 语句、生成器表达式（可以简单的理解为是将列表的 <code>[]</code> 换成了 <code>()</code>，特点是更加简洁，但不够灵活）。看下示例：</p>
-<h2 id="1-示例-1"><a href="#1-示例-1" class="headerlink" title="1.示例 1"></a>1.示例 1</h2><pre><code class="python">def reverse(data):
-    for i in range(len(data)-1, -1, -1):
-        yield data[i]
-for char in reverse(&#39;Hello&#39;):
-    print(char)
+<h2 id="1-示例-1"><a href="#1-示例-1" class="headerlink" title="1.示例 1"></a>1.示例 1</h2><pre><code class="python">def foo():
+    print(&quot;starting...&quot;)
+    while True:
+        res = yield 4
+        print(&quot;res:&quot;,res)
+g = foo()
+print(next(g))
+print(&quot;*&quot;*20)
+print(next(g))
 #执行结果：
-o
-l
-l
-e
-H
-</code></pre>
-<h2 id="2-示例-2"><a href="#2-示例-2" class="headerlink" title="2.示例 2"></a>2.示例 2</h2><pre><code class="python"># 列表
-lis = [x*x for x in range(5)]
-print(lis)
-
-# 生成器
-gen = (x*x for x in range(5))
-for g in gen:
-    print(g)
-#执行结果：
-[0, 1, 4, 9, 16]
-0
-1
+starting...
 4
-9
-16
+********************
+res: None
+4
 </code></pre>
+<p>a.程序开始执行以后，因为<code>foo</code>函数中有<code>yield</code>关键字，所以<code>foo</code>函数并不会真的执行，而是先得到一个生成器<code>g</code>（相当于一个对象）<br>b.直到调用<code>next</code>方法，<code>foo</code>函数正式开始执行，先执行<code>foo</code>函数中的<code>print</code>方法，然后进入<code>while</code>循环<br>c.程序遇到<code>yield</code>关键字，然后把<code>yield</code>想想成<code>return</code>，<code>return</code>了一个<code>4</code>之后，程序停止，并没有执行赋值给res操作，此时<code>next(g)</code>语句执行完成，所以输出的前两行（第一个是<code>while</code>上面的<code>print</code>的结果，第二个是<code>return</code>出的结果）是执行<code>print(next(g))</code>的结果<br>d.程序执行<code>print(&quot;*&quot;*20)</code>，输出20个<code>*</code><br>e.又开始执行下面的<code>print(next(g))</code>,这个时候和上面那个差不多，不过不同的是，这个时候是从刚才那个<code>next</code>程序停止的地方开始执行的，也就是要执行<code>res</code>的赋值操作，这时候要注意，这个时候赋值操作的右边是没有值的（因为刚才那个是<code>return</code>出去了，并没有给赋值操作的左边传参数），所以这个时候<code>res</code>赋值是<code>None</code>，所以接着下面的输出就是<code>res:None</code><br>f.程序会继续在<code>while</code>里执行，又一次碰到<code>yield</code>，这个时候同样<code>return</code> 出<code>4</code>，然后程序停止，<code>print</code>函数输出的<code>4</code>就是这次<code>return</code>出的<code>4</code>。</p>
+<h2 id="2-示例-2"><a href="#2-示例-2" class="headerlink" title="2.示例 2"></a>2.示例 2</h2><pre><code class="python">def foo():
+    print(&quot;starting...&quot;)
+    while True:
+        res = yield 4
+        print(&quot;res:&quot;,res)
+g = foo()
+print(next(g))
+print(&quot;*&quot;*20)
+print(g.send(7))
+#执行结果：
+starting...
+4
+********************
+res: 7
+4
+</code></pre>
+<blockquote>
+<p>大致说一下<code>send</code>函数的概念：此时你应该注意到上面那个的紫色的字，还有上面那个<code>res</code>的值为什么是<code>None</code>，这个变成了<code>7</code>，到底为什么，这是因为，<code>send</code>是发送一个参数给<code>res</code>的，因为上面讲到，<code>return</code>的时候，并没有把<code>4</code>赋值给<code>res</code>，下次执行的时候只好继续执行赋值操作，只好赋值为<code>None</code>了，而如果用<code>send</code>的话，开始执行的时候，先接着上一次（<code>return 4</code>之后）执行，先把<code>7</code>赋值给了<code>res</code>，然后执行<code>next</code>的作用，遇见下一回的<code>yield</code>，<code>return</code>出结果后结束。</p>
+</blockquote>
+<p>上面这个例子与前面例子差不多，区别在于执行<code>g.send(7)</code>，程序会从<code>yield</code>关键字那一行继续向下运行，<code>send</code>会把<code>7</code>这个值赋值给<code>res</code>变量，由于<code>send</code>方法中包含<code>next()</code>方法，所以程序会继续向下运行执行<code>print</code>方法，然后再次进入<code>while</code>循环，程序执行再次遇到<code>yield</code>关键字，<code>yield</code>会返回后面的值后，程序再次暂停，直到再次调用<code>next</code>方法或<code>send</code>方法。</p>
 <h1 id="陆-装饰器"><a href="#陆-装饰器" class="headerlink" title="陆 装饰器"></a>陆 装饰器</h1><h2 id="1-闭包"><a href="#1-闭包" class="headerlink" title="1.闭包"></a>1.闭包</h2><p>首先我们来了解下闭包，什么是闭包呢？看一下维基百科给出的解析：</p>
 <blockquote>
 <p>闭包（英语：Closure），又称词法闭包（Lexical Closure）或函数闭包（function closures），是引用了自由变量的函数。这个被引用的自由变量将和这个函数一同存在，即使已经离开了创造它的环境也不例外。所以，有另一种说法认为闭包是由函数和与其相关的引用环境组合而成的实体。闭包在运行时可以有多个实例，不同的引用环境和相同的函数组合可以产生不同的实例。</p>
