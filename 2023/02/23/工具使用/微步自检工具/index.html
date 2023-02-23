@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
-        <title>Tags | 小C♥天天</title>
+        <title>微步自检工具 | 小C♥天天</title>
         <meta name="author" content="小C&天天">
         <meta name="description" content="^v^">
         <meta name="keywords" content="">
@@ -119,276 +119,60 @@
 </nav>
                     </div>
                     <div id="main">
-                         
-<div class="categories-tags">
-    <header id="header">
-        <div class="avatar">
-            <img src="/images/f6e2b991f74bfd7b88c3ab1a3d513b94.jpg " alt="avatar">
-        </div>
-        <div class="content">
-            <div class="inner">
-                <h1>小 C  ♥  天 天</h1>
-                <p>^ 标签 ^</p>
-            </div>
-        </div>
-    </header>
+                        
+<div class="article">
+    <div>
+        <h1>微步自检工具 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2023/2/23
+        </span>
+        
+        <span class="category">
+            <a href="/categories/工具使用">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                </span>
+                工具使用
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/工具" style="color: #ff7d73">
+                    工具
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Golang" style="color: #00bcd4">
+                    Golang
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    <div class="content" v-pre>
+        <h1 id="壹-简介"><a href="#壹-简介" class="headerlink" title="壹 简介"></a>壹 简介</h1><p>平时因为用很多安全工具，然后怕有后门外联，所以就想的是写有个简单的自检工具！</p>
+<span id="more"></span>
+<h1 id="贰-原理"><a href="#贰-原理" class="headerlink" title="贰 原理"></a>贰 原理</h1><p>该工具的原理就是将存在外连的<code>IP</code>通过微步<code>API</code>进行检测！一般筛选的后的<code>IP</code>比较少，所以没有设置并发数。。。</p>
+<h1 id="叁-代码实现"><a href="#叁-代码实现" class="headerlink" title="叁 代码实现"></a>叁 代码实现</h1><p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/A7cc/TB_check">TB_check</a></p>
+<h1 id="肆-使用"><a href="#肆-使用" class="headerlink" title="肆 使用"></a>肆 使用</h1><p>该工具是基于微步接口对本机恶意<code>IP</code>自检的工具，其中有三个参数：<br><code>-k</code>：微步的<code>key</code>值，必须要有该参数<br><code>-u</code>：对指定IP进行单次检测<br><code>-c</code>：对本机的所有IP进行检测，格式建议用<code>-c=xxxxxx</code>，默认值：<code>true</code>，进行自检</p>
+
+    </div>
     
-    <div class="all-s">
-        
-        
-        <span>
-            <a href="/tags/hexo/" style="background: #03a9f4">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-                </span>
-                hexo
-            </a>
-        </span>
-        
-        
-        <span>
-            <a href="/tags/Go/" style="background: #00a596">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-                </span>
-                Go
-            </a>
-        </span>
-        
-        
-        <span>
-            <a href="/tags/开发/" style="background: #00bcd4">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-                </span>
-                开发
-            </a>
-        </span>
-        
-        
-        <span>
-            <a href="/tags/Python/" style="background: #ff7d73">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-                </span>
-                Python
-            </a>
-        </span>
-        
-        
-        <span>
-            <a href="/tags/服务器/" style="background: #00a596">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-                </span>
-                服务器
-            </a>
-        </span>
-        
-        
-        <span>
-            <a href="/tags/ESXI/" style="background: #ff7d73">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-                </span>
-                ESXI
-            </a>
-        </span>
-        
-        
-        <span>
-            <a href="/tags/权限维持/" style="background: #03a9f4">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-                </span>
-                权限维持
-            </a>
-        </span>
-        
-        
-        <span>
-            <a href="/tags/内网渗透/" style="background: #ff7d73">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-                </span>
-                内网渗透
-            </a>
-        </span>
-        
-        
-        <span>
-            <a href="/tags/密码学/" style="background: #ff7d73">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-                </span>
-                密码学
-            </a>
-        </span>
-        
-        
-        <span>
-            <a href="/tags/工具/" style="background: #03a9f4">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-                </span>
-                工具
-            </a>
-        </span>
-        
-        
-        <span>
-            <a href="/tags/代理/" style="background: #03a9f4">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-                </span>
-                代理
-            </a>
-        </span>
-        
-        
-        <span>
-            <a href="/tags/域/" style="background: #00a596">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-                </span>
-                域
-            </a>
-        </span>
-        
-        
-        <span>
-            <a href="/tags/提权/" style="background: #ffa2c4">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-                </span>
-                提权
-            </a>
-        </span>
-        
-        
-        <span>
-            <a href="/tags/RSA/" style="background: #ff7d73">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-                </span>
-                RSA
-            </a>
-        </span>
-        
-        
-        <span>
-            <a href="/tags/对称加密/" style="background: #03a9f4">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-                </span>
-                对称加密
-            </a>
-        </span>
-        
-        
-        <span>
-            <a href="/tags/DES/" style="background: #00a596">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-                </span>
-                DES
-            </a>
-        </span>
-        
-        
-        <span>
-            <a href="/tags/3DES/" style="background: #00bcd4">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-                </span>
-                3DES
-            </a>
-        </span>
-        
-        
-        <span>
-            <a href="/tags/AES/" style="background: #03a9f4">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-                </span>
-                AES
-            </a>
-        </span>
-        
-        
-        <span>
-            <a href="/tags/分组模式/" style="background: #ff7d73">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-                </span>
-                分组模式
-            </a>
-        </span>
-        
-        
-        <span>
-            <a href="/tags/反制/" style="background: #00bcd4">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-                </span>
-                反制
-            </a>
-        </span>
-        
-        
-        <span>
-            <a href="/tags/未授权/" style="background: #03a9f4">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-                </span>
-                未授权
-            </a>
-        </span>
-        
-        
-        <span>
-            <a href="/tags/中国蚁剑/" style="background: #ff7d73">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-                </span>
-                中国蚁剑
-            </a>
-        </span>
-        
-        
-        <span>
-            <a href="/tags/JS逆向/" style="background: #ff7d73">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-                </span>
-                JS逆向
-            </a>
-        </span>
-        
-        
-        <span>
-            <a href="/tags/代理与转发/" style="background: #ff7d73">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-                </span>
-                代理与转发
-            </a>
-        </span>
-        
-        
-        <span>
-            <a href="/tags/Golang/" style="background: #00bcd4">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-                </span>
-                Golang
-            </a>
-        </span>
-        
-    </div>
-    <div id="archives">
-        
-    </div>
 </div>
                          
 <footer id="footer">
