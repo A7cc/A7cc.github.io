@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
-        <title>密码学——JWT介绍与代码实现 | 小C♥天天</title>
+        <title>密码学——JWT介绍与其安全问题 | 小C♥天天</title>
         <meta name="author" content="小C&天天">
         <meta name="description" content="^v^">
         <meta name="keywords" content="">
@@ -122,7 +122,7 @@
                         
 <div class="article">
     <div>
-        <h1>密码学——JWT介绍与代码实现 </h1>
+        <h1>密码学——JWT介绍与其安全问题 </h1>
     </div>
     <div class="info">
         <span class="date">
@@ -149,15 +149,15 @@
             
             <span class="tag">
                 
-                <a href="/tags/Golang" style="color: #ffa2c4">
-                    Golang
+                <a href="/tags/JWT" style="color: #ffa2c4">
+                    JWT
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/JWT" style="color: #03a9f4">
-                    JWT
+                <a href="/tags/认证签名" style="color: #00a596">
+                    认证签名
                 </a>
             </span>
             
@@ -165,7 +165,11 @@
         
     </div>
     <div class="content" v-pre>
-        <h1 id="壹-介绍"><a href="#壹-介绍" class="headerlink" title="壹 介绍"></a>壹 介绍</h1><p><code>JWT</code>又叫（<code>Json Web Token</code>），中文翻译又叫<code>json</code>格式的互联网令牌，是一种开放的标准，它定义了一种紧凑且独立的方式，用于在各方之间以 <code>JSON</code> 对象的形式安全地传输信息。此信息可以验证和信任，因为它是经过数字签名的。<code>JWT</code> 可以使用密钥（使用 <code>HMAC</code> 算法）或使用 <code>RSA</code> 或 <code>ECDSA</code> 的公钥&#x2F;私钥对进行签名（这里是百度的）。说白了，这东西就是一个用来校验的信息的准确性的，类似于<code>Session</code>。</p>
+        <h1 id="壹-介绍"><a href="#壹-介绍" class="headerlink" title="壹 介绍"></a>壹 介绍</h1><blockquote>
+<p>前些天，被问到<code>JWT</code>的相关问题，原本以为自己了解，但是后来发现只是浅浅的认识，这几天研究了一下，其基本的安全问题和介绍，下面就是自己对<code>JWT</code>的见解！</p>
+</blockquote>
+<p><code>JWT</code>又叫（<code>Json Web Token</code>），中文翻译又叫<code>json</code>格式的互联网令牌，是一种开放的标准，它定义了一种紧凑且独立的方式，用于在各方之间以 <code>JSON</code> 对象的形式安全地传输信息。此信息可以验证和信任，因为它是经过数字签名的。<code>JWT</code> 可以使用密钥（使用 <code>HMAC</code> 算法）或使用 <code>RSA</code> 或 <code>ECDSA</code> 的公钥&#x2F;私钥对进行签名（这里是百度的）。说白了，这东西就是一个用来校验的信息的准确性的，类似于<code>Session</code>。</p>
+<span id="more"></span>
 <blockquote>
 <p>问题来了，为什么用<code>JWT</code>而不用<code>Session</code>呢？</p>
 <ul>
