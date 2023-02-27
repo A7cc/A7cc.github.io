@@ -156,7 +156,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/Golang" style="color: #00a596">
+                <a href="/tags/Golang" style="color: #00bcd4">
                     Golang
                 </a>
             </span>
@@ -640,6 +640,66 @@ func TestMarshal(t *testing.T) &#123;
 // &#125;
 </code></pre>
 <p>这样空值就从 <code>float64</code> 的 <code>0.0</code> 变为了指针类型的 <code>nil</code> ，我们就能看到正确的经纬度输出。</p>
+<h2 id="6-5-短横线——不显示指定的JSON的数据"><a href="#6-5-短横线——不显示指定的JSON的数据" class="headerlink" title="6.5 短横线——不显示指定的JSON的数据"></a>6.5 短横线——不显示指定的JSON的数据</h2><p>前面我们知道在 <code>Golang</code> 的结构体定义中 <code>omitempty</code> 关键字，是用来表示一条信息如果没有提供，在序列化成 <code>JSON</code> 的时候就不要包含其默认值，但是如果提供，就会显示，这时候就出现一个问题，如果我们需要隐藏该条信息，无论他是否存在值，都隐藏，那么我们可以使用短横线<code>-</code>。</p>
+<pre><code class="Golang">package main
+
+import (
+    &quot;encoding/json&quot;
+    &quot;fmt&quot;
+)
+
+type address struct &#123;
+    Street  string `json:&quot;street&quot;`          // 街道
+    Ste     string `json:&quot;suite,omitempty&quot;` // 单元，该信息如果有默认值就会输出
+    Demo    string `json:&quot;-&quot;`               // 该信息不显示
+    City    string `json:&quot;city&quot;`            // 城市
+    State   string `json:&quot;state&quot;`           // 州/省
+    Zipcode string `json:&quot;zipcode&quot;`         // 邮编
+&#125;
+
+func main() &#123;
+    data := `&#123;
+    &quot;street&quot;: &quot;200 Larkin St&quot;,
+    &quot;Demo&quot;: &quot;demo&quot;,
+    &quot;city&quot;: &quot;San Francisco&quot;,
+    &quot;state&quot;: &quot;CA&quot;,
+    &quot;zipcode&quot;: &quot;94102&quot;
+&#125;`
+    data1 := `&#123;
+    &quot;street&quot;: &quot;200 Larkin St&quot;,
+    &quot;Demo&quot;: &quot;demo&quot;,
+    &quot;suite&quot;: &quot;一单元&quot;,
+    &quot;city&quot;: &quot;San Francisco&quot;,
+    &quot;state&quot;: &quot;CA&quot;,
+    &quot;zipcode&quot;: &quot;94102&quot;
+&#125;`
+    addr := new(address)
+    // 处理了一番 addr 变量...
+    // 处理date
+    json.Unmarshal([]byte(data), &amp;addr)
+    addressBytes, _ := json.MarshalIndent(addr, &quot;&quot;, &quot;    &quot;)
+    fmt.Printf(&quot;%s\n&quot;, string(addressBytes))
+    // 处理date1
+    json.Unmarshal([]byte(data1), &amp;addr)
+    addressBytes, _ = json.MarshalIndent(addr, &quot;&quot;, &quot;    &quot;)
+    fmt.Printf(&quot;%s\n&quot;, string(addressBytes))
+&#125;
+
+// &#123;
+//     &quot;street&quot;: &quot;200 Larkin St&quot;,
+//     &quot;city&quot;: &quot;San Francisco&quot;,
+//     &quot;state&quot;: &quot;CA&quot;,
+//     &quot;zipcode&quot;: &quot;94102&quot;
+// &#125;
+// &#123;
+//     &quot;street&quot;: &quot;200 Larkin St&quot;,
+//     &quot;suite&quot;: &quot;一单元&quot;,
+//     &quot;city&quot;: &quot;San Francisco&quot;,
+//     &quot;state&quot;: &quot;CA&quot;,
+//     &quot;zipcode&quot;: &quot;94102&quot;
+// &#125;
+</code></pre>
+<p>可以看到用<code>omitempty</code> 关键字是只有在有数据的时候才会显示，而用短横线<code>-</code>是不会显示的，那什么时候不显示数据呢？例如该结构体存在密码信息，但是我不需要显示出来的时候，就可以使用短横线<code>-</code>表示。</p>
 
     </div>
     
