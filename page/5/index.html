@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="/css/main.css">
         <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
         <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+        <link rel="stylesheet" href="/css/style.css">
     <meta name="generator" content="Hexo 6.2.0"></head>
     <body>
         <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:30vmin;height:30vmin;padding:60px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #dd20dd;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">正在加载</p><div><img alt="loading" src="/images/afde9fa65a5742a90b51d6e1211e841e.gif"></div></div></div></div></div>
@@ -58,6 +59,10 @@
             <span>&ensp;标签</span>
         </a>
         
+        <form class="search">
+            <input type="text" placeholder="需要搜索什么？">
+            <button type="submit"></button>
+        </form>
     </div>
     <div :class="'phone-menu ' + menu_show" id="phone-menu">
         <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
@@ -182,15 +187,15 @@
         
         <span class="tag">
             
-            <a href="/tags/开发" style="color: #00a596">
-                开发
+            <a href="/tags/Python" style="color: #00bcd4">
+                Python
             </a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/Python" style="color: #00bcd4">
-                Python
+            <a href="/tags/开发" style="color: #ff7d73">
+                开发
             </a>
         </span>
         
@@ -239,15 +244,15 @@
         
         <span class="tag">
             
-            <a href="/tags/开发" style="color: #00a596">
-                开发
+            <a href="/tags/Python" style="color: #00bcd4">
+                Python
             </a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/Python" style="color: #ffa2c4">
-                Python
+            <a href="/tags/开发" style="color: #00a596">
+                开发
             </a>
         </span>
         
@@ -297,20 +302,77 @@
         
         <span class="tag">
             
-            <a href="/tags/开发" style="color: #03a9f4">
+            <a href="/tags/Python" style="color: #03a9f4">
+                Python
+            </a>
+        </span>
+        
+        <span class="tag">
+            
+            <a href="/tags/开发" style="color: #ff7d73">
+                开发
+            </a>
+        </span>
+        
+    </div>
+    <a href="/2022/10/21/Python基本学习/Python学习（三）——容器/" class="go-post">
+        阅读全文
+    </a>
+</div>
+
+<div class="post">
+    <a href="/2022/10/21/Go基础教程/Go基础学习（肆）——函数/">
+        <h2>
+            Go基础学习（肆）——函数
+        </h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/Go基础教程">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                Go基础教程
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2022/10/21
+        </span>
+    </div>
+    <div class="excerpt">
+        <div class="content" v-pre>
+            
+            <h1 id="壹-前言"><a href="#壹-前言" class="headerlink" title="壹 前言"></a>壹 前言</h1><p>在学习函数之前，需要明白为什么要学习函数？</p>
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/开发" style="color: #00a596">
                 开发
             </a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/Python" style="color: #00bcd4">
-                Python
+            <a href="/tags/Golang" style="color: #ff7d73">
+                Golang
             </a>
         </span>
         
     </div>
-    <a href="/2022/10/21/Python基本学习/Python学习（三）——容器/" class="go-post">
+    <a href="/2022/10/21/Go基础教程/Go基础学习（肆）——函数/" class="go-post">
         阅读全文
     </a>
 </div>
@@ -379,63 +441,6 @@
 </div>
 
 <div class="post">
-    <a href="/2022/10/21/Go基础教程/Go基础学习（肆）——函数/">
-        <h2>
-            Go基础学习（肆）——函数
-        </h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/Go基础教程">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
-                Go基础教程
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
-            </span>
-            2022/10/21
-        </span>
-    </div>
-    <div class="excerpt">
-        <div class="content" v-pre>
-            
-            <h1 id="壹-前言"><a href="#壹-前言" class="headerlink" title="壹 前言"></a>壹 前言</h1><p>在学习函数之前，需要明白为什么要学习函数？</p>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-        </span>
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/开发" style="color: #ffa2c4">
-                开发
-            </a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/Golang" style="color: #ffa2c4">
-                Golang
-            </a>
-        </span>
-        
-    </div>
-    <a href="/2022/10/21/Go基础教程/Go基础学习（肆）——函数/" class="go-post">
-        阅读全文
-    </a>
-</div>
-
-<div class="post">
     <a href="/2022/10/21/Go基础教程/Go基础学习（陆）——结构体/">
         <h2>
             Go基础学习（陆）——结构体
@@ -481,7 +486,7 @@
         
         <span class="tag">
             
-            <a href="/tags/Golang" style="color: #03a9f4">
+            <a href="/tags/Golang" style="color: #ff7d73">
                 Golang
             </a>
         </span>
@@ -540,7 +545,7 @@
         
         <span class="tag">
             
-            <a href="/tags/Golang" style="color: #03a9f4">
+            <a href="/tags/Golang" style="color: #00bcd4">
                 Golang
             </a>
         </span>
@@ -590,7 +595,7 @@
         
         <span class="tag">
             
-            <a href="/tags/开发" style="color: #00bcd4">
+            <a href="/tags/开发" style="color: #ffa2c4">
                 开发
             </a>
         </span>
@@ -647,14 +652,14 @@
         
         <span class="tag">
             
-            <a href="/tags/开发" style="color: #03a9f4">
+            <a href="/tags/开发" style="color: #ffa2c4">
                 开发
             </a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/Golang" style="color: #00a596">
+            <a href="/tags/Golang" style="color: #00bcd4">
                 Golang
             </a>
         </span>
@@ -712,7 +717,7 @@
         
         <span class="tag">
             
-            <a href="/tags/Golang" style="color: #03a9f4">
+            <a href="/tags/Golang" style="color: #ffa2c4">
                 Golang
             </a>
         </span>

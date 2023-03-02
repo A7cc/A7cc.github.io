@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="/css/main.css">
         <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
         <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+        <link rel="stylesheet" href="/css/style.css">
     <meta name="generator" content="Hexo 6.2.0"></head>
     <body>
         <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:30vmin;height:30vmin;padding:60px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #dd20dd;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">正在加载</p><div><img alt="loading" src="/images/afde9fa65a5742a90b51d6e1211e841e.gif"></div></div></div></div></div>
@@ -58,6 +59,10 @@
             <span>&ensp;标签</span>
         </a>
         
+        <form class="search">
+            <input type="text" placeholder="需要搜索什么？">
+            <button type="submit"></button>
+        </form>
     </div>
     <div :class="'phone-menu ' + menu_show" id="phone-menu">
         <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
@@ -152,7 +157,7 @@
 <h2 id="🚫未完成"><a href="#🚫未完成" class="headerlink" title="🚫未完成"></a>🚫未完成</h2><ul>
 <li><input disabled="" type="checkbox"> 太多了。。。</li>
 </ul>
-<h1 id="😋-格言"><a href="#😋-格言" class="headerlink" title="😋 格言"></a>😋 格言</h1><p>修学储能，先博后渊！</p>
+<h1 id="😋-格言"><a href="#😋-格言" class="headerlink" title="😋 格言"></a>😋 格言</h1><p>修学储能，先博后渊！<br>任何能用脚本批量解决的问题，绝不用人工处理！</p>
 
     </div>
     

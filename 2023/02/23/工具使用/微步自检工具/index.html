@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="/css/main.css">
         <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
         <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+        <link rel="stylesheet" href="/css/style.css">
     <meta name="generator" content="Hexo 6.2.0"></head>
     <body>
         <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:30vmin;height:30vmin;padding:60px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #dd20dd;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">正在加载</p><div><img alt="loading" src="/images/afde9fa65a5742a90b51d6e1211e841e.gif"></div></div></div></div></div>
@@ -58,6 +59,10 @@
             <span>&ensp;标签</span>
         </a>
         
+        <form class="search">
+            <input type="text" placeholder="需要搜索什么？">
+            <button type="submit"></button>
+        </form>
     </div>
     <div :class="'phone-menu ' + menu_show" id="phone-menu">
         <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
@@ -149,15 +154,15 @@
             
             <span class="tag">
                 
-                <a href="/tags/工具" style="color: #ffa2c4">
-                    工具
+                <a href="/tags/Golang" style="color: #00a596">
+                    Golang
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/Golang" style="color: #00bcd4">
-                    Golang
+                <a href="/tags/工具" style="color: #ff7d73">
+                    工具
                 </a>
             </span>
             
