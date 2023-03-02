@@ -1,0 +1,733 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>Golang小脚本（持续更新） | 小C♥天天</title>
+        <meta name="author" content="小C&天天">
+        <meta name="description" content="^v^">
+        <meta name="keywords" content="">
+        <link rel="icon" href="/images/icon.jpg">
+        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
+        <link rel="stylesheet" href="/css/fonts.min.css">
+        <link rel="stylesheet" href="/css/particlex.css">
+        <link rel="stylesheet" href="/css/main.css">
+        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
+        <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+    <meta name="generator" content="Hexo 6.2.0"></head>
+    <body>
+        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:30vmin;height:30vmin;padding:60px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #dd20dd;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">正在加载</p><div><img alt="loading" src="/images/afde9fa65a5742a90b51d6e1211e841e.gif"></div></div></div></div></div>
+        <div id="layout">
+            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
+            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
+            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
+            <transition name="into">
+                <div v-show="show_page" style="display: -not-none">
+                    <div id="menu_show">
+                         
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">小C♥天天</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;文章</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+    </div>
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
+        <div :class="'title'" @click="menu_show = !menu_show">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;小C♥天天</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+                    </div>
+                    <div id="main">
+                        
+<div class="article">
+    <div>
+        <h1>Golang小脚本（持续更新） </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2023/3/2
+        </span>
+        
+        <span class="category">
+            <a href="/categories/乱七八糟">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                </span>
+                乱七八糟
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Golang" style="color: #ff7d73">
+                    Golang
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    <div class="content" v-pre>
+        <h1 id="壹-说明"><a href="#壹-说明" class="headerlink" title="壹 说明"></a>壹 说明</h1><p>该文章主要记录平时工作或者生活中经常使用的小脚本。</p>
+<span id="more"></span>
+<h1 id="贰-小脚本"><a href="#贰-小脚本" class="headerlink" title="贰 小脚本"></a>贰 小脚本</h1><h2 id="2-1-处理错误方法"><a href="#2-1-处理错误方法" class="headerlink" title="2.1 处理错误方法"></a>2.1 处理错误方法</h2><pre><code class="Golang">// 处理错误方法
+func HandlingErrors(err error, funname string) &#123;
+    if err != nil &#123;
+        fmt.Println(&quot;[\033[31;1m-\033[0m] &quot;, funname, &quot;Error：&quot;, err)
+        log.Panic(err)
+    &#125;
+&#125;
+</code></pre>
+<h2 id="2-2-标志"><a href="#2-2-标志" class="headerlink" title="2.2 标志"></a>2.2 标志</h2><pre><code class="Golang">func TagPrint() &#123;
+    // tag1
+    fmt.Println(&quot;\033[31;1m====================================================\033[0m\033[34;1m&quot;)
+    fmt.Println(&quot;        ______  ____\033[31;1m_\033[0m\033[34;1m__\033[31;1m___\033[0m\033[34;1m_____\033[31;1m___&quot;)
+    fmt.Println(&quot;       /\033[0m\033[34;1m      ||   。       \033[33;1m。\033[0m\033[34;1m   /  T00ls:工具名字&quot;)
+    fmt.Println(&quot;      /   _   \033[31;1m|\033[0m\033[34;1m|____\033[31;1m__\033[0m\033[34;1m_     _  _/&quot;)
+    fmt.Println(&quot;     \033[31;1m/\033[0m\033[34;1m   \033[31;1m/ |\033[0m\033[34;1m  |       /    /\033[31;1m( )\033[0m\033[34;1m&quot;)
+    fmt.Println(&quot;    /   \033[31;1m/_\033[0m\033[34;1m_|  |      \033[31;1m/\033[0m\033[34;1m    /   ( )       &quot;)
+    fmt.Println(&quot;   /   ____   \033[31;1m|\033[0m\033[34;1m  \033[35;1m&lt;-—+—++—+--&#125;\033[0m\033[34;1m\033[31;1m( )\033[0m\033[34;1m____\033[31;1m/|\033[0m\033[34;1m&quot;)
+    fmt.Println(&quot;  \033[31;1m/\033[0m\033[34;1m   /    |  |    /    /    ( \033[33;1m.\033[0m\033[34;1m   . \033[31;1m)\033[0m\033[34;1m&quot;)
+    fmt.Println(&quot; /\033[31;1m_\033[0m\033[34;1m__/     |_\033[31;1m_|\033[0m\033[34;1m   \033[31;1m/_\033[0m\033[34;1m___/     (\033[31;1m__\033[0m\033[34;1m__=___)  \033[31;1m❤\033[0m&quot;)
+    fmt.Println(&quot;\033[0m\033[31;1m====================================================\033[0m&quot;)
+&#125;
+func TagPrint() &#123;
+    // tag2
+    fmt.Println(&quot;\033[34;1m++++++++++++++++++++++++++++++++++++++++++++++++++++++++\033[0m\033[31;1m&quot;)
+    fmt.Println(&quot;                  ______     _______________            &quot;)
+    fmt.Println(&quot;                 /       \\  \\               \\           &quot;)
+    fmt.Println(&quot;                /    __   \\  \\___________   /           &quot;)
+    fmt.Println(&quot;               /    /  \\   \\         /    /             &quot;)
+    fmt.Println(&quot;              /    /    \\   \\       /    /              &quot;)
+    fmt.Println(&quot;             /    /______\\   \\   \033[34;1m&lt;—+————+-&#125;\033[0m\033[31;1m             &quot;)
+    fmt.Println(&quot;            /    __________   \\    |    |               &quot;)
+    fmt.Println(&quot;           /    /          \\   \\   |    |               &quot;)
+    fmt.Println(&quot;          /    /            \\   \\  |    |               &quot;)
+    fmt.Println(&quot;         /____/              \\___\\ |____|               &quot;)
+    fmt.Println(&quot;\033[0m\033[34;1m++++++++++++++++++++++++++++++++++++++++++++++++++++++++\033[0m&quot;)
+    // tag3
+    fmt.Println(&quot;\033[36m -------------------------------------------------------- \033[0m&quot;)
+    fmt.Println(&quot;\033[31m     ██████╗  █████╗ ████████╗██╗  ██╗███████╗██████╗     \033[0m&quot;)
+    fmt.Println(&quot;\033[31m    ██╔════╝ ██╔══██╗╚══██╔══╝██║  ██║██╔════╝██╔══██╗    \033[0m&quot;)
+    fmt.Println(&quot;\033[31m    ██║  ███╗███████║   ██║   ███████║█████╗  ██████╔╝    \033[0m&quot;)
+    fmt.Println(&quot;\033[31m    ██║   ██║██╔══██║   ██║   ██╔══██║██╔══╝  ██╔══██╗    \033[0m&quot;)
+    fmt.Println(&quot;\033[31m    ╚██████╔╝██║  ██║   ██║   ██║  ██║███████╗██║  ██║    \033[0m&quot;)
+    fmt.Println(&quot;\033[31m     ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝    \033[0m&quot;)
+    fmt.Println(&quot;\033[36m -------------------------------------------------------- \033[0m&quot;)
+&#125;
+</code></pre>
+<h2 id="2-3-切片去重"><a href="#2-3-切片去重" class="headerlink" title="2.3 切片去重"></a>2.3 切片去重</h2><pre><code class="Golang">// 去重
+func Unique(str1 []string) []string &#123;
+    // 将第一个切片元素赋值，构建一个新的字符串切片
+    out := str1[:1]
+    // 遍历str1的元素
+    for _, word := range str1 &#123;
+        i := 0
+        for ; i &lt; len(out); i++ &#123;
+            if word == out[i] &#123;
+                break
+            &#125;
+        &#125;
+        if i == len(out) &#123;
+            out = append(out, word)
+        &#125;
+    &#125;
+    return out
+&#125;
+
+// 或者
+func RemoveDuplicate(old []string) []string &#123;
+    result := []string&#123;&#125;
+    temp := map[string]struct&#123;&#125;&#123;&#125;
+    for _, item := range old &#123;
+        if _, ok := temp[item]; !ok &#123;
+            temp[item] = struct&#123;&#125;&#123;&#125;
+            result = append(result, item)
+        &#125;
+    &#125;
+    return result
+&#125;
+</code></pre>
+<h2 id="2-4-排除内网IP"><a href="#2-4-排除内网IP" class="headerlink" title="2.4 排除内网IP"></a>2.4 排除内网IP</h2><pre><code class="Golang">func DeleteLocalIP(iplist []string) []string &#123;
+    // 用于输出排除内网的字符串切片
+    var out []string
+    // 循环遍历iplist
+    for _, v := range iplist &#123;
+        // 判断元素是否是内网地址，如果不是增加到out切片
+        rege, _ := regexp.Compile(`^(127\.0\.0\.1)|(localhost)|(10\.\d&#123;1,3&#125;\.\d&#123;1,3&#125;\.\d&#123;1,3&#125;)|(0.0.0.0)|(172\.((1[6-9])|(2\d)|(3[01]))\.\d&#123;1,3&#125;\.\d&#123;1,3&#125;)|(192\.168\.\d&#123;1,3&#125;\.\d&#123;1,3&#125;)$`)
+        matched := rege.MatchString(v)
+        if !matched &#123;
+            out = append(out, v)
+        &#125;
+    &#125;
+    return out
+&#125;
+</code></pre>
+<h2 id="2-5-IP的正则表达式"><a href="#2-5-IP的正则表达式" class="headerlink" title="2.5 IP的正则表达式"></a>2.5 IP的正则表达式</h2><pre><code class="Golang">regexp.Compile(`[[:digit:]]&#123;1,3&#125;\.[[:digit:]]&#123;1,3&#125;\.[[:digit:]]&#123;1,3&#125;\.[[:digit:]]&#123;1,3&#125;`)
+</code></pre>
+<h2 id="2-6-终端颜色"><a href="#2-6-终端颜色" class="headerlink" title="2.6 终端颜色"></a>2.6 终端颜色</h2><pre><code class="Golang">func Tag() &#123;
+    fmt.Printf(&quot;\x1b[%dmhello world 30: 黑 \x1b[0m\n&quot;, 30)
+    fmt.Printf(&quot;\x1b[%dmhello world 31: 红 \x1b[0m\n&quot;, 31)
+    fmt.Printf(&quot;\x1b[%dmhello world 32: 绿 \x1b[0m\n&quot;, 32)
+    fmt.Printf(&quot;\x1b[%dmhello world 33: 黄 \x1b[0m\n&quot;, 33)
+    fmt.Printf(&quot;\x1b[%dmhello world 34: 蓝 \x1b[0m\n&quot;, 34)
+    fmt.Printf(&quot;\x1b[%dmhello world 35: 紫 \x1b[0m\n&quot;, 35)
+    fmt.Printf(&quot;\x1b[%dmhello world 36: 深绿 \x1b[0m\n&quot;, 36)
+    fmt.Printf(&quot;\x1b[%dmhello world 37: 白色 \x1b[0m\n&quot;, 37)
+
+    fmt.Printf(&quot;\x1b[%d;%dmhello world \x1b[0m 47: 白色 30: 黑 \n&quot;, 47, 30)
+    fmt.Printf(&quot;\x1b[%d;%dmhello world \x1b[0m 46: 深绿 31: 红 \n&quot;, 46, 31)
+    fmt.Printf(&quot;\x1b[%d;%dmhello world \x1b[0m 45: 紫   32: 绿 \n&quot;, 45, 32)
+    fmt.Printf(&quot;\x1b[%d;%dmhello world \x1b[0m 44: 蓝   33: 黄 \n&quot;, 44, 33)
+    fmt.Printf(&quot;\x1b[%d;%dmhello world \x1b[0m 43: 黄   34: 蓝 \n&quot;, 43, 34)
+    fmt.Printf(&quot;\x1b[%d;%dmhello world \x1b[0m 42: 绿   35: 紫 \n&quot;, 42, 35)
+    fmt.Printf(&quot;\x1b[%d;%dmhello world \x1b[0m 41: 红   36: 深绿 \n&quot;, 41, 36)
+    fmt.Printf(&quot;\x1b[%d;%dmhello world \x1b[0m 40: 黑   37: 白色 \n&quot;, 40, 37)
+&#125;
+</code></pre>
+<h2 id="2-7-字符串类型的端口转换为int切片的端口"><a href="#2-7-字符串类型的端口转换为int切片的端口" class="headerlink" title="2.7 字符串类型的端口转换为int切片的端口"></a>2.7 字符串类型的端口转换为int切片的端口</h2><pre><code class="Golang">// 将字符串端口转换为int切片端口
+func PortParse(port string) []int &#123;
+    var ports []int
+    if port == &quot;&quot; &#123;
+        // 不设置端口，使用默认端口
+        defPort := configs.DefaultPorts
+        return defPort
+    &#125; else if len(regexp.MustCompile(&quot;-&quot;).FindAllStringIndex(port, -1)) == 1 &#123;
+
+        grep := regexp.MustCompile(&quot;(.*)-(.*)&quot;)
+        // 获取IP段的头尾
+        portHead := grep.FindStringSubmatch(port)[1]
+        portTail := grep.FindStringSubmatch(port)[2]
+        // 将IP的头尾转换成int类型
+        intHead, _ := strconv.Atoi(portHead)
+        intTail, _ := strconv.Atoi(portTail)
+        // 赋值IP切片
+        for p := intHead; p &lt;= intTail; p++ &#123;
+            ports = append(ports, p)
+        &#125;
+        return ports
+    &#125; else &#123;
+        // 将IP字符串分开
+        CustomPorts := strings.Split(port, &quot;,&quot;)
+        // 迭代赋值给int切片
+        for _, port := range CustomPorts &#123;
+            p, _ := strconv.Atoi(port)
+            ports = append(ports, p)
+        &#125;
+        return ports
+    &#125;
+&#125;
+</code></pre>
+<h2 id="2-8-将int转换为字符串"><a href="#2-8-将int转换为字符串" class="headerlink" title="2.8 将int转换为字符串"></a>2.8 将int转换为字符串</h2><pre><code class="Golang">int_1, _ := strconv.Atoi(&quot;asasas&quot;)
+str_1 := strconv.Itoa(100)
+fmt.Println(int_1)
+fmt.Println(str_1)
+</code></pre>
+<h2 id="2-9-Ping通主机以及判断操作系统类型"><a href="#2-9-Ping通主机以及判断操作系统类型" class="headerlink" title="2.9 Ping通主机以及判断操作系统类型"></a>2.9 Ping通主机以及判断操作系统类型</h2><pre><code class="Golang">// hosthost是主机
+// timeout是过期时间
+func Ping(host string, timeout int) bool &#123;
+    // 将int类型的timeout转换为string类型的timeout
+    var to = strconv.Itoa(timeout)
+    // ping对应主机
+    var cmd *exec.Cmd
+    // 判断操作系统
+    switch runtime.GOOS &#123;
+    case &quot;windows&quot;:
+        cmd = exec.Command(&quot;ping&quot;, host, &quot;-n&quot;, &quot;1&quot;, &quot;-w&quot;, to)
+    case &quot;linux&quot;:
+        cmd = exec.Command(&quot;ping&quot;, host, &quot;-c&quot;, &quot;1&quot;, &quot;-w&quot;, to)
+    case &quot;darwin&quot;:
+        cmd = exec.Command(&quot;ping&quot;, host, &quot;-c&quot;, &quot;1&quot;, &quot;-W&quot;, to)
+    &#125;
+    // 判断cmd是否为空
+    if cmd == nil &#123;
+        return false
+    &#125;
+    // 执行cmd的命令
+    err := cmd.Run()
+    return err == nil
+&#125;
+</code></pre>
+<h2 id="2-10-实现SHA256生成散列值"><a href="#2-10-实现SHA256生成散列值" class="headerlink" title="2.10 实现SHA256生成散列值"></a>2.10 实现SHA256生成散列值</h2><pre><code class="Golang">package main
+import (
+    &quot;crypto/sha256&quot;
+    &quot;encoding/hex&quot;
+    &quot;fmt&quot;
+)
+//SHA256生成哈希值
+func GetSHA256HashCode(str string)string&#123;
+    message := []byte(str)
+    //方法一：
+    //创建一个基于SHA256算法的hash.Hash接口的对象
+    hash := sha256.New()
+    //输入数据
+    hash.Write(message)
+    //计算哈希值
+    bytes := hash.Sum(nil)
+    //将字符串编码为16进制格式,返回字符串
+    hashCode := hex.EncodeToString(bytes)
+    //返回哈希值
+    return hashCode
+    
+    //方法二：
+    //bytes2:=sha256.Sum256(message)//计算哈希值，返回一个长度为32的数组
+    //hashcode2:=hex.EncodeToString(bytes2[:])//将数组转换成切片，转换成16进制，返回字符串
+    //return hashcode2
+&#125;
+func main()&#123;
+    hashCode:=GetSHA256HashCode(&quot;hello world&quot;)
+    fmt.Println(hashCode)
+&#125;
+</code></pre>
+<h2 id="2-11-获取当前目录下所有文件"><a href="#2-11-获取当前目录下所有文件" class="headerlink" title="2.11 获取当前目录下所有文件"></a>2.11 获取当前目录下所有文件</h2><pre><code class="Golang">func GetAllFile(path string) []string &#123;
+    // 存放文件名
+    filename := []string&#123;&#125;
+    // 读取当前目录中的所有文件和子目录
+    files, err := ioutil.ReadDir(path)
+    if err != nil &#123;
+        panic(err)
+    &#125;
+    // 获取文件，并输出它们的名字
+    for _, file := range files &#123;
+        filename = append(filename, file.Name())
+    &#125;
+    return filename
+&#125;
+</code></pre>
+<h2 id="2-12-生成随机数"><a href="#2-12-生成随机数" class="headerlink" title="2.12 生成随机数"></a>2.12 生成随机数</h2><pre><code class="Golang">package main
+ 
+import &quot;fmt&quot;
+import &quot;math/rand&quot;
+ 
+func main() &#123;
+ 
+    fmt.Println(rand.Intn(100)) //产生0-100的随机整数
+ 
+    fmt.Println(rand.Float64()) //产生0.0-1.0的随机浮点点
+ 
+    s1 := rand.NewSource(42) //用指定值创建一个随机数种子
+    r1 := rand.New(s1)
+    fmt.Print(r1.Intn(100), &quot;,&quot;)
+    fmt.Print(r1.Intn(100))
+    fmt.Println()
+ 
+    s2 := rand.NewSource(42) //同前面一样的种子
+    r2 := rand.New(s2)
+    fmt.Print(r2.Intn(100), &quot;,&quot;)
+    fmt.Print(r2.Intn(100))
+    fmt.Println()
+&#125;
+</code></pre>
+<h2 id="2-13-Base64编码"><a href="#2-13-Base64编码" class="headerlink" title="2.13 Base64编码"></a>2.13 Base64编码</h2><pre><code class="Golang">package main
+
+import (
+    &quot;encoding/base64&quot;
+    &quot;fmt&quot;
+)
+
+func main() &#123;
+    info := []byte(&quot;https://www.bilibili.com/aa*()s/?=&quot;)
+    fmt.Println(&quot;==============标准的Base64编码==============&quot;)
+    encodeinfo := base64.StdEncoding.EncodeToString(info)
+    decodeinfo, _ := base64.StdEncoding.DecodeString(encodeinfo)
+    fmt.Printf(&quot;编码后：%s，解码后：%s\n&quot;, encodeinfo, decodeinfo)
+    fmt.Println(&quot;==============URL的Base64编码==============&quot;)
+    URLencodeinfo := base64.URLEncoding.EncodeToString(info)
+    URLdecodeinfo, _ := base64.URLEncoding.DecodeString(URLencodeinfo)
+    fmt.Printf(&quot;编码后：%s，解码后：%s\n&quot;, URLencodeinfo, URLdecodeinfo)
+&#125;
+</code></pre>
+<h2 id="2-14-判断字符串是否包含某个字符"><a href="#2-14-判断字符串是否包含某个字符" class="headerlink" title="2.14 判断字符串是否包含某个字符"></a>2.14 判断字符串是否包含某个字符</h2><pre><code class="Golang">func main() &#123;
+    if find := strings.Contains(&quot;test-v1&quot;, &quot;v1&quot;); find &#123;
+        fmt.Println(&quot;find the character.&quot;)
+    &#125;
+&#125;
+</code></pre>
+<h2 id="2-15-字符串反转"><a href="#2-15-字符串反转" class="headerlink" title="2.15 字符串反转"></a>2.15 字符串反转</h2><pre><code class="Golang">package main
+
+import &quot;fmt&quot;
+
+func main() &#123;
+    s := &quot;foobar&quot;
+    a := []rune(s)
+    fmt.Printf(&quot;%s\n&quot;, s)
+    fmt.Printf(&quot;字符串逆转过程：\n&quot;)
+    for i, j := 0, len(a)-1; i &lt; j; i, j = i+1, j-1 &#123;
+        a[i], a[j] = a[j], a[i]
+        fmt.Println(string(a))
+
+    &#125;
+    fmt.Printf(&quot;%s\n&quot;, string(a))
+&#125;
+</code></pre>
+<h2 id="2-16-读取json文件"><a href="#2-16-读取json文件" class="headerlink" title="2.16 读取json文件"></a>2.16 读取json文件</h2><pre><code class="Golang">package main
+
+import (
+    &quot;encoding/json&quot;
+    &quot;fmt&quot;
+    &quot;io/ioutil&quot;
+    &quot;os&quot;
+)
+
+type Post struct &#123; //带结构标签，反引号来包围字符串
+    Id      int       `json:&quot;id&quot;`
+    Content string    `json:&quot;content&quot;`
+    Author  Author    `json:&quot;author&quot;`
+    Comment []Comment `json:&quot;comments&quot;`
+&#125;
+
+type Author struct &#123;
+    Id   int    `json:&quot;id&quot;`
+    Name string `json:&quot;name&quot;`
+&#125;
+
+type Comment struct &#123;
+    Id      int    `json:&quot;id&quot;`
+    Content string `json:&quot;content&quot;`
+    Author  string `json:&quot;author&quot;`
+&#125;
+
+func main() &#123;
+    // 打开json文件
+    jsonFile, err := os.Open(&quot;post.json&quot;)
+    if err != nil &#123;
+        fmt.Println(&quot;不存在json文件！&quot;)
+        return
+    &#125;
+    defer jsonFile.Close()
+    
+    // 读取json文件
+    jsonData, err := ioutil.ReadAll(jsonFile)
+    if err != nil &#123;
+        fmt.Println(&quot;读取json文件错误！&quot;)
+        return
+    &#125;
+    fmt.Printf(&quot;JSON文件：%s\n&quot;, jsonData)
+    var post Post
+    // json文件反序列化
+    json.Unmarshal(jsonData, &amp;post)
+    fmt.Printf(&quot;反序列化后文件的内容：%v\n&quot;,post)
+&#125;
+</code></pre>
+<pre><code class="json">// post.json
+&#123;
+    &quot;id&quot;: 1,
+    &quot;content&quot;: &quot;hello golang&quot;,
+    &quot;author&quot;: &#123;
+      &quot;id&quot;: 2,
+      &quot;name&quot;: &quot;miller Fan&quot;
+    &#125;,
+    &quot;comments&quot;: [
+      &#123;
+        &quot;id&quot;: 3,
+        &quot;content&quot;: &quot;Have a good night&quot;,
+        &quot;author&quot;: &quot;屈原&quot;
+      &#125;,
+      &#123;
+        &quot;id&quot;: 4,
+        &quot;content&quot;: &quot;道德经&quot;,
+        &quot;author&quot;: &quot;老子&quot;
+      &#125;
+    ]
+  &#125;
+</code></pre>
+<h2 id="2-17-进度条"><a href="#2-17-进度条" class="headerlink" title="2.17 进度条"></a>2.17 进度条</h2><pre><code class="Golang">package main
+
+import (
+    &quot;fmt&quot;
+    &quot;os&quot;
+    &quot;strings&quot;
+    &quot;time&quot;
+)
+
+func main() &#123;
+    num := 100
+    for i := 0; i &lt;= num; i++ &#123;
+        // 时间50秒
+        time.Sleep(50 * time.Millisecond)
+        h := strings.Repeat(&quot;=&quot;, i) + strings.Repeat(&quot; &quot;, num-i)
+        fmt.Printf(&quot;\r%3d%%[\x1b[1;0;%dm%s\x1b[0m]&quot;, i, 30+(i%7), h)
+        os.Stdout.Sync()
+    &#125;
+    fmt.Println(&quot;\n已完成!&quot;)
+&#125;
+</code></pre>
+<h2 id="2-18-动态加载"><a href="#2-18-动态加载" class="headerlink" title="2.18 动态加载"></a>2.18 动态加载</h2><pre><code class="Golang">package main
+
+import (
+    &quot;fmt&quot;
+    &quot;time&quot;
+)
+
+func main() &#123;
+    // 需要启动一个线程
+    // 需要控制top的值
+    top := true
+    fmt.Println(&quot;[\033[33;1m*\033[0m] 扫描开始！&quot;)
+    go func() &#123;
+        for top &#123;
+            time.Sleep(100 * time.Millisecond)
+            fmt.Printf(&quot;\r[\033[34;1m—\033[0m] 扫描中。。。&quot;)
+            time.Sleep(100 * time.Millisecond)
+            fmt.Printf(&quot;\r[\033[34;1m\\\033[0m] 扫描中。。。&quot;)
+            time.Sleep(100 * time.Millisecond)
+            fmt.Printf(&quot;\r[\033[34;1m|\033[0m] 扫描中。。。&quot;)
+            time.Sleep(100 * time.Millisecond)
+            fmt.Printf(&quot;\r[\033[34;1m/\033[0m] 扫描中。。。&quot;)
+        &#125;
+        fmt.Println()
+    &#125;()
+    for i := 0; i &lt; 10; i++ &#123;
+        time.Sleep(1000 * time.Millisecond)
+    &#125;
+    top = false
+    fmt.Printf(&quot;\r&quot;)
+    fmt.Println(&quot;\n[\033[33;1m*\033[0m] 扫描结束！&quot;)
+&#125;
+</code></pre>
+<h2 id="2-19-汉字转拼音"><a href="#2-19-汉字转拼音" class="headerlink" title="2.19 汉字转拼音"></a>2.19 汉字转拼音</h2><pre><code class="Golang">package main
+
+import (
+    &quot;fmt&quot;
+
+    &quot;github.com/mozillazg/go-pinyin&quot;
+)
+
+func main() &#123;
+    hans := &quot;中国人&quot;
+
+    // 默认
+    a := pinyin.NewArgs()
+    fmt.Println(pinyin.Pinyin(hans, a))
+    // [[zhong] [guo] [ren]]
+
+    // 包含声调
+    a.Style = pinyin.Tone
+    fmt.Println(pinyin.Pinyin(hans, a))
+    // [[zhōng] [guó] [rén]]
+
+    // 声调用数字表示
+    a.Style = pinyin.Tone2
+    fmt.Println(pinyin.Pinyin(hans, a))
+    // [[zho1ng] [guo2] [re2n]]
+
+    // 开启多音字模式
+    a = pinyin.NewArgs()
+    a.Heteronym = true
+    fmt.Println(pinyin.Pinyin(hans, a))
+    // [[zhong zhong] [guo] [ren]]
+    a.Style = pinyin.Tone2
+    fmt.Println(pinyin.Pinyin(hans, a))
+    // [[zho1ng zho4ng] [guo2] [re2n]]
+
+    fmt.Println(pinyin.LazyPinyin(hans, pinyin.NewArgs()))
+    // [zhong guo ren]
+
+    fmt.Println(pinyin.Convert(hans, nil))
+    // [[zhong] [guo] [ren]]
+
+    fmt.Println(pinyin.LazyConvert(hans, nil))
+    // [zhong guo ren]
+    
+    name := &quot;&quot;
+    for _, val := range pinyin.LazyConvert(hans, nil) &#123;
+        name += val
+    &#125;
+    fmt.Println(name)
+    // zhongguoren
+&#125;
+</code></pre>
+<h2 id="2-20-获取客户端IP"><a href="#2-20-获取客户端IP" class="headerlink" title="2.20 获取客户端IP"></a>2.20 获取客户端IP</h2><pre><code class="Golang">package main
+
+import (
+    &quot;flag&quot;
+    &quot;fmt&quot;
+    &quot;net/http&quot;
+
+    &quot;github.com/gin-gonic/gin&quot;
+)
+
+func getip(c *gin.Context) &#123;
+    // 获取客户端真实ip地址
+    reqIP := c.ClientIP()
+    if reqIP == &quot;::1&quot; &#123;
+        reqIP = &quot;127.0.0.1&quot;
+    &#125;
+    fmt.Println(&quot;\x1b[33m[*]\x1b[0m 客户端的的IP为&quot; + reqIP)
+    c.String(http.StatusOK, &quot;[+] 您访问的的IP为&quot;+reqIP)
+&#125;
+
+func main() &#123;
+    var port string
+    flag.StringVar(&amp;port, &quot;p&quot;, &quot;8082&quot;, &quot;监听的端口&quot;)
+    flag.Parse()
+    fmt.Println(&quot;\x1b[32m[+]\x1b[0m 默认监听8082端口！&quot;)
+    r := gin.Default()
+    // 如果应用程序不在代理之后，“ForwardedByClientIP”应设置为 false，因此“X-Forwarded-For”将被忽略。
+    // 如果在代理后面将其设置为true
+    r.ForwardedByClientIP = true
+    r.GET(&quot;/&quot;, getip)
+    r.Run(&quot;:&quot; + port)
+&#125;
+</code></pre>
+
+    </div>
+    
+</div>
+                         
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2023 小C♥天天
+            <span class="footer-icon">
+                <i class="fa-brands fa-github fa-fw"></i>
+            </span>
+            @小C&天天
+        </div>
+        <div>
+            备案号：小C&天天の窝
+        </div>
+    </div>
+</footer>
+                    </div>
+                </div>
+            </transition>
+            <div id="img_show">
+                <img id="img_content" alt="img_show">
+            </div>
+        </div>
+        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
+        <script src="/js/particlex.js"></script>
+        <script src="/js/showimg.js"></script>
+        
+
+        <!-- 3D模型 -->
+        <div id="L2dCanvas" style="position: relative;"></div>
+        <script src="/js/live2d.min.js"></script>
+        <script src="/css/live2d.css"></script>
+        <script>
+            var v = new Viewer({
+                basePath: "/model",
+                role: "zhala_2",
+                mobile: true,
+            });
+        </script>
+        <!-- 点击 -->
+        <script>
+            let body = document.getElementsByTagName('body')[0];
+            body.addEventListener('click', (e) => {
+                let contentArr = ['✊','😘','😍','😊','😭','😡','😋','👍','🐷','😱','💷','💵','×','🆗','№','⭐','🌙','♥','💴','☀','🐎','🐂','🐏','√'];
+                let randomNum = function (n) {
+                    return Math.floor(Math.random() * n)
+                }
+                let span = document.createElement('span');
+                span.innerHTML = `${contentArr[randomNum(contentArr.length)]}`;
+                span.style.color = `rgb(${randomNum(256)},${randomNum(256)},${randomNum(256)})`;
+                span.style.position = 'absolute';
+                span.style.top = `${e.pageY}px`;
+                span.style.left = `${e.pageX}px`;
+                span.style.transition = 'all 1s ease';
+                span.style.zIndex = 20000;
+                body.appendChild(span)
+                setTimeout(()=>{
+                    span.style.top = span.offsetTop - 100 + 'px';
+                    span.style.opacity = 0;
+                    setTimeout(()=>{span.remove()},700)
+                },0)
+            })
+        </script>
+        <!-- 流星背景特效 -->
+        <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/background.js"></script>
+    </body>
+</html>
