@@ -149,14 +149,14 @@
             
             <span class="tag">
                 
-                <a href="/tags/开发" style="color: #03a9f4">
+                <a href="/tags/开发" style="color: #00bcd4">
                     开发
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/Golang" style="color: #00bcd4">
+                <a href="/tags/Golang" style="color: #ff7d73">
                     Golang
                 </a>
             </span>
@@ -532,6 +532,7 @@ require Desktop/demo2 v0.0.0
 replace Desktop/demo2  =&gt; ../demo2
 </code></pre>
 <p>根据这个原理我们可以使用<code>replace</code>将项目依赖中的某个包，替换为其他版本的代码包或我们自己修改后的本地代码包。</p>
+<p><font color="red" size="5">PS：看上面的路径可能会有点绕，但是我们只需要记住在<code>Golang</code>中，没有相对路径这一说，它只有相对项目路径！！！</font></p>
 <h2 id="8-4-go-mod文件"><a href="#8-4-go-mod文件" class="headerlink" title="8.4 go.mod文件"></a>8.4 go.mod文件</h2><p><code>go.mod</code>文件中记录了当前项目中所有依赖包的相关信息，声明依赖的格式如下：</p>
 <pre><code class="go">require module/path v1.2.3
 // require：声明依赖的关键字
