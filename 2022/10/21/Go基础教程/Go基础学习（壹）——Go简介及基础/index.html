@@ -154,7 +154,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/开发" style="color: #00bcd4">
+                <a href="/tags/开发" style="color: #ffa2c4">
                     开发
                 </a>
             </span>
@@ -1587,6 +1587,7 @@ func sum(a, b int) int &#123;
 <th align="left">p &amp; q</th>
 <th align="left">p | q</th>
 <th align="left">p ^ q</th>
+<th align="left">^p</th>
 </tr>
 </thead>
 <tbody><tr>
@@ -1595,6 +1596,7 @@ func sum(a, b int) int &#123;
 <td align="left">0</td>
 <td align="left">0</td>
 <td align="left">0</td>
+<td align="left">-1</td>
 </tr>
 <tr>
 <td align="left">0</td>
@@ -1602,6 +1604,7 @@ func sum(a, b int) int &#123;
 <td align="left">0</td>
 <td align="left">1</td>
 <td align="left">1</td>
+<td align="left">-1</td>
 </tr>
 <tr>
 <td align="left">1</td>
@@ -1609,6 +1612,7 @@ func sum(a, b int) int &#123;
 <td align="left">1</td>
 <td align="left">1</td>
 <td align="left">0</td>
+<td align="left">-2</td>
 </tr>
 <tr>
 <td align="left">1</td>
@@ -1616,9 +1620,10 @@ func sum(a, b int) int &#123;
 <td align="left">0</td>
 <td align="left">1</td>
 <td align="left">1</td>
+<td align="left">-2</td>
 </tr>
 </tbody></table>
-<p>Go 语言支持的位运算符如下表所示：</p>
+<p>Go 语言支持的位运算符如下表所示（<code>A</code>为<code>61</code>，<code>B</code>为<code>249</code>）：</p>
 <table>
 <thead>
 <tr>
@@ -1628,31 +1633,37 @@ func sum(a, b int) int &#123;
 </tr>
 </thead>
 <tbody><tr>
-<td align="left">&amp;</td>
-<td align="left">按位与运算符”&amp;”是双目运算符。 其功能是参与运算的两数各对应的二进位相与。</td>
-<td align="left">(A &amp; B) 结果为 12, 二进制为 0000 1100</td>
+<td align="left"><code>&amp;</code></td>
+<td align="left">按位与运算符<code>&amp;</code>是双目运算符。 其功能是参与运算的两数各对应的二进位相与，口诀：全<code>1</code>为<code>1</code>，否则为<code>0</code>。</td>
+<td align="left"><code>(A &amp; B) 结果为57, 二进制为0011 1001</code></td>
 </tr>
 <tr>
-<td align="left">|</td>
-<td align="left">按位或运算符”|”是双目运算符。 其功能是参与运算的两数各对应的二进位相或</td>
-<td align="left">(A | B) 结果为 61, 二进制为 0011 1101</td>
+<td align="left">&#96;</td>
+<td align="left">&#96;</td>
+<td align="left">按位或运算符&#96;</td>
 </tr>
 <tr>
-<td align="left">^</td>
-<td align="left">按位异或运算符”^”是双目运算符。 其功能是参与运算的两数各对应的二进位相异或，当两对应的二进位相异时，结果为1。</td>
-<td align="left">(A ^ B) 结果为 49, 二进制为 0011 0001</td>
+<td align="left"><code>^</code></td>
+<td align="left">当<code>^</code>是双目运算符按位异或运算符表示。 其功能是参与运算的两数各对应的二进位相异或，口诀：相同为<code>0</code>，不同为<code>1</code>。</td>
+<td align="left"><code>(A ^ B) 结果为196, 二进制为1100 0100</code></td>
 </tr>
 <tr>
-<td align="left">&lt;&lt;</td>
-<td align="left">左移运算符”&lt;&lt;”是双目运算符。左移n位就是乘以2的n次方。 其功能把”&lt;&lt;”左边的运算数的各二进位全部左移若干位，由”&lt;&lt;”右边的数指定移动的位数，高位丢弃，低位补0。</td>
-<td align="left">A &lt;&lt; 2 结果为 240 ，二进制为 1111 0000</td>
+<td align="left"><code>^</code></td>
+<td align="left">当<code>^</code>是单目运算符按取反运算符表示。 其功能是参与单个数进行取反运算。</td>
+<td align="left"><code>(^A) 结果为-62</code></td>
 </tr>
 <tr>
-<td align="left">&gt;&gt;</td>
-<td align="left">右移运算符”&gt;&gt;”是双目运算符。右移n位就是除以2的n次方。 其功能是把”&gt;&gt;”左边的运算数的各二进位全部右移若干位，”&gt;&gt;”右边的数指定移动的位数。</td>
-<td align="left">A &gt;&gt; 2 结果为 15 ，二进制为 0000 1111</td>
+<td align="left"><code>&lt;&lt;</code></td>
+<td align="left">左移运算符<code>&lt;&lt;</code>是双目运算符。左移n位就是乘以2的n次方。 其功能把<code>&lt;&lt;</code>左边的运算数的各二进位全部左移若干位，由<code>&lt;&lt;</code>右边的数指定移动的位数。</td>
+<td align="left"><code>B &lt;&lt; 2 结果为996 ，二进制为0011 1110 0100</code></td>
+</tr>
+<tr>
+<td align="left"><code>&gt;&gt;</code></td>
+<td align="left">右移运算符<code>&gt;&gt;</code>是双目运算符。右移n位就是除以2的n次方。 其功能是把<code>&gt;&gt;</code>左边的运算数的各二进位全部右移若干位，<code>&gt;&gt;</code>右边的数指定移动的位数。</td>
+<td align="left"><code>B &gt;&gt; 2 结果为62 ，二进制为11 1110</code></td>
 </tr>
 </tbody></table>
+<p><font color="red">PS：注意<code>^</code>使用的场景，是单目运算还是双目运算！</font></p>
 <h2 id="10-5-赋值运算符"><a href="#10-5-赋值运算符" class="headerlink" title="10.5 赋值运算符"></a>10.5 赋值运算符</h2><p>下表列出了所有Go语言的赋值运算符。</p>
 <table>
 <thead>
