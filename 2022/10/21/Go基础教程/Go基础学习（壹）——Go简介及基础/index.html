@@ -154,14 +154,14 @@
             
             <span class="tag">
                 
-                <a href="/tags/开发" style="color: #ffa2c4">
+                <a href="/tags/开发" style="color: #03a9f4">
                     开发
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/Golang" style="color: #ffa2c4">
+                <a href="/tags/Golang" style="color: #00a596">
                     Golang
                 </a>
             </span>
@@ -1582,45 +1582,50 @@ func sum(a, b int) int &#123;
 <table>
 <thead>
 <tr>
-<th align="left">p</th>
-<th align="left">q</th>
-<th align="left">p &amp; q</th>
-<th align="left">p | q</th>
-<th align="left">p ^ q</th>
-<th align="left">^p</th>
+<th align="center">p</th>
+<th align="center">q</th>
+<th align="center">p &amp; q</th>
+<th align="center">p | q</th>
+<th align="center">p ^ q</th>
+<th align="center">^p</th>
+<th align="center">p &amp;^ q</th>
 </tr>
 </thead>
 <tbody><tr>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">-1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">-1</td>
+<td align="center">0</td>
 </tr>
 <tr>
-<td align="left">0</td>
-<td align="left">1</td>
-<td align="left">0</td>
-<td align="left">1</td>
-<td align="left">1</td>
-<td align="left">-1</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">-1</td>
+<td align="center">0</td>
 </tr>
 <tr>
-<td align="left">1</td>
-<td align="left">1</td>
-<td align="left">1</td>
-<td align="left">1</td>
-<td align="left">0</td>
-<td align="left">-2</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">-2</td>
+<td align="center">0</td>
 </tr>
 <tr>
-<td align="left">1</td>
-<td align="left">0</td>
-<td align="left">0</td>
-<td align="left">1</td>
-<td align="left">1</td>
-<td align="left">-2</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">-2</td>
+<td align="center">1</td>
 </tr>
 </tbody></table>
 <p>Go 语言支持的位运算符如下表所示（<code>A</code>为<code>61</code>，<code>B</code>为<code>249</code>）：</p>
@@ -1634,7 +1639,7 @@ func sum(a, b int) int &#123;
 </thead>
 <tbody><tr>
 <td align="left"><code>&amp;</code></td>
-<td align="left">按位与运算符<code>&amp;</code>是双目运算符。 其功能是参与运算的两数各对应的二进位相与，口诀：全<code>1</code>为<code>1</code>，否则为<code>0</code>。</td>
+<td align="left">按位与运算符<code>&amp;</code>是双目运算符。其功能是参与运算的两数各对应的二进位相与，口诀：全<code>1</code>为<code>1</code>，否则为<code>0</code>。</td>
 <td align="left"><code>(A &amp; B) 结果为57, 二进制为0011 1001</code></td>
 </tr>
 <tr>
@@ -1644,22 +1649,27 @@ func sum(a, b int) int &#123;
 </tr>
 <tr>
 <td align="left"><code>^</code></td>
-<td align="left">当<code>^</code>是双目运算符按位异或运算符表示。 其功能是参与运算的两数各对应的二进位相异或，口诀：相同为<code>0</code>，不同为<code>1</code>。</td>
+<td align="left">当<code>^</code>是双目运算符按位异或运算符表示。其功能是参与运算的两数各对应的二进位相异或，口诀：相同为<code>0</code>，不同为<code>1</code>。</td>
 <td align="left"><code>(A ^ B) 结果为196, 二进制为1100 0100</code></td>
 </tr>
 <tr>
 <td align="left"><code>^</code></td>
-<td align="left">当<code>^</code>是单目运算符按取反运算符表示。 其功能是参与单个数进行取反运算。</td>
+<td align="left">当<code>^</code>是单目运算符按取反运算符表示。其功能是参与单个数进行取反运算。</td>
 <td align="left"><code>(^A) 结果为-62</code></td>
 </tr>
 <tr>
+<td align="left"><code>&amp;^</code></td>
+<td align="left"><code>&amp;^</code>是双目运算符中的位清移运算符。其功能是将运算符左边数据相异的位保留，相同位清零。</td>
+<td align="left"><code>(A &amp;^ B) 结果为4, 二进制为0000 0100</code></td>
+</tr>
+<tr>
 <td align="left"><code>&lt;&lt;</code></td>
-<td align="left">左移运算符<code>&lt;&lt;</code>是双目运算符。左移n位就是乘以2的n次方。 其功能把<code>&lt;&lt;</code>左边的运算数的各二进位全部左移若干位，由<code>&lt;&lt;</code>右边的数指定移动的位数。</td>
+<td align="left">左移运算符<code>&lt;&lt;</code>是双目运算符。左移n位就是乘以2的n次方。其功能把<code>&lt;&lt;</code>左边的运算数的各二进位全部左移若干位，由<code>&lt;&lt;</code>右边的数指定移动的位数。</td>
 <td align="left"><code>B &lt;&lt; 2 结果为996 ，二进制为0011 1110 0100</code></td>
 </tr>
 <tr>
 <td align="left"><code>&gt;&gt;</code></td>
-<td align="left">右移运算符<code>&gt;&gt;</code>是双目运算符。右移n位就是除以2的n次方。 其功能是把<code>&gt;&gt;</code>左边的运算数的各二进位全部右移若干位，<code>&gt;&gt;</code>右边的数指定移动的位数。</td>
+<td align="left">右移运算符<code>&gt;&gt;</code>是双目运算符。右移n位就是除以2的n次方。其功能是把<code>&gt;&gt;</code>左边的运算数的各二进位全部右移若干位，<code>&gt;&gt;</code>右边的数指定移动的位数。</td>
 <td align="left"><code>B &gt;&gt; 2 结果为62 ，二进制为11 1110</code></td>
 </tr>
 </tbody></table>
