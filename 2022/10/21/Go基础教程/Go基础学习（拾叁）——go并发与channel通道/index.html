@@ -154,7 +154,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/开发" style="color: #00a596">
+                <a href="/tags/开发" style="color: #ff7d73">
                     开发
                 </a>
             </span>
@@ -385,8 +385,7 @@ func main() &#123;
 &#125;
 // 在运行完这一段代码时，会输出值5，偶尔出现其他值，个人认为原因可能是匿名函数每一次运行都会清空，当要输出时，下一个循环就将其覆盖，导致最后只剩下一个赋值为5
 </code></pre>
-<h1 id="叁-channel——通道类型"><a href="#叁-channel——通道类型" class="headerlink" title="叁 channel——通道类型"></a>叁 channel——通道类型</h1><h2 id="2-1-channel类型"><a href="#2-1-channel类型" class="headerlink" title="2.1 channel类型"></a>2.1 channel类型</h2><p>单纯地将函数并发执行是没有意义的。函数与函数间需要交换数据才能体现并发执行函数的意义。</p>
-<p>虽然可以使用共享内存进行数据交换，但是共享内存在不同的 goroutine 中容易发生竞态问题。为了保证数据交换的正确性，很多并发模型中必须使用互斥量对内存进行加锁，这种做法势必造成性能问题。</p>
+<h1 id="叁-channel——通道类型"><a href="#叁-channel——通道类型" class="headerlink" title="叁 channel——通道类型"></a>叁 channel——通道类型</h1><h2 id="2-1-channel类型"><a href="#2-1-channel类型" class="headerlink" title="2.1 channel类型"></a>2.1 channel类型</h2><p>单纯地将函数并发执行是没有意义的。函数与函数间需要交换数据才能体现并发执行函数的意义。就例如我们需要将并发中的值返回，但是<code>goroutine</code>是不存在值返回的，当然可以使用共享内存进行数据交换，但是共享内存在不同的 goroutine 中容易发生竞态问题。为了保证数据交换的正确性，很多并发模型中必须使用互斥量对内存进行加锁，这种做法势必造成性能问题。</p>
 <p>Go语言采用的并发模型是<code>CSP（Communicating Sequential Processes）</code>，提倡<font color="red">通过通信共享内存</font>而不是<font color="red">通过共享内存而实现通信</font>。</p>
 <p><font color="red">如果说 goroutine 是Go程序并发的执行体，<code>channel</code>就是它们之间的连接。<code>channel</code>是可以让一个 goroutine 发送特定值到另一个 goroutine 的通信机制。</font></p>
 <p>Go 语言中的通道（channel）是一种特殊的类型。通道像一个传送带或者队列，总是<font color="red">遵循先入先出（First In First Out）的规则</font>，保证收发数据的顺序。每一个通道都是一个具体类型的导管，也就是声明channel的时候需要为其指定元素类型。声明通道类型变量的格式如下：</p>
@@ -716,7 +715,7 @@ func main() &#123;
     wg.Wait()
 &#125;
 </code></pre>
-<p>将上述代码编译执行后，匿名函数所在的 goroutine 并不会按照预期在通道被关闭后退出。因为<code>task := &lt;- ch</code>的接收操作在通道被关闭后会一直接收到零值，而不会退出。此处的接收操作应该使用<code>task, ok := &lt;- ch</code>，通过判断布尔值<code>ok</code>为假时退出；或者使用select 来处理通道。</p>
+<p>将上述代码编译执行后，匿名函数所在的 goroutine 并不会按照预期在通道被关闭后退出。因为<code>task := &lt;- ch</code>的接收操作在通道被关闭后会一直接收到零值，而不会退出。此处的接收操作应该使用<code>task, ok := &lt;- ch</code>，通过判断布尔值<code>ok</code>为假时退出或者使用select 来处理通道。</p>
 <ul>
 <li>示例2</li>
 </ul>

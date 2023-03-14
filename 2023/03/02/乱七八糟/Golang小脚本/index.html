@@ -154,7 +154,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/Golang" style="color: #00a596">
+                <a href="/tags/Golang" style="color: #ffa2c4">
                     Golang
                 </a>
             </span>
@@ -176,14 +176,14 @@ func HandlingErrors(err error, funname string) &#123;
 <h2 id="2-2-标志"><a href="#2-2-标志" class="headerlink" title="2.2 标志"></a>2.2 标志</h2><pre><code class="Golang">func TagPrint() &#123;
     // tag1
     fmt.Println(&quot;\033[31;1m====================================================\033[0m\033[34;1m&quot;)
-    fmt.Println(&quot;        ______  ____\033[31;1m_\033[0m\033[34;1m__\033[31;1m___\033[0m\033[34;1m_____\033[31;1m___&quot;)
-    fmt.Println(&quot;       /\033[0m\033[34;1m      ||   。       \033[33;1m。\033[0m\033[34;1m   /  T00ls:工具名字&quot;)
-    fmt.Println(&quot;      /   _   \033[31;1m|\033[0m\033[34;1m|____\033[31;1m__\033[0m\033[34;1m_     _  _/&quot;)
-    fmt.Println(&quot;     \033[31;1m/\033[0m\033[34;1m   \033[31;1m/ |\033[0m\033[34;1m  |       /    /\033[31;1m( )\033[0m\033[34;1m&quot;)
-    fmt.Println(&quot;    /   \033[31;1m/_\033[0m\033[34;1m_|  |      \033[31;1m/\033[0m\033[34;1m    /   ( )       &quot;)
-    fmt.Println(&quot;   /   ____   \033[31;1m|\033[0m\033[34;1m  \033[35;1m&lt;-—+—++—+--&#125;\033[0m\033[34;1m\033[31;1m( )\033[0m\033[34;1m____\033[31;1m/|\033[0m\033[34;1m&quot;)
-    fmt.Println(&quot;  \033[31;1m/\033[0m\033[34;1m   /    |  |    /    /    ( \033[33;1m.\033[0m\033[34;1m   . \033[31;1m)\033[0m\033[34;1m&quot;)
-    fmt.Println(&quot; /\033[31;1m_\033[0m\033[34;1m__/     |_\033[31;1m_|\033[0m\033[34;1m   \033[31;1m/_\033[0m\033[34;1m___/     (\033[31;1m__\033[0m\033[34;1m__=___)  \033[31;1m❤\033[0m&quot;)
+    fmt.Println(&quot;        ______  ____\033[31;1m_\033[0m\033[34;1m__\033[31;1m___\033[0m\033[34;1m____\033[31;1m___&quot;)
+    fmt.Println(&quot;       /\033[0m\033[34;1m      ||   。      \033[33;1m。\033[0m\033[34;1m   /&quot;)
+    fmt.Println(&quot;      /  _    \033[31;1m|\033[0m\033[34;1m|____\033[31;1m__\033[0m\033[34;1m_    _  _/ T00ls:&quot;)
+    fmt.Println(&quot;     \033[31;1m/\033[0m\033[34;1m  \033[31;1m/ |\033[0m\033[34;1m   |       /   /\033[31;1m( )\033[0m\033[34;1m   工具名字&quot;)
+    fmt.Println(&quot;    /  \033[31;1m/_\033[0m\033[34;1m_|   |      \033[31;1m/\033[0m\033[34;1m   /   ( )       &quot;)
+    fmt.Println(&quot;   /  ____    \033[31;1m|\033[0m\033[34;1m  \033[35;1m&lt;-—+—+—+--&#125;\033[0m\033[34;1m\033[31;1m( )\033[0m\033[34;1m____\033[31;1m/|\033[0m\033[34;1m&quot;)
+    fmt.Println(&quot;  \033[31;1m/\033[0m\033[34;1m  /    |   |    /   /    ( \033[33;1m.\033[0m\033[34;1m   . \033[31;1m)\033[0m\033[34;1m&quot;)
+    fmt.Println(&quot; /\033[31;1m_\033[0m\033[34;1m_/     |_\033[31;1m__|\033[0m\033[34;1m   \033[31;1m/_\033[0m\033[34;1m__/     (\033[31;1m__\033[0m\033[34;1m__=___)  \033[31;1m❤\033[0m&quot;)
     fmt.Println(&quot;\033[0m\033[31;1m====================================================\033[0m&quot;)
 &#125;
 func TagPrint() &#123;
@@ -562,13 +562,13 @@ func main() &#123;
     go func() &#123;
         for top &#123;
             time.Sleep(100 * time.Millisecond)
-            fmt.Printf(&quot;\r[\033[34;1m—\033[0m] 扫描中。。。&quot;)
+            fmt.Printf(&quot;[\033[34;1m—\033[0m] 扫描中。。。\r&quot;)
             time.Sleep(100 * time.Millisecond)
-            fmt.Printf(&quot;\r[\033[34;1m\\\033[0m] 扫描中。。。&quot;)
+            fmt.Printf(&quot;[\033[34;1m\\\033[0m] 扫描中。。。\r&quot;)
             time.Sleep(100 * time.Millisecond)
-            fmt.Printf(&quot;\r[\033[34;1m|\033[0m] 扫描中。。。&quot;)
+            fmt.Printf(&quot;[\033[34;1m|\033[0m] 扫描中。。。\r&quot;)
             time.Sleep(100 * time.Millisecond)
-            fmt.Printf(&quot;\r[\033[34;1m/\033[0m] 扫描中。。。&quot;)
+            fmt.Printf(&quot;[\033[34;1m/\033[0m] 扫描中。。。\r&quot;)
         &#125;
         fmt.Println()
     &#125;()
@@ -663,6 +663,254 @@ func main() &#123;
     r.ForwardedByClientIP = true
     r.GET(&quot;/&quot;, getip)
     r.Run(&quot;:&quot; + port)
+&#125;
+</code></pre>
+<h2 id="2-21-格式化用户输入的IP"><a href="#2-21-格式化用户输入的IP" class="headerlink" title="2.21 格式化用户输入的IP"></a>2.21 格式化用户输入的IP</h2><pre><code class="Golang">package main
+
+import (
+    &quot;flag&quot;
+    &quot;fmt&quot;
+    &quot;math/rand&quot;
+    &quot;net&quot;
+    &quot;regexp&quot;
+    &quot;strconv&quot;
+    &quot;strings&quot;
+)
+
+
+// 处理ip
+func ProcessIPs(ips string) (hostlist []string) &#123;
+    // 判断是否有逗号
+    if strings.Contains(ips, &quot;,&quot;) &#123;
+        // 如果有逗号将其划分多个IP表
+        IPList := strings.Split(ips, &quot;,&quot;)
+        // 存放IP用与hosts变量一致
+        var ips []string
+        // 循环处理IP表
+        for _, ip := range IPList &#123;
+            ips = parseIP(ip)
+            hostlist = append(hostlist, ips...)
+        &#125;
+    &#125; else &#123;
+        hostlist = parseIP(ips)
+    &#125;
+    return RemoveDuplicate(hostlist)
+&#125;
+
+// 根据用户给出的ip形式进行分类
+func parseIP(ip string) []string &#123;
+    reg := regexp.MustCompile(`[a-zA-Z]+`)
+    switch &#123;
+    case strings.HasSuffix(ip, &quot;/8&quot;):
+        // 扫描/8时，由于A段太多了，只扫网关和随机IP，避免扫描过多IP
+        return parseIP8(ip)
+    case strings.Contains(ip, &quot;/&quot;):
+        // 解析 /24 /16等
+        return parseIP2(ip)
+    case reg.MatchString(ip):
+        // 域名用lookup获取ip
+        host, err := net.LookupHost(ip)
+        if err != nil &#123;
+            return nil
+        &#125;
+        return host
+    case strings.Contains(ip, &quot;-&quot;):
+        // 处理192.168.1.1-192.168.1.100或者192.168.1.1-24
+        return parseIP1(ip)
+    default:
+        // 处理单个ip
+        testIP := net.ParseIP(ip)
+        if testIP == nil &#123;
+            return nil
+        &#125;
+        return []string&#123;ip&#125;
+    &#125;
+&#125;
+
+// 把 192.168.x.x/xx 转换成IP列表
+func parseIP2(host string) (hosts []string) &#123;
+    // 使用 net.ParseCIDR() 方法解析给定的网段，返回网段的 IP 地址和子网掩码
+    // 检查给定的网段是否正确
+    ipone, ipNet, err := net.ParseCIDR(host)
+    if err != nil &#123;
+        return
+    &#125;
+    // 把 192.168.x.x/xx 转换成 192.168.x.x-192.168.x.x 并转成IP列表
+    hosts = parseIP1(IPRange(ipone.String(), ipNet))
+    return
+&#125;
+
+// 解析ip段: 192.168.111.1-255，192.168.111.1-192.168.112.255
+func parseIP1(ip string) []string &#123;
+    // 如果有逗号将其划分多个
+    IPRangelist := strings.Split(ip, &quot;-&quot;)
+    // 确认该IP格式是否为正确IP
+    testIP := net.ParseIP(IPRangelist[0])
+    // 创建一个存储所有IP列表
+    var allIP []string
+    // 通过len函数来确认IPRangelist[1]是192.168.1.255形式还是数字形式
+    if len(IPRangelist[1]) &lt; 4 &#123;
+        // 处理数字形式
+        // 将字符串转成数字
+        Range, err := strconv.Atoi(IPRangelist[1])
+        // 判断合理性
+        if testIP == nil || Range &gt; 255 || err != nil &#123;
+            return nil
+        &#125;
+        // 分离IP
+        SplitIP := strings.Split(IPRangelist[0], &quot;.&quot;)
+        // 转换为数字
+        ip1, err1 := strconv.Atoi(SplitIP[3])
+        // 拼接
+        PrefixIP := SplitIP[0] + &quot;.&quot; + SplitIP[1] + &quot;.&quot; + SplitIP[2]
+        // 判断合理性
+        if ip1 &gt; Range || err1 != nil &#123;
+            return nil
+        &#125;
+        // 循环拼接IP
+        for i := ip1; i &lt;= Range; i++ &#123;
+            allIP = append(allIP, PrefixIP+&quot;.&quot;+strconv.Itoa(i))
+        &#125;
+    &#125; else &#123;
+        // 处理192.168.1.255形式
+        // 分离IP
+        SplitIP1 := strings.Split(IPRangelist[0], &quot;.&quot;)
+        SplitIP2 := strings.Split(IPRangelist[1], &quot;.&quot;)
+        // 判断合理性
+        if len(SplitIP1) != 4 || len(SplitIP2) != 4 &#123;
+            return nil
+        &#125;
+        // 用于存放起始IP和结束IP列表
+        start, end := [4]int&#123;&#125;, [4]int&#123;&#125;
+        // 循环读取4段IP
+        for i := 0; i &lt; 4; i++ &#123;
+            // 转换为数字
+            ip1, err1 := strconv.Atoi(SplitIP1[i])
+            ip2, err2 := strconv.Atoi(SplitIP2[i])
+            // 判断合理性
+            if ip1 &gt; ip2 || err1 != nil || err2 != nil &#123;
+                return nil
+            &#125;
+            // 添加到起始IP和结束IP列表
+            start[i], end[i] = ip1, ip2
+        &#125;
+        // 通过移位运算，将地址改为数字的形式
+        startNum := start[0]&lt;&lt;24 | start[1]&lt;&lt;16 | start[2]&lt;&lt;8 | start[3]
+        endNum := end[0]&lt;&lt;24 | end[1]&lt;&lt;16 | end[2]&lt;&lt;8 | end[3]
+        // 通过循环将数字转成地址
+        for num := startNum; num &lt;= endNum; num++ &#123;
+            ip := strconv.Itoa((num&gt;&gt;24)&amp;0xff) + &quot;.&quot; + strconv.Itoa((num&gt;&gt;16)&amp;0xff) + &quot;.&quot; + strconv.Itoa((num&gt;&gt;8)&amp;0xff) + &quot;.&quot; + strconv.Itoa((num)&amp;0xff)
+            allIP = append(allIP, ip)
+        &#125;
+    &#125;
+    return allIP
+&#125;
+
+// 获取把 192.168.x.x/xx 转换成 192.168.x.x-192.168.x.x的起始IP、结束IP
+func IPRange(start string, c *net.IPNet) string &#123;
+    // 16进制子网掩码
+    mask := c.Mask
+    // 创建一个net.ip类型
+    bcst := make(net.IP, len(c.IP))
+    // 将dreams值给bcst
+    copy(bcst, c.IP)
+    // 获取结束IP
+    for i := len(mask) - 1; i &gt;= 0; i-- &#123;
+        bcst[i] = c.IP[i] | ^mask[i]
+    &#125;
+    end := bcst.String()
+    // 返回用-表示的ip段,192.168.1.1-192.168.255.255
+    return fmt.Sprintf(&quot;%s-%s&quot;, start, end)
+&#125;
+
+// 处理B段IP
+func parseIP8(ip string) []string &#123;
+    // 去掉最后的/8
+    realIP := ip[:len(ip)-2]
+    // net.ParseIP 这个方法用来检查 ip 地址是否正确，如果不正确，该方法返回 nil
+    testIP := net.ParseIP(realIP)
+    // 判断该IP是否为正常IP
+    if testIP == nil &#123;
+        return nil
+    &#125;
+    // 获取IP的头部
+    IP8head := strings.Split(ip, &quot;.&quot;)[0]
+    // 存放B段IP
+    var allIP []string
+    // 构造B段的随机IP表
+    for a := 0; a &lt;= 255; a++ &#123;
+        for b := 0; b &lt;= 255; b++ &#123;
+            // 一般情况下网关为1或者254
+            allIP = append(allIP, fmt.Sprintf(&quot;%s.%d.%d.%d&quot;, IP8head, a, b, 1))
+            allIP = append(allIP, fmt.Sprintf(&quot;%s.%d.%d.%d&quot;, IP8head, a, b, RandInt(2, 80)))
+            allIP = append(allIP, fmt.Sprintf(&quot;%s.%d.%d.%d&quot;, IP8head, a, b, RandInt(81, 170)))
+            allIP = append(allIP, fmt.Sprintf(&quot;%s.%d.%d.%d&quot;, IP8head, a, b, RandInt(171, 253)))
+            allIP = append(allIP, fmt.Sprintf(&quot;%s.%d.%d.%d&quot;, IP8head, a, b, 254))
+        &#125;
+    &#125;
+    return allIP
+&#125;
+
+// 去重函数
+func RemoveDuplicate(old []string) []string &#123;
+    result := []string&#123;&#125;
+    temp := map[string]struct&#123;&#125;&#123;&#125;
+    for _, item := range old &#123;
+        if _, ok := temp[item]; !ok &#123;
+            temp[item] = struct&#123;&#125;&#123;&#125;
+            result = append(result, item)
+        &#125;
+    &#125;
+    return result
+&#125;
+
+// 随机数
+func RandInt(min, max int) int &#123;
+    if min &gt;= max || min == 0 || max == 0 &#123;
+        return max
+    &#125;
+    return rand.Intn(max-min) + min
+&#125;
+
+// 主函数
+func main() &#123;
+    // 定义命令行参数方式
+    var IPs string
+    flag.StringVar(&amp;IPs, &quot;ip&quot;, &quot;&quot;, &quot;ip地址&quot;)
+    // 解析命令行参数
+    flag.Parse()
+    // 判断是否输入IP
+    if IPs == &quot;&quot; &#123;
+        fmt.Println(&quot;[\033[31;1m-\033[0m] 没有输入IP！&quot;)
+        flag.Usage()
+        return
+    &#125;
+    // 对用户输入的IP参数进行格式化处理
+    hosts := ProcessIPs(IPs)
+    for i, val := range hosts &#123;
+        fmt.Println(i, val)
+    &#125;
+&#125;
+</code></pre>
+<h2 id="2-22-文件写入"><a href="#2-22-文件写入" class="headerlink" title="2.22 文件写入"></a>2.22 文件写入</h2><pre><code class="Golang">package main
+
+import (
+    &quot;os&quot;
+)
+
+// 文件写入
+func WriteFile(result string, filename string) &#123;
+    var text = []byte(result + &quot;\n&quot;)
+    f, err := os.OpenFile(filename, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0666)
+    if err != nil &#123;
+        fmt.Printf(&quot;[\033[31;1m-\033[0m] 打开文件 %s 失败, %v\n&quot;, filename, err)
+        return
+    &#125;
+    _, err = f.Write(text)
+    f.Close()
+    if err != nil &#123;
+        fmt.Printf(&quot;[\033[31;1m-\033[0m] 写入文件 %s 失败, %v\n&quot;, filename, err)
+    &#125;
 &#125;
 </code></pre>
 
