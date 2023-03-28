@@ -1,0 +1,257 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>如何追踪通用型漏洞 | 小C♥天天</title>
+        <meta name="author" content="小C&天天">
+        <meta name="description" content="^v^">
+        <meta name="keywords" content="">
+        <link rel="icon" href="/images/icon.jpg">
+        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
+        <link rel="stylesheet" href="/css/fonts.min.css">
+        <link rel="stylesheet" href="/css/particlex.css">
+        <link rel="stylesheet" href="/css/main.css">
+        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
+        <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+        <link rel="stylesheet" href="/css/style.css">
+    <meta name="generator" content="Hexo 6.2.0"></head>
+    <body>
+        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:30vmin;height:30vmin;padding:60px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #dd20dd;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">正在加载</p><div><img alt="loading" src="/images/afde9fa65a5742a90b51d6e1211e841e.gif"></div></div></div></div></div>
+        <div id="layout">
+            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
+            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
+            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
+            <transition name="into">
+                <div v-show="show_page" style="display: -not-none">
+                    <div id="menu_show">
+                         
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">小C♥天天</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;文章</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+        <form class="search">
+            <input type="text" placeholder="需要搜索什么？">
+            <button type="submit"></button>
+        </form>
+    </div>
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
+        <div :class="'title'" @click="menu_show = !menu_show">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;小C♥天天</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+                    </div>
+                    <div id="main">
+                        
+<div class="article">
+    <div>
+        <h1>如何追踪通用型漏洞 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2023/3/28
+        </span>
+        
+        <span class="category">
+            <a href="/categories/漏洞复现">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                </span>
+                漏洞复现
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/小技巧" style="color: #00bcd4">
+                    小技巧
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    <div class="content" v-pre>
+        <h1 id="壹-介绍"><a href="#壹-介绍" class="headerlink" title="壹 介绍"></a>壹 介绍</h1><p>首先我们要确认什么是通用性漏洞？什么是事件性漏洞？</p>
+<ul>
+<li><strong>通用型漏洞</strong>是指一类软件或设备都具有的漏洞。</li>
+<li><strong>事件型漏洞</strong>是指某一个具体网站或应用的漏洞，需要主动针对网站或应用进行。</li>
+</ul>
+<span id="more"></span>
+<p>说白了，通用型漏洞更普遍，而且很多都是开源的框架或者软件，而事件型漏洞比较单一只针对个别网站，是该网站特有的漏洞。</p>
+<h1 id="贰-思路"><a href="#贰-思路" class="headerlink" title="贰 思路"></a>贰 思路</h1><p>那我们如何追踪通用型漏洞呢？首先我们需要从网站或者公众号中，找到自己想要追踪的通用型漏洞，然后就会有一些有<code>poc</code>的，一些没有<code>poc</code>的，有<code>poc</code>的很简单就可以复现和分析，这里我们就不具体说了，而没有<code>poc</code>的就需要我们根据其文章的复现的图片，内容进行分析，然后找到框架或者软件对应的源码，这时候我们可用通过开发者对该框架或者软件的更新说明，进行代码对比，从而得到修改的点，然后进行代码审计分析，最后构造<code>poc</code>。</p>
+<h1 id="叁-以CVE-2023-28432漏洞为例"><a href="#叁-以CVE-2023-28432漏洞为例" class="headerlink" title="叁 以CVE-2023-28432漏洞为例"></a>叁 以CVE-2023-28432漏洞为例</h1><h2 id="3-1-简单分析漏洞情况"><a href="#3-1-简单分析漏洞情况" class="headerlink" title="3.1 简单分析漏洞情况"></a>3.1 简单分析漏洞情况</h2><p>我们以前几天刚出现的<code>CVE-2023-28432</code>漏洞为例子进行追踪，我们以赛博昆仑<code>CERT</code>的<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzkxMDQyMTIzMA==&mid=2247483996&idx=1&sn=b7ce13b85b7cb363f3b177f4bd3c1568&chksm=c12affddf65d76cb603d5b14ef1afeda87e0486c255e8db3c58893bdc9b300960f43643d7881&mpshare=1&scene=1&srcid=0328PYID017NARLKkzn0tHeu&sharer_sharetime=1679969808979&sharer_shareid=b6bbdd1612b2326946b5b1afa664734b&version=4.1.2.6014&platform=win#rd">【复现】MinIO信息泄露漏洞（CVE-2023-28432）风险通告</a>为出发点分析。</p>
+<p>首先我们大致了解一下这篇文章的排版：</p>
+<ul>
+<li>最前面都是该漏洞的基础说明，如漏洞编号、漏洞形式、漏洞名称、漏洞影响版本等，所以通常情况下一个漏洞的说明或者复现。<br><img src="/images/%E5%A4%8D%E7%8E%B0/7069143244f23dba540ad87cfc92fd89.png" alt="7069143244f23dba540ad87cfc92fd89.png"></li>
+<li>然后就是漏洞的复现，这里包括了漏洞的复现和<code>poc</code>，现在我们看到的这篇文章是没有<code>poc</code>的，只有复现截图。<br><img src="/images/%E5%A4%8D%E7%8E%B0/845b1177348759ae001bdd7131d93f4e.png" alt="845b1177348759ae001bdd7131d93f4e.png"></li>
+<li>接着就是一些修复建议、参考链接和各大安全厂商组织团队的广告。<br><img src="/images/%E5%A4%8D%E7%8E%B0/a9f208da17938609293f7f97841e674c.png" alt="a9f208da17938609293f7f97841e674c.png"></li>
+</ul>
+<p>我们主要关注的是漏洞复现部分，从漏洞复现图片中，我们可以很清楚的了解到，该漏洞是一个<code>POST</code>请求，然后没有<code>body</code>内容，并且响应的内容是一堆接口泄露，可以联想到是一个未授权漏洞和信息泄露漏洞这两个大类，在接着看请求头没有什么特殊的<code>poc</code>，说明漏洞主要是接口导致的。<br><img src="/images/%E5%A4%8D%E7%8E%B0/6e38652cfacb7331fa7b245e84dfcd26.png" alt="6e38652cfacb7331fa7b245e84dfcd26.png"><br>接着我们可以通过<a target="_blank" rel="noopener" href="https://cve.mitre.org/"><code>CVE</code>官网</a>去查看该漏洞的详细和参考。<br><img src="/images/%E5%A4%8D%E7%8E%B0/20707cda2a298f00e8c3167c372d478d.png" alt="20707cda2a298f00e8c3167c372d478d.png"><br>进入<code>Search CVE List</code>搜索列表，搜索漏洞<code>CVE-2023-28432</code>：<br><img src="/images/%E5%A4%8D%E7%8E%B0/28f74cb07776a25d6f170452d26ec562.png" alt="28f74cb07776a25d6f170452d26ec562.png"><br><img src="/images/%E5%A4%8D%E7%8E%B0/5ea0a2ee386bca759e6c47df11d36d7c.png" alt="5ea0a2ee386bca759e6c47df11d36d7c.png"><br><img src="/images/%E5%A4%8D%E7%8E%B0/58af227947df0242314dc5af0e69f8c9.png" alt="58af227947df0242314dc5af0e69f8c9.png"><br>根据参考链接，我们可以很明显的看到该漏洞是在<code>github</code>上开源的系统，该系统的官网链接为：<a target="_blank" rel="noopener" href="https://github.com/minio/minio">minio</a><br>当然我们也可以直接去<code>github</code>上找该系统，要找这种开源的系统，都是选择星数最多的项目：<br><img src="/images/%E5%A4%8D%E7%8E%B0/0993623c1759e04fc38cfca7a6303c49.png" alt="0993623c1759e04fc38cfca7a6303c49.png"><br>接着我们可以通过参考链接，大致了解到该漏洞出现的版本以及位置：<br><img src="/images/%E5%A4%8D%E7%8E%B0/b45466a59eb9db6ba7ee0e7ea87277f6.png" alt="b45466a59eb9db6ba7ee0e7ea87277f6.png"><br><img src="/images/%E5%A4%8D%E7%8E%B0/20c514dabe9c0fbe7d4fc7f7477fff7a.png" alt="20c514dabe9c0fbe7d4fc7f7477fff7a.png"><br>当然我们也可以通过<code>Security Advisories</code>查看：<br><img src="/images/%E5%A4%8D%E7%8E%B0/3770962f2507c3e52a96ea6ce03cfbbd.png" alt="3770962f2507c3e52a96ea6ce03cfbbd.png"><br>进入到安全日志里，我们可以清楚的了解到，该框架是用<code>golang</code>写的，并且漏洞出现的地方是因为会将系统的<code>MINIO</code>环境变量返回到了<code>cfg</code>中，并使用<code>logger.LogIf</code>记录日志，可以看到没有做什么限制。<br><img src="/images/%E5%A4%8D%E7%8E%B0/082717a1437866a006550f623e5053d5.png" alt="082717a1437866a006550f623e5053d5.png"><br>我们可以通过<code>Patches</code>获取请求结点<code>#16853</code>，定位到修复后的源码处，发现添加了一个哈希和鉴权：<br><img src="/images/%E5%A4%8D%E7%8E%B0/c9cada2d55b02eef0010b0268cdf73ea.png" alt="c9cada2d55b02eef0010b0268cdf73ea.png"><br><img src="/images/%E5%A4%8D%E7%8E%B0/69102a270af850b1110a7ace56570265.png" alt="69102a270af850b1110a7ace56570265.png"><br><img src="/images/%E5%A4%8D%E7%8E%B0/a1afb274ea15f563e5c1f9ef80586324.png" alt="a1afb274ea15f563e5c1f9ef80586324.png"><br>大致漏洞情况已经了解了，我们将源码下载下来，进行进一步分析，注意这里下载的源码一定是在该漏洞修复前的源码：这里我们可以根据<code>Security Advisories</code>查看修改前后的版本号：<br><img src="/images/%E5%A4%8D%E7%8E%B0/757162f9bb51806d02aa99b31d3afc8b.png" alt="757162f9bb51806d02aa99b31d3afc8b.png"><br>我们到<code>code</code>去获取未修复的源代码，只要比修复该漏洞之前的源代码就可以了，这里我们下载了<code>RELEASE.2023-03-13T19-46-17Z</code>：<br><img src="/images/%E5%A4%8D%E7%8E%B0/fb313defb5b54571d46aa063ef3ed60b.png" alt="fb313defb5b54571d46aa063ef3ed60b.png"></p>
+<h2 id="3-2-代码审计"><a href="#3-2-代码审计" class="headerlink" title="3.2 代码审计"></a>3.2 代码审计</h2><p>根据前面安全厂商发布的漏洞公告，我们可以看到是通过接口路由触发的未授权漏洞，所以我们直接跳转到关键函数<code>getServerSystemCfg</code>中：<br><img src="/images/%E5%A4%8D%E7%8E%B0/1d7eaad322ba72eabdc574ee875793ec.png" alt="1d7eaad322ba72eabdc574ee875793ec.png"><br>回溯谁调用了函数：<br><img src="/images/%E5%A4%8D%E7%8E%B0/12d5b72c75c4e8d01e9d5ef045506dbb.png" alt="12d5b72c75c4e8d01e9d5ef045506dbb.png"><br>首先我们大概分析发现第一个搜索到的函数是出现该漏洞的关键（其实在搜索和查找关键点时是很漫长的一个过程），可以发现有一个路由，有两个子路由，其中上面的路由调用的是空的方法，只有下面才是正确的漏洞回溯路径，而且用的也是<code>Post</code>请求，地址是<code>bootstrapRESTVersionPrefix + bootstrapRESTMethodVerify</code>，调用了函数<code>server.VerifyHandler</code>：<br><img src="/images/%E5%A4%8D%E7%8E%B0/27a855e61a08bea52979c81f13bab939.png" alt="27a855e61a08bea52979c81f13bab939.png"><br>查找<code>bootstrapRESTMethodVerify</code>的路由，得到<code>/verify</code>：<br><img src="/images/%E5%A4%8D%E7%8E%B0/7c391dbbf9d4f23b1fb409c431805725.png" alt="7c391dbbf9d4f23b1fb409c431805725.png"><br>查找<code>bootstrapRESTVersionPrefix</code>，得到<code>/v1</code>：<br><img src="/images/%E5%A4%8D%E7%8E%B0/63e998aad4abec5893f3a3bd103f8b83.png" alt="63e998aad4abec5893f3a3bd103f8b83.png"><br>拼接后得到<code>/v1/verify</code>，由于是子路由，我们需要找主路由，得到<code>bootstrapRESTPrefix</code>的路由是<code>/minio/bootstrap</code>：<br><img src="/images/%E5%A4%8D%E7%8E%B0/6c1102d94b21755d832bdd00c242f8a4.png" alt="6c1102d94b21755d832bdd00c242f8a4.png"><br>拼接后得到<code>/minio/bootstrap/v1/verify</code>，接着继续回溯，发现没有上一级路由了，加上也没有其他<code>body</code>构造，所以我们直接构造<code>poc</code>：</p>
+<pre><code class="bash">/minio/bootstrap/v1/verify
+</code></pre>
+<h2 id="3-3-复现"><a href="#3-3-复现" class="headerlink" title="3.3 复现"></a>3.3 复现</h2><p>通过<code>fofa</code>等搜索引擎，查找在线的环境：<br><img src="/images/%E5%A4%8D%E7%8E%B0/6fe3707e04fc5375cc8659a512e1211d.png" alt="6fe3707e04fc5375cc8659a512e1211d.png"></p>
+<h1 id="肆-小结"><a href="#肆-小结" class="headerlink" title="肆 小结"></a>肆 小结</h1><p>对于一个通用型漏洞追踪的思路就是通过安全厂家或者安全组织发布的公告，获取基本信息，然后通过互联网查找该漏洞框架或者已经公开的<code>poc</code>，进行分析和代码审计，获得最后的<code>poc</code>，最后通过<code>fofa</code>的搜索引擎找现有的环境复现。</p>
+
+    </div>
+    
+</div>
+                         
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2023 小C♥天天
+            <span class="footer-icon">
+                <i class="fa-brands fa-github fa-fw"></i>
+            </span>
+            @小C&天天
+        </div>
+        <div>
+            备案号：小C&天天の窝
+        </div>
+    </div>
+</footer>
+                    </div>
+                </div>
+            </transition>
+            <div id="img_show">
+                <img id="img_content" alt="img_show">
+            </div>
+        </div>
+        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
+        <script src="/js/particlex.js"></script>
+        <script src="/js/showimg.js"></script>
+        
+
+        <!-- 3D模型 -->
+        <div id="L2dCanvas" style="position: relative;"></div>
+        <script src="/js/live2d.min.js"></script>
+        <script src="/css/live2d.css"></script>
+        <script>
+            var v = new Viewer({
+                basePath: "/model",
+                role: "zhala_2",
+                mobile: true,
+            });
+        </script>
+        <!-- 点击 -->
+        <script>
+            let body = document.getElementsByTagName('body')[0];
+            body.addEventListener('click', (e) => {
+                let contentArr = ['✊','😘','😍','😊','😭','😡','😋','👍','🐷','😱','💷','💵','×','🆗','№','⭐','🌙','♥','💴','☀','🐎','🐂','🐏','√'];
+                let randomNum = function (n) {
+                    return Math.floor(Math.random() * n)
+                }
+                let span = document.createElement('span');
+                span.innerHTML = `${contentArr[randomNum(contentArr.length)]}`;
+                span.style.color = `rgb(${randomNum(256)},${randomNum(256)},${randomNum(256)})`;
+                span.style.position = 'absolute';
+                span.style.top = `${e.pageY}px`;
+                span.style.left = `${e.pageX}px`;
+                span.style.transition = 'all 1s ease';
+                span.style.zIndex = 20000;
+                body.appendChild(span)
+                setTimeout(()=>{
+                    span.style.top = span.offsetTop - 100 + 'px';
+                    span.style.opacity = 0;
+                    setTimeout(()=>{span.remove()},700)
+                },0)
+            })
+        </script>
+        <!-- 流星背景特效 -->
+        <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/background.js"></script>
+    </body>
+</html>
