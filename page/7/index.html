@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
-        <title>Go基础学习（拾壹）——Error接口和异常处理 | 小C♥天天</title>
+        <title>小C♥天天</title>
         <meta name="author" content="小C&天天">
         <meta name="description" content="^v^">
         <meta name="keywords" content="">
@@ -124,152 +124,187 @@
 </nav>
                     </div>
                     <div id="main">
-                        
-<div class="article">
-    <div>
-        <h1>Go基础学习（拾壹）——Error接口和异常处理 </h1>
+                        <div id="home-head">
+    <div id="home-background" style="background-image: url(/images/8da71ea6db89c66eba44f6c89d5820c7.jpg)"></div>
+    
+    <div id="home-info" class="home-info" @click="home_click">
+        <span class="loop"></span>
+        <span class="loop"></span>
+        <span class="loop"></span>
+        <span class="loop"></span>
+        <span class="info">
+            <div class="wrap">
+                <h1>小C♥天天</h1>
+                <h3>小窝</h3>
+                <h5>^v^</h5>
+            </div>
+        </span>
     </div>
-    <div class="info">
+    
+</div>
+
+<div id="home-posts-wrap" class=>
+    <div id="home-posts">
+        <div id="posts">
+            
+
+<div class="post">
+    <a href="/2022/10/21/hello-world/">
+        <h2>
+            Hello
+        </h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/hexo">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                hexo
+            </a>
+        </span>
+        
         <span class="date">
             <span class="icon">
                 <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
             </span>
             2022/10/21
         </span>
+    </div>
+    <div class="excerpt">
+        <div class="content" v-pre>
+            
+            <p>欢迎来到<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>！这是你的第一篇帖子。<a target="_blank" rel="noopener" href="https://hexo.io/docs/">查看文档</a>了解更多信息。如果您在使用Hexo时遇到任何问题，可以在<a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">疑难解答</a>中找到答案，也可以在<a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>上询问我。</p>
+            
+        </div>
+    </div>
+    <div class="post-tags">
         
-        <span class="category">
-            <a href="/categories/Go基础教程">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
-                </span>
-                Go基础教程
+        <span class="icon">
+            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/hexo" style="color: #ff7d73">
+                hexo
             </a>
         </span>
         
+    </div>
+    <a href="/2022/10/21/hello-world/" class="go-post">
+        阅读全文
+    </a>
+</div>
+
+             
+<div class="page-current">
+    <div class="prev">
         
-        <span class="tags">
-            <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+        <a href="/page/6/">
+            <span class="page-num">
+                <svg class="fa-icon"><use xlink:href="#caret-left-solid"></use></svg>
             </span>
+        </a>
+        
+    </div>
+    <div class="page-index">
+        
+        <span>
             
-            <span class="tag">
+            <a href="/"><span class="page-num">1</span></a>
+            <span class="page-omit">...</span>
+            
+            
                 
-                <a href="/tags/开发" style="color: #ff7d73">
-                    开发
-                </a>
-            </span>
-            
-            <span class="tag">
                 
-                <a href="/tags/Golang" style="color: #ffa2c4">
-                    Golang
+                <a href="/page/5">
+                    <span class="page-num">
+                        5
+                    </span>
                 </a>
-            </span>
+                
             
+            <a href="/page/6/">
+                <span class="page-num">
+                    6
+                </span>
+            </a>
+        </span>
+        
+        <span class="current">
+            7
         </span>
         
     </div>
-    <div class="content" v-pre>
-        <h1 id="壹-介绍"><a href="#壹-介绍" class="headerlink" title="壹 介绍"></a>壹 介绍</h1><p>有的时候由于代码执行错误我们可以看见一些错误信息，那就是异常，异常并不是错误，而是因为特殊原因，例如 用户使用错误、网络，通常情况下，异常一旦出现，程序会立刻结束掉，这时我们可以通过这些信息了解到语句在哪里出现错误并可以及时处理，这就是异常处理。</p>
-<span id="more"></span>
-<p>哪有有人问了，系统不是都已经告诉我们错误信息了吗？为啥还有学习？学习怎么看？</p>
-<p>看只是其中的一种，我们还可以学会自己捕抓，并及时做出处理，好像还是说不到点子上。举个例子吧！比如说电脑蓝屏（估计很多人都经历过），当蓝屏时，我们就不可以对的电脑执行除关机冲重启以外的操作了，那想想这时我们在写一些很重要的文件或者代码时，突然蓝屏了，那数据不是就丢失了吗？那有没有其他的方法改进呢？比如先保存后在蓝屏，答案是有的，就是我们可以预测可能发生异常的代码块，并进行捕抓，然后进行自己想要的处理。</p>
-<p><strong>异常处理的作用：</strong></p>
-<blockquote>
-<p>a.在出现错误时，如何处理该错误<br>b.保证代码的健壮性和稳定性、容错性</p>
-</blockquote>
-<p>Go 语言中的错误处理与其他语言不太一样，它把错误当成一种值来处理，更强调判断错误、处理错误，而不是一股脑的 catch 捕获异常。Go 语言中把错误当成一种特殊的值来处理，不支持其他语言中使用<code>try/catch</code>捕获异常的方式。</p>
-<h1 id="贰-Error-接口"><a href="#贰-Error-接口" class="headerlink" title="贰 Error 接口"></a>贰 Error 接口</h1><p>在Go语言中默认所有操作都存在错误，所以几乎所有的函数都会有返回一个<code>error</code>接口类型的错误！</p>
-<p>Go 语言中使用一个名为 <code>error</code> 接口来表示错误类型，<code>error</code> 接口只包含一个方法——<code>Error</code>，这个函数需要返回一个描述错误信息的字符串。</p>
-<pre><code class="go">type error interface &#123;
-    Error() string
-&#125;
-</code></pre>
-<p>在Go语言中默认所有操作都存在错误，所以几乎所有的函数都会有返回<code>error</code>接口类型的错误！由于 <code>error</code> 是一个接口类型，默认零值为<code>nil</code>。所以我们通常将调用函数返回的错误与<code>nil</code>进行比较，以此来判断函数是否返回错误。例如你会经常看到类似下面的错误判断代码。</p>
-<pre><code class="go">// 几乎所有的函数会返回一个err
-_, err := os.Open(&quot;./xx.go&quot;)
-if err != nil &#123;
-    fmt.Println(&quot;打开文件失败,err:&quot;, err) // 打开文件失败,err: open ./xx.go: The system cannot find the file specified.
-    return
-&#125;
-</code></pre>
-<h1 id="贰-使用error接口返回错误"><a href="#贰-使用error接口返回错误" class="headerlink" title="贰 使用error接口返回错误"></a>贰 使用error接口返回错误</h1><p>我们一般会直接调用函数返回的err，然后进行判读，如果不为nil则输出错误信息，然后return空或者直接关闭程序。</p>
-<pre><code class="go">package main
-
-import (
-    &quot;fmt&quot;
-)
-
-func main() &#123;
-    n, err := fmt.Println(&quot;这是一个测试&quot;)
-    // 可以看到一般我们会使用err进行判断，如果不为nil则输出错误信息，然后return空或者直接关闭程序
-    // 以后再写程序时，尽量加这个判断，捕获错误
-    if err != nil &#123;
-        fmt.Println(&quot;[-] text() Error&quot;, err)
-        return
-    &#125;
-    fmt.Println(&quot;返回值：&quot;, n, &quot;\t错误值：&quot;, err)
-    // 这里只是举例子，当然以后的程序不会输出两个fmt.Println
-&#125;
-</code></pre>
-<h1 id="叁-自定义错误"><a href="#叁-自定义错误" class="headerlink" title="叁 自定义错误"></a>叁 自定义错误</h1><p>问题来了？如果我们想要一个自定义的错误呢？而不是函数返回值的错误？那么最简单的方式是使用<code>errors</code> 包提供的<code>New</code>函数创建一个错误。</p>
-<p>函数格式如下：</p>
-<pre><code class="go">func New(text string) error
-</code></pre>
-<p>它接收一个字符串参数返回包含该字符串的错误。我们可以在函数返回时快速创建一个错误。</p>
-<pre><code class="go">package main
-
-import (
-    &quot;errors&quot;
-    &quot;fmt&quot;
-)
-
-func text(id int) (int, error) &#123;
-    // 对ID进行判断，如果满足id&lt;=0进入判断语句，并返回一个自定义错误，否则返回nil
-    if id &lt;= 0 &#123;
-        // 可以看到我们使用errors包提供的New函数自定义一个错误，只需要返回一个字符串
-        return id, errors.New(&quot;无效的id&quot;)
-    &#125;
-    return id, nil
-
-&#125;
-
-func main() &#123;
-    i, err := text(-1)
-    if err != nil &#123;
-        fmt.Println(&quot;[-] text函数 Error:&quot;, err)	// [-] text函数 Error: 无效的id
-        return
-    &#125;
-    fmt.Println(i, err)
-&#125;
-</code></pre>
-<p>或者用来定义一个错误变量，例如标准库<code>io.EOF</code>错误定义如下。</p>
-<pre><code class="go">var err = errors.New(&quot;这是一个错误&quot;)
-fmt.Printf(&quot;类型是%T，值是%v&quot;, err, err)	// 类型是*errors.errorString，值是这是一个错误
-</code></pre>
-<p>当我们需要传入格式化的错误描述信息时，使用<code>fmt.Errorf</code>是个更好的选择，在<a href="../../../%E7%BC%96%E7%A8%8B%E5%BC%80%E5%8F%91/Golang/Go%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/Go%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%A3%B9%EF%BC%89%E2%80%94%E2%80%94Go%E7%AE%80%E4%BB%8B%E5%8F%8A%E5%9F%BA%E7%A1%80%EF%BC%9A%E5%B7%B2%E5%AE%8C%E6%88%90.md">Go基础学习（壹）——Go简介及基础：已完成</a>的<code>8.1.4</code>小节。</p>
-<h1 id="肆-错误结构体类型"><a href="#肆-错误结构体类型" class="headerlink" title="肆 错误结构体类型"></a>肆 错误结构体类型</h1><p>此外我们还可以自己定义结构体错误类型，实现<code>error</code>接口，这种类型目前个人还没有用过。。。。</p>
-<pre><code class="go">package main
-
-import (
-    &quot;fmt&quot;
-)
-// OpError 自定义结构体类型
-type OpError struct &#123;
-    Op string
-&#125;
-// Error OpError 类型实现error接口
-func (e *OpError) Error() string &#123;
-    return fmt.Sprintf(&quot;无权执行%s操作&quot;, e.Op)
-&#125;
-func main() &#123;
-    err := OpError&#123;
-        Op: &quot;text&quot;,
-    &#125;
-    fmt.Println(err.Error())	// 无权执行text操作
-&#125;
-</code></pre>
-
+    <div class="next">
+        
+    </div>
+</div>
+        </div>
+    </div>
+    
+    <div id="home-card">
+        <div id="card-div">
+    <div class="card-style" style="width: 300px">
+        <div class="avatar">
+            <img src="/images/f6e2b991f74bfd7b88c3ab1a3d513b94.jpg " alt="avatar">
+        </div>
+        <div class="name">
+            小C&天天
+        </div>
+        <div class="descriptions">
+            
+            <div class="description">
+                修学储能 先博后渊
+            </div>
+            
+        </div>
+        <div class="icon-links">
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://github.com/A7cc">
+                    <i class="fa-brands fa-github fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.qq.com/">
+                    <i class="fa-brands fa-qq fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.weibo.com/">
+                    <i class="fa-brands fa-weibo fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://google.com/">
+                    <i class="fa-brands fa-google fa-fw"></i>
+                </a>
+            </span>
+            
+        </div>
+        <div class="friend-links">
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="http://www.wgs6km.top/">
+                    kyrieee个人博客
+                </a>
+            </div>
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="https://tonyd0g.gitee.io/">
+                    tonyd0g
+                </a>
+            </div>
+            
+        </div>
+    </div>
+</div>
     </div>
     
 </div>

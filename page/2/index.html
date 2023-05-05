@@ -149,6 +149,170 @@
             
 
 <div class="post">
+    <a href="/2023/03/02/漏洞复现/CVE-2021-4034：Linux Polkit权限提升漏洞/">
+        <h2>
+            CVE-2021-4034：Linux Polkit权限提升漏洞
+        </h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/漏洞复现">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                漏洞复现
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2023/3/2
+        </span>
+    </div>
+    <div class="excerpt">
+        <div class="content" v-pre>
+            
+            <h1 id="壹-漏洞概念"><a href="#壹-漏洞概念" class="headerlink" title="壹 漏洞概念"></a>壹 漏洞概念</h1><p>2022年1月26日，<code>Qualys</code>研究团队公开披露了在<code>Polkit</code>的<code>pkexec</code>中发现的一个权限提升漏洞（<code>CVE-2021-4034</code>），也被称为<code>PwnKit</code>。该漏洞是由于<code>pkexec</code>无法正确处理调用参数，从而将环境变量作为命令执行，具有任意用户权限的攻击者都可以在默认配置下通过修改环境变量来利用此漏洞，从而获得受影响主机的<code>root</code>权限。</p>
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/Linux" style="color: #03a9f4">
+                Linux
+            </a>
+        </span>
+        
+        <span class="tag">
+            
+            <a href="/tags/提权" style="color: #03a9f4">
+                提权
+            </a>
+        </span>
+        
+    </div>
+    <a href="/2023/03/02/漏洞复现/CVE-2021-4034：Linux Polkit权限提升漏洞/" class="go-post">
+        阅读全文
+    </a>
+</div>
+
+<div class="post">
+    <a href="/2023/03/02/乱七八糟/Python小脚本/">
+        <h2>
+            Python小脚本（持续更新）
+        </h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/乱七八糟">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                乱七八糟
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2023/3/2
+        </span>
+    </div>
+    <div class="excerpt">
+        <div class="content" v-pre>
+            
+            <h1 id="壹-说明"><a href="#壹-说明" class="headerlink" title="壹 说明"></a>壹 说明</h1><p>该文章主要记录平时工作或者生活中经常使用的<code>Python</code>小脚本。</p>
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/Python" style="color: #ffa2c4">
+                Python
+            </a>
+        </span>
+        
+    </div>
+    <a href="/2023/03/02/乱七八糟/Python小脚本/" class="go-post">
+        阅读全文
+    </a>
+</div>
+
+<div class="post">
+    <a href="/2023/03/02/服务器/rsync详解/">
+        <h2>
+            Rsync详解
+        </h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/服务器">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                服务器
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2023/3/2
+        </span>
+    </div>
+    <div class="excerpt">
+        <div class="content" v-pre>
+            
+            <h1 id="壹-rsync简介"><a href="#壹-rsync简介" class="headerlink" title="壹 rsync简介"></a>壹 rsync简介</h1><h2 id="1-1-介绍"><a href="#1-1-介绍" class="headerlink" title="1.1 介绍"></a>1.1 介绍</h2><p><code>rsync</code>（<code>remote synchronize</code>）是<code>Liunx/Unix</code>下的一个远程数据同步工具。它可通过<code>LAN/WAN</code>快速同步多台主机间的文件和目录，并适当利用<code>rsync</code>算法（差分编码）以减少数据的传输。<font color="red"><code>rsync</code>算法并不是每一次都整份传输，而是只传输两个文件的不同部分（即支持增量备份），因此其传输速度相当快</font>。除此之外，<code>rsync</code>可拷贝、显示目录属性，以及拷贝文件，并可选择性的压缩以及递归拷贝。</p>
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/rsync" style="color: #ff7d73">
+                rsync
+            </a>
+        </span>
+        
+        <span class="tag">
+            
+            <a href="/tags/Linux" style="color: #00bcd4">
+                Linux
+            </a>
+        </span>
+        
+    </div>
+    <a href="/2023/03/02/服务器/rsync详解/" class="go-post">
+        阅读全文
+    </a>
+</div>
+
+<div class="post">
     <a href="/2023/02/24/密码学/密码学——JWT介绍与其安全问题/">
         <h2>
             密码学——JWT介绍与其安全问题
@@ -190,14 +354,14 @@
         
         <span class="tag">
             
-            <a href="/tags/JWT" style="color: #03a9f4">
+            <a href="/tags/JWT" style="color: #ff7d73">
                 JWT
             </a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/认证签名" style="color: #00bcd4">
+            <a href="/tags/认证签名" style="color: #ffa2c4">
                 认证签名
             </a>
         </span>
@@ -247,7 +411,7 @@
         
         <span class="tag">
             
-            <a href="/tags/Golang" style="color: #00bcd4">
+            <a href="/tags/Golang" style="color: #00a596">
                 Golang
             </a>
         </span>
@@ -304,14 +468,14 @@
         
         <span class="tag">
             
-            <a href="/tags/Golang" style="color: #00bcd4">
+            <a href="/tags/Golang" style="color: #03a9f4">
                 Golang
             </a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/应急响应" style="color: #ffa2c4">
+            <a href="/tags/应急响应" style="color: #00a596">
                 应急响应
             </a>
         </span>
@@ -361,14 +525,14 @@
         
         <span class="tag">
             
-            <a href="/tags/工具" style="color: #ffa2c4">
+            <a href="/tags/工具" style="color: #00a596">
                 工具
             </a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/代理" style="color: #ff7d73">
+            <a href="/tags/代理" style="color: #00bcd4">
                 代理
             </a>
         </span>
@@ -418,14 +582,14 @@
         
         <span class="tag">
             
-            <a href="/tags/Python" style="color: #00a596">
+            <a href="/tags/Python" style="color: #00bcd4">
                 Python
             </a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/开发" style="color: #00bcd4">
+            <a href="/tags/开发" style="color: #00a596">
                 开发
             </a>
         </span>
@@ -481,7 +645,7 @@
         
         <span class="tag">
             
-            <a href="/tags/代理与转发" style="color: #00a596">
+            <a href="/tags/代理与转发" style="color: #ff7d73">
                 代理与转发
             </a>
         </span>
@@ -538,184 +702,13 @@
         
         <span class="tag">
             
-            <a href="/tags/JS逆向" style="color: #00bcd4">
+            <a href="/tags/JS逆向" style="color: #00a596">
                 JS逆向
             </a>
         </span>
         
     </div>
     <a href="/2022/12/30/乱七八糟/JS逆向登录分析/" class="go-post">
-        阅读全文
-    </a>
-</div>
-
-<div class="post">
-    <a href="/2022/12/09/漏洞复现/NPS代理工具未授权漏洞/">
-        <h2>
-            NPS代理工具未授权漏洞
-        </h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/漏洞复现">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
-                漏洞复现
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
-            </span>
-            2022/12/9
-        </span>
-    </div>
-    <div class="excerpt">
-        <div class="content" v-pre>
-            
-            <h1 id="壹-漏洞概念"><a href="#壹-漏洞概念" class="headerlink" title="壹 漏洞概念"></a>壹 漏洞概念</h1><p>之前一直用<code>NPS</code>做代理，后来和朋友聊天的时候，说该工具有<code>0day</code>未授权漏洞，然后白嫖了一下思路，然后自己进行简单分析后利用成功！<code>NPS</code>是一款轻量级、高性能、功能强大的内网穿透代理服务器。对于<code>NPS</code>近期爆出来了一个未授权的漏洞。</p>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-        </span>
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/代理" style="color: #03a9f4">
-                代理
-            </a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/反制" style="color: #ffa2c4">
-                反制
-            </a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/未授权" style="color: #00a596">
-                未授权
-            </a>
-        </span>
-        
-    </div>
-    <a href="/2022/12/09/漏洞复现/NPS代理工具未授权漏洞/" class="go-post">
-        阅读全文
-    </a>
-</div>
-
-<div class="post">
-    <a href="/2022/12/09/工具使用/中国蚁剑的编码和解码模块/">
-        <h2>
-            中国蚁剑的编码和解码模块
-        </h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/工具使用">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
-                工具使用
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
-            </span>
-            2022/12/9
-        </span>
-    </div>
-    <div class="excerpt">
-        <div class="content" v-pre>
-            
-            <h1 id="壹-前言"><a href="#壹-前言" class="headerlink" title="壹 前言"></a>壹 前言</h1><p>之前一直不知道蚁剑的编码器和解码器有什么用，后来看一篇文章，才知道，原来可以通过对蚁剑的编码器和解码器对webshell进行改造过WAF，然后就开始找各种资料学习，下面是对这两个模块学习的心得！</p>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-        </span>
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/中国蚁剑" style="color: #ff7d73">
-                中国蚁剑
-            </a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/远控" style="color: #03a9f4">
-                远控
-            </a>
-        </span>
-        
-    </div>
-    <a href="/2022/12/09/工具使用/中国蚁剑的编码和解码模块/" class="go-post">
-        阅读全文
-    </a>
-</div>
-
-<div class="post">
-    <a href="/2022/12/09/工具使用/Proxifier代理工具/">
-        <h2>
-            Proxifier代理工具
-        </h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/工具使用">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
-                工具使用
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
-            </span>
-            2022/12/9
-        </span>
-    </div>
-    <div class="excerpt">
-        <div class="content" v-pre>
-            
-            <h1 id="壹-工具说明"><a href="#壹-工具说明" class="headerlink" title="壹 工具说明"></a>壹 工具说明</h1><p>Proxifier是一款功能非常强大的socks5客户端，可以让不支持通过代理服务器工作的网络程序能通过HTTPS或SOCKS代理。支持各种操作系统和各代理协议，它的运行模式可以指定端口，指定程序的特点。支持 64位系统，支持Windows，MAC OS，支持socks4，socks5，http代理协议，支持TCP，UDP协议，可以指定端口，指定IP，指定域名，指定程序等运行模式，兼容性非常好。有许多网络应用程序不支持通过代理服务器工作，Proxifier 解决了这些问题和所有限制，让您有机会不受任何限制使用你喜爱的软件。此外，它让你获得了额外的网络安全控制，创建代理隧道，并添加使用更多网络功能的权力。</p>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-        </span>
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/代理与转发" style="color: #ff7d73">
-                代理与转发
-            </a>
-        </span>
-        
-    </div>
-    <a href="/2022/12/09/工具使用/Proxifier代理工具/" class="go-post">
         阅读全文
     </a>
 </div>
@@ -762,9 +755,9 @@
             
             
             <span class="page-omit">...</span>
-            <a href="/page/6">
+            <a href="/page/7">
                 <span class="page-num">
-                    6
+                    7
                 </span>
             </a>
             
