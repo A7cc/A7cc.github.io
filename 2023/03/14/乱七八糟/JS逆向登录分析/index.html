@@ -156,14 +156,14 @@
             
             <span class="tag">
                 
-                <a href="/tags/小技巧" style="color: #ff7d73">
+                <a href="/tags/小技巧" style="color: #00a596">
                     小技巧
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/JS逆向" style="color: #03a9f4">
+                <a href="/tags/JS逆向" style="color: #00bcd4">
                     JS逆向
                 </a>
             </span>
@@ -259,16 +259,16 @@ as/df211ccdd94a63e0bcb914bf38a016980503b40f46df1665b8a9f96878e9e3079814ffa29cb98
             
         </div>
     </div>
+    <br />
     <!-- 目录 -->
     
-        <div class="card-style" style="width: 300px">
-            <div id="toc" class="toc-article">
-                <strong class="toc-title">文章目录</strong>
-                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A3%B9-%E5%89%8D%E8%A8%80"><span class="toc-text">壹 前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%B0-%E6%A1%88%E4%BE%8B"><span class="toc-text">贰 案例</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-text">小结</span></a></li></ol>
-            </div>    
-        </div>
-        
+    <div class="card-style" style="width: 300px">
+        <div id="toc" class="toc-article">
+            <strong class="toc-title">文章目录</strong>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A3%B9-%E5%89%8D%E8%A8%80"><span class="toc-text">壹 前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%B0-%E6%A1%88%E4%BE%8B"><span class="toc-text">贰 案例</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-text">小结</span></a></li></ol>
+        </div>    
     </div>
+    
 </div>
     </div>
     
@@ -276,6 +276,26 @@ as/df211ccdd94a63e0bcb914bf38a016980503b40f46df1665b8a9f96878e9e3079814ffa29cb98
                          
 <footer id="footer">
     <div class="footer-wrap">
+        <div>
+            <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+            <script>
+                var now = new Date(); 
+                function createtime() { 
+                    var grt= new Date("07/10/2022 00:00:00");
+                    now.setTime(now.getTime()+250); 
+                    days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+                    hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+                    if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+                    mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+                    seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+                    snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+                    document.getElementById("timeDate").innerHTML = "已运行 "+dnum+" 天 "; 
+                    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+                } 
+            setInterval("createtime()",250);
+            </script>
+            </div>
+        <div>
         <div>
             © 2022 - 2023 小C♥天天
             <span class="footer-icon">

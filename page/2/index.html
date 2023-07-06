@@ -149,18 +149,18 @@
             
 
 <div class="post">
-    <a href="/2023/03/14/服务器/DELL服务器安装ESXI/">
+    <a href="/2023/03/14/工具使用/中国蚁剑的编码和解码模块/">
         <h2>
-            DELL服务器安装ESXI
+            中国蚁剑的编码和解码模块
         </h2>
     </a>
     <div class="category-and-date">
         
         <span class="category">
-            <a href="/categories/服务器">
+            <a href="/categories/工具使用">
                 <span class="icon">
                     <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
-                服务器
+                工具使用
             </a>
         </span>
         
@@ -174,7 +174,7 @@
     <div class="excerpt">
         <div class="content" v-pre>
             
-            <h1 id="壹-DELL服务器（工作站）安装ESXi"><a href="#壹-DELL服务器（工作站）安装ESXi" class="headerlink" title="壹 DELL服务器（工作站）安装ESXi"></a>壹 DELL服务器（工作站）安装ESXi</h1><p>本安装环境所需ESXi镜像：6.5 版本</p>
+            <h1 id="壹-前言"><a href="#壹-前言" class="headerlink" title="壹 前言"></a>壹 前言</h1><p>之前一直不知道蚁剑的编码器和解码器有什么用，后来看一篇文章，才知道，原来可以通过对蚁剑的编码器和解码器对webshell进行改造过WAF，然后就开始找各种资料学习，下面是对这两个模块学习的心得！</p>
             
         </div>
     </div>
@@ -187,13 +187,85 @@
         
         <span class="tag">
             
-            <a href="/tags/ESXI" style="color: #ffa2c4">
-                ESXI
+            <a href="/tags/远控" style="color: #03a9f4">
+                远控
+            </a>
+        </span>
+        
+        <span class="tag">
+            
+            <a href="/tags/中国蚁剑" style="color: #ff7d73">
+                中国蚁剑
             </a>
         </span>
         
     </div>
-    <a href="/2023/03/14/服务器/DELL服务器安装ESXI/" class="go-post">
+    <a href="/2023/03/14/工具使用/中国蚁剑的编码和解码模块/" class="go-post">
+        阅读全文
+    </a>
+</div>
+
+<div class="post">
+    <a href="/2023/03/14/工具使用/简易TCP端口扫描器/">
+        <h2>
+            简易TCP端口扫描器
+        </h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/工具使用">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                工具使用
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2023/3/14
+        </span>
+    </div>
+    <div class="excerpt">
+        <div class="content" v-pre>
+            
+            <h1 id="壹-TCP扫描本质"><a href="#壹-TCP扫描本质" class="headerlink" title="壹 TCP扫描本质"></a>壹 TCP扫描本质</h1><blockquote>
+<p>该工具是自己在看《Go黑帽子-渗透测试编程之道》学习写工具时编写的，该工具只进行了单个<code>IP</code>的全端口扫描！</p>
+</blockquote>
+<p>要想做TCP端口扫描器，我们需要了解<code>TCP</code>的三次握手以及对方机器的<code>ip:port</code>。回顾一下<code>TCP</code>的三次握手：</p>
+<ul>
+<li>第一次握手：客户端发送<code>syn</code>包，表示通信开始</li>
+<li>第二次握手：服务端回复<code>syn-ack</code>作为相应，提示客户端以<code>ack</code>结束</li>
+<li>第三次握手：客户端发送<code>ack</code>，通信开始</li>
+</ul>
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/Golang" style="color: #ff7d73">
+                Golang
+            </a>
+        </span>
+        
+        <span class="tag">
+            
+            <a href="/tags/端口扫描" style="color: #ffa2c4">
+                端口扫描
+            </a>
+        </span>
+        
+    </div>
+    <a href="/2023/03/14/工具使用/简易TCP端口扫描器/" class="go-post">
         阅读全文
     </a>
 </div>
@@ -237,77 +309,20 @@
         
         <span class="tag">
             
-            <a href="/tags/域" style="color: #00bcd4">
-                域
+            <a href="/tags/提权" style="color: #ffa2c4">
+                提权
             </a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/提权" style="color: #ff7d73">
-                提权
+            <a href="/tags/域" style="color: #ffa2c4">
+                域
             </a>
         </span>
         
     </div>
     <a href="/2023/03/14/漏洞复现/CVE-2020-1472：Zerologon域控提权/" class="go-post">
-        阅读全文
-    </a>
-</div>
-
-<div class="post">
-    <a href="/2023/03/14/服务器/rsync详解/">
-        <h2>
-            Rsync详解
-        </h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/服务器">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
-                服务器
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
-            </span>
-            2023/3/14
-        </span>
-    </div>
-    <div class="excerpt">
-        <div class="content" v-pre>
-            
-            <h1 id="壹-rsync简介"><a href="#壹-rsync简介" class="headerlink" title="壹 rsync简介"></a>壹 rsync简介</h1><h2 id="1-1-介绍"><a href="#1-1-介绍" class="headerlink" title="1.1 介绍"></a>1.1 介绍</h2><p><code>rsync</code>（<code>remote synchronize</code>）是<code>Liunx/Unix</code>下的一个远程数据同步工具。它可通过<code>LAN/WAN</code>快速同步多台主机间的文件和目录，并适当利用<code>rsync</code>算法（差分编码）以减少数据的传输。<font color="red"><code>rsync</code>算法并不是每一次都整份传输，而是只传输两个文件的不同部分（即支持增量备份），因此其传输速度相当快</font>。除此之外，<code>rsync</code>可拷贝、显示目录属性，以及拷贝文件，并可选择性的压缩以及递归拷贝。</p>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-        </span>
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/rsync" style="color: #03a9f4">
-                rsync
-            </a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/Linux" style="color: #00a596">
-                Linux
-            </a>
-        </span>
-        
-    </div>
-    <a href="/2023/03/14/服务器/rsync详解/" class="go-post">
         阅读全文
     </a>
 </div>
@@ -351,15 +366,15 @@
         
         <span class="tag">
             
-            <a href="/tags/提权" style="color: #ffa2c4">
-                提权
+            <a href="/tags/Linux" style="color: #03a9f4">
+                Linux
             </a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/Linux" style="color: #ffa2c4">
-                Linux
+            <a href="/tags/提权" style="color: #03a9f4">
+                提权
             </a>
         </span>
         
@@ -408,15 +423,15 @@
         
         <span class="tag">
             
-            <a href="/tags/提权" style="color: #00a596">
-                提权
+            <a href="/tags/Linux" style="color: #ffa2c4">
+                Linux
             </a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/Linux" style="color: #ffa2c4">
-                Linux
+            <a href="/tags/提权" style="color: #ff7d73">
+                提权
             </a>
         </span>
         
@@ -475,13 +490,63 @@
         
         <span class="tag">
             
-            <a href="/tags/认证签名" style="color: #03a9f4">
+            <a href="/tags/认证签名" style="color: #ffa2c4">
                 认证签名
             </a>
         </span>
         
     </div>
     <a href="/2023/03/14/密码学/密码学——JWT介绍与其安全问题/" class="go-post">
+        阅读全文
+    </a>
+</div>
+
+<div class="post">
+    <a href="/2023/03/14/密码学/密码学壹——基础知识/">
+        <h2>
+            密码学（壹）——基础知识
+        </h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/密码学">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                密码学
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2023/3/14
+        </span>
+    </div>
+    <div class="excerpt">
+        <div class="content" v-pre>
+            
+            <h1 id="壹-前言"><a href="#壹-前言" class="headerlink" title="壹 前言"></a>壹 前言</h1><p><font color="red">这系列为本人学习密码学的笔记，是基于《图解密码技术》为基础学习的。</font><br>在现实生活中，当我们进行数据传输时，可能会面临的安全问题无非就是三点：数据窃取、数据篡改、身份伪装。</p>
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/密码学" style="color: #03a9f4">
+                密码学
+            </a>
+        </span>
+        
+    </div>
+    <a href="/2023/03/14/密码学/密码学壹——基础知识/" class="go-post">
         阅读全文
     </a>
 </div>
@@ -537,63 +602,13 @@
         
         <span class="tag">
             
-            <a href="/tags/RSA" style="color: #ff7d73">
+            <a href="/tags/RSA" style="color: #03a9f4">
                 RSA
             </a>
         </span>
         
     </div>
     <a href="/2023/03/14/密码学/密码学叁——非对称加密算法介绍/" class="go-post">
-        阅读全文
-    </a>
-</div>
-
-<div class="post">
-    <a href="/2023/03/14/密码学/密码学壹——基础知识/">
-        <h2>
-            密码学（壹）——基础知识
-        </h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/密码学">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
-                密码学
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
-            </span>
-            2023/3/14
-        </span>
-    </div>
-    <div class="excerpt">
-        <div class="content" v-pre>
-            
-            <h1 id="壹-前言"><a href="#壹-前言" class="headerlink" title="壹 前言"></a>壹 前言</h1><p><font color="red">这系列为本人学习密码学的笔记，是基于《图解密码技术》为基础学习的。</font><br>在现实生活中，当我们进行数据传输时，可能会面临的安全问题无非就是三点：数据窃取、数据篡改、身份伪装。</p>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-        </span>
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/密码学" style="color: #00bcd4">
-                密码学
-            </a>
-        </span>
-        
-    </div>
-    <a href="/2023/03/14/密码学/密码学壹——基础知识/" class="go-post">
         阅读全文
     </a>
 </div>
@@ -651,14 +666,14 @@
         
         <span class="tag">
             
-            <a href="/tags/3DES" style="color: #ffa2c4">
+            <a href="/tags/3DES" style="color: #00a596">
                 3DES
             </a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/AES" style="color: #ffa2c4">
+            <a href="/tags/AES" style="color: #00bcd4">
                 AES
             </a>
         </span>
@@ -850,9 +865,9 @@
             
         </div>
     </div>
+    <br />
     <!-- 目录 -->
     
-    </div>
 </div>
     </div>
     
@@ -860,6 +875,26 @@
                          
 <footer id="footer">
     <div class="footer-wrap">
+        <div>
+            <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+            <script>
+                var now = new Date(); 
+                function createtime() { 
+                    var grt= new Date("07/10/2022 00:00:00");
+                    now.setTime(now.getTime()+250); 
+                    days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+                    hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+                    if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+                    mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+                    seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+                    snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+                    document.getElementById("timeDate").innerHTML = "已运行 "+dnum+" 天 "; 
+                    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+                } 
+            setInterval("createtime()",250);
+            </script>
+            </div>
+        <div>
         <div>
             © 2022 - 2023 小C♥天天
             <span class="footer-icon">

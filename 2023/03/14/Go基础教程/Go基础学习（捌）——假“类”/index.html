@@ -156,15 +156,15 @@
             
             <span class="tag">
                 
-                <a href="/tags/Golang" style="color: #00a596">
-                    Golang
+                <a href="/tags/开发" style="color: #00a596">
+                    开发
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/开发" style="color: #00bcd4">
-                    开发
+                <a href="/tags/Golang" style="color: #ffa2c4">
+                    Golang
                 </a>
             </span>
             
@@ -621,16 +621,16 @@ func main() &#123;
             
         </div>
     </div>
+    <br />
     <!-- 目录 -->
     
-        <div class="card-style" style="width: 300px">
-            <div id="toc" class="toc-article">
-                <strong class="toc-title">文章目录</strong>
-                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A3%B9-%E4%BB%8B%E7%BB%8D"><span class="toc-text">壹 介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%B0-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="toc-text">贰 构造函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%81-%E6%96%B9%E6%B3%95%E5%92%8C%E6%8E%A5%E6%94%B6%E8%80%85"><span class="toc-text">叁 方法和接收者</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E5%88%9D%E8%AF%86%E6%96%B9%E6%B3%95%E5%92%8C%E6%8E%A5%E6%94%B6%E8%80%85"><span class="toc-text">3.1 初识方法和接收者</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E6%8C%87%E9%92%88%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%8E%A5%E6%94%B6%E8%80%85"><span class="toc-text">3.2 指针类型的接收者</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-%E5%80%BC%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%8E%A5%E6%94%B6%E8%80%85"><span class="toc-text">3.3 值类型的接收者</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4-%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E5%BA%94%E8%AF%A5%E4%BD%BF%E7%94%A8%E6%8C%87%E9%92%88%E7%B1%BB%E5%9E%8B%E6%8E%A5%E6%94%B6%E8%80%85"><span class="toc-text">3.4 什么时候应该使用指针类型接收者</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%82%86-%E4%BB%BB%E6%84%8F%E7%B1%BB%E5%9E%8B%E6%B7%BB%E5%8A%A0%E6%96%B9%E6%B3%95"><span class="toc-text">肆 任意类型添加方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BC%8D-%E7%BB%93%E6%9E%84%E4%BD%93%E7%9A%84%E5%8C%BF%E5%90%8D%E5%AD%97%E6%AE%B5"><span class="toc-text">伍 结构体的匿名字段</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%99%86-%E5%B5%8C%E5%A5%97%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-text">陆 嵌套结构体</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6-1-%E5%9F%BA%E7%A1%80%E7%9A%84%E5%B5%8C%E5%A5%97%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-text">6.1 基础的嵌套结构体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-2-%E5%B5%8C%E5%A5%97%E5%8C%BF%E5%90%8D%E5%AD%97%E6%AE%B5"><span class="toc-text">6.2 嵌套匿名字段</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-3-%E5%B5%8C%E5%A5%97%E7%BB%93%E6%9E%84%E4%BD%93%E7%9A%84%E5%AD%97%E6%AE%B5%E5%90%8D%E5%86%B2%E7%AA%81"><span class="toc-text">6.3 嵌套结构体的字段名冲突</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9F%92-%E7%BB%93%E6%9E%84%E4%BD%93%E7%9A%84%E2%80%9C%E7%BB%A7%E6%89%BF%E2%80%9D"><span class="toc-text">柒 结构体的“继承”</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8D%8C-%E7%BB%93%E6%9E%84%E4%BD%93%E5%AD%97%E6%AE%B5%E7%9A%84%E5%8F%AF%E8%A7%81%E6%80%A7%EF%BC%88%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%EF%BC%89"><span class="toc-text">捌 结构体字段的可见性（需要注意）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8E%96-%E7%BB%93%E6%9E%84%E4%BD%93%E5%92%8C%E6%96%B9%E6%B3%95%E8%A1%A5%E5%85%85%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%88%E6%B3%A8%E6%84%8F%EF%BC%89"><span class="toc-text">玖 结构体和方法补充知识点（注意）</span></a></li></ol>
-            </div>    
-        </div>
-        
+    <div class="card-style" style="width: 300px">
+        <div id="toc" class="toc-article">
+            <strong class="toc-title">文章目录</strong>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A3%B9-%E4%BB%8B%E7%BB%8D"><span class="toc-text">壹 介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%B0-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="toc-text">贰 构造函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%81-%E6%96%B9%E6%B3%95%E5%92%8C%E6%8E%A5%E6%94%B6%E8%80%85"><span class="toc-text">叁 方法和接收者</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E5%88%9D%E8%AF%86%E6%96%B9%E6%B3%95%E5%92%8C%E6%8E%A5%E6%94%B6%E8%80%85"><span class="toc-text">3.1 初识方法和接收者</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E6%8C%87%E9%92%88%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%8E%A5%E6%94%B6%E8%80%85"><span class="toc-text">3.2 指针类型的接收者</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-%E5%80%BC%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%8E%A5%E6%94%B6%E8%80%85"><span class="toc-text">3.3 值类型的接收者</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4-%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E5%BA%94%E8%AF%A5%E4%BD%BF%E7%94%A8%E6%8C%87%E9%92%88%E7%B1%BB%E5%9E%8B%E6%8E%A5%E6%94%B6%E8%80%85"><span class="toc-text">3.4 什么时候应该使用指针类型接收者</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%82%86-%E4%BB%BB%E6%84%8F%E7%B1%BB%E5%9E%8B%E6%B7%BB%E5%8A%A0%E6%96%B9%E6%B3%95"><span class="toc-text">肆 任意类型添加方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BC%8D-%E7%BB%93%E6%9E%84%E4%BD%93%E7%9A%84%E5%8C%BF%E5%90%8D%E5%AD%97%E6%AE%B5"><span class="toc-text">伍 结构体的匿名字段</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%99%86-%E5%B5%8C%E5%A5%97%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-text">陆 嵌套结构体</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6-1-%E5%9F%BA%E7%A1%80%E7%9A%84%E5%B5%8C%E5%A5%97%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-text">6.1 基础的嵌套结构体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-2-%E5%B5%8C%E5%A5%97%E5%8C%BF%E5%90%8D%E5%AD%97%E6%AE%B5"><span class="toc-text">6.2 嵌套匿名字段</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-3-%E5%B5%8C%E5%A5%97%E7%BB%93%E6%9E%84%E4%BD%93%E7%9A%84%E5%AD%97%E6%AE%B5%E5%90%8D%E5%86%B2%E7%AA%81"><span class="toc-text">6.3 嵌套结构体的字段名冲突</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9F%92-%E7%BB%93%E6%9E%84%E4%BD%93%E7%9A%84%E2%80%9C%E7%BB%A7%E6%89%BF%E2%80%9D"><span class="toc-text">柒 结构体的“继承”</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8D%8C-%E7%BB%93%E6%9E%84%E4%BD%93%E5%AD%97%E6%AE%B5%E7%9A%84%E5%8F%AF%E8%A7%81%E6%80%A7%EF%BC%88%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%EF%BC%89"><span class="toc-text">捌 结构体字段的可见性（需要注意）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8E%96-%E7%BB%93%E6%9E%84%E4%BD%93%E5%92%8C%E6%96%B9%E6%B3%95%E8%A1%A5%E5%85%85%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%88%E6%B3%A8%E6%84%8F%EF%BC%89"><span class="toc-text">玖 结构体和方法补充知识点（注意）</span></a></li></ol>
+        </div>    
     </div>
+    
 </div>
     </div>
     
@@ -638,6 +638,26 @@ func main() &#123;
                          
 <footer id="footer">
     <div class="footer-wrap">
+        <div>
+            <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+            <script>
+                var now = new Date(); 
+                function createtime() { 
+                    var grt= new Date("07/10/2022 00:00:00");
+                    now.setTime(now.getTime()+250); 
+                    days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+                    hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+                    if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+                    mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+                    seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+                    snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+                    document.getElementById("timeDate").innerHTML = "已运行 "+dnum+" 天 "; 
+                    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+                } 
+            setInterval("createtime()",250);
+            </script>
+            </div>
+        <div>
         <div>
             © 2022 - 2023 小C♥天天
             <span class="footer-icon">

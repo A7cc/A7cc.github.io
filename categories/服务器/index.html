@@ -142,7 +142,7 @@
         
         
         <span>
-            <a href="/categories/hexo/" style="background: #ff7d73">
+            <a href="/categories/hexo/" style="background: #ffa2c4">
                 <span class="icon">
                     <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
                 </span>
@@ -152,17 +152,7 @@
         
         
         <span>
-            <a href="/categories/Go基础教程/" style="background: #ffa2c4">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
-                </span>
-                Go基础教程
-            </a>
-        </span>
-        
-        
-        <span>
-            <a href="/categories/Python基础教程/" style="background: #ffa2c4">
+            <a href="/categories/Python基础教程/" style="background: #00bcd4">
                 <span class="icon">
                     <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
                 </span>
@@ -172,31 +162,31 @@
         
         
         <span>
-            <a href="/categories/Python库学习/" style="background: #03a9f4">
+            <a href="/categories/Go基础教程/" style="background: #00bcd4">
                 <span class="icon">
                     <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
                 </span>
-                Python库学习
+                Go基础教程
             </a>
         </span>
         
         
         <span>
-            <a href="/categories/内网/" style="background: #03a9f4">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
-                </span>
-                内网
-            </a>
-        </span>
-        
-        
-        <span>
-            <a href="/categories/乱七八糟/" style="background: #00bcd4">
+            <a href="/categories/乱七八糟/" style="background: #ffa2c4">
                 <span class="icon">
                     <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
                 </span>
                 乱七八糟
+            </a>
+        </span>
+        
+        
+        <span>
+            <a href="/categories/Python库学习/" style="background: #00bcd4">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                </span>
+                Python库学习
             </a>
         </span>
         
@@ -212,11 +202,11 @@
         
         
         <span>
-            <a href="/categories/工具使用/" style="background: #ff7d73">
+            <a href="/categories/内网/" style="background: #ffa2c4">
                 <span class="icon">
                     <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
                 </span>
-                工具使用
+                内网
             </a>
         </span>
         
@@ -232,7 +222,17 @@
         
         
         <span>
-            <a href="/categories/漏洞复现/" style="background: #ffa2c4">
+            <a href="/categories/工具使用/" style="background: #ffa2c4">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                </span>
+                工具使用
+            </a>
+        </span>
+        
+        
+        <span>
+            <a href="/categories/漏洞复现/" style="background: #00bcd4">
                 <span class="icon">
                     <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
                 </span>
@@ -269,7 +269,7 @@
                         
                         <span class="tag">
                             
-                            <a href="/tags/ESXI" style="color: #00bcd4">
+                            <a href="/tags/ESXI" style="color: #ff7d73">
                                 ESXI
                             </a>
                         </span>
@@ -306,14 +306,14 @@
                         
                         <span class="tag">
                             
-                            <a href="/tags/rsync" style="color: #00bcd4">
+                            <a href="/tags/rsync" style="color: #ffa2c4">
                                 rsync
                             </a>
                         </span>
                         
                         <span class="tag">
                             
-                            <a href="/tags/Linux" style="color: #ffa2c4">
+                            <a href="/tags/Linux" style="color: #03a9f4">
                                 Linux
                             </a>
                         </span>
@@ -329,6 +329,26 @@
                          
 <footer id="footer">
     <div class="footer-wrap">
+        <div>
+            <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+            <script>
+                var now = new Date(); 
+                function createtime() { 
+                    var grt= new Date("07/10/2022 00:00:00");
+                    now.setTime(now.getTime()+250); 
+                    days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+                    hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+                    if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+                    mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+                    seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+                    snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+                    document.getElementById("timeDate").innerHTML = "已运行 "+dnum+" 天 "; 
+                    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+                } 
+            setInterval("createtime()",250);
+            </script>
+            </div>
+        <div>
         <div>
             © 2022 - 2023 小C♥天天
             <span class="footer-icon">
