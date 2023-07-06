@@ -1,0 +1,542 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>密码学——JWT介绍与其安全问题 | 小C♥天天</title>
+        <meta name="author" content="小C&天天">
+        <meta name="description" content="^v^">
+        <meta name="keywords" content="">
+        <link rel="icon" href="/images/icon.jpg">
+        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
+        <link rel="stylesheet" href="/css/fonts.min.css">
+        <link rel="stylesheet" href="/css/particlex.css">
+        <link rel="stylesheet" href="/css/main.css">
+        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
+        <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+        <link rel="stylesheet" href="/css/style.css">
+    <meta name="generator" content="Hexo 6.2.0"></head>
+    <body>
+        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:30vmin;height:30vmin;padding:60px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #dd20dd;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">正在加载</p><div><img alt="loading" src="/images/afde9fa65a5742a90b51d6e1211e841e.gif"></div></div></div></div></div>
+        <div id="layout">
+            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
+            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
+            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
+            <transition name="into">
+                <div v-show="show_page" style="display: -not-none">
+                    <div id="menu_show">
+                         
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">小C♥天天</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;文章</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+        <form class="search">
+            <input type="text" placeholder="需要搜索什么？">
+            <button type="submit"></button>
+        </form>
+    </div>
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
+        <div :class="'title'" @click="menu_show = !menu_show">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;小C♥天天</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+                    </div>
+                    <div id="main">
+                        
+
+<div id="home-posts-wrap" class=>
+<div class="article">
+    <div>
+        <h1>密码学——JWT介绍与其安全问题 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2023/3/14
+        </span>
+        
+        <span class="category">
+            <a href="/categories/密码学">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                </span>
+                密码学
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/JWT" style="color: #ffa2c4">
+                    JWT
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/认证签名" style="color: #ffa2c4">
+                    认证签名
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    <div class="content" v-pre>
+        <h1 id="壹-介绍"><a href="#壹-介绍" class="headerlink" title="壹 介绍"></a>壹 介绍</h1><blockquote>
+<p>前些天，被问到<code>JWT</code>的相关问题，原本以为自己了解，但是后来发现只是浅浅的认识，这几天研究了一下，其基本的安全问题和介绍，下面就是自己对<code>JWT</code>的见解！</p>
+</blockquote>
+<p><code>JWT</code>又叫（<code>Json Web Token</code>），中文翻译又叫<code>json</code>格式的互联网令牌，是一种开放的标准，它定义了一种紧凑且独立的方式，用于在各方之间以 <code>JSON</code> 对象的形式安全地传输信息。此信息可以验证和信任，因为它是经过数字签名的。<code>JWT</code> 可以使用密钥（使用 <code>HMAC</code> 算法）或使用 <code>RSA</code> 或 <code>ECDSA</code> 的公钥&#x2F;私钥对进行签名（这里是百度的）。说白了，这东西就是一个用来校验的信息的准确性的，类似于<code>Session</code>。</p>
+<span id="more"></span>
+<blockquote>
+<p>问题来了，为什么用<code>JWT</code>而不用<code>Session</code>呢？</p>
+<ul>
+<li>每个用户在认证登录之后，服务端都会在内存里做一次关于该用户<code>Session</code>认证的记录，当认证用户增多时，就会导致服务端的开销会明显增大</li>
+<li>如果认证后，那么该用户<code>Session</code>认证的记录就会在该服务器内保存，而如果使用分布式的应用时，每次都要来这台服务器授权一次，才能访问其他资源，这样会大大限制了负载均衡器的能力</li>
+</ul>
+</blockquote>
+<p><code>JWT</code>的优势：</p>
+<ul>
+<li>其数据量较小，传输快，并且是以<code>JSON</code>加密形式保存在客户端的，所以<code>JWT</code>是跨语言的，而不像<code>Session</code>是将用户登录信息保存在服务器端的</li>
+<li>使用<code>Session</code>进行身份认证的话，由于<code>cookie</code>无法跨域，难以实现单点登录。但是，使用<code>token</code>进行认证的话，<code>token</code>可以被保存在客户端的任意位置的内存中，不一定是<code>cookie</code>，所以不依赖<code>cookie</code>，不会存在这些问题</li>
+<li>为了防止客户端的数据造假，保存在客户端的登录信息经过了签名处理，而签名的密钥只有服务器端才知道，每次服务器端收到客户端提交的登录信息的时候都要检查一下签名，如果发现数据被篡改，则拒绝接收客户端提交的令牌。这样既保证了一定的安全性，又减少了服务端的开销。</li>
+</ul>
+<p>官网地址：<a target="_blank" rel="noopener" href="https://jwt.io/introduction/">传送门</a></p>
+<h1 id="贰-组成"><a href="#贰-组成" class="headerlink" title="贰 组成"></a>贰 组成</h1><p>一串完整的<code>JWT</code>主要由三部分组成，每部分用英文句号连接（<code>.</code>）连接，这三部分分别是：<code>Header</code>、<code>Payload</code>、<code>Signature</code>，既常规的<code>JWT</code>内容格式是这样的：<code>header.payload.signature</code>，并且，这一串内容会进行<code>URL</code>格式的<code>base64</code>加密，也就是说<code>base64</code>解码才可以看到实际传输的内容。下面这个就是完整的<code>JWT</code>：</p>
+<pre><code class="JWT">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+</code></pre>
+<ul>
+<li><code>Header</code>：又叫标头，其内容主要由令牌的类型（<code>typ</code>，一般默认是<code>JWT</code>）和所使用的签名算法（<code>alg</code>，<code>HMAC</code>、<code>SHA256</code>或<code>RSA</code>）这两部分组成，然后进行<code>Base64</code>编码组成<code>JWT</code>结构的第一部分。</li>
+</ul>
+<pre><code class="JWT">&#123;
+    &quot;alg&quot;: &quot;HS256&quot;,
+    &quot;typ&quot;: &quot;JWT&quot;
+&#125;
+</code></pre>
+<ul>
+<li><code>Payload</code>：该部分又叫有效载荷，其内容主要保存了需要传递给服务器的实际信息内容，但是注意不应该在该部分存放敏感信息，因为客户端也可对称解密该部分信息，它相当于是暴露的</li>
+</ul>
+<pre><code class="JWT">&#123;
+    &quot;sub&quot;: &quot;1234567890&quot;,
+    &quot;name&quot;: &quot;John Doe&quot;,
+    &quot;iat&quot;: 1516239022
+&#125;
+</code></pre>
+<ul>
+<li><code>Signature</code>：该部分主要用来对前面两部分进行签名，保证<code>JWT</code>不被篡改。之所以可以用来做签名，是因为该部门存在一段密钥，主要用户不知道该密钥，就破解不出来这部分内容。下面代码中的<code>your-256-bit-secret</code>就是需要服务端保存的密钥。</li>
+</ul>
+<pre><code class="JWT">HMACSHA256(
+    base64UrlEncode(header) + &quot;.&quot; +
+    base64UrlEncode(payload),
+    your-256-bit-secret
+)
+</code></pre>
+<p>官方也提供了在线解密：<br><img src="/images/%E5%AF%86%E7%A0%81%E5%AD%A6/bcbf143257faf81b4b7d85f75db64e7b.png" alt="bcbf143257faf81b4b7d85f75db64e7b.png"></p>
+<h1 id="叁-认证过程"><a href="#叁-认证过程" class="headerlink" title="叁 认证过程"></a>叁 认证过程</h1><p><code>JWT</code>的认证过程如下：</p>
+<ul>
+<li>首先，客户端通过<code>Web</code>表单将自己的用户名和密码发送到后端的接口。这一过程一般是只涉及到页面的<code>http post</code>请求，不会有<code>JWT</code>产生。</li>
+<li>当服务端核对用户名和密码成功后，会将用户的<code>ID</code>等非敏感信息作为<code>JWT</code>的<code>Payload</code>，将其与头部分别进行<code>Base64</code>编码拼接后签名，形成一个完整的<code>JWT</code>。格式为： <code>head.payload.singurater</code>。</li>
+<li>接着服务端将<code>JWT</code>作为登录成功的返回结果返回给客户端，客户端就可以将返回的结果保存在<code>localStorage</code>或<code>sessionStorage</code>上，如果退出登录时客户端删除保存的<code>JWT</code>。</li>
+<li>客户端在每次请求时将<code>JWT</code>放入<code>HTTP Header</code>中的<code>Authorization</code>位，这一步可以有效的解决<code>XSS</code>和<code>CSRF</code>问题。</li>
+<li>服务端检查<code>JWT</code>是否存在，既验证<code>JWT</code>的有效性。如检查签名是否正确、检查<code>Token</code>是否过期、检查<code>Token</code>的接收方是否是自己。</li>
+<li>验证通过后服务端使用<code>JWT</code>中包含的用户信息进行其他逻辑操作，返回相应结果。</li>
+</ul>
+<p><img src="/images/%E5%AF%86%E7%A0%81%E5%AD%A6/7f6c1849756f128c0e72a9c6821fb82a.png" alt="7f6c1849756f128c0e72a9c6821fb82a.png"></p>
+<h1 id="肆-代码实现"><a href="#肆-代码实现" class="headerlink" title="肆 代码实现"></a>肆 代码实现</h1><pre><code class="Golang">package main
+
+import (
+    &quot;crypto/hmac&quot;
+    &quot;crypto/sha256&quot;
+    &quot;encoding/base64&quot;
+    &quot;encoding/json&quot;
+    &quot;fmt&quot;
+    &quot;log&quot;
+    &quot;strings&quot;
+)
+
+// JWT数据类型
+type JWT struct &#123;
+    Header    string
+    Payload   string
+    Signature string
+    Data      JWTData
+    Type      JWTType
+&#125;
+
+// 注意Alg与Typ顺序
+type JWTType struct &#123;
+    Alg string `json:&quot;alg&quot;`
+    Typ string `json:&quot;typ&quot;`
+&#125;
+
+// 用户输入的信息
+type JWTData struct &#123;
+    Data string `json:&quot;data&quot;`
+&#125;
+
+// 处理错误方法
+func (data *JWT) handlingErrors(err error, funname string) &#123;
+    if err != nil &#123;
+        fmt.Println(&quot;[\033[31;1m-\033[0m]&quot;, funname, &quot;Error：&quot;, err)
+        log.Panic(err)
+    &#125;
+&#125;
+
+// 签名，key值一般在服务端，不会给客户端公布
+func (data *JWT) jWTSignature(key string) string &#123;
+    h := hmac.New(sha256.New, []byte(key))
+    h.Write([]byte(data.Header + &quot;.&quot; + data.Payload))
+    return data.Base64UrlSafeEncode([]byte(h.Sum(nil)))
+&#125;
+
+// 将string转换为url_safe base64编码
+func (data *JWT) Base64UrlSafeEncode(source []byte) string &#123;
+    // Base64 Url Safe is the same as Base64 but does not contain &#39;/&#39; and &#39;+&#39; (replaced by &#39;_&#39; and &#39;-&#39;) and trailing &#39;=&#39; are removed.
+    // 进行base64编码
+    bytearr := base64.StdEncoding.EncodeToString(source)
+    // 将/号改为_
+    safeurl := strings.Replace(string(bytearr), &quot;/&quot;, &quot;_&quot;, -1)
+    // 将+号改为-
+    safeurl = strings.Replace(safeurl, &quot;+&quot;, &quot;-&quot;, -1)
+    // 将=号去掉
+    safeurl = strings.Replace(safeurl, &quot;=&quot;, &quot;&quot;, -1)
+    return safeurl
+&#125;
+
+// 将url_safe base64编码转换为string
+func Base64URLDecode(data string) ([]byte, error) &#123;
+    var missing = (4 - len(data)%4) % 4
+    data += strings.Repeat(&quot;=&quot;, missing)
+    return base64.URLEncoding.DecodeString(data)
+&#125;
+
+// JWT加密函数
+func (data *JWT) jWTencode(val string) string &#123;
+    // 赋值
+    data.Data = JWTData&#123;
+        Data: val,
+    &#125;
+    // 创建JWT的Header
+    // 赋值
+    data.Type = JWTType&#123;
+        Typ: &quot;JWT&quot;,
+        Alg: &quot;HS256&quot;,
+    &#125;
+    // 反序列化
+    header, err := json.Marshal(data.Type)
+    data.handlingErrors(err, &quot;json.Marshal&quot;)
+    // 进行base64编码，JWT的Header都需要进行base64
+    data.Header = data.Base64UrlSafeEncode(header)
+    // 创建JWT的Payload
+    // 反序列化
+    payload, err := json.Marshal(data.Data)
+    data.handlingErrors(err, &quot;json.Marshal&quot;)
+    // 进行base64编码，JWT的Header都需要进行base64
+    data.Payload = data.Base64UrlSafeEncode(payload)
+    // key是key值，cry是加密算法
+    data.Signature = data.jWTSignature(&quot;your-256-bit-secret&quot;)
+    return data.Header + &quot;.&quot; + data.Payload + &quot;.&quot; + data.Signature
+&#125;
+
+// JWT解密函数
+func (data *JWT) jWTdecode(token string) string &#123;
+    // JWT切片
+    jwt := strings.Split(token, &quot;.&quot;)
+    if len(jwt) != 3 &#123;
+        return &quot;JWT格式不正确！&quot;
+    &#125;
+    // 赋值给变量
+    data.Header = jwt[0]
+    data.Payload = jwt[1]
+    data.Signature = jwt[2]
+    // 判断Signature是否正确
+    Signature := data.jWTSignature(&quot;your-256-bit-secret&quot;)
+    if Signature != data.Signature &#123;
+        return &quot;JWT签名不正确！&quot;
+    &#125;
+    // 转换header
+    header, err := Base64URLDecode(data.Header)
+    data.handlingErrors(err, &quot;Base64URLDecode&quot;)
+    err = json.Unmarshal(header, &amp;data.Type)
+    data.handlingErrors(err, &quot;json.Unmarshal&quot;)
+    // 转换payload
+    payload, err := Base64URLDecode(data.Payload)
+    data.handlingErrors(err, &quot;Base64URLDecode&quot;)
+    data.Payload = string(payload)
+    return data.Payload
+&#125;
+
+// 主函数
+func main() &#123;
+    j := new(JWT)
+    s := j.jWTencode(&quot;11111111121&quot;)
+    fmt.Println(s)
+    fmt.Println(j.jWTdecode(&quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoiMTExMTExMTExMjEifQ.7tymjdzP5e7LnDYGNhJ1icMDRZaIf8i_B-ody5tKX_I&quot;))
+&#125;
+</code></pre>
+<h1 id="伍-JWT的安全性问题"><a href="#伍-JWT的安全性问题" class="headerlink" title="伍 JWT的安全性问题"></a>伍 JWT的安全性问题</h1><ul>
+<li><p>敏感信息泄露<br>由于<code>JWT</code>的<code>payload</code>部分存放了用户的信息，同时可以通过<code>Base64</code>解码，所以如果将敏感的信息存放在<code>payload</code>中，会导致信息泄露。</p>
+</li>
+<li><p>未校验签名<br>有点服务端会取消<code>JWT</code>的<code>signature</code>部分校验，我们可以通过直接修改<code>JWT</code>前面的两部分进行测试，看其是否有效。</p>
+</li>
+<li><p>签名算法可被修改为<code>none</code><br>有的时候<code>signature</code>部分的加密认证取决与<code>header</code>部分的签名算法，这时候我们如果将<code>header</code>的签名算法改成<code>none</code>形式，那么服务端接收到<code>JWT</code>后会将其认定为无加密算法， 于是对<code>signature</code>的检验也就失效了，那么我们就可以随意修改<code>payload</code>部分伪造用户信息。用<code>none</code>算法生成的<code>JWT</code>只有两部分了，连签名都不存在。</p>
+</li>
+<li><p>签名密钥爆破<br><code>JWT</code>的安全性很大程度取决于加密的密钥，我们如果可以通过爆破加密密钥，获得正确的密钥，那么我们就可以随意修改<code>JWT</code>中<code>payload</code>部分信息了。<code>JWT</code>爆破脚本：<a target="_blank" rel="noopener" href="https://github.com/Ch1ngg/JWTPyCrack">https://github.com/Ch1ngg/JWTPyCrack</a></p>
+</li>
+<li><p>修改非对称密码算法为对称密码算法<br><code>JWT</code>的签名加密算法有两种，对称加密算法和非对称加密算法。对称加密算法比如<code>HS256</code>，加解密使用同一个密钥，保存在服务端。非对称加密算法比如<code>RS256</code>，后端加密使用私钥，前端解密使用公钥，公钥是我们可以获取到的。如果我们修改<code>header</code>，将算法从<code>RS256</code>更改为<code>HS256</code>，后端代码会使用<code>RS256</code>的公钥作为<code>HS256</code>算法的密钥。于是我们就可以用<code>RS256</code>的公钥伪造数据。</p>
+</li>
+<li><p>伪造密钥（<code>CVE-2018-0114</code>）<br><code>JWK</code>是<code>header</code>里的一个参数，用于指出密钥，存在被伪造的风险。比如：<a target="_blank" rel="noopener" href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-0114">CVE-2018-0114</a>攻击者可以通过以下方法来伪造<code>JWT</code>：删除原始签名，向标头添加新的公钥，然后使用与该公钥关联的私钥进行签名。(这个安全性问题说实话我不太理解，我在想如果直接不要这个字段不就可以避免这个漏洞了吗？)</p>
+</li>
+</ul>
+<p>对于验证<code>JWT</code>的安全性，可以使用该工具：<a target="_blank" rel="noopener" href="https://github.com/ticarpi/jwt_tool">jwt_tool</a></p>
+<blockquote>
+<p>JWT的使用建议：</p>
+<ul>
+<li>不要存放敏感信息在Token里。</li>
+<li>Payload中的exp时效不要设定太长</li>
+<li>开启Only Http预防XSS攻击</li>
+<li>如果担心重播攻击（replay attacks）可以增加jti（JWT ID），exp（有效时间）Claim</li>
+<li>在你的应用程序应用层中增加黑名单机制，必要的时候可以进行Block做阻挡（这是针对掉令牌被第三方使用窃取的手动防御）</li>
+</ul>
+</blockquote>
+<h1 id="陆-参考"><a href="#陆-参考" class="headerlink" title="陆 参考"></a>陆 参考</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://jwt.io/">JWT官网</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.wangan.com/wenda/9472">JWT 安全认证的优势有哪些</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/CryFace/p/14743323.html">为什么你放弃了Session认证选择了JWT？</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/xxxcAxx/article/details/128309755">代替Session的JWT</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/tomyyyyyy/article/details/119693410">JWT的安全问题</a></li>
+</ul>
+
+    </div>
+    
+</div>
+
+    <div id="home-card">
+        <div id="card-div">
+    <div class="card-style" style="width: 300px">
+        <div class="avatar">
+            <img src="/images/f6e2b991f74bfd7b88c3ab1a3d513b94.jpg " alt="avatar">
+        </div>
+        <div class="name">
+            小C&天天
+        </div>
+        <div class="descriptions">
+            
+            <div class="description">
+                修学储能 先博后渊
+            </div>
+            
+        </div>
+        <div class="icon-links">
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://github.com/A7cc">
+                    <i class="fa-brands fa-github fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.qq.com/">
+                    <i class="fa-brands fa-qq fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.weibo.com/">
+                    <i class="fa-brands fa-weibo fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://google.com/">
+                    <i class="fa-brands fa-google fa-fw"></i>
+                </a>
+            </span>
+            
+        </div>
+        <div class="friend-links">
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="http://www.wgs6km.top/">
+                    kyrieee个人博客
+                </a>
+            </div>
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="https://tonyd0g.gitee.io/">
+                    tonyd0g
+                </a>
+            </div>
+            
+        </div>
+    </div>
+    <!-- 目录 -->
+    
+        <div class="card-style" style="width: 300px">
+            <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A3%B9-%E4%BB%8B%E7%BB%8D"><span class="toc-text">壹 介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%B0-%E7%BB%84%E6%88%90"><span class="toc-text">贰 组成</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%81-%E8%AE%A4%E8%AF%81%E8%BF%87%E7%A8%8B"><span class="toc-text">叁 认证过程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%82%86-%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-text">肆 代码实现</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BC%8D-JWT%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7%E9%97%AE%E9%A2%98"><span class="toc-text">伍 JWT的安全性问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%99%86-%E5%8F%82%E8%80%83"><span class="toc-text">陆 参考</span></a></li></ol>
+            </div>    
+        </div>
+        
+    </div>
+</div>
+    </div>
+    
+</div>
+                         
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2023 小C♥天天
+            <span class="footer-icon">
+                <i class="fa-brands fa-github fa-fw"></i>
+            </span>
+            @小C&天天
+        </div>
+        <div>
+            备案号：小C&天天の窝
+        </div>
+    </div>
+</footer>
+                    </div>
+                </div>
+            </transition>
+            <div id="img_show">
+                <img id="img_content" alt="img_show">
+            </div>
+        </div>
+        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
+        <script src="/js/particlex.js"></script>
+        <script src="/js/showimg.js"></script>
+        
+
+        <!-- 3D模型 -->
+        <div id="L2dCanvas" style="position: relative;"></div>
+        <script src="/js/live2d.min.js"></script>
+        <script src="/css/live2d.css"></script>
+        <script>
+            var v = new Viewer({
+                basePath: "/model",
+                role: "zhala_2",
+                mobile: true,
+            });
+        </script>
+        <!-- 点击 -->
+        <script>
+            let body = document.getElementsByTagName('body')[0];
+            body.addEventListener('click', (e) => {
+                let contentArr = ['✊','😘','😍','😊','😭','😡','😋','👍','🐷','😱','💷','💵','×','🆗','№','⭐','🌙','♥','💴','☀','🐎','🐂','🐏','√'];
+                let randomNum = function (n) {
+                    return Math.floor(Math.random() * n)
+                }
+                let span = document.createElement('span');
+                span.innerHTML = `${contentArr[randomNum(contentArr.length)]}`;
+                span.style.color = `rgb(${randomNum(256)},${randomNum(256)},${randomNum(256)})`;
+                span.style.position = 'absolute';
+                span.style.top = `${e.pageY}px`;
+                span.style.left = `${e.pageX}px`;
+                span.style.transition = 'all 1s ease';
+                span.style.zIndex = 20000;
+                body.appendChild(span)
+                setTimeout(()=>{
+                    span.style.top = span.offsetTop - 100 + 'px';
+                    span.style.opacity = 0;
+                    setTimeout(()=>{span.remove()},700)
+                },0)
+            })
+        </script>
+        <!-- 流星背景特效 -->
+        <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/background.js"></script>
+    </body>
+</html>

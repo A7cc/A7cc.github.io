@@ -688,6 +688,21 @@ pre .language {
     border-radius: 20px;
 }
 
+/*目录*/
+.toc{
+	padding:0;
+	margin:1em;
+	line-height:1.8em;
+}
+
+.toc li{
+    list-style-type:none;
+}
+
+.toc-child {
+    margin-right:3em;
+}
+
 #menu {
     -webkit-user-select: none;
     -moz-user-select: none;

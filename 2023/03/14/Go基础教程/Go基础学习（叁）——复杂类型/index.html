@@ -1,0 +1,857 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>Go基础学习（叁）——复杂类型 | 小C♥天天</title>
+        <meta name="author" content="小C&天天">
+        <meta name="description" content="^v^">
+        <meta name="keywords" content="">
+        <link rel="icon" href="/images/icon.jpg">
+        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
+        <link rel="stylesheet" href="/css/fonts.min.css">
+        <link rel="stylesheet" href="/css/particlex.css">
+        <link rel="stylesheet" href="/css/main.css">
+        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
+        <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+        <link rel="stylesheet" href="/css/style.css">
+    <meta name="generator" content="Hexo 6.2.0"></head>
+    <body>
+        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:30vmin;height:30vmin;padding:60px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #dd20dd;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">正在加载</p><div><img alt="loading" src="/images/afde9fa65a5742a90b51d6e1211e841e.gif"></div></div></div></div></div>
+        <div id="layout">
+            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
+            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
+            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
+            <transition name="into">
+                <div v-show="show_page" style="display: -not-none">
+                    <div id="menu_show">
+                         
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">小C♥天天</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;文章</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+        <form class="search">
+            <input type="text" placeholder="需要搜索什么？">
+            <button type="submit"></button>
+        </form>
+    </div>
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
+        <div :class="'title'" @click="menu_show = !menu_show">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;小C♥天天</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+                    </div>
+                    <div id="main">
+                        
+
+<div id="home-posts-wrap" class=>
+<div class="article">
+    <div>
+        <h1>Go基础学习（叁）——复杂类型 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2023/3/14
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Go基础教程">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                </span>
+                Go基础教程
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/开发" style="color: #ff7d73">
+                    开发
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Golang" style="color: #ff7d73">
+                    Golang
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    <div class="content" v-pre>
+        <h1 id="壹-介绍"><a href="#壹-介绍" class="headerlink" title="壹 介绍"></a>壹 介绍</h1><p>在Go语言中，还存在着一些复杂的类型（引用类型）：数组、切片和集合。</p>
+<span id="more"></span>
+<h1 id="贰-数组array"><a href="#贰-数组array" class="headerlink" title="贰 数组array"></a>贰 数组array</h1><h2 id="2-1-简介"><a href="#2-1-简介" class="headerlink" title="2.1 简介"></a>2.1 简介</h2><p>Go 语言提供了数组类型的数据结构。数组是<font color="red">同一种数据类型元素的集合</font>。 在Go语言中，<font color="red">数组从声明时就确定，使用时可以修改数组成员，但是数组大小不可变化</font>。相对于去声明 <code>number0, number1, ..., number99</code> 的变量，使用数组形式 <code>numbers[0], numbers[1] ..., numbers[99]</code> 更加方便且易于扩展。数组元素可以通过索引（位置）来读取（或者修改），索引从 0 开始，第一个元素索引为 0，第二个索引为 1，以此类推。<font color="red">数组的底层就是就是指针。</font><br><img src="/images/Go%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/a01f5fce809acf7697529217ac55cb23.png" alt="a01f5fce809acf7697529217ac55cb23.png"></p>
+<p><font color="red">注意：需要区分数组与切片，数组在方括号里面是有值的，切片是没有值的，切片后面会讲。</font></p>
+<h2 id="2-2-声明数组"><a href="#2-2-声明数组" class="headerlink" title="2.2 声明数组"></a>2.2 声明数组</h2><p>Go 语言数组声明需要指定元素类型及元素个数，语法格式如下：</p>
+<pre><code class="go">// 一维数组
+var 数组变量名 [元素数量] 数组类型
+// 多维数组
+var 数组变量名 [元素数量1][元素数量2]...[元素数量N] 数组类型
+</code></pre>
+<p>例子：</p>
+<pre><code class="go">// 定义了一维数组 balance 长度为 10 类型为 float32
+var balance [10]float32
+// 声明了二维的整型数组
+var double [5][10]int
+// 声明了三维的整型数组
+var threedim [5][10][4]int
+</code></pre>
+<p>二维数组是最简单的多维数组，二维数组本质上是由一维数组组成的，三维数组也是如此。<br>二维数组可认为是一个表格，x 为行，y 为列，下图演示了一个二维数组 a 为三行四列：<br><img src="/images/Go%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/1615f947adece701d6aed9da4e6ad602.png" alt="1615f947adece701d6aed9da4e6ad602.png"><br>以此类推三维数组就有点像一个立方体。</p>
+<h2 id="2-3-初始化数组"><a href="#2-3-初始化数组" class="headerlink" title="2.3 初始化数组"></a>2.3 初始化数组</h2><p><font color="red">为什么要初始化？举个例子，我们脑海里想了一个玩具，这个玩具，现在是幻想出来，也就是编程里面的定义，那要想完这个玩具，那我们就要买这个玩具或者制造这个玩具，这个叫初始化或者叫实例化。所以任何的类型变量都需要定义，然后初始化，才可以使用。</font></p>
+<ul>
+<li>一维数组初始化：<br>&#96;&#96;&#96;go<br>&#x2F;&#x2F; 数组初始化<br>var balance &#x3D; [5]float32{1000.0, 2.0, 3.4, 7.0, 50.0}<br>&#x2F;&#x2F; 如果数组初始化不赋值那么会自动赋为0|False|空字符串<br>var testArray [3]int<br>&#x2F;&#x2F; 也可以通过字面量在声明数组的同时快速初始化数组<br>balance :&#x3D; [5]float32{1000.0, 2.0, 3.4, 7.0, 50.0}<br>&#x2F;&#x2F; 如果数组长度不确定，可以使用…代替数组的长度，编译器会根据元素个数自行推断数组的长度<br>var balance &#x3D; […]float32{1000.0, 2.0, 3.4, 7.0, 50.0}<br>balance :&#x3D; […]float32{1000.0, 2.0, 3.4, 7.0, 50.0}<br>&#x2F;&#x2F; 如果设置了数组的长度，我们还可以通过指定下标来初始化元素，将索引为 1 和 3 的元素初始化<br>balance :&#x3D; [5]float32{1:2.0,3:7.0}<br>&#x2F;&#x2F; 初始化数组中{}中的元素个数不能大于[]中的数字。如果忽略[]中的数字不设置数组大小，Go语言会根据元素的个数来设置数组的大小<br>balance[4] &#x3D; 50.0</li>
+</ul>
+<p>&#x2F;&#x2F; 还可以利用循环初始化<br>var strarr [3]int<br>for i :&#x3D; 0; i &lt; 3; i++ {<br>    strarr[i] &#x3D; i<br>    fmt.Printf(“数组第%d个元素是%d\n”, i, strarr[i])<br>}</p>
+<p>&#x2F;&#x2F; 如果是以下定义，那么是定义切片，后面会讲<br>var str :&#x3D; []int{}</p>
+<p>&#x2F;&#x2F;可以看到格式类似<br>var 数组变量名 &#x3D; [数组长度]数组类型{值}</p>
+<pre><code>上面的例子结果如下：
+![6b4ae9fb55a726fcc39c40dea64b1341.png](/images/Go基础编程/6b4ae9fb55a726fcc39c40dea64b1341.png)
+
+- 二维数组初始化：
+多维数组可通过大括号来初始值。以下实例为一个 3 行 4 列的二维数组：
+```go
+//可以看出二维数组由两个大括号组成，最里面的括号相对于外面的括号是一个值，以此类推，多级数组
+a := [3][4]int&#123;
+        &#123;0, 1, 2, 3&#125;, // 第一行索引为0
+        &#123;4, 5, 6, 7&#125;, // 第二行索引为1
+        &#123;8, 9, 10, 11&#125;, // 第三行索引为2
+    &#125;
+//我们还可以不计算元素个数初始化
+a := [...][4]int&#123;
+        &#123;0, 1, 2, 3&#125;, // 第一行索引为0
+        &#123;4, 5, 6, 7&#125;, // 第二行索引为1
+        &#123;8, 9, 10, 11&#125;, // 第三行索引为2
+    &#125;
+//注意： 多维数组只有第一层可以使用...来让编译器推导数组长度。以下不准确：
+// a := [3][...]int&#123;
+// 		&#123;0, 1, 2, 3&#125;,
+// 		&#123;4, 5, 6, 7&#125;,
+// 		&#123;8, 9, 10, 11&#125;,
+// 	&#125;
+</code></pre>
+<p>以此类推，三维数组则是三个大括号叠加。</p>
+<h2 id="2-4-访问数组元素"><a href="#2-4-访问数组元素" class="headerlink" title="2.4 访问数组元素"></a>2.4 访问数组元素</h2><p>数组元素可以通过索引（位置）来读取。格式为数组名后加中括号，中括号中为索引的值。</p>
+<ul>
+<li>访问一维数组：</li>
+</ul>
+<p>例如：</p>
+<pre><code class="go">数组名[索引值]
+</code></pre>
+<p>例子：</p>
+<pre><code class="go">package main
+
+import &quot;fmt&quot;
+
+func main() &#123;
+    array := [...]int&#123;1, 2, 3, 4, 5, 6, 7, 8, 9, 0&#125;
+    for i := 0; i &lt; 10; i++ &#123;
+        fmt.Printf(&quot;%d值为：%v\n&quot;, i, array[i])
+    &#125;
+&#125;
+</code></pre>
+<p><img src="/images/Go%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/22e3938cb4ed045f9f64c3b3e252abb0.png" alt="22e3938cb4ed045f9f64c3b3e252abb0.png"></p>
+<ul>
+<li>访问二维数组：</li>
+</ul>
+<p>二维数组通过指定坐标来访问。如数组中的行索引与列索引，例如：</p>
+<pre><code class="go">数组名[索引值1][索引值2]
+</code></pre>
+<p>例子：</p>
+<pre><code class="go">package main
+
+import &quot;fmt&quot;
+
+func main() &#123;
+    // 创建空的二维数组
+    animals := [][]string&#123;&#125;
+    // 创建三个一维数组，各数组长度不同
+    row1 := []string&#123;&quot;fish&quot;, &quot;shark&quot;, &quot;eel&quot;&#125;
+    row2 := []string&#123;&quot;bird&quot;&#125;
+    row3 := []string&#123;&quot;lizard&quot;, &quot;salamander&quot;&#125;
+    // append()函数主要用于给某个切片追加元素
+    // 使用 append() 函数将一维数组添加到二维数组中
+    animals = append(animals, row1)
+    animals = append(animals, row2)
+    animals = append(animals, row3)
+    // 循环输出
+    for i := range animals &#123;
+        fmt.Printf(&quot;Row: %v\n&quot;, i)
+        fmt.Println(animals[i])
+    &#125;
+&#125;
+</code></pre>
+<p><img src="/images/Go%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/6c6c78b415a5a185004b38993309600e.png" alt="6c6c78b415a5a185004b38993309600e.png"></p>
+<p><strong>注意：</strong></p>
+<ul>
+<li>a.数组是值类型，所以在执行赋值和传参操作时是将复制整个数组到另一个变量中。因此改变复制后数组的值，不会改变原先数组的值。</li>
+<li>b.数组支持 “&#x3D;&#x3D;“、”!&#x3D;” 操作符，因为内存总是被初始化过的。</li>
+<li>c.<code>[n]*T</code>表示指针数组，<code>*[n]T</code>表示数组指针 。</li>
+</ul>
+<h1 id="叁-切片slice"><a href="#叁-切片slice" class="headerlink" title="叁 切片slice"></a>叁 切片slice</h1><h2 id="3-1-简介"><a href="#3-1-简介" class="headerlink" title="3.1 简介"></a>3.1 简介</h2><p>因为数组的长度是固定的并且数组长度属于类型的一部分，所以数组有很多的局限性，Go 中提供了一种灵活，功能强悍的内置类型切片（”动态数组”）——Go 语言切片，<font color="red">Go 语言切片是对数组的抽象，是一个拥有相同类型元素的可变长度的序列，切片的底层就是一个数组</font>。它是基于数组类型做的一层封装。它非常灵活，支持自动扩容，是一个引用类型，它的内部结构包含<code>地址</code>、<code>长度</code>和<code>容量</code>。切片一般用于快速地操作一块数据集合。</p>
+<blockquote>
+<p><strong>切片的本质</strong><br>切片的本质就是对底层数组的封装，它包含了三个信息：底层数组的指针、切片的长度（len）和切片的容量（cap）。举个例子，现在有一个数组<code>a := [8]int&#123;0, 1, 2, 3, 4, 5, 6, 7&#125;</code>，切片<code>s1 := a[:5]</code>，相应示意图如下。<br><img src="/images/Go%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/0b67a5feb4d683fbeaf4940e3c87ad8b.png" alt="0b67a5feb4d683fbeaf4940e3c87ad8b.png"><br>切片<code>s2 := a[3:6]</code>，相应示意图如下：<br><img src="/images/Go%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/60174a69142a1db34e3725bae1840a69.png" alt="60174a69142a1db34e3725bae1840a69.png"></p>
+</blockquote>
+<h2 id="3-2-定义切片"><a href="#3-2-定义切片" class="headerlink" title="3.2 定义切片"></a>3.2 定义切片</h2><p>你可以声明一个未指定大小的数组来定义切片：</p>
+<pre><code class="go">var 切片名 []切片类型
+//name：表示变量名
+//type：表示切片中的元素类型
+//切片不需要说明长度
+//可以使用make()函数来创建切片：
+var name []type = make([]type, len)
+//也可以简写为：
+name := make([]type, len)
+</code></pre>
+<p>切片拥有自己的长度和容量，可以指定容量， length是当前容量，capacity是最大容量，其中capacity为可选参数，默认等于length。我们可以通过使用内置的<code>len()</code>函数求长度，使用内置的<code>cap()</code>函数求切片的容量。</p>
+<pre><code class="go">make([]T, length, capacity)
+</code></pre>
+<blockquote>
+<p>为什么切片需要容量？</p>
+<ul>
+<li>a.可以隐藏数组中暂时不使用的空间</li>
+<li>b.当使用数组达到闸值时，重新分配空间，实现动态数组效果</li>
+</ul>
+</blockquote>
+<h2 id="3-3-切片初始化"><a href="#3-3-切片初始化" class="headerlink" title="3.3 切片初始化"></a>3.3 切片初始化</h2><p>切片的初始化比较灵活：</p>
+<pre><code class="go">//直接初始化切片，[] 表示是切片类型，&#123;1,2,3&#125; 初始化值依次是 1,2,3，其 cap=len=3，一般使用这种方式定义
+s :=[]int&#123;1,2,3&#125; 
+//初始化切片 s，是数组 arr 的引用
+s := arr[:]
+//将 arr 中从下标 startIndex 到 endIndex-1 下的元素创建为一个新的切片
+s := arr[startIndex:endIndex] 
+//默认 endIndex 时将表示一直到arr的最后一个元素，默认为切片操作数的长度
+s := arr[startIndex:] 
+//默认 startIndex 时将表示从 arr 的第一个元素开始，默认为0
+s := arr[:endIndex] 
+//通过切片 s 初始化切片 s1
+s1 := s[startIndex:endIndex]
+//通过内置函数 make() 初始化切片s，[]int 标识为其元素类型为 int 的切片
+s :=make([]int,len,cap)
+// 利用循环初始化
+// 需要注意这个初始化的时候是在make的容量内，如果超过容量范围需要进行增加操作，后面会讲
+strarr := make([]int, 3)
+for i := 0; i &lt; 3; i++ &#123;
+    strarr[i] = i
+    fmt.Printf(&quot;数组第%d个元素是%d\n&quot;, i, strarr[i])
+&#125;
+</code></pre>
+<p>make函数使用：<a href="#make">链接</a></p>
+<h2 id="3-4-空（nil）切片"><a href="#3-4-空（nil）切片" class="headerlink" title="3.4 空（nil）切片"></a>3.4 空（nil）切片</h2><p>一个切片在未初始化之前默认为 nil，长度为 0，实例如下：</p>
+<pre><code class="go">package main
+import &quot;fmt&quot;
+func main() &#123;
+    var numbers []int
+    fmt.Printf(&quot;len=%d cap=%d slice=%v\n&quot;, len(numbers), cap(numbers), numbers)
+    if numbers == nil &#123;
+        fmt.Printf(&quot;切片是空的&quot;)
+    &#125;
+&#125;
+</code></pre>
+<p><img src="/images/Go%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/98a8331125ff8b67eeab6099ac3982d3.png" alt="98a8331125ff8b67eeab6099ac3982d3.png"></p>
+<p>len函数使用：<a href="#len">链接</a><br>cap函数使用：<a href="#cap">链接</a></p>
+<h2 id="3-5-切片截取与遍历"><a href="#3-5-切片截取与遍历" class="headerlink" title="3.5 切片截取与遍历"></a>3.5 切片截取与遍历</h2><p>可以通过设置下限、上限和容量（<code>cap</code>表示实际的容量，可以忽略）来设置截取切片 <code>[lower-bound:upper-bound:[cap]]</code>，实例如下：</p>
+<pre><code class="go">package main
+import &quot;fmt&quot;
+func printSlice(x []int) &#123;
+    fmt.Printf(&quot;len=%d cap=%d slice=%v\n&quot;, len(x), cap(x), x)
+&#125;
+func main() &#123;
+    // 创建切片
+    numbers := []int&#123;0, 1, 2, 3, 4, 5, 6, 7, 8&#125;
+    printSlice(numbers)
+    // 打印原始切片
+    fmt.Println(&quot;numbers ==&quot;, numbers)
+    // 打印子切片从索引1(包含) 到索引4(不包含)
+    fmt.Println(&quot;numbers[1:4] ==&quot;, numbers[1:4])
+    // 默认下限为0
+    fmt.Println(&quot;numbers[:3] ==&quot;, numbers[:3])
+    // 默认上限为len(s)，而不是cap(s)
+    fmt.Println(&quot;numbers[4:] ==&quot;, numbers[4:])
+    numbers1 := make([]int, 0, 5)
+    printSlice(numbers1)
+    // 打印子切片从索引0(包含)到索引2(不包含)
+    number2 := numbers[:2]
+    printSlice(number2)
+    // 打印子切片从索引 2(包含) 到索引 5(不包含)
+    number3 := numbers[2:5]
+    printSlice(number3)
+    // 对于数组，指向数组的指针，或切片a(注意不能是字符串)支持完整切片表达式
+    // numbers[low : high : max]
+&#125;
+</code></pre>
+<p><img src="/images/Go%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/66d9f9eed63f41f399ccda99fed9ca8d.png" alt="66d9f9eed63f41f399ccda99fed9ca8d.png"></p>
+<p>切片的遍历方式和数组是一致的，支持索引遍历和<code>for range</code>遍历，这里就不进行赘述。</p>
+<h2 id="3-6-切片的其他操作"><a href="#3-6-切片的其他操作" class="headerlink" title="3.6 切片的其他操作"></a>3.6 切片的其他操作</h2><ul>
+<li>a.增加<br>关于切片增加操作是使用函数<code>append</code>：<a href="#append">链接</a></li>
+<li>b.复制<br>关于切片复制操作的说明：<a href="#copy">链接</a></li>
+<li>c.删除<br>Go语言中并没有删除切片元素的专用方法，我们可以使用切片本身的特性来删除元素。要从切片a中删除索引为<code>index</code>的元素，操作方法是<code>a = append(a[:index], a[index+1:]...)</code>， 代码如下：<pre><code class="go">package main
+import &quot;fmt&quot;
+func main() &#123;
+  // 从切片中删除元素
+  a := []int&#123;30, 31, 32, 33, 34, 35, 36, 37&#125;
+  // 要删除索引为2的元素
+  a = append(a[:2], a[3:]...)
+  fmt.Println(a) //[30 31 33 34 35 36 37]
+&#125;
+</code></pre>
+</li>
+<li>d.切片不能直接比较<br>切片之间是不能比较的，我们不能使用<code>==</code>操作符来判断两个切片是否含有全部相等元素。 切片唯一合法的比较操作是和<code>nil</code>比较。 一个<code>nil</code>值的切片并没有底层数组，一个<code>nil</code>值的切片的长度和容量都是0。但是我们不能说一个长度和容量都是0的切片一定是<code>nil</code>，因为切片可以包含0，<font color="red">所以要判断一个切片是否是空的，要是用<code>len(s) == 0</code>来判断，不应该使用<code>s == nil</code>来判断</font>。</li>
+</ul>
+<h1 id="肆-集合map"><a href="#肆-集合map" class="headerlink" title="肆 集合map"></a>肆 集合map</h1><p>Go语言中提供的映射关系容器为<code>map</code>，Map 是一种无序的基于<code>key-value</code>的数据结构，其内部使用<code>散列表（hash）</code>实现，我们无法决定它的返回顺序。Map是引用类型，必须初始化才能使用。Map 最重要的一点是通过 key 来快速检索数据，key 类似于索引，指向数据的值。Map 是一种集合，所以我们可以像迭代数组和切片那样迭代它，<font color="red">所以<code>map</code>底层就是指针</font>。</p>
+<h2 id="4-1-定义-map"><a href="#4-1-定义-map" class="headerlink" title="4.1 定义 map"></a>4.1 定义 map</h2><p>首先我们来定义map，使用 map 关键字来定义 map：</p>
+<pre><code class="go">map[KeyType]ValueType
+//KeyType:表示键的类型
+//ValueType:表示键对应的值的类型
+//map类型的变量默认初始值为nil
+</code></pre>
+<p>需要使用<code>make()</code>函数来分配内存，<code>map</code>类型的变量默认初始值为<code>nil</code>，需要使用<code>make()</code>函数来分配内存。语法为：</p>
+<pre><code class="go">map_name := make(map[key_type]value_type, [cap])
+//其中cap表示map的容量，该参数虽然不是必须的，但是我们应该在初始化map的时候就为其指定一个合适的容量。
+</code></pre>
+<p>如果不初始化 <code>map</code>，那么就会创建一个 <code>nil map</code>。<code>nil map</code> 不能用来存放键值对。</p>
+<h2 id="4-2-map初始化"><a href="#4-2-map初始化" class="headerlink" title="4.2 map初始化"></a>4.2 map初始化</h2><p>Map的初始化比较灵活，直接使用map插入key - value对：</p>
+<pre><code class="go">package main
+
+import &quot;fmt&quot;
+
+func main() &#123;
+    var countryCapitalMap map[string]string /*创建集合 */
+    countryCapitalMap = make(map[string]string)
+    /* map插入key - value对,各个国家对应的首都 */
+    countryCapitalMap[&quot;France&quot;] = &quot;巴黎&quot;
+    countryCapitalMap[&quot;Italy&quot;] = &quot;罗马&quot;
+    countryCapitalMap[&quot;Japan&quot;] = &quot;东京&quot;
+    countryCapitalMap[&quot;India &quot;] = &quot;新德里&quot;
+    /* map也支持在声明的时候填充元素 */
+    userInfo := map[string]string&#123;
+        &quot;username&quot;: &quot;沙河小王子&quot;,
+        &quot;password&quot;: &quot;123456&quot;,
+    &#125;
+    fmt.Println(userInfo)
+    fmt.Println(countryCapitalMap)
+&#125;
+</code></pre>
+<p><img src="/images/Go%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/f5d445a9bfb48854059aca2fbd66b1ff.png" alt="f5d445a9bfb48854059aca2fbd66b1ff.png"></p>
+<h2 id="4-3-map的遍历"><a href="#4-3-map的遍历" class="headerlink" title="4.3 map的遍历"></a>4.3 map的遍历</h2><pre><code class="go">package main
+
+import &quot;fmt&quot;
+
+func main() &#123;
+    // 定义一个map
+    userInfo := map[string]string&#123;
+        &quot;username&quot;: &quot;A7cc&quot;,
+        &quot;password&quot;: &quot;123456&quot;,
+    &#125;
+    // 使用for range遍历map
+    for k, v := range userInfo &#123;
+        fmt.Println(k, &quot;值是：&quot;, v)
+    &#125;
+    // 只遍历key
+    for k := range userInfo &#123;
+        fmt.Println(k, &quot;值是：&quot;, userInfo[k])
+    &#125;
+&#125;
+</code></pre>
+<p><img src="/images/Go%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/02b5660f0f6e464517d2c2500fbf03e5.png" alt="02b5660f0f6e464517d2c2500fbf03e5.png"><br>可以看到直接遍历时，map是按照首字符的ASCII码输出的。</p>
+<h2 id="4-4-判断某个键是否存在"><a href="#4-4-判断某个键是否存在" class="headerlink" title="4.4 判断某个键是否存在"></a>4.4 判断某个键是否存在</h2><p>Go语言中有个判断map中键是否存在的特殊写法，格式如下：</p>
+<pre><code class="go">value, ok := map[key]
+</code></pre>
+<p>举个例子：</p>
+<pre><code class="go">func main() &#123;
+    scoreMap := make(map[string]int)
+    scoreMap[&quot;张三&quot;] = 90
+    scoreMap[&quot;小明&quot;] = 100
+    // 如果key存在，ok为true，v为对应的值；不存在，ok为false，v为0
+    if v, ok := scoreMap[&quot;张三&quot;];ok &#123;
+        fmt.Println(v)
+    &#125; else &#123;
+        fmt.Println(&quot;查无此人&quot;)
+    &#125;
+    // 可以看到上面的v, ok := scoreMap[&quot;张三&quot;]在go语言中是可以放到if的判断语句中，个人感觉if判断语句前面有表达式就是为这种情况而生的
+&#125;
+</code></pre>
+<h2 id="4-5-元素为map类型的切片"><a href="#4-5-元素为map类型的切片" class="headerlink" title="4.5 元素为map类型的切片"></a>4.5 元素为map类型的切片</h2><p>下面的代码演示了切片中的元素为map类型时的操作：</p>
+<pre><code class="go">func main() &#123;
+    var mapSlice = make([]map[string]string, 3)
+    for index, value := range mapSlice &#123;
+        fmt.Printf(&quot;index:%d value:%v\n&quot;, index, value)
+    &#125;
+    fmt.Println(&quot;after init&quot;)
+    // 对切片中的map元素进行初始化
+    mapSlice[0] = make(map[string]string, 10)
+    mapSlice[0][&quot;name&quot;] = &quot;小王子&quot;
+    mapSlice[0][&quot;password&quot;] = &quot;123456&quot;
+    mapSlice[0][&quot;address&quot;] = &quot;沙河&quot;
+    for index, value := range mapSlice &#123;
+        fmt.Printf(&quot;index:%d value:%v\n&quot;, index, value)
+    &#125;
+&#125;
+</code></pre>
+<h2 id="4-6-值为切片类型的map"><a href="#4-6-值为切片类型的map" class="headerlink" title="4.6 值为切片类型的map"></a>4.6 值为切片类型的map</h2><p>下面的代码演示了map中值为切片类型的操作：</p>
+<pre><code class="go">func main() &#123;
+    var sliceMap = make(map[string][]string, 3)
+    fmt.Println(sliceMap)
+    fmt.Println(&quot;after init&quot;)
+    key := &quot;中国&quot;
+    value, ok := sliceMap[key]
+    if !ok &#123;
+        value = make([]string, 0, 2)
+    &#125;
+    value = append(value, &quot;北京&quot;, &quot;上海&quot;)
+    sliceMap[key] = value
+    fmt.Println(sliceMap)
+&#125;
+</code></pre>
+<h2 id="4-7-map的其他操作"><a href="#4-7-map的其他操作" class="headerlink" title="4.7 map的其他操作"></a>4.7 map的其他操作</h2><ul>
+<li>a.删除<br>关于map删除操作的说明：<a href="#delete">链接</a></li>
+</ul>
+<h1 id="伍-通用函数"><a href="#伍-通用函数" class="headerlink" title="伍 通用函数"></a>伍 通用函数</h1><p> <a name="make"></a> </p>
+<h2 id="5-1-make函数"><a href="#5-1-make函数" class="headerlink" title="5.1 make函数"></a>5.1 make函数</h2><p>内建函数 <code>make</code> 用来为 <code>slice</code>，<code>map</code> 或 <code>chan</code> 类型分配一块内存空间和初始化（注意：只能用在这三种类型上）。</p>
+<p><strong>格式：</strong></p>
+<pre><code class="go">valname := make(Type, len)
+</code></pre>
+<ul>
+<li>Type：就是定义的类型，即slice、map、chan其中一个</li>
+<li>len：就是分配该类型的长度，但在slice中可以在后面加个cap代表容量</li>
+<li>返回值为创建的类型，个人感觉就是这块地址的指针，这个概念后面会讲，这里只是用做理解</li>
+</ul>
+<p><strong>实例：</strong></p>
+<pre><code class="go">package main
+
+import &quot;fmt&quot;
+
+func main() &#123;
+    // 申请一个长度为5，容量为10的切片
+    mySlice := make([]int, 5, 10)
+    // 申请一个长度为3的map
+    mymap := make(map[string]string, 3)
+    fmt.Println(mySlice)	//[0 0 0 0 0]
+    fmt.Println(mymap)	//map[],因为map没有初始化，所以没有值
+&#125;
+</code></pre>
+<p> <a name="len"></a> </p>
+<h2 id="5-1-len函数"><a href="#5-1-len函数" class="headerlink" title="5.1 len函数"></a>5.1 len函数</h2><p>切片是可索引的，并且可以由 len() 方法获取长度。切片提供了计算容量的方法 cap() 可以测量切片最长可以达到多少。</p>
+<p><strong>格式：</strong></p>
+<pre><code class="go">vallen := len(v)
+</code></pre>
+<ul>
+<li>v：就是要返回长度的对象</li>
+<li>返回值为该对象长度</li>
+</ul>
+<p><strong>实例：</strong></p>
+<pre><code class="go">package main
+import (
+    &quot;fmt&quot;
+)
+func main() &#123;
+    s1 := [...]int&#123;1, 2, 3&#125;
+    s2 := []int&#123;1, 2, 3&#125;
+    s3 := make(map[string]string)
+    s3[&quot;France&quot;] = &quot;巴黎&quot;
+    s3[&quot;Italy&quot;] = &quot;罗马&quot;
+    s3[&quot;Japan&quot;] = &quot;东京&quot;
+    s3[&quot;India&quot;] = &quot;新德里&quot;
+    fmt.Printf(&quot;%T，%T，%T\n&quot;, s1, s2, s3)
+    fmt.Printf(&quot;%d，%d&quot;, cap(s1), cap(s2))
+&#125;
+</code></pre>
+<p><img src="/images/Go%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/381340c9800a6eaba6700856a3eadc17.png" alt="381340c9800a6eaba6700856a3eadc17.png"></p>
+<p> <a name="cap"></a> </p>
+<h2 id="5-2-cap函数"><a href="#5-2-cap函数" class="headerlink" title="5.2 cap函数"></a>5.2 cap函数</h2><p><code>cap()</code>函数返回的是数组切片分配的空间大小。</p>
+<p><strong>格式：</strong></p>
+<pre><code class="go">valcao := cap(v)
+</code></pre>
+<ul>
+<li>v：就是要返回长度的对象，一般是切片</li>
+<li>返回值为该对象容量</li>
+</ul>
+<p><strong>实例：</strong></p>
+<pre><code class="go">package main
+
+import &quot;fmt&quot;
+
+func main() &#123;
+    // 申请一个长度为5，容量为10的切片
+    mySlice := make([]int, 5, 10)
+    fmt.Println(&quot;len(mySlice):&quot;, len(mySlice))
+    fmt.Println(&quot;cap(mySlice):&quot;, cap(mySlice))
+&#125;
+</code></pre>
+<p> <a name="append"></a> </p>
+<h2 id="5-3-append函数"><a href="#5-3-append函数" class="headerlink" title="5.3 append函数"></a>5.3 append函数</h2><p>如果想增加切片的容量，我们必须创建一个新的更大的切片并把原分片的内容都拷贝过来。下面的代码描述了从拷贝切片的 copy 方法和向切片追加新元素的 append 方法。</p>
+<pre><code class="go">package main
+import &quot;fmt&quot;
+func main() &#123;
+    var numbers []int
+    printSlice(numbers)
+    //len=0 cap=0 slice=[]
+
+    // 通过var声明的零值切片可以在append()函数直接使用，无需初始化。
+    // 允许追加空切片
+    numbers = append(numbers, 0)
+    printSlice(numbers)
+    //len=1 cap=1 slice=[0
+
+    // 向切片添加一个元素
+    numbers = append(numbers, 1)
+    printSlice(numbers)
+    //len=2 cap=2 slice=[0 1]
+
+    // 同时添加多个元素
+    numbers = append(numbers, 2, 3, 4)
+    printSlice(numbers)
+    //len=5 cap=6 slice=[0 1 2 3 4]
+    //底层原理：
+    //1.底层追加元素的时候对数组进行扩容，老数组扩容为新数组：
+    //2.创建一个新数组，将老数组中的0,1复制到新数组中，在新数组中追加2, 3, 4
+    //3.numbers底层数组的指向,指向的是新数组 
+    //4.往往我们在使用追加的时候其实想要做的效果直接给numbers追加
+    //5.但是实际上是通过切片间接操作追加的
+
+    // 同时添加切片
+    numbers1 := []int&#123;2, 3, 4&#125;
+    numbers = append(numbers, numbers1...) // 切片后加..., 相当于拆包成单个元素
+    printSlice(numbers)
+    //len=8 cap=12 slice=[0 1 2 3 4 2 3 4]
+
+    // 创建切片 numbers1 是之前切片的两倍容量
+    numbers2 := make([]int, len(numbers), (cap(numbers))*2)
+    // 拷贝 numbers 的内容到 numbers1
+    copy(numbers2, numbers)
+    printSlice(numbers2)
+    //len=8 cap=24 slice=[0 1 2 3 4 2 3 4]
+&#125;
+func printSlice(x []int) &#123;
+    fmt.Printf(&quot;len=%d cap=%d slice=%v\n&quot;, len(x), cap(x), x)
+&#125;
+</code></pre>
+<p>每个切片会指向一个底层数组，这个数组的容量够用就添加新增元素。当底层数组不能容纳新增的元素时，切片就会自动按照一定的策略进行扩容，此时该切片指向的底层数组就会更换。扩容操作往往发生在<code>append()</code>函数调用时，所以我们通常都需要用原变量接收append函数的返回值。<br>举个例子：</p>
+<pre><code class="go">func main() &#123;
+    //append()添加元素和切片扩容
+    var numSlice []int
+    for i := 0; i &lt; 10; i++ &#123;
+        numSlice = append(numSlice, i)
+        fmt.Printf(&quot;%v  len:%d  cap:%d  ptr:%p\n&quot;, numSlice, len(numSlice), cap(numSlice), numSlice)
+    &#125;
+&#125;
+</code></pre>
+<p><img src="/images/Go%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/c29c1392ba1434634132ffcf66fe642f.png" alt="c29c1392ba1434634132ffcf66fe642f.png"><br>append()函数将元素追加到切片的最后并返回该切片。<br>切片numSlice的容量按照1，2，4，8，16这样的规则自动进行扩容，每次扩容后都是扩容前的2倍。</p>
+<p> <a name="copy"></a> </p>
+<h2 id="5-4-copy函数"><a href="#5-4-copy函数" class="headerlink" title="5.4 copy函数"></a>5.4 copy函数</h2><p>由于切片是引用类型，如果直接将一个切片使用<code>=</code>赋值给另一个变量（注意是变量不是切片，切片间不能赋值），那么这两个其实都指向了同一块内存地址。修改其中一个变量的同时另一个变量的值也会发生变化。Go语言内建的<code>copy()</code>函数可以迅速地将一个切片的数据复制到另外一个切片空间中。</p>
+<h3 id="5-4-1-格式"><a href="#5-4-1-格式" class="headerlink" title="5.4.1 格式"></a>5.4.1 格式</h3><p>Go语言内建的<code>copy()</code>函数可以迅速地将一个切片的数据复制到另外一个切片空间中，<code>copy()</code>函数的使用格式如下：</p>
+<pre><code class="go">copy(destSlice, srcSlice []T)
+//srcSlice: 数据来源切片
+//destSlice: 目标切片
+</code></pre>
+<h3 id="5-4-2-例子"><a href="#5-4-2-例子" class="headerlink" title="5.4.2 例子"></a>5.4.2 例子</h3><pre><code class="go">package main
+import &quot;fmt&quot;
+func main() &#123;
+    // copy()复制切片
+    a := []int&#123;1, 2, 3, 4, 5&#125;
+    // c必须有内存，才能使用copy函数，不能声明完就直接使用copy，会返回一个空的切片。
+    // 这里涉及到指针问题，可以到后面学完指针再来看，其原因个人感觉是因为c在声明时是声明了一个空指针，指针是只能存放地址，如果直接使用copy函数，那么切片将复制给c所指向的空的地址，这是数据就没有用了
+    // 而make是申请一块地址，将地址给c，此时c就索引了一块确实存在的地址
+    c := make([]int, 5, 5)
+    
+    copy(c, a)     //使用copy()函数将切片a中的元素复制到切片c
+    fmt.Println(a) //[1 2 3 4 5]
+    fmt.Println(c) //[1 2 3 4 5]
+    c[0] = 1000
+    fmt.Println(a) //[1 2 3 4 5]
+    fmt.Println(c) //[1000 2 3 4 5]
+&#125;
+</code></pre>
+<p> <a name="delete"></a></p>
+<h2 id="5-5-delete函数"><a href="#5-5-delete函数" class="headerlink" title="5.5 delete函数"></a>5.5 delete函数</h2><p>delete() 函数用于删除集合的元素, 参数为 map 和其对应的 key。</p>
+<h3 id="5-5-1-格式"><a href="#5-5-1-格式" class="headerlink" title="5.5.1 格式"></a>5.5.1 格式</h3><p><code>delete()</code>函数的格式如下：</p>
+<pre><code class="go">delete(map, key)
+//map:表示要删除键值对的map
+//key:表示要删除的键值对的键
+</code></pre>
+<h3 id="5-5-2-例子"><a href="#5-5-2-例子" class="headerlink" title="5.5.2 例子"></a>5.5.2 例子</h3><pre><code class="go">package main
+import &quot;fmt&quot;
+func main() &#123;
+    /* 创建map */
+    countryCapitalMap := map[string]string&#123;&quot;France&quot;: &quot;Paris&quot;, &quot;Italy&quot;: &quot;Rome&quot;, &quot;Japan&quot;: &quot;Tokyo&quot;, &quot;India&quot;: &quot;New delhi&quot;&#125;
+    fmt.Println(&quot;原始地图&quot;)
+    /* 打印地图 */
+    for country := range countryCapitalMap &#123;
+        fmt.Println(country, &quot;首都是&quot;, countryCapitalMap[country])
+    &#125;
+    /*删除元素*/ delete(countryCapitalMap, &quot;France&quot;)
+    fmt.Println(&quot;法国条目被删除&quot;)
+    fmt.Println(&quot;删除元素后地图&quot;)
+    /*打印地图*/
+    for country := range countryCapitalMap &#123;
+        fmt.Println(country, &quot;首都是&quot;, countryCapitalMap[country])
+    &#125;
+&#125;
+</code></pre>
+<p><img src="/images/Go%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/906241cf71a8c08cf4458dc00142493a.png" alt="906241cf71a8c08cf4458dc00142493a.png"></p>
+<h2 id="5-6-Go-语言范围Range"><a href="#5-6-Go-语言范围Range" class="headerlink" title="5.6 Go 语言范围Range"></a>5.6 Go 语言范围Range</h2><p>Go 语言中 range 关键字用于 for 循环中迭代数组(array)、切片(slice)、通道(channel)或集合(map)的元素。在数组和切片中它返回元素的索引和索引对应的值，在集合中返回 key-value 对。</p>
+<pre><code class="go">package main
+import &quot;fmt&quot;
+func main() &#123;
+    //这是我们使用range去求一个slice的和。使用数组跟这个很类似
+    nums := []int&#123;2, 3, 4&#125;
+    sum := 0
+    for _, num := range nums &#123;
+        sum += num
+    &#125;
+    fmt.Println(&quot;sum:&quot;, sum)
+    //在数组上使用range将传入index和值两个变量。上面那个例子我们不需要使用该元素的序号，所以我们使用空白符&quot;_&quot;省略了。有时侯我们确实需要知道它的索引。
+    for i, num := range nums &#123;
+        if num == 3 &#123;
+            fmt.Println(&quot;index:&quot;, i)
+        &#125;
+    &#125;
+    //range也可以用在map的键值对上。
+    kvs := map[string]string&#123;&quot;a&quot;: &quot;apple&quot;, &quot;b&quot;: &quot;banana&quot;&#125;
+    for k, v := range kvs &#123;
+        fmt.Printf(&quot;%s -&gt; %s\n&quot;, k, v)
+    &#125;
+    //range也可以用来枚举Unicode字符串。第一个参数是字符的索引，第二个是字符（Unicode的值）本身。
+    for i, c := range &quot;go&quot; &#123;
+        fmt.Println(i, c)
+    &#125;
+&#125;
+</code></pre>
+<p><img src="/images/Go%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/50f223434f0bc1bd371c499abaa3bf2e.png" alt="50f223434f0bc1bd371c499abaa3bf2e.png"></p>
+
+    </div>
+    
+</div>
+
+    <div id="home-card">
+        <div id="card-div">
+    <div class="card-style" style="width: 300px">
+        <div class="avatar">
+            <img src="/images/f6e2b991f74bfd7b88c3ab1a3d513b94.jpg " alt="avatar">
+        </div>
+        <div class="name">
+            小C&天天
+        </div>
+        <div class="descriptions">
+            
+            <div class="description">
+                修学储能 先博后渊
+            </div>
+            
+        </div>
+        <div class="icon-links">
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://github.com/A7cc">
+                    <i class="fa-brands fa-github fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.qq.com/">
+                    <i class="fa-brands fa-qq fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.weibo.com/">
+                    <i class="fa-brands fa-weibo fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://google.com/">
+                    <i class="fa-brands fa-google fa-fw"></i>
+                </a>
+            </span>
+            
+        </div>
+        <div class="friend-links">
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="http://www.wgs6km.top/">
+                    kyrieee个人博客
+                </a>
+            </div>
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="https://tonyd0g.gitee.io/">
+                    tonyd0g
+                </a>
+            </div>
+            
+        </div>
+    </div>
+    <!-- 目录 -->
+    
+        <div class="card-style" style="width: 300px">
+            <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A3%B9-%E4%BB%8B%E7%BB%8D"><span class="toc-text">壹 介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%B0-%E6%95%B0%E7%BB%84array"><span class="toc-text">贰 数组array</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E7%AE%80%E4%BB%8B"><span class="toc-text">2.1 简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E5%A3%B0%E6%98%8E%E6%95%B0%E7%BB%84"><span class="toc-text">2.2 声明数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E5%88%9D%E5%A7%8B%E5%8C%96%E6%95%B0%E7%BB%84"><span class="toc-text">2.3 初始化数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-%E8%AE%BF%E9%97%AE%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0"><span class="toc-text">2.4 访问数组元素</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%81-%E5%88%87%E7%89%87slice"><span class="toc-text">叁 切片slice</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E7%AE%80%E4%BB%8B"><span class="toc-text">3.1 简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E5%AE%9A%E4%B9%89%E5%88%87%E7%89%87"><span class="toc-text">3.2 定义切片</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-%E5%88%87%E7%89%87%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-text">3.3 切片初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4-%E7%A9%BA%EF%BC%88nil%EF%BC%89%E5%88%87%E7%89%87"><span class="toc-text">3.4 空（nil）切片</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-5-%E5%88%87%E7%89%87%E6%88%AA%E5%8F%96%E4%B8%8E%E9%81%8D%E5%8E%86"><span class="toc-text">3.5 切片截取与遍历</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-6-%E5%88%87%E7%89%87%E7%9A%84%E5%85%B6%E4%BB%96%E6%93%8D%E4%BD%9C"><span class="toc-text">3.6 切片的其他操作</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%82%86-%E9%9B%86%E5%90%88map"><span class="toc-text">肆 集合map</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-%E5%AE%9A%E4%B9%89-map"><span class="toc-text">4.1 定义 map</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-map%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-text">4.2 map初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-map%E7%9A%84%E9%81%8D%E5%8E%86"><span class="toc-text">4.3 map的遍历</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-4-%E5%88%A4%E6%96%AD%E6%9F%90%E4%B8%AA%E9%94%AE%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8"><span class="toc-text">4.4 判断某个键是否存在</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-5-%E5%85%83%E7%B4%A0%E4%B8%BAmap%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%88%87%E7%89%87"><span class="toc-text">4.5 元素为map类型的切片</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-6-%E5%80%BC%E4%B8%BA%E5%88%87%E7%89%87%E7%B1%BB%E5%9E%8B%E7%9A%84map"><span class="toc-text">4.6 值为切片类型的map</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-7-map%E7%9A%84%E5%85%B6%E4%BB%96%E6%93%8D%E4%BD%9C"><span class="toc-text">4.7 map的其他操作</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BC%8D-%E9%80%9A%E7%94%A8%E5%87%BD%E6%95%B0"><span class="toc-text">伍 通用函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-make%E5%87%BD%E6%95%B0"><span class="toc-text">5.1 make函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-len%E5%87%BD%E6%95%B0"><span class="toc-text">5.1 len函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2-cap%E5%87%BD%E6%95%B0"><span class="toc-text">5.2 cap函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-3-append%E5%87%BD%E6%95%B0"><span class="toc-text">5.3 append函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-4-copy%E5%87%BD%E6%95%B0"><span class="toc-text">5.4 copy函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-1-%E6%A0%BC%E5%BC%8F"><span class="toc-text">5.4.1 格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-2-%E4%BE%8B%E5%AD%90"><span class="toc-text">5.4.2 例子</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-5-delete%E5%87%BD%E6%95%B0"><span class="toc-text">5.5 delete函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-1-%E6%A0%BC%E5%BC%8F"><span class="toc-text">5.5.1 格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-2-%E4%BE%8B%E5%AD%90"><span class="toc-text">5.5.2 例子</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-6-Go-%E8%AF%AD%E8%A8%80%E8%8C%83%E5%9B%B4Range"><span class="toc-text">5.6 Go 语言范围Range</span></a></li></ol></li></ol>
+            </div>    
+        </div>
+        
+    </div>
+</div>
+    </div>
+    
+</div>
+                         
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2023 小C♥天天
+            <span class="footer-icon">
+                <i class="fa-brands fa-github fa-fw"></i>
+            </span>
+            @小C&天天
+        </div>
+        <div>
+            备案号：小C&天天の窝
+        </div>
+    </div>
+</footer>
+                    </div>
+                </div>
+            </transition>
+            <div id="img_show">
+                <img id="img_content" alt="img_show">
+            </div>
+        </div>
+        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
+        <script src="/js/particlex.js"></script>
+        <script src="/js/showimg.js"></script>
+        
+
+        <!-- 3D模型 -->
+        <div id="L2dCanvas" style="position: relative;"></div>
+        <script src="/js/live2d.min.js"></script>
+        <script src="/css/live2d.css"></script>
+        <script>
+            var v = new Viewer({
+                basePath: "/model",
+                role: "zhala_2",
+                mobile: true,
+            });
+        </script>
+        <!-- 点击 -->
+        <script>
+            let body = document.getElementsByTagName('body')[0];
+            body.addEventListener('click', (e) => {
+                let contentArr = ['✊','😘','😍','😊','😭','😡','😋','👍','🐷','😱','💷','💵','×','🆗','№','⭐','🌙','♥','💴','☀','🐎','🐂','🐏','√'];
+                let randomNum = function (n) {
+                    return Math.floor(Math.random() * n)
+                }
+                let span = document.createElement('span');
+                span.innerHTML = `${contentArr[randomNum(contentArr.length)]}`;
+                span.style.color = `rgb(${randomNum(256)},${randomNum(256)},${randomNum(256)})`;
+                span.style.position = 'absolute';
+                span.style.top = `${e.pageY}px`;
+                span.style.left = `${e.pageX}px`;
+                span.style.transition = 'all 1s ease';
+                span.style.zIndex = 20000;
+                body.appendChild(span)
+                setTimeout(()=>{
+                    span.style.top = span.offsetTop - 100 + 'px';
+                    span.style.opacity = 0;
+                    setTimeout(()=>{span.remove()},700)
+                },0)
+            })
+        </script>
+        <!-- 流星背景特效 -->
+        <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/background.js"></script>
+    </body>
+</html>

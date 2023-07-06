@@ -1,0 +1,683 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>Go基础学习（拾贰）——反射 | 小C♥天天</title>
+        <meta name="author" content="小C&天天">
+        <meta name="description" content="^v^">
+        <meta name="keywords" content="">
+        <link rel="icon" href="/images/icon.jpg">
+        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
+        <link rel="stylesheet" href="/css/fonts.min.css">
+        <link rel="stylesheet" href="/css/particlex.css">
+        <link rel="stylesheet" href="/css/main.css">
+        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
+        <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+        <link rel="stylesheet" href="/css/style.css">
+    <meta name="generator" content="Hexo 6.2.0"></head>
+    <body>
+        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:30vmin;height:30vmin;padding:60px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #dd20dd;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">正在加载</p><div><img alt="loading" src="/images/afde9fa65a5742a90b51d6e1211e841e.gif"></div></div></div></div></div>
+        <div id="layout">
+            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
+            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
+            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
+            <transition name="into">
+                <div v-show="show_page" style="display: -not-none">
+                    <div id="menu_show">
+                         
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">小C♥天天</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;文章</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+        <form class="search">
+            <input type="text" placeholder="需要搜索什么？">
+            <button type="submit"></button>
+        </form>
+    </div>
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
+        <div :class="'title'" @click="menu_show = !menu_show">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;小C♥天天</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+                    </div>
+                    <div id="main">
+                        
+
+<div id="home-posts-wrap" class=>
+<div class="article">
+    <div>
+        <h1>Go基础学习（拾贰）——反射 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2023/3/14
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Go基础教程">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                </span>
+                Go基础教程
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/开发" style="color: #03a9f4">
+                    开发
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Golang" style="color: #03a9f4">
+                    Golang
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    <div class="content" v-pre>
+        <h1 id="壹-反射介绍"><a href="#壹-反射介绍" class="headerlink" title="壹 反射介绍"></a>壹 反射介绍</h1><p>根据前面学习我们可以通过fmt包和类型断言进行识别判断数据的类型和值，但是fmt包只能是直观的查看输出，并不能在程序运行时让计算机了解识别数据，而断言类型只是针对接口的，对于其他类型就爱莫能助了，这时候我们就需要引入反射，况且fmt包本质也是使用的反射，获取数据类型和值。</p>
+<span id="more"></span>
+<p>反射是指在程序运行期对程序本身进行访问和修改的能力。程序在编译时，变量被转换为内存地址，变量名不会被编译器写入到可执行部分。在运行程序时，程序无法获取自身的信息。</p>
+<ul>
+<li>小插曲——变量的内在机制</li>
+<li>Go语言中的变量是分为两部分的：<ul>
+<li>类型信息：预先定义好的元信息。</li>
+<li>值信息：程序运行过程中可动态变化的。</li>
+</ul>
+</li>
+</ul>
+<p>支持反射的语言可以在程序编译期将变量的反射信息，如字段名称、类型信息、结构体信息等整合到可执行文件中，并给程序提供接口访问反射信息，这样就可以在程序运行期获取类型的反射信息，并且有能力修改它们。Go程序在运行期使用<code>reflect</code>包访问程序的反射信息。</p>
+<p>空接口可以存储任意类型的变量，那我们如何知道这个空接口保存的数据是什么呢？ 反射就是在运行时动态的获取一个变量的类型信息和值信息。<font color="red">反射就是在运行时动态的获取一个变量的类型信息和值信息。</font></p>
+<h1 id="贰-reflect包"><a href="#贰-reflect包" class="headerlink" title="贰 reflect包"></a>贰 reflect包</h1><p>在Go语言的反射机制中，任何接口值都由是<code>一个具体类型</code>和<code>具体类型的值</code>两部分组成的。 在Go语言中反射的相关功能由内置的reflect包提供，任意接口值在反射中都可以理解为由<code>reflect.Type</code>和<code>reflect.Value</code>两部分组成，并且reflect包提供了<code>reflect.TypeOf</code>和<code>reflect.ValueOf</code>两个函数来获取任意对象的Value和Type。</p>
+<h1 id="叁-reflect-TypeOf——查看类型"><a href="#叁-reflect-TypeOf——查看类型" class="headerlink" title="叁 reflect.TypeOf——查看类型"></a>叁 reflect.TypeOf——查看类型</h1><h2 id="3-1-TypeOf函数介绍"><a href="#3-1-TypeOf函数介绍" class="headerlink" title="3.1 TypeOf函数介绍"></a>3.1 TypeOf函数介绍</h2><p>在Go语言中，使用<code>reflect.TypeOf()</code>函数可以获得任意值的类型对象（reflect.Type），程序通过类型对象可以访问任意值的类型信息。</p>
+<pre><code class="go">func main() &#123;
+    var a float32 = 3.14
+    fmt.Printf(&quot;value：%v\ttype：%T\n&quot;, reflect.TypeOf(a), reflect.TypeOf(a)) // value：float32  type：*reflect.rtype
+    var b int64 = 100
+    fmt.Printf(&quot;value：%v\ttype：%T\n&quot;, reflect.TypeOf(b), reflect.TypeOf(b)) // value：int64    type：*reflect.rtype
+&#125;
+</code></pre>
+<p>可以看到使用<code>reflect.TypeOf()</code>的值是对应的类型，其类型是<code>*reflect.rtype</code>。</p>
+<h2 id="3-2-Name函数和Kind函数"><a href="#3-2-Name函数和Kind函数" class="headerlink" title="3.2 Name函数和Kind函数"></a>3.2 Name函数和Kind函数</h2><p>在反射中关于类型还划分为两种：<code>类型（Type）</code>和<code>种类（Kind）</code>。因为在Go语言中我们可以使用type关键字构造很多自定义类型，而<code>种类（Kind）</code>就是指底层的类型，但在反射中，当需要区分指针、结构体等大品种的类型时，就会用到<code>种类（Kind）</code>。 举个例子，我们定义了两个指针类型和两个结构体类型，通过反射查看它们的类型和种类。</p>
+<pre><code class="go">package main
+
+import (
+    &quot;fmt&quot;
+    &quot;reflect&quot;
+)
+
+type myInt int64
+
+// 创建一个函数方便输出，因为空接口可以接收任意值，所以我们使用空接口做参数
+func reflectType(x interface&#123;&#125;) &#123;
+    t := reflect.TypeOf(x)
+    fmt.Printf(&quot;Name函数：type=%T\tvalue=%v\t&quot;, t.Name(), t.Name())
+    fmt.Printf(&quot;Kind函数：type=%T\tvalue=%v\n&quot;, t.Kind(), t.Kind())
+&#125;
+
+func main() &#123;
+    var a *float32 // 指针
+    var b myInt    // 自定义类型
+    var c rune     // 类型别名
+    reflectType(a) // Name函数：type=string   value=   		   Kind函数：type=reflect.Kind     value=ptr
+    reflectType(b) // Name函数：type=string   value=myInt      Kind函数：type=reflect.Kind     value=int64
+    reflectType(c) // Name函数：type=string   value=int32      Kind函数：type=reflect.Kind     value=int32
+
+    type person struct &#123;
+        name string
+        age  int
+    &#125;
+    type book struct&#123; title string &#125;
+    var d = person&#123;
+        name: &quot;A7cc&quot;,
+        age:  18,
+    &#125;
+    var e = book&#123;title: &quot;一只特立独行的猪&quot;&#125;
+    reflectType(d) // Name函数：type=string   value=person     Kind函数：type=reflect.Kind     value=struct
+    reflectType(e) // Name函数：type=string   value=book       Kind函数：type=reflect.Kind     value=struct
+&#125;
+</code></pre>
+<p>可以看到<code>Name</code>函数返回的是字符串类型，值是当前类型，而<code>Kind</code>函数返回的<code>reflect.Kind</code>类型，值是底层类型。</p>
+<p><font color="red">Go语言的反射中像数组、切片、Map、指针等类型的变量，它们的<code>.Name()</code>都是返回<code>空</code>，个人觉得他们本质就是指针，指针本身不属于基本类型，而是一种地址类型。</font></p>
+<p>在<code>reflect</code>包中定义的Kind类型如下：</p>
+<pre><code class="go">type Kind uint
+
+const (
+    Invalid       Kind = iota // 非法类型
+    Bool                      // 布尔型
+    Int                       // 有符号整型
+    Int8                      // 有符号8位整型
+    Int16                     // 有符号16位整型
+    Int32                     // 有符号32位整型
+    Int64                     // 有符号64位整型
+    Uint                      // 无符号整型
+    Uint8                     // 无符号8位整型
+    Uint16                    // 无符号16位整型
+    Uint32                    // 无符号32位整型
+    Uint64                    // 无符号64位整型
+    Uintptr                   // 指针
+    Float32                   // 单精度浮点数
+    Float64                   // 双精度浮点数
+    Complex64                 // 64位复数类型
+    Complex128                // 128位复数类型
+    Array                     // 数组
+    Chan                      // 通道
+    Func                      // 函数
+    Interface                 // 接口
+    Map                       // 映射
+    Ptr                       // 指针
+    Slice                     // 切片
+    String                    // 字符串
+    Struct                    // 结构体
+    UnsafePointer             // 底层指针
+)
+</code></pre>
+<h1 id="肆-reflect-ValueOf——查看值"><a href="#肆-reflect-ValueOf——查看值" class="headerlink" title="肆 reflect.ValueOf——查看值"></a>肆 reflect.ValueOf——查看值</h1><h2 id="4-1-ValueOf函数介绍"><a href="#4-1-ValueOf函数介绍" class="headerlink" title="4.1 ValueOf函数介绍"></a>4.1 ValueOf函数介绍</h2><p><code>reflect.ValueOf()</code>返回的是<code>reflect.Value</code>类型，其中包含了原始值的值信息。<code>reflect.Value</code>与原始值之间可以互相转换。</p>
+<p><code>reflect.Value</code>类型提供的获取原始值的方法如下：</p>
+<table>
+<thead>
+<tr>
+<th>方法名以及类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Interface() interface&#123;&#125;</code></td>
+<td>将值以 <code>interface&#123;&#125;</code> 类型返回，可以通过类型断言转换为指定类型</td>
+</tr>
+<tr>
+<td><code>Int() int64</code></td>
+<td>将值以 <code>int</code> 类型返回，所有有符号整型均可以此方式返回</td>
+</tr>
+<tr>
+<td><code>Uint() uint64</code></td>
+<td>将值以 <code>uint</code> 类型返回，所有无符号整型均可以此方式返回</td>
+</tr>
+<tr>
+<td><code>Float() float64</code></td>
+<td>将值以双精度（<code>float64</code>）类型返回，所有浮点数（<code>float32</code>、<code>float64</code>）均可以此方式返回</td>
+</tr>
+<tr>
+<td><code>Bool() bool</code></td>
+<td>将值以 bool 类型返回</td>
+</tr>
+<tr>
+<td><code>Bytes() []bytes</code></td>
+<td>将值以字节数组 <code>[]bytes</code> 类型返回</td>
+</tr>
+<tr>
+<td><code>String() string</code></td>
+<td>将值以字符串类型返回</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="4-3-通过反射获取值"><a href="#4-3-通过反射获取值" class="headerlink" title="4.3 通过反射获取值"></a>4.3 通过反射获取值</h2><pre><code class="go">func reflectValue(x interface&#123;&#125;) &#123;
+    v := reflect.ValueOf(x)
+    // ValueOf只能使用Kind函数获取种类，不能使用Name函数获取类型
+    // 其实我们可以联想下，如果可以使用Name函数，那么对于指针、切片、map，返回的就是一个空，就不能判断类型了
+    k := v.Kind()
+    //在这里我们需要使用reflect类型判断，即：reflect.Kind类型，而不是简单的int、float32等判断
+    switch k &#123;
+    // 这里的reflect是在`reflect`包中定义的Kind类型
+    case reflect.Int64:
+        // v.Int()从反射中获取整型的原始值，然后通过int64()强制类型转换
+        fmt.Printf(&quot;type：%T, value：%v\n&quot;, v.Int(), v.Int())
+    case reflect.Float32:
+        // v.Float()从反射中获取浮点型的原始值，然后通过float32()强制类型转换
+        fmt.Printf(&quot;type：%T, value：%v\n&quot;, v.Float(), v.Float())
+    case reflect.Map:
+        // v.Float()从反射中获取浮点型的原始值，然后通过float64()强制类型转换
+        fmt.Printf(&quot;type：%T, value：%v\n&quot;, v.Float(), v.Float())
+    &#125;
+&#125;
+func main() &#123;
+    var a float32 = 3.14
+    var b int64 = 100
+    reflectValue(a) // type：float32, value：3.140000
+    reflectValue(b) // type：int64, value：100
+    // 将int类型的原始值转换为reflect.Value类型
+    c := reflect.ValueOf(10)
+    // 需要区别这里的类型是返回直接使用了reflect.ValueOf的类型，而不是上面reflectValue函数使用了reflect.ValueOf再获取原始值的类型
+    fmt.Printf(&quot;关于reflect.ValueOf类型：type=%T, value=%v\n&quot;, c, c) // 关于reflect.ValueOf类型：type=reflect.Value, value=10
+&#125;
+</code></pre>
+<p>使用<code>reflect.ValueOf</code>函数返回的值的类型是<code>reflect.Value</code>，而使用<code>reflect.Value</code>类型方法返回的类型是对应的基础类型。</p>
+<h2 id="4-4-通过反射设置变量的值——Elem函数"><a href="#4-4-通过反射设置变量的值——Elem函数" class="headerlink" title="4.4 通过反射设置变量的值——Elem函数"></a>4.4 通过反射设置变量的值——Elem函数</h2><p>想要在函数中通过反射修改变量的值，需要注意函数参数传递的是值拷贝，必须传递变量地址才能修改变量值。而反射中使用专有的<code>Elem()</code>方法来获取指针对应的值，使用这个函数需要的是<code>reflect.ValueOf</code>类型。</p>
+<pre><code class="go">package main
+
+import (
+    &quot;fmt&quot;
+    &quot;reflect&quot;
+)
+
+func reflectSetValue1(x interface&#123;&#125;) &#123;
+    v := reflect.ValueOf(x)
+    if v.Kind() == reflect.Int64 &#123;
+        v.SetInt(200) //修改的是副本，reflect包会引发panic，个人理解是SetInt内部实现需要的是一个指针，不是一个确切的值
+    &#125;
+&#125;
+func reflectSetValue2(x interface&#123;&#125;) &#123;
+    v := reflect.ValueOf(x)
+    // 反射中使用 Elem()方法获取指针对应的值
+    if v.Elem().Kind() == reflect.Int64 &#123;
+        v.Elem().SetInt(200)
+    &#125;
+&#125;
+func main() &#123;
+    var a int64 = 100
+    // reflectSetValue1(a) //panic: reflect: reflect.Value.SetInt using unaddressable value
+    reflectSetValue2(&amp;a)
+    fmt.Println(a)
+&#125;
+</code></pre>
+<h2 id="4-5-isNil函数和isValid函数"><a href="#4-5-isNil函数和isValid函数" class="headerlink" title="4.5 isNil函数和isValid函数"></a>4.5 isNil函数和isValid函数</h2><p>在使用这两个函数时都需要是<code>reflect.ValueOf</code>类型。</p>
+<h3 id="4-5-1-isNil函数"><a href="#4-5-1-isNil函数" class="headerlink" title="4.5.1 isNil函数"></a>4.5.1 isNil函数</h3><pre><code class="go">func (v Value) IsNil() bool
+</code></pre>
+<p><code>IsNil()</code>是判断v这个变量持有的值是不是为nil，而不是0，一般用来判断一个指针、切片等是否初始化，所以v持有的值的分类必须是通道、函数、接口、映射、指针、切片之一；否则IsNil函数会导致panic。<code>IsNil()</code>常被用于判断指针是否为空。</p>
+<pre><code class="go">// 例子
+func main() &#123;
+    // *int类型空指针
+    var a *int
+    fmt.Println(&quot;a指针的值是否是为空:&quot;, reflect.ValueOf(a).IsNil())	// a指针的值是否是为空: true
+    // 不能为基础类型，同时可以看到使用反射时，再不运行的情况下，不会轻易报错，当运行才会报错
+    // var b int
+    // fmt.Println(&quot;b指针的值是否是为空:&quot;, reflect.ValueOf(b).IsNil())
+&#125;
+</code></pre>
+<h3 id="4-5-2-isValid函数"><a href="#4-5-2-isValid函数" class="headerlink" title="4.5.2 isValid函数"></a>4.5.2 isValid函数</h3><pre><code class="go">func (v Value) IsValid() bool
+</code></pre>
+<p><code>IsValid()</code>是判断v是否持有一个值，与<code>isNil</code>函数不同，同时持有不是判断值是否为nil。如果v是Value零值会返回假，此时v除了IsValid、String、Kind之外的方法都会导致panic。<code>IsValid()</code>常被用于判定返回值是否有效。</p>
+<pre><code class="go">// 例子
+func main() &#123;
+    // nil值
+    fmt.Println(&quot;nil IsValid:&quot;, reflect.ValueOf(nil).IsValid()) // nil IsValid: false
+    // 实例化一个匿名结构体
+    b := struct&#123;&#125;&#123;&#125;
+    // 尝试从结构体中查找&quot;abc&quot;字段
+    // FieldByName方法是根据给定字符串返回字符串对应的结构体字段的信息，下面的结构体反射会讲解
+    fmt.Println(&quot;不存在的结构体成员:&quot;, reflect.ValueOf(b).FieldByName(&quot;abc&quot;).IsValid()) // 不存在的结构体成员: false
+    // 尝试从结构体中查找&quot;abc&quot;方法
+    // MethodByName方法是根据方法名返回该类型方法集中的方法，下面的结构体反射会讲解
+    fmt.Println(&quot;不存在的结构体方法:&quot;, reflect.ValueOf(b).MethodByName(&quot;abc&quot;).IsValid()) // 不存在的结构体方法: false
+
+    // map
+    c := map[string]int&#123;&#125;
+    // 尝试从map中查找一个不存在的键
+    fmt.Println(&quot;map中不存在的键：&quot;, reflect.ValueOf(c).MapIndex(reflect.ValueOf(&quot;abc&quot;)).IsValid()) // map中不存在的键： false
+&#125;
+</code></pre>
+<h1 id="伍-结构体反射"><a href="#伍-结构体反射" class="headerlink" title="伍 结构体反射"></a>伍 结构体反射</h1><h2 id="5-1-StructField类型"><a href="#5-1-StructField类型" class="headerlink" title="5.1 StructField类型"></a>5.1 StructField类型</h2><p><code>StructField</code>类型用来描述结构体中的一个字段的信息，该类型是描述结构体中非常重要的类型，<code>StructField</code>的定义如下：</p>
+<pre><code class="go">type StructField struct &#123;
+    // Name是字段的名字。PkgPath是非导出字段的包路径，对导出字段该字段为&quot;&quot;。
+    // 参见http://golang.org/ref/spec#Uniqueness_of_identifiers
+    Name      string
+    PkgPath   string
+    Type      Type      // 字段的类型
+    Tag       StructTag // 字段的标签
+    Offset    uintptr   // 字段在结构体中的字节偏移量
+    Index     []int     // 用于Type.FieldByIndex时的索引切片
+    Anonymous bool      // 是否匿名字段
+&#125;
+</code></pre>
+<h2 id="5-2-与结构体相关的方法"><a href="#5-2-与结构体相关的方法" class="headerlink" title="5.2 与结构体相关的方法"></a>5.2 与结构体相关的方法</h2><p>任意值通过<code>reflect.TypeOf()</code>获得反射对象信息后，如果它的类型是结构体，可以通过反射值对象（<code>reflect.Type</code>）的<code>NumField()</code>和<code>Field()</code>方法获得结构体成员的详细信息。</p>
+<p><code>reflect.Type</code>中与获取结构体成员相关的的方法如下表所示。</p>
+<table>
+<thead>
+<tr>
+<th>方法名以及返回类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Field(i int) StructField</td>
+<td>根据索引，返回索引对应的结构体字段的信息。</td>
+</tr>
+<tr>
+<td>NumField() int</td>
+<td>返回结构体成员字段数量。</td>
+</tr>
+<tr>
+<td>FieldByName(name string) (StructField, bool)</td>
+<td>根据给定字符串返回字符串对应的结构体字段的信息。</td>
+</tr>
+<tr>
+<td>FieldByIndex(index []int) StructField</td>
+<td>多层成员访问时，根据 []int 提供的每个结构体的字段索引，返回字段的信息。</td>
+</tr>
+<tr>
+<td>FieldByNameFunc(match func(string) bool) (StructField,bool)</td>
+<td>根据传入的匹配函数匹配需要的字段。</td>
+</tr>
+<tr>
+<td>NumMethod() int</td>
+<td>返回该类型的方法集中方法的数目</td>
+</tr>
+<tr>
+<td>Method(int) Method</td>
+<td>返回该类型方法集中的第i个方法</td>
+</tr>
+<tr>
+<td>MethodByName(string) Method</td>
+<td>根据方法名返回该类型方法集中的方法</td>
+</tr>
+</tbody></table>
+<pre><code class="go">// 例子
+package main
+
+import (
+    &quot;fmt&quot;
+    &quot;reflect&quot;
+)
+
+type student struct &#123;
+    Name   string `json:&quot;name&quot;`
+    Gender string `json:&quot;gender&quot;`
+    Age    int    `json:&quot;age&quot;`
+&#125;
+
+// 给student添加两个方法 Study和Sleep(注意首字母大写)
+func (s student) Study() string &#123;
+    msg := &quot;好好学习，天天向上。&quot;
+    fmt.Println(msg)
+    return msg
+&#125;
+
+func (s student) Sleep() string &#123;
+    msg := &quot;好好睡觉，快快长大。&quot;
+    fmt.Println(msg)
+    return msg
+&#125;
+
+func main() &#123;
+    // 定义一个匿名结构体并初始化
+    stu1 := student&#123;
+        Name:   &quot;A7cc&quot;,
+        Gender: &quot;男&quot;,
+        Age:    18,
+    &#125;
+    // 属性-----------------------
+    t := reflect.TypeOf(stu1)
+    // 使用NumField方法返回结构体成员字段数量
+    // 通过for循环遍历结构体的所有字段信息
+    for i := 0; i &lt; t.NumField(); i++ &#123;
+        // 使用Field方法根据索引，返回索引对应的结构体字段的信息
+        field := t.Field(i)
+        fmt.Printf(&quot;结构体字段名字:%s 结构体字段索引:%d 结构体字段类型:%v 结构体字段的json tag:%v\n&quot;, field.Name, field.Index, field.Type, field.Tag.Get(&quot;json&quot;))
+
+    &#125;
+
+    // 使用FieldByName方法通过字段名获取指定结构体字段信息
+    if ageField, ok := t.FieldByName(&quot;Age&quot;); ok &#123;
+        fmt.Printf(&quot;结构体字段名字:%s 结构体字段索引:%d 结构体字段类型:%v 结构体字段的json tag:%v\n&quot;, ageField.Name, ageField.Index, ageField.Type, ageField.Tag.Get(&quot;json&quot;))
+    &#125;
+
+    // 方法------------------------
+    v := reflect.ValueOf(stu1)
+
+    // 使用NumMethod方法返回该类型的方法集中方法的数目
+    // 通过for循环遍历结构体的所有方法信息
+    for i := 0; i &lt; v.NumMethod(); i++ &#123;
+        // 使用Method方法可以返回该类型方法集中的第i个方法
+        fmt.Printf(&quot;结构体方法名字:%s\n&quot;, t.Method(i).Name)
+        fmt.Printf(&quot;结构体方法类型以及返回值类型:%s\n&quot;, v.Method(i).Type())
+        // 通过反射调用方法传递的参数必须是 []reflect.Value 类型
+        var args = []reflect.Value&#123;&#125;
+        // Call调用结构体方法
+        v.Method(i).Call(args)
+    &#125;
+
+    // 使用MethodByName方法根据方法名返回该类型方法集中的方法
+    fmt.Println(v.MethodByName(&quot;Sleep&quot;).Type())
+&#125;
+</code></pre>
+<h1 id="陆-使用反射的建议"><a href="#陆-使用反射的建议" class="headerlink" title="陆 使用反射的建议"></a>陆 使用反射的建议</h1><p>反射是一个强大并富有表现力的工具，能让我们写出更灵活的代码。但是反射不应该被滥用，原因有以下三个。</p>
+<ul>
+<li>a.基于反射的代码是极其脆弱的，反射中的类型错误会在真正运行的时候才会引发panic，那很可能是在代码写完的很长时间之后。</li>
+<li>b.大量使用反射的代码通常难以理解。</li>
+<li>c.反射的性能低下，基于反射实现的代码通常比正常代码运行速度慢一到两个数量级。</li>
+</ul>
+
+    </div>
+    
+</div>
+
+    <div id="home-card">
+        <div id="card-div">
+    <div class="card-style" style="width: 300px">
+        <div class="avatar">
+            <img src="/images/f6e2b991f74bfd7b88c3ab1a3d513b94.jpg " alt="avatar">
+        </div>
+        <div class="name">
+            小C&天天
+        </div>
+        <div class="descriptions">
+            
+            <div class="description">
+                修学储能 先博后渊
+            </div>
+            
+        </div>
+        <div class="icon-links">
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://github.com/A7cc">
+                    <i class="fa-brands fa-github fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.qq.com/">
+                    <i class="fa-brands fa-qq fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.weibo.com/">
+                    <i class="fa-brands fa-weibo fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://google.com/">
+                    <i class="fa-brands fa-google fa-fw"></i>
+                </a>
+            </span>
+            
+        </div>
+        <div class="friend-links">
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="http://www.wgs6km.top/">
+                    kyrieee个人博客
+                </a>
+            </div>
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="https://tonyd0g.gitee.io/">
+                    tonyd0g
+                </a>
+            </div>
+            
+        </div>
+    </div>
+    <!-- 目录 -->
+    
+        <div class="card-style" style="width: 300px">
+            <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A3%B9-%E5%8F%8D%E5%B0%84%E4%BB%8B%E7%BB%8D"><span class="toc-text">壹 反射介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%B0-reflect%E5%8C%85"><span class="toc-text">贰 reflect包</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%81-reflect-TypeOf%E2%80%94%E2%80%94%E6%9F%A5%E7%9C%8B%E7%B1%BB%E5%9E%8B"><span class="toc-text">叁 reflect.TypeOf——查看类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-TypeOf%E5%87%BD%E6%95%B0%E4%BB%8B%E7%BB%8D"><span class="toc-text">3.1 TypeOf函数介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-Name%E5%87%BD%E6%95%B0%E5%92%8CKind%E5%87%BD%E6%95%B0"><span class="toc-text">3.2 Name函数和Kind函数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%82%86-reflect-ValueOf%E2%80%94%E2%80%94%E6%9F%A5%E7%9C%8B%E5%80%BC"><span class="toc-text">肆 reflect.ValueOf——查看值</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-ValueOf%E5%87%BD%E6%95%B0%E4%BB%8B%E7%BB%8D"><span class="toc-text">4.1 ValueOf函数介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-%E9%80%9A%E8%BF%87%E5%8F%8D%E5%B0%84%E8%8E%B7%E5%8F%96%E5%80%BC"><span class="toc-text">4.3 通过反射获取值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-4-%E9%80%9A%E8%BF%87%E5%8F%8D%E5%B0%84%E8%AE%BE%E7%BD%AE%E5%8F%98%E9%87%8F%E7%9A%84%E5%80%BC%E2%80%94%E2%80%94Elem%E5%87%BD%E6%95%B0"><span class="toc-text">4.4 通过反射设置变量的值——Elem函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-5-isNil%E5%87%BD%E6%95%B0%E5%92%8CisValid%E5%87%BD%E6%95%B0"><span class="toc-text">4.5 isNil函数和isValid函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5-1-isNil%E5%87%BD%E6%95%B0"><span class="toc-text">4.5.1 isNil函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5-2-isValid%E5%87%BD%E6%95%B0"><span class="toc-text">4.5.2 isValid函数</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BC%8D-%E7%BB%93%E6%9E%84%E4%BD%93%E5%8F%8D%E5%B0%84"><span class="toc-text">伍 结构体反射</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-StructField%E7%B1%BB%E5%9E%8B"><span class="toc-text">5.1 StructField类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2-%E4%B8%8E%E7%BB%93%E6%9E%84%E4%BD%93%E7%9B%B8%E5%85%B3%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-text">5.2 与结构体相关的方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%99%86-%E4%BD%BF%E7%94%A8%E5%8F%8D%E5%B0%84%E7%9A%84%E5%BB%BA%E8%AE%AE"><span class="toc-text">陆 使用反射的建议</span></a></li></ol>
+            </div>    
+        </div>
+        
+    </div>
+</div>
+    </div>
+    
+</div>
+                         
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2023 小C♥天天
+            <span class="footer-icon">
+                <i class="fa-brands fa-github fa-fw"></i>
+            </span>
+            @小C&天天
+        </div>
+        <div>
+            备案号：小C&天天の窝
+        </div>
+    </div>
+</footer>
+                    </div>
+                </div>
+            </transition>
+            <div id="img_show">
+                <img id="img_content" alt="img_show">
+            </div>
+        </div>
+        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
+        <script src="/js/particlex.js"></script>
+        <script src="/js/showimg.js"></script>
+        
+
+        <!-- 3D模型 -->
+        <div id="L2dCanvas" style="position: relative;"></div>
+        <script src="/js/live2d.min.js"></script>
+        <script src="/css/live2d.css"></script>
+        <script>
+            var v = new Viewer({
+                basePath: "/model",
+                role: "zhala_2",
+                mobile: true,
+            });
+        </script>
+        <!-- 点击 -->
+        <script>
+            let body = document.getElementsByTagName('body')[0];
+            body.addEventListener('click', (e) => {
+                let contentArr = ['✊','😘','😍','😊','😭','😡','😋','👍','🐷','😱','💷','💵','×','🆗','№','⭐','🌙','♥','💴','☀','🐎','🐂','🐏','√'];
+                let randomNum = function (n) {
+                    return Math.floor(Math.random() * n)
+                }
+                let span = document.createElement('span');
+                span.innerHTML = `${contentArr[randomNum(contentArr.length)]}`;
+                span.style.color = `rgb(${randomNum(256)},${randomNum(256)},${randomNum(256)})`;
+                span.style.position = 'absolute';
+                span.style.top = `${e.pageY}px`;
+                span.style.left = `${e.pageX}px`;
+                span.style.transition = 'all 1s ease';
+                span.style.zIndex = 20000;
+                body.appendChild(span)
+                setTimeout(()=>{
+                    span.style.top = span.offsetTop - 100 + 'px';
+                    span.style.opacity = 0;
+                    setTimeout(()=>{span.remove()},700)
+                },0)
+            })
+        </script>
+        <!-- 流星背景特效 -->
+        <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/background.js"></script>
+    </body>
+</html>

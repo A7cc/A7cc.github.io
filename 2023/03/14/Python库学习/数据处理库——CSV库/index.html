@@ -1,0 +1,452 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>数据处理库——CSV库 | 小C♥天天</title>
+        <meta name="author" content="小C&天天">
+        <meta name="description" content="^v^">
+        <meta name="keywords" content="">
+        <link rel="icon" href="/images/icon.jpg">
+        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
+        <link rel="stylesheet" href="/css/fonts.min.css">
+        <link rel="stylesheet" href="/css/particlex.css">
+        <link rel="stylesheet" href="/css/main.css">
+        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
+        <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+        <link rel="stylesheet" href="/css/style.css">
+    <meta name="generator" content="Hexo 6.2.0"></head>
+    <body>
+        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:30vmin;height:30vmin;padding:60px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #dd20dd;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">正在加载</p><div><img alt="loading" src="/images/afde9fa65a5742a90b51d6e1211e841e.gif"></div></div></div></div></div>
+        <div id="layout">
+            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
+            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
+            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
+            <transition name="into">
+                <div v-show="show_page" style="display: -not-none">
+                    <div id="menu_show">
+                         
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">小C♥天天</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;文章</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+        <form class="search">
+            <input type="text" placeholder="需要搜索什么？">
+            <button type="submit"></button>
+        </form>
+    </div>
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
+        <div :class="'title'" @click="menu_show = !menu_show">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;小C♥天天</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+                    </div>
+                    <div id="main">
+                        
+
+<div id="home-posts-wrap" class=>
+<div class="article">
+    <div>
+        <h1>数据处理库——CSV库 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2023/3/14
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Python库学习">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                </span>
+                Python库学习
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Python" style="color: #03a9f4">
+                    Python
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/开发" style="color: #00a596">
+                    开发
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    <div class="content" v-pre>
+        <h1 id="壹-简介"><a href="#壹-简介" class="headerlink" title="壹 简介"></a>壹 简介</h1><p><strong>逗号分隔值</strong>（Comma-Separated Values，<strong>CSV</strong>，也称为<strong>字符分隔值</strong>，<strong>分隔字符也可以不是逗号</strong>）,是电子表格和数据库中最常见的输入、输出文件格式。</p>
+<ul>
+<li>保存形式</li>
+</ul>
+<p>其文件以<strong>纯文本形式存储表格数据（数字和文本）</strong>。纯文本意味着该文件是一个字符序列，不含必须像二进制数字那样被解读的数据。</p>
+<ul>
+<li>分隔符号</li>
+</ul>
+<p>CSV文件由任意数目的记录组成，记录间以某种换行符分隔；每条记录由字段组成，字段间的分隔符是其它字符或字符串，最常见的是<strong>逗号</strong>或<strong>制表符</strong>。</p>
+<ul>
+<li>打开方式</li>
+</ul>
+<p>通常，所有记录都有完全相同的字段序列。通常都是纯文本文件。建议使用<strong>WORDPAD</strong>或是<strong>记事本</strong>来开启，再则先另存新档后用<strong>EXCEL</strong>开启，也是方法之一。</p>
+<p><code>csv</code>模块实现了 CSV 格式表单数据的读写。其提供了诸如以兼容 Excel 的方式输出数据文件或读取 Excel 程序输出的数据文件的功能，程序员无需知道 Excel 所采用 CSV 格式的细节。此模块同样可以用于定义其他应用程序可用的 CSV 格式或定义特定需求的 CSV 格式。</p>
+<span id="more"></span>
+<h1 id="贰-安装"><a href="#贰-安装" class="headerlink" title="贰 安装"></a>贰 安装</h1><p>内置库，不需要安装。</p>
+<h1 id="查看所有类和方法"><a href="#查看所有类和方法" class="headerlink" title="查看所有类和方法"></a>查看所有类和方法</h1><pre><code class="python">import csv
+print(dir(csv))
+
+[&#39;Dialect&#39;, &#39;DictReader&#39;, &#39;DictWriter&#39;, &#39;Error&#39;, &#39;QUOTE_ALL&#39;, &#39;QUOTE_MINIMAL&#39;, &#39;QUOTE_NONE&#39;, &#39;QUOTE_NONNUMERIC&#39;, &#39;Sniffer&#39;, &#39;StringIO&#39;, &#39;_Dialect&#39;, &#39;__all__&#39;, &#39;__builtins__&#39;, &#39;__cached__&#39;, &#39;__doc__&#39;, &#39;__file__&#39;, &#39;__loader__&#39;, &#39;__name__&#39;, &#39;__package__&#39;, &#39;__spec__&#39;, &#39;__version__&#39;, &#39;excel&#39;, &#39;excel_tab&#39;, &#39;field_size_limit&#39;, &#39;get_dialect&#39;, &#39;list_dialects&#39;, &#39;re&#39;, &#39;reader&#39;, &#39;register_dialect&#39;, &#39;unix_dialect&#39;, &#39;unregister_dialect&#39;, &#39;writer&#39;]
+</code></pre>
+<h1 id="叁-类说明"><a href="#叁-类说明" class="headerlink" title="叁 类说明"></a>叁 类说明</h1><h1 id="3-1-csv-reader"><a href="#3-1-csv-reader" class="headerlink" title="3.1 csv.reader"></a>3.1 csv.reader</h1><ul>
+<li>a.功能</li>
+</ul>
+<p>返回一个 reader 对象，该对象将逐行遍历 csvfile。</p>
+<ul>
+<li>b.方法格式</li>
+</ul>
+<p><code>csv.reader(csvfile, dialect=&#39;excel&#39;, **fmtparams)</code></p>
+<ul>
+<li>c.参数说明</li>
+</ul>
+<p><code>csvfile</code>可以是任何对象，只要这个对象支持 iterator 协议并在每次调用 <code>__next__()</code> 方法时都返回字符串，文件对象 和列表对象均适用。如果 csvfile 是文件对象，则打开它时应使用 <code>newline=&#39;&#39;</code>。<br><code>dialect</code>是用于不同的 CSV 变种的特定参数组。它可以是 Dialect 类的子类的实例，也可以是 <code>list_dialects()</code> 函数返回的字符串之一。<br><code>fmtparams</code>可以覆写当前变种格式中的单个格式设置。有关变种和格式设置参数的完整详细信息。</p>
+<h1 id="3-2-csv-writer"><a href="#3-2-csv-writer" class="headerlink" title="3.2 csv.writer"></a>3.2 csv.writer</h1><ul>
+<li>a.功能</li>
+</ul>
+<p>返回一个 writer 对象，该对象负责将用户的数据在给定的文件类对象上转换为带分隔符的字符串。</p>
+<ul>
+<li>b.方法格式</li>
+</ul>
+<p><code>csv.writer(csvfile, dialect=&#39;excel&#39;, **fmtparams)</code></p>
+<ul>
+<li>c.参数说明</li>
+</ul>
+<p><code>csvfile</code>可以是任何具有 write() 方法的对象。 如果 csvfile 是一个文件对象，则打开它时应使用 newline&#x3D;’’ 1。<br><code>dialect</code>形参用来定义一组特定 CSV 变种专属的形参。 它可以是 Dialect 类的某个子类的实例或是 <code>list_dialects()</code> 函数所返回的字符串之一。<br><code>fmtparams</code>关键字参数来覆盖当前变种中的单个格式化形参。 有关各个变种和格式化形参的完整细节。为了尽量简化与实现 DB API 的模块之间的接口，None 值会被当作空字符串写入。 虽然这个转换是不可逆的，但它可以简化 SQL NULL 数据值到 CSV 文件的转储而无需预处理从 <code>cursor.fetch*</code> 调用返回的数据。 在被写入之前所有其他非字符串数据都会先用 <code>str()</code> 来转转为字符串。</p>
+<h1 id="3-3-csv-DictReader"><a href="#3-3-csv-DictReader" class="headerlink" title="3.3 csv.DictReader"></a>3.3 csv.DictReader</h1><ul>
+<li>a.功能</li>
+</ul>
+<p>创建一个对象，该对象在操作上类似于常规 reader，但是将每行中的信息映射到一个 dict，该 dict 的键由 fieldnames 可选参数给出。</p>
+<ul>
+<li>b.方法格式</li>
+</ul>
+<p><code>csv.DictReader(f, fieldnames=None, restkey=None, restval=None, dialect=&#39;excel&#39;, *args, **kwds)</code></p>
+<ul>
+<li>c.参数说明</li>
+</ul>
+<p><code>fieldnames</code>参数是一个 sequence。如果省略 fieldnames，则文件 f 第一行中的值将用作字段名。无论字段名是如何确定的，字典都将保留其原始顺序。<br>如果某一行中的字段多于字段名，则剩余数据会被放入一个列表，并与 <code>restkey</code>所指定的字段名 (默认为 None) 一起保存。 如果某个非空白行的字段少于字段名，则缺失的值会使用 restval 的值来填充 (默认为 None)。</p>
+<h1 id="3-4-csv-DictWriter"><a href="#3-4-csv-DictWriter" class="headerlink" title="3.4 csv.DictWriter"></a>3.4 csv.DictWriter</h1><ul>
+<li>a.功能</li>
+</ul>
+<p>创建一个对象，该对象在操作上类似于常规 reader，但是将每行中的信息映射到一个 dict，该 dict 的键由 fieldnames 可选参数给出。</p>
+<ul>
+<li>b.方法格式</li>
+</ul>
+<p><code>class csv.DictWriter(f, fieldnames, restval=&#39;&#39;, extrasaction=&#39;raise&#39;, dialect=&#39;excel&#39;, *args, **kwds)</code></p>
+<ul>
+<li>c.参数说明</li>
+</ul>
+<p><code>fieldnames</code>参数是由键组成的 序列，它指定字典中值的顺序，这些值会按指定顺序传递给<code>writerow()</code>方法并写入文件 f。 如果字典缺少 <code>fieldnames</code>中的键，则可选参数 restval 用于指定要写入的值。 如果传递给<code>writerow()</code>方法的字典的某些键在<code>fieldnames</code>中找不到，则可选参数<code>extrasaction</code>用于指定要执行的操作。 如果将其设置为默认值 <code>raise</code>，则会引发<code>ValueError</code>。 如果将其设置为<code>ignore</code>，则字典中的其他键值将被忽略。 所有其他可选或关键字参数都传递给底层的<code>writer</code>实例。</p>
+<h1 id="肆-常量说明"><a href="#肆-常量说明" class="headerlink" title="肆 常量说明"></a>肆 常量说明</h1><ul>
+<li><code>csv.QUOTE_ALL</code>是指示 writer 对象给所有字段加上引号。</li>
+<li><code>csv.QUOTE_MINIMAL</code>是指示 writer 对象仅为包含特殊字符（例如 定界符、引号字符 或 行结束符 中的任何字符）的字段加上引号。</li>
+<li><code>csv.QUOTE_NONNUMERIC</code>是指示 writer 对象为所有非数字字段加上引号。指示 reader 将所有未用引号引出的字段转换为 float 类型。</li>
+<li><code>csv.QUOTE_NONE</code>是指示 writer 对象不使用引号引出字段。当 定界符 出现在输出数据中时，其前面应该有 转义符。如果未设置 转义符，则遇到任何需要转义的字符时，writer 都会抛出 Error 异常。指示 reader 不对引号字符进行特殊处理。</li>
+<li><code>exception csv.Error</code>是该异常可能由任何发生错误的函数抛出。</li>
+</ul>
+<h1 id="肆-方法说明"><a href="#肆-方法说明" class="headerlink" title="肆 方法说明"></a>肆 方法说明</h1><h2 id="4-1-field-size-limit"><a href="#4-1-field-size-limit" class="headerlink" title="4.1 field_size_limit"></a>4.1 field_size_limit</h2><ul>
+<li><p>a.功能<br> 返回解析器当前允许的最大字段大小。如果指定了<code>new_limit</code>，则它将成为新的最大字段大小。</p>
+</li>
+<li><p>b.方法格式<br><code>csv.field_size_limit([new_limit])</code></p>
+</li>
+</ul>
+<h2 id="4-2-get-dialect"><a href="#4-2-get-dialect" class="headerlink" title="4.2 get_dialect"></a>4.2 get_dialect</h2><ul>
+<li><p>a.功能<br>返回 name 对应的变种。如果 name 不是已注册的变种名称，则抛出 Error 异常。该函数返回的是不可变的 Dialect 对象。</p>
+</li>
+<li><p>b.方法格式<br><code>csv.get_dialect(name)</code></p>
+</li>
+</ul>
+<h2 id="4-3-list-dialects"><a href="#4-3-list-dialects" class="headerlink" title="4.3 list_dialects"></a>4.3 list_dialects</h2><ul>
+<li><p>a.功能<br>返回所有已注册变种的名称。</p>
+</li>
+<li><p>b.方法格式<br><code>csv.list_dialects()</code></p>
+</li>
+</ul>
+<h2 id="4-4-register-dialect"><a href="#4-4-register-dialect" class="headerlink" title="4.4 register_dialect"></a>4.4 register_dialect</h2><ul>
+<li><p>a.功能<br>将 dialect 与 name 关联起来。 name 必须是字符串。 变种的指定可以通过传入一个 Dialect 的子类，或通过 fmtparams 关键字参数，或是两者同时传入，此时关键字参数会覆盖 dialect 形参。</p>
+</li>
+<li><p>b.方法格式<br><code>csv.register_dialect(name[, dialect[, **fmtparams]])</code></p>
+</li>
+</ul>
+<h2 id="4-5-unregister-dialect"><a href="#4-5-unregister-dialect" class="headerlink" title="4.5 unregister_dialect"></a>4.5 unregister_dialect</h2><ul>
+<li><p>a.功能<br>从变种注册表中删除 name 对应的变种。如果 name 不是已注册的变种名称，则抛出 Error 异常。</p>
+</li>
+<li><p>b.方法格式<br><code>csv.unregister_dialect(name)</code></p>
+</li>
+</ul>
+<h1 id="伍-例子"><a href="#伍-例子" class="headerlink" title="伍 例子"></a>伍 例子</h1><pre><code class="python">#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+# 导入CSV安装包
+import csv
+# 1. 创建文件对象，防止在输出的时候出现空行，需要加newline=&#39;&#39;
+f = open(&#39;文件名.csv&#39;,&#39;w&#39;,encoding=&#39;utf-8&#39;,newline=&#39;&#39;)
+# 2. 基于文件对象构建 csv写入对象
+csv_writer = csv.writer(f)
+# 3. 构建列表头
+csv_writer.writerow([&quot;姓名&quot;,&quot;年龄&quot;,&quot;性别&quot;])
+# 4. 写入csv文件内容
+csv_writer.writerow([&quot;l&quot;,&#39;18&#39;,&#39;男&#39;])
+csv_writer.writerow([&quot;c&quot;,&#39;20&#39;,&#39;男&#39;])
+csv_writer.writerow([&quot;w&quot;,&#39;22&#39;,&#39;女&#39;])
+# 5. 关闭文件
+f.close()
+# 6.读操作
+with open(&#39;1.csv&#39;, newline=&#39;&#39;) as f:
+    data = csv.reader(f)
+    for row in data:
+        print(row)
+</code></pre>
+<p><img src="/images/Python%E5%BA%93%E5%AD%A6%E4%B9%A0/b0809273f0d121fd21b78b9eda270e8e.png" alt="b0809273f0d121fd21b78b9eda270e8e.png"></p>
+<h1 id="陆-参考"><a href="#陆-参考" class="headerlink" title="陆 参考"></a>陆 参考</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/library/csv.html">CSV 文件读写</a></li>
+<li><a target="_blank" rel="noopener" href="https://xercis.blog.csdn.net/article/details/108258306">Python读取CSV文件使用csv库而不是直接读取</a></li>
+</ul>
+
+    </div>
+    
+</div>
+
+    <div id="home-card">
+        <div id="card-div">
+    <div class="card-style" style="width: 300px">
+        <div class="avatar">
+            <img src="/images/f6e2b991f74bfd7b88c3ab1a3d513b94.jpg " alt="avatar">
+        </div>
+        <div class="name">
+            小C&天天
+        </div>
+        <div class="descriptions">
+            
+            <div class="description">
+                修学储能 先博后渊
+            </div>
+            
+        </div>
+        <div class="icon-links">
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://github.com/A7cc">
+                    <i class="fa-brands fa-github fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.qq.com/">
+                    <i class="fa-brands fa-qq fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.weibo.com/">
+                    <i class="fa-brands fa-weibo fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://google.com/">
+                    <i class="fa-brands fa-google fa-fw"></i>
+                </a>
+            </span>
+            
+        </div>
+        <div class="friend-links">
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="http://www.wgs6km.top/">
+                    kyrieee个人博客
+                </a>
+            </div>
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="https://tonyd0g.gitee.io/">
+                    tonyd0g
+                </a>
+            </div>
+            
+        </div>
+    </div>
+    <!-- 目录 -->
+    
+        <div class="card-style" style="width: 300px">
+            <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A3%B9-%E7%AE%80%E4%BB%8B"><span class="toc-text">壹 简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%B0-%E5%AE%89%E8%A3%85"><span class="toc-text">贰 安装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%89%80%E6%9C%89%E7%B1%BB%E5%92%8C%E6%96%B9%E6%B3%95"><span class="toc-text">查看所有类和方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%81-%E7%B1%BB%E8%AF%B4%E6%98%8E"><span class="toc-text">叁 类说明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-1-csv-reader"><span class="toc-text">3.1 csv.reader</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-2-csv-writer"><span class="toc-text">3.2 csv.writer</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-3-csv-DictReader"><span class="toc-text">3.3 csv.DictReader</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-4-csv-DictWriter"><span class="toc-text">3.4 csv.DictWriter</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%82%86-%E5%B8%B8%E9%87%8F%E8%AF%B4%E6%98%8E"><span class="toc-text">肆 常量说明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%82%86-%E6%96%B9%E6%B3%95%E8%AF%B4%E6%98%8E"><span class="toc-text">肆 方法说明</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-field-size-limit"><span class="toc-text">4.1 field_size_limit</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-get-dialect"><span class="toc-text">4.2 get_dialect</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-list-dialects"><span class="toc-text">4.3 list_dialects</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-4-register-dialect"><span class="toc-text">4.4 register_dialect</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-5-unregister-dialect"><span class="toc-text">4.5 unregister_dialect</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BC%8D-%E4%BE%8B%E5%AD%90"><span class="toc-text">伍 例子</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%99%86-%E5%8F%82%E8%80%83"><span class="toc-text">陆 参考</span></a></li></ol>
+            </div>    
+        </div>
+        
+    </div>
+</div>
+    </div>
+    
+</div>
+                         
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2023 小C♥天天
+            <span class="footer-icon">
+                <i class="fa-brands fa-github fa-fw"></i>
+            </span>
+            @小C&天天
+        </div>
+        <div>
+            备案号：小C&天天の窝
+        </div>
+    </div>
+</footer>
+                    </div>
+                </div>
+            </transition>
+            <div id="img_show">
+                <img id="img_content" alt="img_show">
+            </div>
+        </div>
+        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
+        <script src="/js/particlex.js"></script>
+        <script src="/js/showimg.js"></script>
+        
+
+        <!-- 3D模型 -->
+        <div id="L2dCanvas" style="position: relative;"></div>
+        <script src="/js/live2d.min.js"></script>
+        <script src="/css/live2d.css"></script>
+        <script>
+            var v = new Viewer({
+                basePath: "/model",
+                role: "zhala_2",
+                mobile: true,
+            });
+        </script>
+        <!-- 点击 -->
+        <script>
+            let body = document.getElementsByTagName('body')[0];
+            body.addEventListener('click', (e) => {
+                let contentArr = ['✊','😘','😍','😊','😭','😡','😋','👍','🐷','😱','💷','💵','×','🆗','№','⭐','🌙','♥','💴','☀','🐎','🐂','🐏','√'];
+                let randomNum = function (n) {
+                    return Math.floor(Math.random() * n)
+                }
+                let span = document.createElement('span');
+                span.innerHTML = `${contentArr[randomNum(contentArr.length)]}`;
+                span.style.color = `rgb(${randomNum(256)},${randomNum(256)},${randomNum(256)})`;
+                span.style.position = 'absolute';
+                span.style.top = `${e.pageY}px`;
+                span.style.left = `${e.pageX}px`;
+                span.style.transition = 'all 1s ease';
+                span.style.zIndex = 20000;
+                body.appendChild(span)
+                setTimeout(()=>{
+                    span.style.top = span.offsetTop - 100 + 'px';
+                    span.style.opacity = 0;
+                    setTimeout(()=>{span.remove()},700)
+                },0)
+            })
+        </script>
+        <!-- 流星背景特效 -->
+        <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/background.js"></script>
+    </body>
+</html>

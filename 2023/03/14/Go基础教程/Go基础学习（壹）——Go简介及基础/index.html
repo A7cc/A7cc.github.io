@@ -1,0 +1,2005 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>Go基础学习（壹）——Go简介及基础 | 小C♥天天</title>
+        <meta name="author" content="小C&天天">
+        <meta name="description" content="^v^">
+        <meta name="keywords" content="">
+        <link rel="icon" href="/images/icon.jpg">
+        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
+        <link rel="stylesheet" href="/css/fonts.min.css">
+        <link rel="stylesheet" href="/css/particlex.css">
+        <link rel="stylesheet" href="/css/main.css">
+        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
+        <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+        <link rel="stylesheet" href="/css/style.css">
+    <meta name="generator" content="Hexo 6.2.0"></head>
+    <body>
+        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:30vmin;height:30vmin;padding:60px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #dd20dd;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">正在加载</p><div><img alt="loading" src="/images/afde9fa65a5742a90b51d6e1211e841e.gif"></div></div></div></div></div>
+        <div id="layout">
+            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
+            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
+            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
+            <transition name="into">
+                <div v-show="show_page" style="display: -not-none">
+                    <div id="menu_show">
+                         
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">小C♥天天</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;文章</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+        <form class="search">
+            <input type="text" placeholder="需要搜索什么？">
+            <button type="submit"></button>
+        </form>
+    </div>
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
+        <div :class="'title'" @click="menu_show = !menu_show">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;小C♥天天</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+                    </div>
+                    <div id="main">
+                        
+
+<div id="home-posts-wrap" class=>
+<div class="article">
+    <div>
+        <h1>Go基础学习（壹）——Go简介及基础 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2023/3/14
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Go基础教程">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                </span>
+                Go基础教程
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/开发" style="color: #ffa2c4">
+                    开发
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Golang" style="color: #ffa2c4">
+                    Golang
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    <div class="content" v-pre>
+        <h1 id="壹-概述"><a href="#壹-概述" class="headerlink" title="壹 概述"></a>壹 概述</h1><p><strong>Go</strong>（又称<strong>Golang</strong>）是Google开发的一种<strong>静态强类型</strong>、<strong>编译型</strong>、<strong>并发型</strong>，并具有<strong>垃圾回收功能</strong>的多协程编程语言。罗伯特·格瑞史莫（Robert Griesemer），罗勃·派克（Rob Pike）及肯·汤普逊（Ken Thompson）于2007年9月开始设计Go，稍后Ian Lance Taylor、Russ Cox加入项目。Go是基于Inferno操作系统所开发的。Go于2009年11月正式宣布推出，成为开放源代码项目，并在Linux及Mac OS X平台上进行了实现，后来追加了Windows系统下的实现。在2016年，Go被软件评价公司TIOBE 选为“TIOBE 2016 年最佳语言”。 目前，Go每半年发布一个二级版本（即从a.x升级到a.y）。Go 语言语法与 C 相近，但功能上有：内存安全，GC（垃圾回收），结构形态及 CSP-style 并发计算。</p>
+<span id="more"></span>
+<p>Go语言的并发是基于 <code>goroutine</code> 的，<code>goroutine</code> 类似于线程，但并非线程，就是我们通常说的协程。可以将 <code>goroutine</code> 理解为一种虚拟线程。Go 语言运行时会参与调度 <code>goroutine</code>，并将 <code>goroutine</code> 合理地分配到每个 CPU 中，最大限度地使用CPU性能。开启一个<code>goroutine</code>的消耗非常小（大约2KB的内存），你可以轻松创建数百万个<code>goroutine</code>。</p>
+<p><code>goroutine</code>的特点：</p>
+<p>a. <code>goroutine</code>具有可增长的分段堆栈。这意味着它们只在需要时才会使用更多内存。<br>b. <code>goroutine</code>的启动时间比线程快。<br>c. <code>goroutine</code>原生支持利用channel安全地进行通信。<br>d. <code>goroutine</code>共享数据结构时无需使用互斥锁。</p>
+<p><strong>说一个前提：该教程是go搭配了vscode学习的！</strong></p>
+<h2 id="1-1-优缺点"><a href="#1-1-优缺点" class="headerlink" title="1.1 优缺点"></a>1.1 优缺点</h2><ul>
+<li><p><strong>a.优点</strong></p>
+<ul>
+<li>背靠大厂，google背书，可靠</li>
+<li>天生支持并发（最显著特点）</li>
+<li>语法简单，容易上手</li>
+<li>内置runtime，支持垃圾回收</li>
+<li>可直接编译成机器码，不依赖其他库</li>
+<li>丰富的标准库</li>
+<li>跨平台编译</li>
+</ul>
+</li>
+</ul>
+<p><strong>go语言是号称像写Python代码（效率）一样编写C代码（性能）。</strong></p>
+<ul>
+<li><strong>b. 缺点</strong></li>
+</ul>
+<p>作为编译性语言调试不如脚本方便<br>在数据分析上没有脚本适用<br>对底层的控制没有基础语言灵活</p>
+<h2 id="1-2-用途"><a href="#1-2-用途" class="headerlink" title="1.2 用途"></a>1.2 用途</h2><p>Go 语言被设计成一门应用于搭载 Web 服务器，存储集群或类似用途的巨型中央服务器的系统编程语言。对于高性能分布式系统领域而言，Go 语言无疑比大多数其它语言有着更高的开发效率。它提供了海量并行的支持，在服务端的开发优势较大，<strong>Go语言为并发而生</strong>。</p>
+<h1 id="贰-Go语言环境安装与开发工具"><a href="#贰-Go语言环境安装与开发工具" class="headerlink" title="贰 Go语言环境安装与开发工具"></a>贰 Go语言环境安装与开发工具</h1><h2 id="2-1-Go语言环境"><a href="#2-1-Go语言环境" class="headerlink" title="2.1 Go语言环境"></a>2.1 Go语言环境</h2><p><strong>Go 语言支持以下系统：</strong></p>
+<ul>
+<li>Linux</li>
+<li>FreeBSD</li>
+<li>Mac OS X（也称为 Darwin）</li>
+<li>Windows</li>
+</ul>
+<p><strong>安装包下载地址为：</strong><a target="_blank" rel="noopener" href="https://golang.org/dl/">https://golang.org/dl/</a>或者<a target="_blank" rel="noopener" href="https://go.dev/learn/">https://go.dev/learn/</a><br>如果打不开可以使用这个地址：<a target="_blank" rel="noopener" href="https://golang.google.cn/dl/">https://golang.google.cn/dl/</a>。</p>
+<p><strong>各个系统对应的包名：</strong></p>
+<table>
+<thead>
+<tr>
+<th>操作系统</th>
+<th>包名</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Windows</td>
+<td>go1.4.windows-amd64.msi</td>
+</tr>
+<tr>
+<td>Linux</td>
+<td>go1.4.linux-amd64.tar.gz</td>
+</tr>
+<tr>
+<td>Mac</td>
+<td>go1.4.darwin-amd64-osx10.8.pkg</td>
+</tr>
+<tr>
+<td>FreeBSD</td>
+<td>go1.4.freebsd-amd64.tar.gz</td>
+</tr>
+</tbody></table>
+<h2 id="2-2-开发工具"><a href="#2-2-开发工具" class="headerlink" title="2.2 开发工具"></a>2.2 开发工具</h2><ul>
+<li>vim</li>
+<li>sublime</li>
+<li>atom</li>
+<li>LiteIDE</li>
+<li>eclipse</li>
+<li>goland（最全的Go语言开发工具）</li>
+<li>vscode（本系列教程的主要开发工具）</li>
+</ul>
+<p>详细安装：<a href="../../../undefined">VSCode配置Go环境</a></p>
+<h1 id="叁-第一个Go程序"><a href="#叁-第一个Go程序" class="headerlink" title="叁 第一个Go程序"></a>叁 第一个Go程序</h1><p>Go 语言的基础组成有6个部分组成：包声明、引入包、函数、变量、语句 &amp; 表达式、注释</p>
+<h2 id="3-1-例子"><a href="#3-1-例子" class="headerlink" title="3.1 例子"></a>3.1 例子</h2><p><strong>实例：</strong></p>
+<pre><code class="go">package main
+import &quot;fmt&quot;
+func main() &#123;
+    /*程序主体*/
+   fmt.Println(&quot;Hello, World!&quot;)
+&#125;
+</code></pre>
+<p><strong>说明：</strong></p>
+<blockquote>
+<p>a.<code>package main</code>：定义了该程序所在的包名。在源文件中非注释的第一行指明这个文件属于哪个包，如：package main。<code>package main</code>表示一个可独立执行的程序，每个 Go 应用程序都包含一个名为 main 的包，main包是程序入口包。<br>b.<code>import &quot;fmt&quot;</code>：告诉 Go 编译器这个程序需要使用 fmt 包（函数或其他元素），fmt 包实现了格式化 IO（输入&#x2F;输出）的函数。与package不同，这里是引用别的包，而package定义的是当前属于什么包<br>c.<code>func main()</code> ：程序开始执行的函数。main 函数是每一个可执行程序所必须包含的，一般来说都是在启动后第一个执行的函数（如果有 <code>init()</code> 函数则会先执行该函数）。<br>d.<code>/*...*/</code>：注释，在程序执行时将被忽略。单行注释是最常见的注释形式，你可以在任何地方使用以 <code>//</code> 开头的单行注释。多行注释也叫块注释，均已以 <code>/*</code> 开头，并以 <code>*/</code> 结尾，且不可以嵌套使用，多行注释一般用于包的文档描述或注释成块的代码片段。<br>e.<code>fmt.Println(...)</code>：可以将字符串输出到控制台，并在最后自动增加换行字符 \n。<br>使用 <code>fmt.Print(&quot;hello, world\n&quot;)</code> 可以得到相同的结果。<br><code>Print</code> 和 <code>Println</code> 这两个函数也支持使用变量，如：<code>fmt.Println(arr)</code>。如果没有特别指定，它们会以默认的打印格式将变量 arr 输出到控制台。<br>f.当标识符（包括常量、变量、类型、函数名、结构字段等等）以一个大写字母开头，如：<code>Group1</code>，那么使用这种形式的标识符的对象就可以被外部包的代码所使用（客户端程序需要先导入这个包），这被称为导出（像面向对象语言中的 <code>public</code>）；标识符如果以小写字母开头，则对包外是不可见的，但是他们在整个包的内部是可见并且可用的（像面向对象语言中的 <code>protected</code> ）。</p>
+</blockquote>
+<h2 id="3-2-执行-Go-程序"><a href="#3-2-执行-Go-程序" class="headerlink" title="3.2 执行 Go 程序"></a>3.2 执行 Go 程序</h2><p>让我们来看下如何编写 Go 代码并执行它。步骤如下：</p>
+<ul>
+<li>a.打开编辑器如Sublime2，将以上代码添加到编辑器中。</li>
+<li>b.将以上代码保存为 hello.go</li>
+<li>c.打开命令行，并进入程序文件保存的目录中。</li>
+<li>d.输入命令 go run hello.go 并按回车执行代码。</li>
+<li>e.如果操作正确你将在屏幕上看到 “Hello World!” 字样的输出。<pre><code>$ go run hello.go
+Hello, World!
+</code></pre>
+</li>
+<li>f.我们还可以使用 <code>go build</code> 命令来生成二进制文件：<pre><code>$ go build hello.go
+# 或者 go build -o hello hello.go
+$ ls
+hello    hello.go
+$ ./hello 
+Hello, World!
+# 对于编译出的程序是win或者linux，需要修改go配置里面的set GOOS=windows、set GOHOSTARCH=amd64选项
+</code></pre>
+**需要注意的是<code>&#123;</code>不能单独放在一行，所以以下代码在运行时会产生错误：<pre><code class="go">package main
+import &quot;fmt&quot;
+func main()  
+&#123;  // 错误，&#123; 不能在单独的行上
+  fmt.Println(&quot;Hello, World!&quot;)
+&#125;
+</code></pre>
+</li>
+</ul>
+<h1 id="肆-Go语言基础语法"><a href="#肆-Go语言基础语法" class="headerlink" title="肆 Go语言基础语法"></a>肆 Go语言基础语法</h1><h2 id="4-1-Go标记（语法说明）"><a href="#4-1-Go标记（语法说明）" class="headerlink" title="4.1 Go标记（语法说明）"></a>4.1 Go标记（语法说明）</h2><p>Go程序可以由多个标记组成，可以是关键字，标识符，常量，字符串，符号。如以下 GO 语句由 6 个标记组成：</p>
+<pre><code class="go">fmt.Println(&quot;Hello, World!&quot;)
+/*
+6个标记是：fmt、.、Println、(、&quot;Hello, World!&quot;、)
+*/
+</code></pre>
+<h2 id="4-2-行分隔符"><a href="#4-2-行分隔符" class="headerlink" title="4.2 行分隔符"></a>4.2 行分隔符</h2><p>在Go程序中，一行代表一个语句结束。每个语句不需要像 C 家族中的其它语言一样以分号<code>;</code>结尾，因为这些工作都将由 Go 编译器自动完成。<br>如果你打算将多个语句写在同一行，它们则必须使用<code>;</code>人为区分，但在实际开发中我们并不鼓励这种做法。<br>以下为两个语句：</p>
+<pre><code class="go">fmt.Println(&quot;Hello, World!&quot;)
+fmt.Println(&quot;菜鸟教程：runoob.com&quot;)
+</code></pre>
+<h2 id="4-3-注释"><a href="#4-3-注释" class="headerlink" title="4.3 注释"></a>4.3 注释</h2><p>注释不会被编译，每一个包应该有相关注释。单行注释是最常见的注释形式，你可以在任何地方使用以 <code>//</code> 开头的单行注释。多行注释也叫块注释，均已以 <code>/*</code> 开头，并以 <code>*/</code> 结尾。如：</p>
+<pre><code class="go">// 单行注释
+
+/*
+ Author by 菜鸟教程
+ 我是多行注释
+ */
+</code></pre>
+<h2 id="4-4-标识符"><a href="#4-4-标识符" class="headerlink" title="4.4 标识符"></a>4.4 标识符</h2><p>标识符用来命名变量、类型等程序实体。一个标识符实际上就是一个或是多个字母（A<del>Z和a</del>z）数字（0~9）、下划线_组成的序列，但是<strong>第一个字符必须是字母或下划线而不能是数字</strong>。<br>以下是有效的标识符：</p>
+<pre><code class="go">mahesh   kumar   abc   move_name   a_123
+myname50   _temp   j   a23b9   retVal
+</code></pre>
+<p>以下是无效的标识符：</p>
+<ul>
+<li>1ab（以数字开头）</li>
+<li>case（Go 语言的关键字）</li>
+<li>a+b（运算符是不允许的）</li>
+</ul>
+<h2 id="4-5-关键字"><a href="#4-5-关键字" class="headerlink" title="4.5 关键字"></a>4.5 关键字</h2><p>下面列举了 Go 代码中会使用到的 25 个关键字或保留字：</p>
+<table>
+<thead>
+<tr>
+<th>break</th>
+<th>default</th>
+<th>func</th>
+<th>interface</th>
+<th>select</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>case</td>
+<td>defer</td>
+<td>go</td>
+<td>map</td>
+<td>struct</td>
+</tr>
+<tr>
+<td>chan</td>
+<td>else</td>
+<td>goto</td>
+<td>package</td>
+<td>switch</td>
+</tr>
+<tr>
+<td>const</td>
+<td>fallthrough</td>
+<td>if</td>
+<td>range</td>
+<td>type</td>
+</tr>
+<tr>
+<td>continue</td>
+<td>for</td>
+<td>import</td>
+<td>return</td>
+<td>var</td>
+</tr>
+</tbody></table>
+<p>除了以上介绍的这些关键字，Go 语言还有 37 个预定义标识符：</p>
+<table>
+<thead>
+<tr>
+<th>说明</th>
+<th>保留字</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>常数</td>
+<td>true、false、iota、nil</td>
+</tr>
+<tr>
+<td>类型</td>
+<td>int、int8、int16、int32、int64、uint、uint8、uint16、uint32、uint64、uintptr、float32、float64、complex128、complex64、bool、byte、rune、string、error</td>
+</tr>
+<tr>
+<td>常用函数</td>
+<td>make、len、cap、new、append、copy、close、delete、complex、real、imag、panic、recover</td>
+</tr>
+</tbody></table>
+<p>程序一般由关键字、常量、变量、运算符、类型和函数组成。程序中可能会使用到这些分隔符（都是英文格式）：括号<code>()</code>，中括号<code>[]</code>和大括号<code>&#123;&#125;</code>。<br>程序中可能会使用到这些标点符号（都是英文格式）：<code>.</code>、<code>,</code>、<code>;</code>、<code>:</code> 和 <code>…</code>。</p>
+<h2 id="4-6-Go-语言的空格"><a href="#4-6-Go-语言的空格" class="headerlink" title="4.6 Go 语言的空格"></a>4.6 Go 语言的空格</h2><p>Go 语言中变量的声明必须使用空格隔开，如：<br><code>var age int;</code></p>
+<p>语句中适当使用空格能让程序更易阅读，以下是对比：<br><strong>无空格：</strong><br><code>fruit=apples+oranges;</code></p>
+<p><strong>在变量与运算符间加入空格，程序看起来更加美观，如：</strong><br><code>fruit = apples + oranges;</code></p>
+<h2 id="4-7-Go的命名规范"><a href="#4-7-Go的命名规范" class="headerlink" title="4.7 Go的命名规范"></a>4.7 Go的命名规范</h2><p>参考这篇文章：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/weisunblog/p/12546756.html">Go语言编程之命名规范</a></p>
+<h3 id="4-7-1-包名称"><a href="#4-7-1-包名称" class="headerlink" title="4.7.1 包名称"></a>4.7.1 包名称</h3><p>保持package的名字和目录名一致，尽量采取有意义的包名，简短，有意义，尽量和标准库不要冲突。包名应该为<strong>小写</strong>单词，不要使用下划线或者混合大小写。</p>
+<pre><code class="go">package file
+package main
+</code></pre>
+<h3 id="4-7-2-文件命名"><a href="#4-7-2-文件命名" class="headerlink" title="4.7.2 文件命名"></a>4.7.2 文件命名</h3><p>尽量采取有意义的文件名，简短，有意义，应该为<strong>小写</strong>单词，使用<strong>下划线</strong>分隔各个单词。</p>
+<pre><code class="go">approve_service.go
+</code></pre>
+<h3 id="4-7-3-结构体命名"><a href="#4-7-3-结构体命名" class="headerlink" title="4.7.3 结构体命名"></a>4.7.3 结构体命名</h3><ul>
+<li>采用驼峰命名法，首字母根据访问控制大写或者小写</li>
+<li>struct 申明和初始化格式采用多行，例如下面：</li>
+</ul>
+<pre><code class="go">type MainConfig struct &#123;
+    Port    string `json:&quot;port&quot;`
+    Address string `json:&quot;address&quot;`
+&#125;
+config := MainConfig&#123;&quot;1234&quot;, &quot;123.221.134&quot;&#125;
+</code></pre>
+<h3 id="4-7-4-接口命名"><a href="#4-7-4-接口命名" class="headerlink" title="4.7.4 接口命名"></a>4.7.4 接口命名</h3><ul>
+<li>命名规则基本和上面的结构体类型</li>
+<li>单个函数的结构名以<code>er</code>作为后缀，例如：Reader、Writer。</li>
+</ul>
+<pre><code class="go">type Reader interface &#123;
+    Read(p []byte) (n int, err error)
+&#125;
+</code></pre>
+<h3 id="4-7-5-变量命名"><a href="#4-7-5-变量命名" class="headerlink" title="4.7.5 变量命名"></a>4.7.5 变量命名</h3><p>和结构体类似，变量名称一般遵循驼峰法，首字母根据访问控制原则大写或者小写，但遇到特有名词时，需要遵循以下规则：</p>
+<ul>
+<li>如果变量为私有，且特有名词为首个单词，则使用小写，如 appService</li>
+<li>若变量类型为 bool 类型，则名称应以 Has、Is、Can或Allow开头</li>
+</ul>
+<pre><code class="go">var isExist bool
+var hasConflict bool
+var canManage bool
+var allowGitHook bool
+</code></pre>
+<h3 id="4-6-6-常量命名"><a href="#4-6-6-常量命名" class="headerlink" title="4.6.6 常量命名"></a>4.6.6 常量命名</h3><p>常量均需使用全部大写字母组成，并使用下划线分词</p>
+<pre><code class="go">const APP_URL = &quot;https://www.baidu.com&quot;
+</code></pre>
+<p>如果是枚举类型的常量，需要先创建相应类型：</p>
+<pre><code class="go">type Scheme string
+const (
+    HTTP  Scheme = &quot;http&quot;
+    HTTPS Scheme = &quot;https&quot;
+)
+</code></pre>
+<h1 id="伍-Go-语言变量"><a href="#伍-Go-语言变量" class="headerlink" title="伍 Go 语言变量"></a>伍 Go 语言变量</h1><p>程序运行过程中的数据都是保存在内存中，我们想要在代码中操作某个数据时就需要去内存上找到这个变量，但是如果我们直接在代码中通过内存地址去操作变量的话，代码的可读性会非常差而且还容易出错，所以我们就利用变量将这个数据的内存地址保存起来，以后直接通过这个变量就能找到内存上对应的数据了。变量来源于数学，是计算机语言中能储存计算结果或能表示值抽象概念。变量可以通过变量名访问。Go 语言变量名由字母、数字、下划线组成，其中首个字符不能为数字。<br>声明变量的一般形式是使用 var 关键字：<br><code>var 变量名 变量类型</code></p>
+<p>可以一次声明多个变量：<br><code>var 变量名1,变量名2 变量类型</code></p>
+<h2 id="5-1-变量声明"><a href="#5-1-变量声明" class="headerlink" title="5.1 变量声明"></a>5.1 变量声明</h2><p><font color="red">变量在指定变量类型时有三种变量声明：</p>
+<ul>
+<li>如果没有初始化，则变量默认为零值</li>
+<li>根据值自行判定变量类型。</li>
+<li>省略 var, 注意 :&#x3D; 左侧如果没有声明新的变量，就产生编译错误，格式：<code>v_name := value</code></font></li>
+</ul>
+<p>例如：</p>
+<pre><code class="go">var intVal int 
+intVal :=1 // 这时候会产生编译错误，因为 intVal 已经声明，不需要重新声明
+</code></pre>
+<p><strong>直接使用下面的语句即可：</strong></p>
+<pre><code class="go">intVal := 1 // 此时不会产生编译错误，因为有声明新的变量，因为 := 是一个声明语句
+</code></pre>
+<p><strong>intVal :&#x3D; 1 相等于：</strong></p>
+<pre><code class="go">var intVal int 
+intVal = 1
+</code></pre>
+<p><strong>可以将 var f string &#x3D; “Runoob” 简写为 f :&#x3D; “Runoob”：</strong></p>
+<pre><code class="go">package main
+import &quot;fmt&quot;
+func main() &#123;
+    f := &quot;Runoob&quot; // var f string = &quot;Runoob&quot;
+    fmt.Println(f)
+&#125;
+//结果为：Runoob
+</code></pre>
+<p><strong>但是我个人设置的话，可以直接<code>var 变量名 = 值</code>，而不用<code>变量名 ：= 值</code></strong></p>
+<h2 id="5-2-多变量声明"><a href="#5-2-多变量声明" class="headerlink" title="5.2 多变量声明"></a>5.2 多变量声明</h2><pre><code class="go">//类型相同多个变量, 非全局变量
+var vname1, vname2, vname3 type
+vname1, vname2, vname3 = v1, v2, v3
+var vname1, vname2, vname3 = v1, v2, v3 // 和 python 很像,不需要显示声明类型，自动推断
+vname1, vname2, vname3 := v1, v2, v3 // 出现在 := 左侧的变量不应该是已经被声明过的，否则会导致编译错误
+// 这种因式分解关键字的写法一般用于声明全局变量
+var (
+    变量名1 变量类型1
+    变量名2,变量名3 变量类型2
+)
+</code></pre>
+<h2 id="5-3-值类型和引用类型（有利于理解变量）"><a href="#5-3-值类型和引用类型（有利于理解变量）" class="headerlink" title="5.3 值类型和引用类型（有利于理解变量）"></a>5.3 值类型和引用类型（有利于理解变量）</h2><p><strong>值类型</strong>：int、float、bool和string这些类型都属于值类型，使用这些类型的变量直接指向存在内存中的值，值类型的变量的值存储在栈中。<br><strong>引用类型</strong>：特指slice、map、channel这三种预定义类型。引用类型拥有更复杂的存储结构:(1)分配内存 (2)初始化一系列属性等一个引用类型的变量r1存储的是r1的值所在的内存地址（数字），或内存地址中第一个字所在的位置，这个内存地址被称之为指针，这个指针实际上也被存在另外的某一个字中。</p>
+<p>两者的主要区别：拷贝操作和函数传参。</p>
+<p>在Go语言中对于引用类型的变量，我们在使用的时候不仅要声明它，还要为它分配内存空间，否则我们的值就没办法存储。而对于值类型的声明不需要分配内存空间，是因为它们在声明的时候已经默认分配好了内存空间。要分配内存，就引出来今天的new和make。 Go语言中new和make是内建的两个函数，主要用来分配内存。这些后面在指针中会详细讲解。</p>
+<ul>
+<li>详细说明：</li>
+</ul>
+<p>使用值类型的变量直接指向存在内存中的值：<br><img src="/images/Go%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/7b77d8cd70f0d8ea7e1312ab48956c91.png" alt="7b77d8cd70f0d8ea7e1312ab48956c91.png"></p>
+<p>当使用等号 <code>=</code> 将一个变量的值赋值给另一个变量时，如：<code>j = i</code>，实际上是在内存中将 i 的值进行了拷贝：<br><img src="/images/Go%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/c6d8faf2901a227130c9650afe5c3dcc.png" alt="c6d8faf2901a227130c9650afe5c3dcc.png"></p>
+<p>你可以通过 &amp;i 来获取变量 i 的内存地址，例如：0xf840000040（每次的地址都可能不一样）。值类型的变量的值存储在栈中。</p>
+<p>内存地址会根据机器的不同而有所不同，甚至相同的程序在不同的机器上执行后也会有不同的内存地址。因为每台机器可能有不同的存储器布局，并且位置分配也可能不同。</p>
+<p><font color="red">更复杂的数据通常会需要使用多个字，这些数据一般使用引用类型保存。</font></p>
+<p>一个引用类型的变量 r1 存储的是 r1 的值所在的内存地址（数字），或内存地址中第一个字所在的位置。</p>
+<p><img src="/images/Go%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/4aa75ae0232e6e01b6051e8fbd1ff16e.png" alt="4aa75ae0232e6e01b6051e8fbd1ff16e.png"></p>
+<p>这个内存地址称之为指针，这个指针实际上也被存在另外的某一个值中。</p>
+<p>同一个引用类型的指针指向的多个字可以是在连续的内存地址中（内存布局是连续的），这也是计算效率最高的一种存储形式；也可以将这些字分散存放在内存中，每个字都指示了下一个字所在的内存地址。</p>
+<p>当使用赋值语句 r2 &#x3D; r1 时，只有引用（地址）被复制。</p>
+<p>如果 r1 的值被改变了，那么这个值的所有引用都会指向被修改后的内容，在这个例子中，r2 也会受到影响。</p>
+<h2 id="5-4-变量的初始化"><a href="#5-4-变量的初始化" class="headerlink" title="5.4 变量的初始化"></a>5.4 变量的初始化</h2><p>Go语言在声明变量的时候，会自动对变量对应的内存区域进行初始化操作。每个变量会被初始化成其类型的默认值，例如： 整型和浮点型变量的默认值为<code>0</code>。 字符串变量的默认值为<code>空字符串</code>。 布尔型变量默认为<code>false</code>。<code>chan</code>、<code>func</code>、<code>interface</code>、<code>map</code>、<code>slice</code> 、指针变量的默认为<code>nil</code>。当然我们也可在声明变量的时候为其指定初始值。变量初始化的标准格式如下：</p>
+<pre><code class="go">var 变量名 类型 = 表达式
+// 由于go语言可以根据变量的值来推断其类型，所以我们可以省略类型说明符 [type]。
+var 变量名 = 表达式
+</code></pre>
+<p>例子：</p>
+<pre><code class="go">var name1 string = &quot;A7&quot;
+var age1 int = 18
+// 或者一次初始化多个变量
+var name2, age2 = &quot;A7cc&quot;, 20
+</code></pre>
+<h2 id="5-5-简短形式，使用-赋值操作符"><a href="#5-5-简短形式，使用-赋值操作符" class="headerlink" title="5.5 简短形式，使用:=赋值操作符"></a>5.5 简短形式，使用<code>:=</code>赋值操作符</h2><p>我们知道可以在变量的初始化时省略变量的类型而由系统自动推断，声明语句写上 var 关键字其实是显得有些多余了，因此我们可以将它们简写为 <code>a := 50</code> 或 <code>b := false</code>。</p>
+<p>a 和 b 的类型（int 和 bool）将由编译器自动推断。</p>
+<p>这是使用变量的首选形式，<font color="red">但是它只能被用在函数体内</font>，而不可以用于全局变量的声明与赋值。使用操作符 <code>:=</code> 可以高效地创建一个新的变量，称之为初始化声明。</p>
+<p><strong>注意事项</strong></p>
+<p>如果在相同的代码块中，我们不可以再次对于相同名称的变量使用初始化声明，例如：a :&#x3D; 20 就是不被允许的，编译器会提示错误 no new variables on left side of :&#x3D;，但是 a &#x3D; 20 是可以的，因为这是给相同的变量赋予一个新的值。</p>
+<p>如果你在定义变量 a 之前使用它，则会得到编译错误 undefined: a。</p>
+<p>如果你声明了一个局部变量却没有在相同的代码块中使用它，同样会得到编译错误，例如下面这个例子当中的变量 a：</p>
+<pre><code class="go">package main
+import* &quot;fmt&quot;
+func main() &#123;
+  var a string = &quot;abc&quot;
+  fmt.Println(&quot;hello, world&quot;)
+&#125;
+</code></pre>
+<p>尝试编译这段代码将得到错误 <strong>a declared and not used</strong>。</p>
+<p>此外，单纯地给 a 赋值也是不够的，这个值必须被使用，所以使用</p>
+<pre><code class="go">fmt.Println(&quot;hello, world&quot;, a)
+</code></pre>
+<p>会移除错误。</p>
+<p>但是全局变量是允许声明但不使用的。 同一类型的多个变量可以声明在同一行，如：</p>
+<pre><code class="go">var a, b, c int
+</code></pre>
+<p>多变量可以在同一行进行赋值，如：</p>
+<pre><code class="go">var a, b int
+var c string
+a, b, c = 5, 7, &quot;abc&quot;
+</code></pre>
+<p>上面这行假设了变量 a，b 和 c 都已经被声明，否则的话应该这样使用：</p>
+<pre><code class="go">a, b, c := 5, 7, &quot;abc&quot;
+</code></pre>
+<p>右边的这些值以相同的顺序赋值右边的这些值以相同的顺序赋值给左边的变量，所以 a 的值是 5，b 的值是 7，c 的值是 “abc”。这被称为并行或同时赋值。如果你想要交换两个变量的值，则可以简单地使用 <code>a, b = b, a</code>，两个变量的类型必须是相同。<code>:=</code>不能使用在函数外。</p>
+<blockquote>
+<p>什么时候使用长声明？什么时候使用长声明？</p>
+<ul>
+<li>当需要全局变量或者不确定变量的值，但有需要变量时，可以进行变量长声明</li>
+<li>当需要重复声明变量（这里需要注意必须有新变量产生）或者搭配for、if等语句时，可以进行变量短声明</li>
+</ul>
+</blockquote>
+<h2 id="5-6-匿名变量"><a href="#5-6-匿名变量" class="headerlink" title="5.6 匿名变量"></a>5.6 匿名变量</h2><p>在使用多重赋值时，如果想要忽略某个值，可以使用<code>匿名变量（anonymous variable）</code>。 匿名变量用一个下划线<code>_</code>表示，例如：</p>
+<pre><code class="go">unc foo() (int, string) &#123;
+    return 10, &quot;Q1mi&quot;
+&#125;
+func main() &#123;
+    x, _ := foo()
+    _, y := foo()
+    fmt.Println(&quot;x=&quot;, x)
+    fmt.Println(&quot;y=&quot;, y)
+&#125;
+</code></pre>
+<p>匿名变量实际上是一个只写变量，你不能得到它的值。这样做是因为 Go 语言中你必须使用所有被声明的变量，但有时你并不需要使用从一个函数得到的所有返回值，匿名变量不占用命名空间，不会分配内存，所以匿名变量之间不存在重复声明。例子就是并行赋值，并行赋值也被用于当一个函数返回多个返回值时，比如这里的 val 和错误 err 是通过调用 Func1 函数同时得到：val, err &#x3D; Func1(var1)。</p>
+<h1 id="陆-Go-语言常量"><a href="#陆-Go-语言常量" class="headerlink" title="陆 Go 语言常量"></a>陆 Go 语言常量</h1><p>常量是一个简单值的标识符，在程序运行时，不会被修改的量。常量中的数据类型只可以是布尔型、数字型（整数型、浮点型和复数）和字符串型。</p>
+<p>常量的定义格式：<code>const identifier [type] = value</code></p>
+<h2 id="6-1-常量定义"><a href="#6-1-常量定义" class="headerlink" title="6.1 常量定义"></a>6.1 常量定义</h2><p>你可以省略类型说明符 [type]，因为编译器可以根据变量的值来推断其类型。</p>
+<ul>
+<li>显式类型定义： const b string &#x3D; “abc”</li>
+<li>隐式类型定义： const b &#x3D; “abc”</li>
+</ul>
+<p>多个相同类型的声明可以简写为：<code>const c_name1, c_name2 = value1, value2</code></p>
+<p>以下实例演示了常量的应用：</p>
+<pre><code class="go">package main
+import &quot;fmt&quot;
+func main() &#123;
+   const LENGTH int = 10
+   const WIDTH int = 5  
+   var area int
+   const a, b, c = 1, false, &quot;str&quot; //多重赋值
+
+   area = LENGTH * WIDTH
+   fmt.Printf(&quot;面积为 : %d&quot;, area)
+   println()
+   println(a, b, c)  
+&#125;
+/*结果为：面积为 : 50
+1 false str*/
+</code></pre>
+<p>const同时声明多个常量时，如果省略了值则表示和上面一行的值相同。 例如：</p>
+<pre><code class="go">const (
+    n1 = 100
+    n2
+    n3
+)
+</code></pre>
+<p>上面示例中，常量<code>n1</code>、<code>n2</code>、<code>n3</code>的值都是100。</p>
+<h2 id="6-2-枚举"><a href="#6-2-枚举" class="headerlink" title="6.2 枚举"></a>6.2 枚举</h2><p>常量还可以用作枚举：</p>
+<pre><code>const (
+    Unknown = 0
+    Female = 1
+    Male = 2
+)
+</code></pre>
+<p>数字 0、1 和 2 分别代表未知性别、女性和男性。<br>常量可以用len(), cap(), unsafe.Sizeof()函数计算表达式的值。常量表达式中，函数必须是内置函数，否则编译不过：</p>
+<pre><code class="go">package main
+
+import &quot;unsafe&quot;
+const (
+    a = &quot;abc&quot;
+    b = len(a)
+    c = unsafe.Sizeof(a)
+)
+
+func main()&#123;
+    println(a, b, c)
+&#125;
+//结果为：abc 3 16
+</code></pre>
+<h2 id="6-3-iota"><a href="#6-3-iota" class="headerlink" title="6.3 iota"></a>6.3 iota</h2><p><code>iota</code>是go语言的常量计数器，<font color="red">只能在常量的表达式中使用</font>。<code>iota</code>在const关键字出现时将被重置为0。const中每新增一行常量声明将使<code>iota</code>计数一次(iota可理解为const语句块中的行索引)。 使用iota能简化定义，在定义枚举时很有用。</p>
+<p>iota 可以被用作枚举值：</p>
+<pre><code class="go">const (
+    a = iota
+    b = iota
+    c = iota
+)
+</code></pre>
+<p>第一个 iota 等于 0，每当 iota 在新的一行被使用时，它的值都会自动加 1；所以 a&#x3D;0, b&#x3D;1, c&#x3D;2 可以简写为如下形式：</p>
+<pre><code class="go">const (
+    a = iota
+    b
+    c
+)
+</code></pre>
+<p><strong>iota 用法</strong></p>
+<pre><code class="go">package main
+
+import &quot;fmt&quot;
+
+func main() &#123;
+    const (
+        a = iota //0
+        b        //1
+        c        //2
+        d = &quot;ha&quot; //独立值，iota += 1
+        e        //&quot;ha&quot;   iota += 1
+        f = 100  //iota +=1
+        g        //100  iota +=1
+        h = iota //7,恢复计数
+        i        //8
+        _					//使用_跳过该值，iota +=1
+        k				//9,恢复计数
+    )
+    fmt.Println(a, b, c, d, e, f, g, h, i, k)
+&#125;
+
+//结果为：0 1 2 ha ha 100 100 7 8 10
+</code></pre>
+<p>再看个有趣的的 iota 实例：</p>
+<pre><code>package main
+import &quot;fmt&quot;
+const (
+    i=1&lt;&lt;iota
+    j=3&lt;&lt;iota
+    k
+    l
+)
+func main() &#123;
+    fmt.Println(&quot;i=&quot;,i)
+    fmt.Println(&quot;j=&quot;,j)
+    fmt.Println(&quot;k=&quot;,k)
+    fmt.Println(&quot;l=&quot;,l)
+&#125;
+/*
+i= 1
+j= 6
+k= 12
+l= 24
+*/
+</code></pre>
+<p>iota 表示从 0 开始自动加 1，所以 <code>i=1&lt;&lt;0</code>, <code>j=3&lt;&lt;1</code>（<code>&lt;&lt;</code>表示左移的意思），即：i&#x3D;1, j&#x3D;6，这没问题，关键在 k 和 l，从输出结果看 <code>k=3&lt;&lt;2</code>，<code>l=3&lt;&lt;3</code>。</p>
+<p><strong>简单表述：</strong><br>i&#x3D;1：左移 0 位,不变仍为 1;</p>
+<ul>
+<li><strong>j&#x3D;3</strong>：左移 1 位,变为二进制 110, 即 6;</li>
+<li><strong>k&#x3D;3</strong>：左移 2 位,变为二进制 1100, 即 12;</li>
+<li><strong>l&#x3D;3</strong>：左移 3 位,变为二进制 11000,即 24。</li>
+</ul>
+<p>注：**&lt;&lt;n&#x3D;&#x3D;*(2^n)**。</p>
+<p>多个<code>iota</code>定义在一行，都会初始化为0，然后慢慢增加：</p>
+<pre><code class="go">const (
+    a, b = iota + 1, iota + 3 //1,2
+    c, d                      //2,4
+    e, f                      //3,5
+)
+</code></pre>
+<h1 id="柒-Go语言数据类型"><a href="#柒-Go语言数据类型" class="headerlink" title="柒 Go语言数据类型"></a>柒 Go语言数据类型</h1><p>在 Go 编程语言中，数据类型用于声明函数和变量。数据类型的出现是为了把数据分成所需内存大小不同的数据，编程的时候需要用大数据的时候才需要申请大内存，就可以充分利用内存。</p>
+<p><strong>Go语言按类别有以下几种数据类型：</strong></p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>类型和描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>布尔型</strong>：布尔型的值只可以是常量 true 或者 false。一个简单的例子：var b bool &#x3D; true。</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>数字类型</strong>：整型 int 和浮点型 float32、float64，Go 语言支持整型和浮点型数字，并且支持复数，其中位的运算采用补码。</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>字符串类型</strong>：字符串就是一串固定长度的字符连接起来的字符序列。Go 的字符串是由单个字节连接起来的。Go 语言的字符串的字节使用 UTF-8 编码标识 Unicode 文本。</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>派生类型</strong>：指针类型（Pointer）、数组类型、结构化类型(struct)、Channel类型、函数类型、切片类型、接口类型（interface）、Map类型</td>
+</tr>
+</tbody></table>
+<h2 id="7-1-数字类型"><a href="#7-1-数字类型" class="headerlink" title="7.1 数字类型"></a>7.1 数字类型</h2><h3 id="7-1-1-整型与特殊整型"><a href="#7-1-1-整型与特殊整型" class="headerlink" title="7.1.1 整型与特殊整型"></a>7.1.1 整型与特殊整型</h3><p>整型分为以下两个大类： 按长度分为：int8、int16、int32、int64 对应的无符号整型：uint8、uint16、uint32、uint64</p>
+<p><font color="red">其中，<code>uint8</code>就是我们熟知的<code>byte</code>型，<code>int16</code>对应C语言中的<code>short</code>型，<code>int64</code>对应C语言中的<code>long</code>型。</font></p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>类型和描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>uint8</strong></td>
+<td>无符号8位整型（0到255）</td>
+</tr>
+<tr>
+<td><strong>uint16</strong></td>
+<td>无符号16位整型（0到65535）</td>
+</tr>
+<tr>
+<td><strong>uint32</strong></td>
+<td>无符号32位整型（0到4294967295）</td>
+</tr>
+<tr>
+<td><strong>uint64</strong></td>
+<td>无符号64位整型（0到18446744073709551615)</td>
+</tr>
+<tr>
+<td><strong>int8</strong></td>
+<td>有符号8位整型（-128到127）</td>
+</tr>
+<tr>
+<td><strong>int16</strong></td>
+<td>有符号16位整型（-32768到32767）</td>
+</tr>
+<tr>
+<td><strong>int32</strong></td>
+<td>有符号32位整型（-2147483648 到 2147483647）</td>
+</tr>
+<tr>
+<td><strong>int64</strong></td>
+<td>有符号64位整型（-9223372036854775808到9223372036854775807)</td>
+</tr>
+</tbody></table>
+<ul>
+<li>特殊整型</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>uint</td>
+<td>32位操作系统上就是<code>uint32</code>，64位操作系统上就是<code>uint64</code></td>
+</tr>
+<tr>
+<td>int</td>
+<td>32位操作系统上就是<code>int32</code>，64位操作系统上就是<code>int64</code></td>
+</tr>
+<tr>
+<td>uintptr</td>
+<td>无符号整型，用于存放一个指针</td>
+</tr>
+</tbody></table>
+<p><font color="red"><strong>注意：</strong> 在使用<code>int</code>和 <code>uint</code>类型时，不能假定它是32位或64位的整型，而是考虑<code>int</code>和<code>uint</code>可能在不同平台上的差异。实际使用中，切片或 map 的元素数量等都可以用<code>int</code>来表示。在涉及到二进制传输、读写文件的结构描述时，为了保持文件的结构不会受到不同编译目标平台字节长度的影响，不要使用<code>int</code>和 <code>uint</code>。</font></p>
+<ul>
+<li>数字字面量语法</li>
+</ul>
+<p>Go1.13版本之后引入了数字字面量语法，这样便于开发者以二进制、八进制或十六进制浮点数的格式定义数字，例如：<br><code>v := 0b00101101</code>， 代表二进制的 101101，相当于十进制的 45。 <code>v := 0o377</code>，代表八进制的 377，相当于十进制的 255。 <code>v := 0x1p-2</code>，代表十六进制的 1 除以 2²，也就是 0.25。</p>
+<p>而且还允许我们用 <code>_</code> 来分隔数字，比如说： <code>v := 123_456</code> 表示 v 的值等于 123456。</p>
+<h3 id="7-1-2-浮点型和复数"><a href="#7-1-2-浮点型和复数" class="headerlink" title="7.1.2 浮点型和复数"></a>7.1.2 浮点型和复数</h3><table>
+<thead>
+<tr>
+<th>序号</th>
+<th>类型和描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>float32</strong></td>
+<td>遵循IEEE-754标准，32位浮点型数，最大范围3.4e38，常量为：math.MaxFloat3</td>
+</tr>
+<tr>
+<td><strong>float64</strong></td>
+<td>遵循IEEE-754标准，64位浮点型数，最大范围1.8e308，常量为：math.MaxFloat64</td>
+</tr>
+<tr>
+<td><strong>complex64</strong></td>
+<td>32位实数和虚数</td>
+</tr>
+<tr>
+<td><strong>complex128</strong></td>
+<td>64位实数和虚数</td>
+</tr>
+</tbody></table>
+<h3 id="7-1-3-布尔值"><a href="#7-1-3-布尔值" class="headerlink" title="7.1.3 布尔值"></a>7.1.3 布尔值</h3><p>Go语言中以<code>bool</code>类型进行声明布尔型数据，布尔型数据只有<code>true（真）</code>和<code>false（假）</code>两个值。</p>
+<p><strong>注意：</strong></p>
+<p>a.  布尔类型变量的默认值为<code>false</code>。<br>b.  Go 语言中不允许将整型强制转换为布尔型.<br>c.  布尔型无法参与数值运算，也无法与其他类型进行转换。</p>
+<h3 id="7-1-4-字符串"><a href="#7-1-4-字符串" class="headerlink" title="7.1.4 字符串"></a>7.1.4 字符串</h3><p>Go语言中的字符串以原生数据类型出现，使用字符串就像使用其他原生数据类型（int、bool、float32、float64 等）一样。 Go 语言里的字符串的内部实现使用<code>UTF-8</code>编码。 字符串的值为<code>双引号(&quot;)</code>中的内容，可以在Go语言的源码中直接添加非ASCII码字符，例如：</p>
+<pre><code class="go">s1 := &quot;hello&quot;
+s2 := &quot;你好&quot;
+</code></pre>
+<ul>
+<li>字符串转义符</li>
+</ul>
+<p>Go 语言的字符串常见转义符包含回车、换行、单双引号、制表符等，如下表所示。</p>
+<table>
+<thead>
+<tr>
+<th>转义符</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>\r</code></td>
+<td>回车符（重新回到行首）</td>
+</tr>
+<tr>
+<td><code>\n</code></td>
+<td>换行符（直接跳到下一行的同列位置）</td>
+</tr>
+<tr>
+<td><code>\t</code></td>
+<td>制表符</td>
+</tr>
+<tr>
+<td><code>\&#39;</code></td>
+<td>单引号</td>
+</tr>
+<tr>
+<td><code>\&quot;</code></td>
+<td>双引号</td>
+</tr>
+<tr>
+<td><code>\\</code></td>
+<td>反斜杠</td>
+</tr>
+</tbody></table>
+<p>举个例子，我们要打印一个Windows平台下的一个文件路径：</p>
+<pre><code class="go">package main
+import (
+    &quot;fmt&quot;
+)
+func main() &#123;
+    fmt.Println(&quot;str := \&quot;c:\\Code\\lesson1\\go.exe\&quot;&quot;)
+&#125;
+</code></pre>
+<ul>
+<li>多行字符串</li>
+</ul>
+<p>Go语言中要定义一个多行字符串时，就必须使用<code>反引号</code>字符：</p>
+<pre><code class="go">s1 := `第一行
+第二行
+第三行
+`
+fmt.Println(s1)
+</code></pre>
+<p>反引号间换行自动在输出时换行，而所有的转义字符均无效，文本将会原样输出。</p>
+<ul>
+<li>字符串的常用操作</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>介绍</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>len(str)</td>
+<td>求长度</td>
+</tr>
+<tr>
+<td><code>+</code>或fmt.Sprintf</td>
+<td>拼接字符串</td>
+</tr>
+<tr>
+<td>strings.Split(s, sep)</td>
+<td>分割</td>
+</tr>
+<tr>
+<td>strings.contains</td>
+<td>判断是否包含</td>
+</tr>
+<tr>
+<td>strings.HasPrefix,strings.HasSuffix</td>
+<td>前缀&#x2F;后缀判断</td>
+</tr>
+<tr>
+<td>strings.Index(),strings.LastIndex()</td>
+<td>子串出现的位置</td>
+</tr>
+<tr>
+<td>strings.Join(a[]string, sep string)</td>
+<td>join操作</td>
+</tr>
+</tbody></table>
+<pre><code class="go">a := &quot;a123123123&quot;
+b := &quot;b456456&quot;
+var c = []string&#123;&quot;12&quot;, &quot;34&quot;&#125;
+fmt.Printf(&quot;a的长度%d&quot;, len(a))
+fmt.Println(&quot;1234&quot; + &quot;56789&quot;)
+// strings.Split(s, sep)函数用于将指定的分隔符切割字符串，并返回切割后的字符串切片。
+// s表示待分割的字符串
+// sep表示分隔符
+// 返回一个字符串切片。
+fmt.Println(strings.Split(b, &quot;4&quot;)) // [b 56 56]
+
+// strings.Contains(str,s)判断str中是否包含个子串s。包含或者str为空则返回true
+fmt.Println(strings.Contains(a, &quot;12&quot;)) //true
+
+// strings.HasPrefix(s, prefix)函数用来检测字符串是否以指定的前缀开头,strings.HasSuffix(s, suffix)是后缀
+// s表示待检测的字符串
+// prefix表示指定的前缀
+// suffix表示指定的后缀
+// 返回一个布尔值。如果字符串s是以prefix开头/以suffix结尾，则返回true，否则返回false。
+fmt.Println(strings.HasPrefix(b, &quot;b&quot;)) //true
+fmt.Println(strings.HasSuffix(b, &quot;6&quot;)) //true
+
+// strings.Index(str,s)函数是返回子串出现的位置
+// 返回子串str在字符串s中第一次出现的位置。
+// 如果找不到则返回-1；如果str为空，则返回0
+fmt.Println(strings.Index(b, &quot;5&quot;)) //2
+
+// strings.Join(str,s)函数是将str字符串切片中的子串连接成一个单独的字符串，子串之间用s分隔。
+fmt.Println(strings.Join(c, &quot;|&quot;)) //12|34
+</code></pre>
+<h3 id="7-1-5-byte和rune类型"><a href="#7-1-5-byte和rune类型" class="headerlink" title="7.1.5 byte和rune类型"></a>7.1.5 byte和rune类型</h3><p>组成每个字符串的元素叫做字符（byte），可以通过遍历或者单个获取字符串元素获得字符。 字符用单引号（<code>&#39;</code>）包裹起来，如：</p>
+<pre><code class="go">var a = &#39;中&#39;
+var b = &#39;x&#39;
+</code></pre>
+<p>Go 语言的字符有以下两种：</p>
+<ol>
+<li><code>uint8</code>类型，或者叫 byte 型，代表了<code>ASCII码</code>的一个字符。</li>
+<li><code>rune</code>类型，代表一个 <code>UTF-8字符</code>。</li>
+</ol>
+<p>当需要处理中文、日文或者其他复合字符时，则需要用到<code>rune</code>类型。<code>rune</code>类型实际是一个<code>int32</code>。</p>
+<p>Go 使用了特殊的 rune 类型来处理 Unicode，让基于 Unicode 的文本处理更为方便，也可以使用 byte 型进行默认字符串处理。<font color="red">因为UTF8编码下一个中文汉字由3~4个字节组成，所以我们不能简单的按照字节去遍历一个包含中文的字符串，否则就会出现上面输出中第一行的结果。<br>字符串底层是一个byte数组，所以可以和<code>[]byte</code>类型相互转换。字符串是不能修改的,，字符串是由byte字节组成，所以字符串的长度是byte字节的长度。 rune类型用来表示utf8字符，一个rune字符由一个或多个byte组成。</font></p>
+<h3 id="7-1-6-修改字符串"><a href="#7-1-6-修改字符串" class="headerlink" title="7.1.6  修改字符串"></a>7.1.6  修改字符串</h3><p>要修改字符串，需要先将其转换成<code>[]rune</code>或<code>[]byte</code>，完成后再转换为<code>string</code>。无论哪种转换，都会重新分配内存，并复制字节数组。</p>
+<pre><code class="go">func main() &#123;
+    s1 := &quot;big&quot;
+    // 强制类型转换，将字符串强制转换为字符数组
+    byteS1 := []byte(s1)
+    // 修改了第一个字节为p
+    byteS1[0] = &#39;p&#39;
+    fmt.Println(string(byteS1))
+
+    s2 := &quot;白萝卜&quot;
+    runeS2 := []rune(s2)
+    // 修改了第一个rune类型为红
+    runeS2[0] = &#39;红&#39;
+    fmt.Println(string(runeS2))
+&#125;
+</code></pre>
+<h2 id="7-2-强制转换类型"><a href="#7-2-强制转换类型" class="headerlink" title="7.2 强制转换类型"></a>7.2 强制转换类型</h2><p>有的时候我们需要将整型转换成浮点数，那么我们只需要将一种数据类型的变量转换为另外一种类型的变量。<font color="red">Go语言中只有强制类型转换，没有隐式类型转换。该语法只能在两个类型之间支持相互转换的时候使用。</font></p>
+<pre><code class="go">type_name(expression)
+//type_name 为类型，expression 为表达式，类型就是上面说的那些
+</code></pre>
+<p>人狠话不多，上例子：</p>
+<pre><code class="go">package main
+import &quot;fmt&quot;
+func main() &#123;
+    //定义一个a整型数和一个b浮点数
+    a, b := 1, 1.9
+    //输出函数
+    //这里的强制转换类型函数就是前面对应的类型名，用就行
+    fmt.Println(&quot;a浮点数值：&quot;, float64(a))
+    //可以发现当浮点数转成整型时，直接将小数点后面的值去掉了
+    fmt.Println(&quot;b整型数值：&quot;, int(b))
+    // a = 1
+    // b = 1
+&#125;
+</code></pre>
+<h1 id="捌-变量的输出输入与格式化"><a href="#捌-变量的输出输入与格式化" class="headerlink" title="捌 变量的输出输入与格式化"></a>捌 变量的输出输入与格式化</h1><p>对应输入输出，我们需要用到fmt标准库（理解为存放很多函数的仓库），fmt包实现了类似C语言printf和scanf的格式化I&#x2F;O。主要分为向外输出内容和获取输入内容两大部分。</p>
+<h2 id="8-1-输出"><a href="#8-1-输出" class="headerlink" title="8.1 输出"></a>8.1 输出</h2><h3 id="8-1-1-Print系列输出——终端输出"><a href="#8-1-1-Print系列输出——终端输出" class="headerlink" title="8.1.1 Print系列输出——终端输出"></a>8.1.1 Print系列输出——终端输出</h3><p><code>Print</code>系列函数会将内容输出到系统的标准输出。区别在于<code>Print</code>函数直接输出内容，<code>Printf</code>函数支持格式化输出字符串，<code>Println</code>函数会在输出内容的结尾添加一个换行符。</p>
+<pre><code class="go">func Print(a ...interface&#123;&#125;) (n int, err error)
+func Printf(format string, a ...interface&#123;&#125;) (n int, err error)
+func Println(a ...interface&#123;&#125;) (n int, err error)
+</code></pre>
+<p>举个简单的例子：</p>
+<pre><code class="go">package main
+import (
+    // 在使用fmt库内的函数一定要引用fmt库
+    &quot;fmt&quot;
+)
+func main() &#123;
+    fmt.Print(&quot;在终端打印该信息。&quot;)
+    name := &quot;A7cc&quot;
+    fmt.Printf(&quot;我是：%s\n&quot;, name)
+    fmt.Println(&quot;在终端打印单独一行显示，然后换行！&quot;)
+    fmt.Printf(&quot;换行了！&quot;)
+&#125;
+</code></pre>
+<h3 id="8-1-2-Fprint系列输出——文件输出"><a href="#8-1-2-Fprint系列输出——文件输出" class="headerlink" title="8.1.2 Fprint系列输出——文件输出"></a>8.1.2 Fprint系列输出——文件输出</h3><p><code>Fprint</code>系列函数会将内容输出到一个<code>io.Writer</code>接口类型的变量<code>w</code>中，我们通常用这个函数往文件中写入内容，同样有三种格式，功能和Print系列输出类型一样。</p>
+<pre><code class="go">func Fprint(w io.Writer, a ...interface&#123;&#125;) (n int, err error)
+func Fprintf(w io.Writer, format string, a ...interface&#123;&#125;) (n int, err error)
+func Fprintln(w io.Writer, a ...interface&#123;&#125;) (n int, err error)
+</code></pre>
+<p>举个例子：</p>
+<pre><code class="go">fmt.Fprint(os.Stdout, &quot;向标准输出写入内容1&quot;)	// 直接在终端输出：向标准输出写入内容1
+// 向标准输出写入内容
+fmt.Fprintln(os.Stdout, &quot;向标准输出写入内容2&quot;)// 直接在终端输出：向标准输出写入内容2
+// 打开一个xx.txt文件
+fileObj, err := os.OpenFile(&quot;./xx.txt&quot;, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
+if err != nil &#123;
+    fmt.Println(&quot;打开文件出错，err:&quot;, err)
+    return
+&#125;
+name := &quot;A7cc&quot;
+// 向打开的文件句柄中写入内容
+fmt.Fprintf(fileObj, &quot;往文件中写如信息：%s&quot;, name)// 在当前目录下生成一个文件xx.txt，内容为：往文件中写如信息：A7cc
+</code></pre>
+<p><font color="red">注意：只要满足<code>io.Writer</code>接口的类型都支持写入。</font></p>
+<h3 id="8-1-3-Sprint系列输出——返回字符串类型"><a href="#8-1-3-Sprint系列输出——返回字符串类型" class="headerlink" title="8.1.3 Sprint系列输出——返回字符串类型"></a>8.1.3 Sprint系列输出——返回字符串类型</h3><p><code>Sprint</code>系列函数会把传入的数据生成并返回一个字符串，同样有三种格式，功能和Print系列输出类型一样。</p>
+<pre><code class="go">func Sprint(a ...interface&#123;&#125;) string
+func Sprintf(format string, a ...interface&#123;&#125;) string
+func Sprintln(a ...interface&#123;&#125;) string
+</code></pre>
+<p>简单的示例代码如下：</p>
+<pre><code class="go">s1 := fmt.Sprint(&quot;A7cc&quot;)
+name := &quot;A7ccc&quot;
+age := 18
+s2 := fmt.Sprintf(&quot;name:%s,age:%d&quot;, name, age)
+s3 := fmt.Sprintln(&quot;A7cccc&quot;)
+fmt.Printf(&quot;s1类型=%T，s2类型=%T，s3类型=%T&quot;, s1, s2, s3) // s1类型=string，s2类型=string，s3类型=string
+</code></pre>
+<h3 id="8-1-4-Errorf系列输出——自定义错误输出"><a href="#8-1-4-Errorf系列输出——自定义错误输出" class="headerlink" title="8.1.4 Errorf系列输出——自定义错误输出"></a>8.1.4 Errorf系列输出——自定义错误输出</h3><p><code>Errorf</code>函数根据format参数生成格式化字符串并返回一个包含该字符串的错误。</p>
+<pre><code class="go">func Errorf(format string, a ...interface&#123;&#125;) error
+</code></pre>
+<p>通常使用这种方式来自定义错误类型，例如：</p>
+<pre><code class="go">err := errors.New(&quot;原始错误e&quot;)
+err := fmt.Errorf(&quot;这是一个错误%v&quot;,err)
+</code></pre>
+<p>但是上面的方式会丢失原有的错误类型，只拿到错误描述的文本信息。为了不丢失函数调用的错误链，Go1.13版本为<code>fmt.Errorf</code>函数新加了一个<code>%w</code>占位符用来生成一个可以包裹Error的Wrapping Error，可以实现基于已有的错误再包装得到一个新的错误。</p>
+<pre><code class="go">err := errors.New(&quot;原始错误e&quot;)
+w := fmt.Errorf(&quot;Wrap了一个错误%w&quot;, err)
+</code></pre>
+<h2 id="8-2-格式化占位符"><a href="#8-2-格式化占位符" class="headerlink" title="8.2 格式化占位符"></a>8.2 格式化占位符</h2><p><code>*printf</code>系列函数都支持format格式化参数，在这里我们按照占位符将被替换的变量类型划分，方便查询和记忆。</p>
+<ul>
+<li>通用占位符</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>占位符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>%v</td>
+<td>值的默认格式表示</td>
+</tr>
+<tr>
+<td>%+v</td>
+<td>类似%v，但输出结构体时会添加字段名</td>
+</tr>
+<tr>
+<td>%#v</td>
+<td>值的Go语法表示</td>
+</tr>
+<tr>
+<td>%T</td>
+<td>打印值的类型</td>
+</tr>
+<tr>
+<td>%%</td>
+<td>百分号</td>
+</tr>
+</tbody></table>
+<ul>
+<li>布尔型</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>占位符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>%t</td>
+<td>true或false</td>
+</tr>
+</tbody></table>
+<ul>
+<li>整型</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>占位符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>%b</td>
+<td>表示为二进制</td>
+</tr>
+<tr>
+<td>%c</td>
+<td>该值对应的unicode码值</td>
+</tr>
+<tr>
+<td>%d</td>
+<td>表示为十进制</td>
+</tr>
+<tr>
+<td>%o</td>
+<td>表示为八进制</td>
+</tr>
+<tr>
+<td>%x</td>
+<td>表示为十六进制，使用a-f</td>
+</tr>
+<tr>
+<td>%X</td>
+<td>表示为十六进制，使用A-F</td>
+</tr>
+<tr>
+<td>%U</td>
+<td>表示为Unicode格式：U+1234，等价于”U+%04X”</td>
+</tr>
+<tr>
+<td>%q</td>
+<td>该值对应的单引号括起来的go语法字符字面值，必要时会采用安全的转义表示</td>
+</tr>
+</tbody></table>
+<ul>
+<li>浮点数与复数</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>占位符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>%b</td>
+<td>无小数部分、二进制指数的科学计数法，如-123456p-78</td>
+</tr>
+<tr>
+<td>%e</td>
+<td>科学计数法，如-1234.456e+78</td>
+</tr>
+<tr>
+<td>%E</td>
+<td>科学计数法，如-1234.456E+78</td>
+</tr>
+<tr>
+<td>%f</td>
+<td>有小数部分但无指数部分，如123.456</td>
+</tr>
+<tr>
+<td>%F</td>
+<td>等价于%f</td>
+</tr>
+<tr>
+<td>%g</td>
+<td>根据实际情况采用%e或%f格式（以获得更简洁、准确的输出）</td>
+</tr>
+<tr>
+<td>%G</td>
+<td>根据实际情况采用%E或%F格式（以获得更简洁、准确的输出）</td>
+</tr>
+</tbody></table>
+<ul>
+<li>字符串和<code>[]</code>byte</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>占位符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>%s</td>
+<td>直接输出字符串或者[]byte</td>
+</tr>
+<tr>
+<td>%q</td>
+<td>该值对应的双引号括起来的go语法字符串字面值，必要时会采用安全的转义表示</td>
+</tr>
+<tr>
+<td>%x</td>
+<td>每个字节用两字符十六进制数表示（使用a-f</td>
+</tr>
+<tr>
+<td>%X</td>
+<td>每个字节用两字符十六进制数表示（使用A-F）</td>
+</tr>
+</tbody></table>
+<ul>
+<li>指针</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>占位符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>%p</td>
+<td>表示为十六进制，并加上前导的0x</td>
+</tr>
+</tbody></table>
+<ul>
+<li>宽度标识符</li>
+</ul>
+<p>宽度通过一个紧跟在百分号后面的十进制数指定，如果未指定宽度，则表示值时除必需之外不作填充。精度通过（可选的）宽度后跟点号后跟的十进制数指定。如果未指定精度，会使用默认精度；如果点号后没有跟数字，表示精度为0。举例如下：</p>
+<table>
+<thead>
+<tr>
+<th>占位符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>%f</td>
+<td>默认宽度，默认精度</td>
+</tr>
+<tr>
+<td>%9f</td>
+<td>宽度9，默认精度</td>
+</tr>
+<tr>
+<td>%.2f</td>
+<td>默认宽度，精度2</td>
+</tr>
+<tr>
+<td>%9.2f</td>
+<td>宽度9，精度2</td>
+</tr>
+<tr>
+<td>%9.f</td>
+<td>宽度9，精度0</td>
+</tr>
+</tbody></table>
+<ul>
+<li>其他flag</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>占位符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>+</code></td>
+<td>总是输出数值的正负号；对%q（%+q）会生成全部是ASCII字符的输出（通过转义）；</td>
+</tr>
+<tr>
+<td><code> </code>&#x2F;<code>-</code></td>
+<td>对数值，正数前加空格而负数前加负号；对字符串采用%x或%X时（% x或% X）会给各打印的字节之间加空格</td>
+</tr>
+<tr>
+<td><code>-</code></td>
+<td>在输出右边填充空白而不是默认的左边（即从默认的右对齐切换为左对齐）；</td>
+</tr>
+<tr>
+<td><code>#</code></td>
+<td>八进制数前加0（%#o），十六进制数前加0x（%#x）或0X（%#X），指针去掉前面的0x（%#p）对%q（%#q），对%U（%#U）会输出空格和单引号括起来的go字面值；</td>
+</tr>
+<tr>
+<td><code>0</code></td>
+<td>使用0而不是空格填充，对于数值类型会把填充的0放在正负号后面；</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>例子：<br>&#96;&#96;&#96;go<br>package main<br>import (<br>  “fmt”<br>)<br>func main() {<br>  &#x2F;&#x2F; 定义一个类型，这里这个后面章节会讲，可以理解为一个自定义类型<br>  o :&#x3D; struct{ name string }{“A7cc”}<br>  fmt.Printf(“%v\n”, o)<br>  fmt.Printf(“%#v\n”, o)<br>  f :&#x3D; 65<br>  fmt.Printf(“%b\n”, f)<br>  n :&#x3D; 12.34<br>  fmt.Printf(“%b\n”, n)<br>  s :&#x3D; “A7cc”<br>  fmt.Printf(“%s\n”, s)<br>  fmt.Printf(“%p\n”, &amp;o)</p>
+<p>  fmt.Printf(“%f\n”, n)<br>  fmt.Printf(“%9f\n”, n)<br>  fmt.Printf(“%.2f\n”, n)<br>  fmt.Printf(“%9.2f\n”, n)<br>  fmt.Printf(“%9.f\n”, n)</p>
+<p>  fmt.Printf(“%s\n”, s)<br>  fmt.Printf(“%5s\n”, s)<br>  fmt.Printf(“%-5s\n”, s)<br>  fmt.Printf(“%5.7s\n”, s)<br>  fmt.Printf(“%-5.7s\n”, s)<br>  fmt.Printf(“%5.2s\n”, s)<br>  fmt.Printf(“%05s\n”, s)</p>
+</li>
+</ul>
+<p>}</p>
+<pre><code>
+
+## 8.3 输入
+
+Go语言`fmt`包下有`fmt.Scan`、`fmt.Scanf`、`fmt.Scanln`三个函数，可以在程序运行过程中从标准输入获取用户的输入。
+
+### 8.3.1 fmt.Scan——普通的输入
+
+`fmt.Scan`从标准输入中扫描用户输入的数据，将以空白符分隔的数据分别存入指定的参数。
+
+函数格式如下：
+
+```go
+func Scan(a ...interface&#123;&#125;) (n int, err error)
+</code></pre>
+<ul>
+<li>Scan从标准输入扫描文本，读取由空白符分隔的值保存到传递给本函数的参数中，换行符视为空白符。</li>
+<li>本函数返回成功扫描的数据个数和遇到的任何错误。如果读取的数据个数比提供的参数少，会返回一个错误报告原因。</li>
+</ul>
+<p>具体代码示例如下：</p>
+<pre><code class="go">func main() &#123;
+    var (
+        name	string
+        age	int
+        married	bool
+    )
+    num, _ := fmt.Scan(&amp;name, &amp;age, &amp;married)
+    fmt.Printf(&quot;扫描结果 name:%s age:%d married:%t \n有%d个参数&quot;, name, age, married, num)
+&#125;
+</code></pre>
+<p>将上面的代码编译后在终端执行，在终端依次输入<code>A7cc</code>、<code>18</code>和<code>false</code>使用空格分隔。</p>
+<pre><code class="bash">$ ./scan_demo
+A7cc 18 false
+扫描结果 name:A7cc age:18 married:false
+有3个参数
+</code></pre>
+<h3 id="8-3-2-fmt-Scanf——指定内容输入"><a href="#8-3-2-fmt-Scanf——指定内容输入" class="headerlink" title="8.3.2 fmt.Scanf——指定内容输入"></a>8.3.2 fmt.Scanf——指定内容输入</h3><p><code>fmt.Scanf</code>为输入数据指定了具体的输入内容格式，只有按照格式输入数据才会被扫描并存入对应变量。</p>
+<p>函数格式如下：</p>
+<pre><code class="go">func Scanf(format string, a ...interface&#123;&#125;) (n int, err error)
+</code></pre>
+<ul>
+<li>Scanf从标准输入扫描文本，根据format参数指定的格式去读取由空白符分隔的值保存到传递给本函数的参数中。</li>
+<li>本函数返回成功扫描的数据个数和遇到的任何错误。</li>
+</ul>
+<p>代码示例如下：</p>
+<pre><code class="go">func main() &#123;
+    var (
+        name    string
+        age     int
+        married bool
+    )
+    fmt.Scanf(&quot;1:%s 2:%d 3:%t&quot;, &amp;name, &amp;age, &amp;married)
+    fmt.Printf(&quot;扫描结果 name:%s age:%d married:%t \n&quot;, name, age, married)
+&#125;
+</code></pre>
+<p>将上面的代码编译后在终端执行，在终端按照指定的格式依次输入<code>小王子</code>、<code>28</code>和<code>false</code>。</p>
+<pre><code class="bash">$ ./scan_demo
+1:A7cc 2:18 3:false
+扫描结果 name:A7cc age:18 married:false
+</code></pre>
+<p><code>fmt.Scanf</code>不同于<code>fmt.Scan</code>简单的以空格作为输入数据的分隔符。</p>
+<p>例如，我们还是按照上个示例中以空格分隔的方式输入，<code>fmt.Scanf</code>就不能正确扫描到输入的数据。</p>
+<pre><code class="bash">$ ./scan_demo
+A7cc 18 false
+扫描结果 name: age:0 married:false
+</code></pre>
+<h3 id="8-3-3-fmt-Scanln"><a href="#8-3-3-fmt-Scanln" class="headerlink" title="8.3.3 fmt.Scanln"></a>8.3.3 fmt.Scanln</h3><p><code>fmt.Scanln</code>遇到回车就结束扫描了，比较常用。</p>
+<p>函数签名如下：</p>
+<pre><code class="go">func Scanln(a ...interface&#123;&#125;) (n int, err error)
+</code></pre>
+<ul>
+<li>Scanln类似Scan，它在遇到换行时才停止扫描。最后一个数据后面必须有换行或者到达结束位置。</li>
+<li>本函数返回成功扫描的数据个数和遇到的任何错误。</li>
+</ul>
+<p>具体代码示例如下：</p>
+<pre><code class="go">func main() &#123;
+    var (
+        name    string
+        age     int
+        married bool
+    )
+    fmt.Scanln(&amp;name, &amp;age, &amp;married)
+    fmt.Printf(&quot;扫描结果 name:%s age:%d married:%t \n&quot;, name, age, married)
+&#125;
+</code></pre>
+<p>将上面的代码编译后在终端执行，在终端依次输入<code>小王子</code>、<code>28</code>和<code>false</code>使用空格分隔。</p>
+<pre><code class="bash">$ ./scan_demo
+A7cc 18
+// 不输入第三个参数，直接回车，由于married默认值是空，所以为false
+扫描结果 name:A7cc age:18 married:false
+</code></pre>
+<h3 id="8-3-4-bufio-NewReader"><a href="#8-3-4-bufio-NewReader" class="headerlink" title="8.3.4 bufio.NewReader"></a>8.3.4 bufio.NewReader</h3><p>有时候我们想完整获取输入的内容，而输入的内容可能包含空格，这种情况下可以使用<code>bufio</code>包来实现。示例代码如下：</p>
+<pre><code class="go">package main
+
+import (
+    &quot;bufio&quot;
+    &quot;fmt&quot;
+    &quot;os&quot;
+    &quot;strings&quot;
+)
+
+func main() &#123;
+    reader := bufio.NewReader(os.Stdin) // 从标准输入生成读对象
+    fmt.Print(&quot;请输入内容：&quot;)
+    text, _ := reader.ReadString(&#39;\n&#39;) // 读到换行
+    text = strings.TrimSpace(text)
+    fmt.Printf(&quot;%#v\n&quot;, text)
+&#125;
+</code></pre>
+<h3 id="8-3-5-Fscan系列"><a href="#8-3-5-Fscan系列" class="headerlink" title="8.3.5 Fscan系列"></a>8.3.5 Fscan系列</h3><p>这几个函数功能分别类似于<code>fmt.Scan</code>、<code>fmt.Scanf</code>、<code>fmt.Scanln</code>三个函数，只不过它们不是从标准输入中读取数据而是从<code>io.Reader</code>中读取数据，比如我们打开一个文件，就需要该系列。</p>
+<pre><code class="go">func Fscan(r io.Reader, a ...interface&#123;&#125;) (n int, err error)
+func Fscanln(r io.Reader, a ...interface&#123;&#125;) (n int, err error)
+func Fscanf(r io.Reader, format string, a ...interface&#123;&#125;) (n int, err error)
+</code></pre>
+<h3 id="8-3-6-Sscan系列"><a href="#8-3-6-Sscan系列" class="headerlink" title="8.3.6 Sscan系列"></a>8.3.6 Sscan系列</h3><p>这几个函数功能分别类似于<code>fmt.Scan</code>、<code>fmt.Scanf</code>、<code>fmt.Scanln</code>三个函数，只不过它们不是从标准输入中读取数据而是从指定<strong>字符串</strong>中读取数据。</p>
+<pre><code class="go">func Sscan(str string, a ...interface&#123;&#125;) (n int, err error)
+func Sscanln(str string, a ...interface&#123;&#125;) (n int, err error)
+func Sscanf(str string, format string, a ...interface&#123;&#125;) (n int, err error)
+</code></pre>
+<h1 id="玖-变量作用域"><a href="#玖-变量作用域" class="headerlink" title="玖 变量作用域"></a>玖 变量作用域</h1><p>作用域为已声明标识符所表示的常量、类型、变量、函数或包在源代码中的作用范围。<br>Go 语言中变量可以在三个地方声明：</p>
+<ul>
+<li>函数内定义的变量称为局部变量</li>
+<li>函数外定义的变量称为全局变量</li>
+<li>函数定义中的变量称为形式参数<br>接下来让我们具体了解局部变量、全局变量和形式参数。</li>
+</ul>
+<h2 id="9-1-局部变量"><a href="#9-1-局部变量" class="headerlink" title="9.1 局部变量"></a>9.1 局部变量</h2><p>在函数体内声明的变量称之为局部变量，它们的作用域只在函数体内，参数和返回值变量也是局部变量。<br>以下实例中 main() 函数使用了局部变量 a，b，c：</p>
+<p>实例</p>
+<pre><code class="go">package main
+import &quot;fmt&quot;
+func main() &#123;
+   /* 声明局部变量 */
+   var a, b, c int
+   /* 初始化参数 */
+   a = 10
+   b = 20
+   c = a + b
+   fmt.Printf (&quot;结果：a = %d, b = %d and c = %d\n&quot;, a, b, c)
+&#125;
+</code></pre>
+<p><img src="/images/Go%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/696ac7dd33ed773ac57847a7f43aff34.png" alt="696ac7dd33ed773ac57847a7f43aff34.png"></p>
+<h2 id="9-2-全局变量"><a href="#9-2-全局变量" class="headerlink" title="9.2 全局变量"></a>9.2 全局变量</h2><p>在函数体外声明的变量称之为全局变量，全局变量可以在整个包甚至外部包（被导出后）使用。<br>全局变量可以在任何函数中使用，以下实例演示了如何使用全局变量：</p>
+<pre><code class="go">package main
+import &quot;fmt&quot;
+func main() &#123;
+    /* 声明局部变量 */
+    var a, b, c int
+    /* 初始化参数 */
+    a = 10
+    b = 20
+    c = a + b
+    fmt.Printf(&quot;结果：a = %d, b = %d and c = %d\n&quot;, a, b, c)
+&#125;
+</code></pre>
+<p><img src="/images/Go%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/17a217749da7279289f1554ebc405b03.png" alt="17a217749da7279289f1554ebc405b03.png"><br>Go 语言程序中全局变量与局部变量名称可以相同，但是函数内的局部变量会被优先考虑。</p>
+<h2 id="9-3-形式参数"><a href="#9-3-形式参数" class="headerlink" title="9.3 形式参数"></a>9.3 形式参数</h2><p>形式参数会作为函数的局部变量来使用。实例如下：</p>
+<pre><code class="go">package main
+import &quot;fmt&quot;
+/* 声明全局变量 */
+var a int = 20;
+func main() &#123;
+   /* main 函数中声明局部变量 */
+   var a int = 10
+   var b int = 20
+   var c int = 0
+   fmt.Printf(&quot;main()函数中 a = %d\n&quot;,  a);
+   c = sum( a, b);
+   fmt.Printf(&quot;main()函数中 c = %d\n&quot;,  c);
+&#125;
+/* 函数定义-两数相加 */
+func sum(a, b int) int &#123;
+   fmt.Printf(&quot;sum() 函数中 a = %d\n&quot;,  a);
+   fmt.Printf(&quot;sum() 函数中 b = %d\n&quot;,  b);
+   return a + b;
+&#125;
+</code></pre>
+<p><img src="/images/Go%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/2517ca4e6ba39a81b0dcab7d4286b4d7.png" alt="2517ca4e6ba39a81b0dcab7d4286b4d7.png"></p>
+<h2 id="9-4-初始化局部和全局变量"><a href="#9-4-初始化局部和全局变量" class="headerlink" title="9.4 初始化局部和全局变量"></a>9.4 初始化局部和全局变量</h2><p>不同类型的局部和全局变量默认值为：</p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>初始化默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>int</td>
+<td>0</td>
+</tr>
+<tr>
+<td>float32</td>
+<td>0</td>
+</tr>
+<tr>
+<td>pointer</td>
+<td>nil</td>
+</tr>
+</tbody></table>
+<h1 id="拾-Go语言运算符"><a href="#拾-Go语言运算符" class="headerlink" title="拾 Go语言运算符"></a>拾 Go语言运算符</h1><p>运算符用于在程序运行时执行数学或逻辑运算。</p>
+<p>Go 语言内置的运算符有：</p>
+<ul>
+<li>a.  算术运算符</li>
+<li>b.  关系运算符</li>
+<li>c.  逻辑运算符</li>
+<li>d.  位运算符</li>
+<li>e.  赋值运算符</li>
+<li>f.  其他运算符</li>
+</ul>
+<h2 id="10-1-算术运算符"><a href="#10-1-算术运算符" class="headerlink" title="10.1 算术运算符"></a>10.1 算术运算符</h2><p>下表列出了所有Go语言的算术运算符。</p>
+<table>
+<thead>
+<tr>
+<th align="left">运算符</th>
+<th align="left">描述</th>
+<th align="left">实例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">+</td>
+<td align="left">相加</td>
+<td align="left">A + B 输出结果 30</td>
+</tr>
+<tr>
+<td align="left">-</td>
+<td align="left">相减</td>
+<td align="left">A - B 输出结果 -10</td>
+</tr>
+<tr>
+<td align="left">*</td>
+<td align="left">相乘</td>
+<td align="left">A * B 输出结果 200</td>
+</tr>
+<tr>
+<td align="left">&#x2F;</td>
+<td align="left">相除</td>
+<td align="left">B &#x2F; A 输出结果 2</td>
+</tr>
+<tr>
+<td align="left">%</td>
+<td align="left">求余</td>
+<td align="left">B % A 输出结果 0</td>
+</tr>
+</tbody></table>
+<p><strong>注意：</strong> <code>++</code>（自增）和<code>--</code>（自减）在Go语言中是单独的语句，并不是运算符。</p>
+<h2 id="10-2-关系运算符"><a href="#10-2-关系运算符" class="headerlink" title="10.2 关系运算符"></a>10.2 关系运算符</h2><p>下表列出了所有Go语言的关系运算符。</p>
+<table>
+<thead>
+<tr>
+<th align="left">运算符</th>
+<th align="left">描述</th>
+<th align="left">实例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">&#x3D;&#x3D;</td>
+<td align="left">检查两个值是否相等，如果相等返回 True 否则返回 False。</td>
+<td align="left">(A &#x3D;&#x3D; B) 为 False</td>
+</tr>
+<tr>
+<td align="left">!&#x3D;</td>
+<td align="left">检查两个值是否不相等，如果不相等返回 True 否则返回 False。</td>
+<td align="left">(A !&#x3D; B) 为 True</td>
+</tr>
+<tr>
+<td align="left">&gt;</td>
+<td align="left">检查左边值是否大于右边值，如果是返回 True 否则返回 False。</td>
+<td align="left">(A &gt; B) 为 False</td>
+</tr>
+<tr>
+<td align="left">&lt;</td>
+<td align="left">检查左边值是否小于右边值，如果是返回 True 否则返回 False。</td>
+<td align="left">(A &lt; B) 为 True</td>
+</tr>
+<tr>
+<td align="left">&gt;&#x3D;</td>
+<td align="left">检查左边值是否大于等于右边值，如果是返回 True 否则返回 False。</td>
+<td align="left">(A &gt;&#x3D; B) 为 False</td>
+</tr>
+<tr>
+<td align="left">&lt;&#x3D;</td>
+<td align="left">检查左边值是否小于等于右边值，如果是返回 True 否则返回 False。</td>
+<td align="left">(A &lt;&#x3D; B) 为 True</td>
+</tr>
+</tbody></table>
+<h2 id="10-3-逻辑运算符"><a href="#10-3-逻辑运算符" class="headerlink" title="10.3 逻辑运算符"></a>10.3 逻辑运算符</h2><p>下表列出了所有Go语言的逻辑运算符。</p>
+<table>
+<thead>
+<tr>
+<th align="left">运算符</th>
+<th align="left">描述</th>
+<th align="left">实例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">&amp;&amp;</td>
+<td align="left">逻辑 AND 运算符。 如果两边的操作数都是 True，则条件 True，否则为 False。</td>
+<td align="left">(A &amp;&amp; B) 为 False</td>
+</tr>
+<tr>
+<td align="left">||</td>
+<td align="left">逻辑 OR 运算符。 如果两边的操作数有一个 True，则条件 True，否则为 False。</td>
+<td align="left">(A || B) 为 True</td>
+</tr>
+<tr>
+<td align="left">!</td>
+<td align="left">逻辑 NOT 运算符。 如果条件为 True，则逻辑 NOT 条件 False，否则为 True。</td>
+<td align="left">!(A &amp;&amp; B) 为 True</td>
+</tr>
+</tbody></table>
+<h2 id="10-4-位运算符"><a href="#10-4-位运算符" class="headerlink" title="10.4 位运算符"></a>10.4 位运算符</h2><p>位运算符对整数在内存中的二进制位进行操作。下表列出了位运算符 <code>&amp;</code>、 <code>|</code> 和 <code>^</code>的计算：</p>
+<table>
+<thead>
+<tr>
+<th align="center">p</th>
+<th align="center">q</th>
+<th align="center">p &amp; q</th>
+<th align="center">p | q</th>
+<th align="center">p ^ q</th>
+<th align="center">^p</th>
+<th align="center">p &amp;^ q</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">-1</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">-1</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">-2</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">-2</td>
+<td align="center">1</td>
+</tr>
+</tbody></table>
+<p>Go 语言支持的位运算符如下表所示（<code>A</code>为<code>61</code>，<code>B</code>为<code>249</code>）：</p>
+<table>
+<thead>
+<tr>
+<th align="left">运算符</th>
+<th align="left">描述</th>
+<th align="left">实例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>&amp;</code></td>
+<td align="left">按位与运算符<code>&amp;</code>是双目运算符。其功能是参与运算的两数各对应的二进位相与，口诀：全<code>1</code>为<code>1</code>，否则为<code>0</code>。</td>
+<td align="left"><code>(A &amp; B) 结果为57, 二进制为0011 1001</code></td>
+</tr>
+<tr>
+<td align="left">&#96;</td>
+<td align="left">&#96;</td>
+<td align="left">按位或运算符&#96;</td>
+</tr>
+<tr>
+<td align="left"><code>^</code></td>
+<td align="left">当<code>^</code>是双目运算符按位异或运算符表示。其功能是参与运算的两数各对应的二进位相异或，口诀：相同为<code>0</code>，不同为<code>1</code>。</td>
+<td align="left"><code>(A ^ B) 结果为196, 二进制为1100 0100</code></td>
+</tr>
+<tr>
+<td align="left"><code>^</code></td>
+<td align="left">当<code>^</code>是单目运算符按取反运算符表示。其功能是参与单个数进行取反运算。</td>
+<td align="left"><code>(^A) 结果为-62</code></td>
+</tr>
+<tr>
+<td align="left"><code>&amp;^</code></td>
+<td align="left"><code>&amp;^</code>是双目运算符中的位清移运算符。其功能是将运算符左边数据相异的位保留，相同位清零，该运算符等同于<code>A &amp; (^B)</code>。</td>
+<td align="left"><code>(A &amp;^ B) 结果为4, 二进制为0000 0100</code></td>
+</tr>
+<tr>
+<td align="left"><code>&lt;&lt;</code></td>
+<td align="left">左移运算符<code>&lt;&lt;</code>是双目运算符。左移n位就是乘以2的n次方。其功能把<code>&lt;&lt;</code>左边的运算数的各二进位全部左移若干位，由<code>&lt;&lt;</code>右边的数指定移动的位数。</td>
+<td align="left"><code>B &lt;&lt; 2 结果为996 ，二进制为0011 1110 0100</code></td>
+</tr>
+<tr>
+<td align="left"><code>&gt;&gt;</code></td>
+<td align="left">右移运算符<code>&gt;&gt;</code>是双目运算符。右移n位就是除以2的n次方。其功能是把<code>&gt;&gt;</code>左边的运算数的各二进位全部右移若干位，<code>&gt;&gt;</code>右边的数指定移动的位数。</td>
+<td align="left"><code>B &gt;&gt; 2 结果为62 ，二进制为11 1110</code></td>
+</tr>
+</tbody></table>
+<p><font color="red">PS：注意<code>^</code>使用的场景，是单目运算还是双目运算！</font></p>
+<h2 id="10-5-赋值运算符"><a href="#10-5-赋值运算符" class="headerlink" title="10.5 赋值运算符"></a>10.5 赋值运算符</h2><p>下表列出了所有Go语言的赋值运算符。</p>
+<table>
+<thead>
+<tr>
+<th align="left">运算符</th>
+<th align="left">描述</th>
+<th align="left">实例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>=</code></td>
+<td align="left">简单的赋值运算符，将一个表达式的值赋给一个左值</td>
+<td align="left">C &#x3D; A + B 将 A + B 表达式结果赋值给 C</td>
+</tr>
+<tr>
+<td align="left"><code>+=</code></td>
+<td align="left">相加后再赋值</td>
+<td align="left"><code>C += A 等于 C = C + A</code></td>
+</tr>
+<tr>
+<td align="left"><code>-=</code></td>
+<td align="left">相减后再赋值</td>
+<td align="left"><code>C -= A 等于 C = C - A</code></td>
+</tr>
+<tr>
+<td align="left"><code>*=</code></td>
+<td align="left">相乘后再赋值</td>
+<td align="left"><code>C *= A 等于 C = C * A</code></td>
+</tr>
+<tr>
+<td align="left"><code>/=</code></td>
+<td align="left">相除后再赋值</td>
+<td align="left"><code>C /= A 等于 C = C / A</code></td>
+</tr>
+<tr>
+<td align="left"><code>%=</code></td>
+<td align="left">求余后再赋值</td>
+<td align="left">C %&#x3D; A 等于 C &#x3D; C % A</td>
+</tr>
+<tr>
+<td align="left"><code>&lt;&lt;=</code></td>
+<td align="left">左移后赋值</td>
+<td align="left">C &lt;&lt;&#x3D; 2 等于 C &#x3D; C &lt;&lt; 2</td>
+</tr>
+<tr>
+<td align="left"><code>&gt;&gt;=</code></td>
+<td align="left">右移后赋值</td>
+<td align="left">C &gt;&gt;&#x3D; 2 等于 C &#x3D; C &gt;&gt; 2</td>
+</tr>
+<tr>
+<td align="left"><code>&amp;=</code></td>
+<td align="left">按位与后赋值</td>
+<td align="left">C &amp;&#x3D; 2 等于 C &#x3D; C &amp; 2</td>
+</tr>
+<tr>
+<td align="left"><code>^=</code></td>
+<td align="left">按位异或后赋值</td>
+<td align="left">C ^&#x3D; 2 等于 C &#x3D; C ^ 2</td>
+</tr>
+<tr>
+<td align="left"><code>|=</code></td>
+<td align="left">按位或后赋值</td>
+<td align="left"><code>C |= 2 等于 C = C | 2</code></td>
+</tr>
+</tbody></table>
+<h2 id="10-6-其他运算符"><a href="#10-6-其他运算符" class="headerlink" title="10.6 其他运算符"></a>10.6 其他运算符</h2><p>下表列出了Go语言的其他运算符。</p>
+<table>
+<thead>
+<tr>
+<th align="left">运算符</th>
+<th align="left">描述</th>
+<th align="left">实例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>&amp;</code></td>
+<td align="left">返回变量存储地址，可以发下与位运算符的&amp;一样，但是位运算符需要空格隔开</td>
+<td align="left"><code>&amp;a;</code>将给出变量的实际地址。</td>
+</tr>
+<tr>
+<td align="left"><code>*</code></td>
+<td align="left">指针变量。</td>
+<td align="left"><code>*a;</code>是一个指针变量</td>
+</tr>
+</tbody></table>
+<h2 id="10-7-运算符优先级"><a href="#10-7-运算符优先级" class="headerlink" title="10.7 运算符优先级"></a>10.7 运算符优先级</h2><p>有些运算符拥有较高的优先级，二元运算符的运算方向均是从左至右。下表列出了所有运算符以及它们的优先级，由上至下代表优先级由高到低：</p>
+<table>
+<thead>
+<tr>
+<th align="left">优先级</th>
+<th align="left">运算符</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">5</td>
+<td align="left"><code>*</code>、<code>/</code>、<code>%</code>、<code>&lt;&lt;</code>、<code>&gt;&gt;</code>、<code>&amp;</code>、<code>&amp;^</code></td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left">&#96;+ -</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left"><code>==</code>、<code>!=</code>、<code>&lt;</code>、<code>&lt;=</code>、<code>&gt;</code>、<code>&gt;=</code></td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left"><code>&amp;&amp;</code></td>
+</tr>
+<tr>
+<td align="left">1</td>
+<td align="left">&#96;</td>
+</tr>
+</tbody></table>
+<h2 id="10-8-其他符号"><a href="#10-8-其他符号" class="headerlink" title="10.8 其他符号"></a>10.8 其他符号</h2><ul>
+<li><p><strong>单引号</strong>：单引号在go语言中表示golang中的<code>rune(int32)</code>类型，单引号里面是单个字符，对应的值为改字符的ASCII值。</p>
+<pre><code class="go">func main() &#123;
+  a := &#39;A&#39;
+  fmt.Println(a)
+&#125;
+// 65
+</code></pre>
+</li>
+<li><p><strong>双引号</strong>：在go语言中双引号里面可以是单个字符也可以是字符串，双引号里面可以有转义字符，如<code>\n</code>、<code>\r</code>等，对应go语言中的string类型。</p>
+<pre><code class="go">func main() &#123;
+  a := &quot;Hello golang\nI am random_wz.&quot;
+  fmt.Println(a)
+&#125;
+// Hello golang
+// I am random_wz.
+</code></pre>
+</li>
+<li><p><strong>反引号</strong>：反引号中的字符表示其原生的意思，在单引号中的内容可以是多行内容，不支持转义。</p>
+</li>
+</ul>
+<pre><code class="go">func main() &#123;
+    a := `Hello golang\n:
+I am random_wz.
+Good.`
+    fmt.Println(a)
+&#125;
+// Hello golang\n:
+// I am random_wz.
+// Good.
+</code></pre>
+<h1 id="拾壹-常用函数"><a href="#拾壹-常用函数" class="headerlink" title="拾壹 常用函数"></a>拾壹 常用函数</h1><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>unsafe.Sizeof(变量)</td>
+<td>查看变量所占空间，单位字节</td>
+</tr>
+<tr>
+<td>close</td>
+<td>主要用来关闭channel</td>
+</tr>
+<tr>
+<td>len</td>
+<td>用来求长度，比如string、array、slice、map、channel，在复杂类型章节有具体说明</td>
+</tr>
+<tr>
+<td>new</td>
+<td>用来分配内存，主要用来分配值类型，比如int、struct。返回的是指针，在指针章节有具体说明</td>
+</tr>
+<tr>
+<td>make</td>
+<td>用来分配内存，主要用来分配引用类型，比如chan、map、slice，在复杂类型章节有具体说明</td>
+</tr>
+<tr>
+<td>append</td>
+<td>用来追加元素到数组、slice中，在复杂类型章节有具体说明</td>
+</tr>
+<tr>
+<td>panic和recover</td>
+<td>用来做错误处理</td>
+</tr>
+</tbody></table>
+<h1 id="拾贰-其他"><a href="#拾贰-其他" class="headerlink" title="拾贰 其他"></a>拾贰 其他</h1><p>未完待续。。。。</p>
+
+    </div>
+    
+</div>
+
+    <div id="home-card">
+        <div id="card-div">
+    <div class="card-style" style="width: 300px">
+        <div class="avatar">
+            <img src="/images/f6e2b991f74bfd7b88c3ab1a3d513b94.jpg " alt="avatar">
+        </div>
+        <div class="name">
+            小C&天天
+        </div>
+        <div class="descriptions">
+            
+            <div class="description">
+                修学储能 先博后渊
+            </div>
+            
+        </div>
+        <div class="icon-links">
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://github.com/A7cc">
+                    <i class="fa-brands fa-github fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.qq.com/">
+                    <i class="fa-brands fa-qq fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.weibo.com/">
+                    <i class="fa-brands fa-weibo fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://google.com/">
+                    <i class="fa-brands fa-google fa-fw"></i>
+                </a>
+            </span>
+            
+        </div>
+        <div class="friend-links">
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="http://www.wgs6km.top/">
+                    kyrieee个人博客
+                </a>
+            </div>
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="https://tonyd0g.gitee.io/">
+                    tonyd0g
+                </a>
+            </div>
+            
+        </div>
+    </div>
+    <!-- 目录 -->
+    
+        <div class="card-style" style="width: 300px">
+            <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A3%B9-%E6%A6%82%E8%BF%B0"><span class="toc-text">壹 概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="toc-text">1.1 优缺点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E7%94%A8%E9%80%94"><span class="toc-text">1.2 用途</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%B0-Go%E8%AF%AD%E8%A8%80%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7"><span class="toc-text">贰 Go语言环境安装与开发工具</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-Go%E8%AF%AD%E8%A8%80%E7%8E%AF%E5%A2%83"><span class="toc-text">2.1 Go语言环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7"><span class="toc-text">2.2 开发工具</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%81-%E7%AC%AC%E4%B8%80%E4%B8%AAGo%E7%A8%8B%E5%BA%8F"><span class="toc-text">叁 第一个Go程序</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E4%BE%8B%E5%AD%90"><span class="toc-text">3.1 例子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E6%89%A7%E8%A1%8C-Go-%E7%A8%8B%E5%BA%8F"><span class="toc-text">3.2 执行 Go 程序</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%82%86-Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95"><span class="toc-text">肆 Go语言基础语法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-Go%E6%A0%87%E8%AE%B0%EF%BC%88%E8%AF%AD%E6%B3%95%E8%AF%B4%E6%98%8E%EF%BC%89"><span class="toc-text">4.1 Go标记（语法说明）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-%E8%A1%8C%E5%88%86%E9%9A%94%E7%AC%A6"><span class="toc-text">4.2 行分隔符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-%E6%B3%A8%E9%87%8A"><span class="toc-text">4.3 注释</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-4-%E6%A0%87%E8%AF%86%E7%AC%A6"><span class="toc-text">4.4 标识符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-5-%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-text">4.5 关键字</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-6-Go-%E8%AF%AD%E8%A8%80%E7%9A%84%E7%A9%BA%E6%A0%BC"><span class="toc-text">4.6 Go 语言的空格</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-7-Go%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83"><span class="toc-text">4.7 Go的命名规范</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-7-1-%E5%8C%85%E5%90%8D%E7%A7%B0"><span class="toc-text">4.7.1 包名称</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-7-2-%E6%96%87%E4%BB%B6%E5%91%BD%E5%90%8D"><span class="toc-text">4.7.2 文件命名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-7-3-%E7%BB%93%E6%9E%84%E4%BD%93%E5%91%BD%E5%90%8D"><span class="toc-text">4.7.3 结构体命名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-7-4-%E6%8E%A5%E5%8F%A3%E5%91%BD%E5%90%8D"><span class="toc-text">4.7.4 接口命名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-7-5-%E5%8F%98%E9%87%8F%E5%91%BD%E5%90%8D"><span class="toc-text">4.7.5 变量命名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-6-6-%E5%B8%B8%E9%87%8F%E5%91%BD%E5%90%8D"><span class="toc-text">4.6.6 常量命名</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BC%8D-Go-%E8%AF%AD%E8%A8%80%E5%8F%98%E9%87%8F"><span class="toc-text">伍 Go 语言变量</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E"><span class="toc-text">5.1 变量声明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2-%E5%A4%9A%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E"><span class="toc-text">5.2 多变量声明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-3-%E5%80%BC%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%EF%BC%88%E6%9C%89%E5%88%A9%E4%BA%8E%E7%90%86%E8%A7%A3%E5%8F%98%E9%87%8F%EF%BC%89"><span class="toc-text">5.3 值类型和引用类型（有利于理解变量）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-4-%E5%8F%98%E9%87%8F%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-text">5.4 变量的初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-5-%E7%AE%80%E7%9F%AD%E5%BD%A2%E5%BC%8F%EF%BC%8C%E4%BD%BF%E7%94%A8-%E8%B5%8B%E5%80%BC%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-text">5.5 简短形式，使用:&#x3D;赋值操作符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-6-%E5%8C%BF%E5%90%8D%E5%8F%98%E9%87%8F"><span class="toc-text">5.6 匿名变量</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%99%86-Go-%E8%AF%AD%E8%A8%80%E5%B8%B8%E9%87%8F"><span class="toc-text">陆 Go 语言常量</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6-1-%E5%B8%B8%E9%87%8F%E5%AE%9A%E4%B9%89"><span class="toc-text">6.1 常量定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-2-%E6%9E%9A%E4%B8%BE"><span class="toc-text">6.2 枚举</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-3-iota"><span class="toc-text">6.3 iota</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9F%92-Go%E8%AF%AD%E8%A8%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-text">柒 Go语言数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#7-1-%E6%95%B0%E5%AD%97%E7%B1%BB%E5%9E%8B"><span class="toc-text">7.1 数字类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-1-%E6%95%B4%E5%9E%8B%E4%B8%8E%E7%89%B9%E6%AE%8A%E6%95%B4%E5%9E%8B"><span class="toc-text">7.1.1 整型与特殊整型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-2-%E6%B5%AE%E7%82%B9%E5%9E%8B%E5%92%8C%E5%A4%8D%E6%95%B0"><span class="toc-text">7.1.2 浮点型和复数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-3-%E5%B8%83%E5%B0%94%E5%80%BC"><span class="toc-text">7.1.3 布尔值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-4-%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">7.1.4 字符串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-5-byte%E5%92%8Crune%E7%B1%BB%E5%9E%8B"><span class="toc-text">7.1.5 byte和rune类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-6-%E4%BF%AE%E6%94%B9%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">7.1.6  修改字符串</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-2-%E5%BC%BA%E5%88%B6%E8%BD%AC%E6%8D%A2%E7%B1%BB%E5%9E%8B"><span class="toc-text">7.2 强制转换类型</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8D%8C-%E5%8F%98%E9%87%8F%E7%9A%84%E8%BE%93%E5%87%BA%E8%BE%93%E5%85%A5%E4%B8%8E%E6%A0%BC%E5%BC%8F%E5%8C%96"><span class="toc-text">捌 变量的输出输入与格式化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#8-1-%E8%BE%93%E5%87%BA"><span class="toc-text">8.1 输出</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-1-1-Print%E7%B3%BB%E5%88%97%E8%BE%93%E5%87%BA%E2%80%94%E2%80%94%E7%BB%88%E7%AB%AF%E8%BE%93%E5%87%BA"><span class="toc-text">8.1.1 Print系列输出——终端输出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-1-2-Fprint%E7%B3%BB%E5%88%97%E8%BE%93%E5%87%BA%E2%80%94%E2%80%94%E6%96%87%E4%BB%B6%E8%BE%93%E5%87%BA"><span class="toc-text">8.1.2 Fprint系列输出——文件输出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-1-3-Sprint%E7%B3%BB%E5%88%97%E8%BE%93%E5%87%BA%E2%80%94%E2%80%94%E8%BF%94%E5%9B%9E%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B1%BB%E5%9E%8B"><span class="toc-text">8.1.3 Sprint系列输出——返回字符串类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-1-4-Errorf%E7%B3%BB%E5%88%97%E8%BE%93%E5%87%BA%E2%80%94%E2%80%94%E8%87%AA%E5%AE%9A%E4%B9%89%E9%94%99%E8%AF%AF%E8%BE%93%E5%87%BA"><span class="toc-text">8.1.4 Errorf系列输出——自定义错误输出</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-2-%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%8D%A0%E4%BD%8D%E7%AC%A6"><span class="toc-text">8.2 格式化占位符</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-3-2-fmt-Scanf%E2%80%94%E2%80%94%E6%8C%87%E5%AE%9A%E5%86%85%E5%AE%B9%E8%BE%93%E5%85%A5"><span class="toc-text">8.3.2 fmt.Scanf——指定内容输入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-3-3-fmt-Scanln"><span class="toc-text">8.3.3 fmt.Scanln</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-3-4-bufio-NewReader"><span class="toc-text">8.3.4 bufio.NewReader</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-3-5-Fscan%E7%B3%BB%E5%88%97"><span class="toc-text">8.3.5 Fscan系列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-3-6-Sscan%E7%B3%BB%E5%88%97"><span class="toc-text">8.3.6 Sscan系列</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8E%96-%E5%8F%98%E9%87%8F%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-text">玖 变量作用域</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#9-1-%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F"><span class="toc-text">9.1 局部变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-2-%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="toc-text">9.2 全局变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-3-%E5%BD%A2%E5%BC%8F%E5%8F%82%E6%95%B0"><span class="toc-text">9.3 形式参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-4-%E5%88%9D%E5%A7%8B%E5%8C%96%E5%B1%80%E9%83%A8%E5%92%8C%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="toc-text">9.4 初始化局部和全局变量</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8B%BE-Go%E8%AF%AD%E8%A8%80%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">拾 Go语言运算符</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#10-1-%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">10.1 算术运算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-2-%E5%85%B3%E7%B3%BB%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">10.2 关系运算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-3-%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">10.3 逻辑运算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-4-%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">10.4 位运算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-5-%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">10.5 赋值运算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-6-%E5%85%B6%E4%BB%96%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">10.6 其他运算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-7-%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-text">10.7 运算符优先级</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-8-%E5%85%B6%E4%BB%96%E7%AC%A6%E5%8F%B7"><span class="toc-text">10.8 其他符号</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8B%BE%E5%A3%B9-%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0"><span class="toc-text">拾壹 常用函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8B%BE%E8%B4%B0-%E5%85%B6%E4%BB%96"><span class="toc-text">拾贰 其他</span></a></li></ol>
+            </div>    
+        </div>
+        
+    </div>
+</div>
+    </div>
+    
+</div>
+                         
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2023 小C♥天天
+            <span class="footer-icon">
+                <i class="fa-brands fa-github fa-fw"></i>
+            </span>
+            @小C&天天
+        </div>
+        <div>
+            备案号：小C&天天の窝
+        </div>
+    </div>
+</footer>
+                    </div>
+                </div>
+            </transition>
+            <div id="img_show">
+                <img id="img_content" alt="img_show">
+            </div>
+        </div>
+        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
+        <script src="/js/particlex.js"></script>
+        <script src="/js/showimg.js"></script>
+        
+
+        <!-- 3D模型 -->
+        <div id="L2dCanvas" style="position: relative;"></div>
+        <script src="/js/live2d.min.js"></script>
+        <script src="/css/live2d.css"></script>
+        <script>
+            var v = new Viewer({
+                basePath: "/model",
+                role: "zhala_2",
+                mobile: true,
+            });
+        </script>
+        <!-- 点击 -->
+        <script>
+            let body = document.getElementsByTagName('body')[0];
+            body.addEventListener('click', (e) => {
+                let contentArr = ['✊','😘','😍','😊','😭','😡','😋','👍','🐷','😱','💷','💵','×','🆗','№','⭐','🌙','♥','💴','☀','🐎','🐂','🐏','√'];
+                let randomNum = function (n) {
+                    return Math.floor(Math.random() * n)
+                }
+                let span = document.createElement('span');
+                span.innerHTML = `${contentArr[randomNum(contentArr.length)]}`;
+                span.style.color = `rgb(${randomNum(256)},${randomNum(256)},${randomNum(256)})`;
+                span.style.position = 'absolute';
+                span.style.top = `${e.pageY}px`;
+                span.style.left = `${e.pageX}px`;
+                span.style.transition = 'all 1s ease';
+                span.style.zIndex = 20000;
+                body.appendChild(span)
+                setTimeout(()=>{
+                    span.style.top = span.offsetTop - 100 + 'px';
+                    span.style.opacity = 0;
+                    setTimeout(()=>{span.remove()},700)
+                },0)
+            })
+        </script>
+        <!-- 流星背景特效 -->
+        <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/background.js"></script>
+    </body>
+</html>

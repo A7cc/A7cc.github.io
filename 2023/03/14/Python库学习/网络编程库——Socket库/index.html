@@ -1,0 +1,664 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>网络编程库——Socket库 | 小C♥天天</title>
+        <meta name="author" content="小C&天天">
+        <meta name="description" content="^v^">
+        <meta name="keywords" content="">
+        <link rel="icon" href="/images/icon.jpg">
+        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
+        <link rel="stylesheet" href="/css/fonts.min.css">
+        <link rel="stylesheet" href="/css/particlex.css">
+        <link rel="stylesheet" href="/css/main.css">
+        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
+        <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+        <link rel="stylesheet" href="/css/style.css">
+    <meta name="generator" content="Hexo 6.2.0"></head>
+    <body>
+        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:30vmin;height:30vmin;padding:60px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #dd20dd;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">正在加载</p><div><img alt="loading" src="/images/afde9fa65a5742a90b51d6e1211e841e.gif"></div></div></div></div></div>
+        <div id="layout">
+            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
+            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
+            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
+            <transition name="into">
+                <div v-show="show_page" style="display: -not-none">
+                    <div id="menu_show">
+                         
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">小C♥天天</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;文章</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+        <form class="search">
+            <input type="text" placeholder="需要搜索什么？">
+            <button type="submit"></button>
+        </form>
+    </div>
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
+        <div :class="'title'" @click="menu_show = !menu_show">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;小C♥天天</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+                    </div>
+                    <div id="main">
+                        
+
+<div id="home-posts-wrap" class=>
+<div class="article">
+    <div>
+        <h1>网络编程库——Socket库 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2023/3/14
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Python库学习">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                </span>
+                Python库学习
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Python" style="color: #00a596">
+                    Python
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/开发" style="color: #ff7d73">
+                    开发
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    <div class="content" v-pre>
+        <h1 id="壹-简介"><a href="#壹-简介" class="headerlink" title="壹 简介"></a>壹 简介</h1><h2 id="1-1-为什么要用Socekt？"><a href="#1-1-为什么要用Socekt？" class="headerlink" title="1.1 为什么要用Socekt？"></a>1.1 为什么要用Socekt？</h2><p>有一个问题，网络中进程之间如何通信？<br>本地的进程间通信（IPC）有很多种方式，但可以总结为下面4类（这里这些可以不用理解）：</p>
+<ul>
+<li>消息传递（管道、FIFO、消息队列）</li>
+<li>同步（互斥量、条件变量、读写锁、文件和写记录锁、信号量）</li>
+<li>共享内存（匿名的和具名的）</li>
+<li>远程过程调用（Solaris门和Sun RPC）<span id="more"></span>
+但这些都不是本文的主题！我们要讨论的是网络中进程之间如何通信？首要解决的问题是如何唯一标识一个进程，否则通信无从谈起！在本地可以通过进程PID来唯一标识一个进程，但是在网络中这是行不通的。其实TCP&#x2F;IP协议族已经帮我们解决了这个问题，网络层的<strong>ip地址</strong>可以唯一标识网络中的主机，而传输层的<strong>协议+端口</strong>可以唯一标识主机中的应用程序（进程）。这样利用三元组（ip地址，协议，端口）就可以标识网络的进程了，网络中的进程通信就可以利用这个标志与其它进程进行交互。</li>
+</ul>
+<p>使用TCP&#x2F;IP协议的应用程序通常采用应用编程接口：UNIX BSD的套接字（socket）和UNIX System V的TLI（已经被淘汰），来实现网络进程之间的通信。就目前而言，几乎所有的应用程序都是采用socket，而现在又是网络时代，网络中进程通信是无处不在，这就是我为什么说“一切皆socket”。</p>
+<p>要搞清楚Sockert是什么首先我们需要明白一些概念：</p>
+<ul>
+<li>TCP&#x2F;IP（Transmission Control Protocol&#x2F;Internet Protocol）即传输控制协议&#x2F;网间协议，是一个工业标准的协议集，它是为广域网（WANs）设计的。</li>
+<li>UDP（User Data Protocol，用户数据报协议）是与TCP相对应的协议。它是属于TCP&#x2F;IP协议族中的一种。</li>
+</ul>
+<p>这里有一张图，表明了这些协议的关系。TCP&#x2F;IP协议族包括运输层、网络层、链路层。<br><img src="/images/Python%E5%BA%93%E5%AD%A6%E4%B9%A0/0a754edd40e7cad83569b53e6594f2ff.png" alt="0a754edd40e7cad83569b53e6594f2ff.png"><br><font color="red">注意：在这里Socket确实是不在这些协议层里面的，而是本人为了理解Socket加上去的！！！</font></p>
+<h2 id="1-2-Socket是什么呢？"><a href="#1-2-Socket是什么呢？" class="headerlink" title="1.2 Socket是什么呢？"></a>1.2 Socket是什么呢？</h2><p>理解：<font color="red">用发快递打比方。在A地的A要寄一个物品给在B地的B。选择一个快递公司，就是选择了一种传输物品的规范。 因为不同的快递公司传输物品的具体方案不同。A作为一个 寄件人， 他不需要知道快递公司传输物品的方案的所有细节 。他只要知道如何把物品给快递公司上门的收件人，就行了。B作为一个收件人， 他也不需要知道快递公司传输物品的方案的所有细节。他只要知道，如何从快递公司的收件人 收物品 就行了。<br>对应到 软件开发上，收发信息的 程序进程 就像 发件人 和 收件人 ；收发的 信息 就像 快递传输的 物品 ；具体信息的传输路径（中间经过哪些路由器）和传输的方法（使用什么协议）就像 快递公司的运输流程。<br>同样的，我们编写 发出信息的程序和接收信息的程序，并不需要知道 信息传输的所有细节，比如 中间经过哪些路由器，路由器之间又是如何传输的。我们作为程序员，只要知道，我们的程序如何把 所要发送的信息交给 ‘收件人’， 如何从 ‘送件人’ 手中获取信息。那么和我们的应用程序直接打交道的 ‘收件人’ 和 ‘送件人’ 到底是谁？就是操作系统 提供的 socket 编程接口。</font></p>
+<p>Socket起源于Unix，而Unix&#x2F;Linux基本哲学之一就是“一切皆文件”，对于文件用“打开open –&gt; 读写write&#x2F;read –&gt; 关闭close”模式来操作。Socket就是该模式的一个实现，socket即是一种特殊的文件，一些Socket函数就是对其进行的操作（读&#x2F;写IO、打开、关闭），Socket是应用层与TCP&#x2F;IP协议族通信的中间软件抽象层，它是一组接口。在设计模式中，Socket其实就是一个门面模式，它把复杂的TCP&#x2F;IP协议族隐藏在Socket接口后面，对用户来说，一组简单的接口就是全部，让Socket去组织数据，以符合指定的协议。<strong>基本上，Socket 是任何一种计算机网络通讯中最基础的内容。任何网络通讯都是通过 Socket 来完成的。</strong></p>
+<blockquote>
+<p><strong>socket一词的起源</strong><br>在组网领域的首次使用是在1970年2月12日发布的文献IETF RFC33中发现的，撰写者为Stephen Carr、Steve Crocker和Vint Cerf。根据美国计算机历史博物馆的记载，Croker写道：“命名空间的元素都可称为套接字接口。一个套接字接口构成一个连接的一端，而一个连接可完全由一对套接字接口规定。”计算机历史博物馆补充道：“这比BSD的套接字接口定义早了大约12年。”</p>
+</blockquote>
+<p>就是可以理解为：两个进程，跨计算机，他俩需要通讯的话，需要通过网络对接起来。这网络对接通信的过程就是socket。</p>
+<h2 id="1-3-那要怎么用Socket呢？"><a href="#1-3-那要怎么用Socket呢？" class="headerlink" title="1.3 那要怎么用Socket呢？"></a>1.3 那要怎么用Socket呢？</h2><p>首先要明白Socket编程是用来简化网络间通信的，而网络间的通信是非常复杂的一个过程，Socket就是将这些过程简化了。</p>
+<p>首先我们来理解Socket编程原理。</p>
+<p>这是Socket编程原理图：<br><img src="/images/Python%E5%BA%93%E5%AD%A6%E4%B9%A0/36d6316fd3f1c02efe0b3032db1b0add.png" alt="36d6316fd3f1c02efe0b3032db1b0add.png"></p>
+<p>由上图可知，Socket包括两个：<strong>服务器Socket</strong>和<strong>客户机Socket</strong></p>
+<ul>
+<li><strong>服务器Socket</strong>：创建一个服务器套接字后，让它等待连接。这样它就在某个网络地址处监听。</li>
+<li><strong>客户机Socket</strong>：处理客户端套接字比处理服务器套接字简单，因为服务器套接字必须准备随时处理客户端的连接，同时还要处理多个连接，而客户机只是地连接，完成事务，断开连接。</li>
+</ul>
+<h1 id="贰-安装"><a href="#贰-安装" class="headerlink" title="贰 安装"></a>贰 安装</h1><p>Socket库是标准库，所以不需要安装！此处路过！</p>
+<h1 id="叁-Socket的基本操作"><a href="#叁-Socket的基本操作" class="headerlink" title="叁 Socket的基本操作"></a>叁 Socket的基本操作</h1><p>既然Socket是“open—write&#x2F;read—close”模式的一种实现，那么socket就提供了这些操作对应的函数接口。下面以TCP为例，介绍几个基本的socket接口函数。</p>
+<h2 id="3-1-Socket类型"><a href="#3-1-Socket类型" class="headerlink" title="3.1 Socket类型"></a>3.1 Socket类型</h2><p>Socket类型是在初始化Socket时使用的。</p>
+<table>
+<thead>
+<tr>
+<th>socket类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>socket.AF_UNIX</td>
+<td>只能够用于单一的Unix系统进程间通信</td>
+</tr>
+<tr>
+<td>socket.AF_INET</td>
+<td>该socket网络层使用IP协议,IPV4</td>
+</tr>
+<tr>
+<td>socket.AF_INET6</td>
+<td>IPv6</td>
+</tr>
+<tr>
+<td>socket.SOCK_STREAM</td>
+<td>该socket传输层使用TCP协议</td>
+</tr>
+<tr>
+<td>socket.SOCK_DGRAM</td>
+<td>该socket传输层使用UDP协议</td>
+</tr>
+<tr>
+<td>socket.SOCK_RAW</td>
+<td>原始套接字，普通的套接字无法处理ICMP、IGMP等网络报文，而SOCK_RAW可以；其次，SOCK_RAW也可以处理特殊的IPv4报文；此外，利用原始套接字，可以通过IP_HDRINCL套接字选项由用户构造IP头</td>
+</tr>
+<tr>
+<td>socket.SOCK_SEQPACKET</td>
+<td>可靠的连续数据包服务</td>
+</tr>
+</tbody></table>
+<h2 id="3-2-Socket函数"><a href="#3-2-Socket函数" class="headerlink" title="3.2 Socket函数"></a>3.2 Socket函数</h2><blockquote>
+<p><strong>注意点:</strong><br>1）TCP发送数据时，已建立好TCP连接，所以不需要指定地址。UDP是面向无连接的，每次发送要指定是发给谁。<br>2）服务端与客户端不能直接发送列表，元组，字典。需要字符串化repr(data)。</p>
+</blockquote>
+<h3 id="3-2-1-socket-函数-初始"><a href="#3-2-1-socket-函数-初始" class="headerlink" title="3.2.1 socket()函数:初始"></a>3.2.1 socket()函数:初始</h3><p>作用：socket()用于创建一个socket描述符（socket descriptor），它唯一标识一个socket。使用给定的地址族、套接字类型、协议编号（默认为0）来创建套接字。<br>格式：</p>
+<pre><code class="python">socket(family,type[,protocal])
+</code></pre>
+<p>参数说明：</p>
+<ul>
+<li>family：表示使用给定的地址族，例如IPV4、IPV6等。</li>
+<li>type：为套接字类型，例如：TCP或者UDP等。</li>
+<li>protocal：协议编号，默认为0，例如ICMP、ARP等。</li>
+</ul>
+<p>在创建Socket时，分为TCP和UDP两种：</p>
+<ul>
+<li>创建TCP Socket：<pre><code class="python">s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+</code></pre>
+</li>
+<li>创建UDP Socket：<pre><code class="python">s = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
+</code></pre>
+<strong>注意：并不是上面的type和protocol可以随意组合的，如SOCK_STREAM不可以跟IPPROTO_UDP组合。当protocol为0时，会自动选择type类型对应的默认协议</strong></li>
+</ul>
+<p>当我们调用socket创建一个socket时，返回的socket描述字它存在于协议族（address family，AF_XXX）空间中，但没有一个具体的地址。如果想要给它赋值一个地址，就必须调用bind()函数，否则就当调用connect()、listen()时系统会自动随机分配一个端口。</p>
+<h3 id="3-2-2-bind-函数-服务端"><a href="#3-2-2-bind-函数-服务端" class="headerlink" title="3.2.2 bind()函数:服务端"></a>3.2.2 bind()函数:服务端</h3><p>作用：将套接字绑定到地址。</p>
+<p>格式：</p>
+<pre><code class="python">s.bind(address)
+</code></pre>
+<p>参数说明：</p>
+<ul>
+<li>address：将套接字绑定到地址。address地址的格式取决于地址族，在AF_INET下，以元组（host,port）的形式表示地址。</li>
+</ul>
+<h3 id="3-2-3-listen-函数-服务端"><a href="#3-2-3-listen-函数-服务端" class="headerlink" title="3.2.3 listen()函数:服务端"></a>3.2.3 listen()函数:服务端</h3><p>作用：开始监听TCP传入连接。作为一个服务器，在调用socket()、bind()之后就会调用listen()来监听socket。</p>
+<p>格式：</p>
+<pre><code class="python">s.listen(backlog)
+</code></pre>
+<p>参数说明：</p>
+<ul>
+<li>backlog：是指定在拒绝连接之前，操作系统可以挂起的最大连接数量。该值至少为1，大部分应用程序设为5就可以了。</li>
+</ul>
+<p><strong>socket()函数创建的socket默认是一个主动类型的，listen()函数将socket变为被动类型的，等待客户的连接请求</strong></p>
+<h3 id="3-2-4-accept-函数-服务端"><a href="#3-2-4-accept-函数-服务端" class="headerlink" title="3.2.4 accept()函数:服务端"></a>3.2.4 accept()函数:服务端</h3><p>作用：接受TCP连接并返回（conn,address），其中conn是新的套接字对象，可以用来接收和发送数据。address是连接客户端的地址。</p>
+<p>格式：</p>
+<pre><code class="python">s.accept()
+</code></pre>
+<h3 id="3-2-5-connect-函数-客户端"><a href="#3-2-5-connect-函数-客户端" class="headerlink" title="3.2.5 connect()函数:客户端"></a>3.2.5 connect()函数:客户端</h3><p>作用：主动初始化 TCP 服务器连接，连接到address处的套接字，客户端调用connect()发出连接请求，服务器端就会接收到这个请求。</p>
+<p>格式：</p>
+<pre><code class="python">s.connect(address)
+</code></pre>
+<p>参数说明：</p>
+<ul>
+<li>address：服务端地址，一般address的格式为元组（hostname,port），如果连接出错，返回socket.error错误</li>
+</ul>
+<p><strong>客户端通过调用connect()函数来建立与TCP服务器的连接</strong></p>
+<h3 id="3-2-6-connect-ex-函数-客户端"><a href="#3-2-6-connect-ex-函数-客户端" class="headerlink" title="3.2.6 connect_ex()函数:客户端"></a>3.2.6 connect_ex()函数:客户端</h3><p>作用：connect() 函数的扩展版本，出错时返回出错码，而不是抛出异常。</p>
+<p>格式：</p>
+<pre><code class="python">s.connect_ex(address)
+</code></pre>
+<p>参数说明：</p>
+<ul>
+<li>address：服务端地址，一般address的格式为元组（hostname,port），如果连接出错，返回出错码，而不是抛出异常。</li>
+</ul>
+<h3 id="3-2-7-recv-函数-公共"><a href="#3-2-7-recv-函数-公共" class="headerlink" title="3.2.7 recv()函数:公共"></a>3.2.7 recv()函数:公共</h3><p>作用：接受TCP套接字的数据，数据以字符串形式返回。bufsize指定要接收的最大数据量。flag提供有关消息的其他信息，通常可以忽略。</p>
+<p>格式：</p>
+<pre><code class="python">s.recv(bufsize[,flag])
+</code></pre>
+<p>参数说明：</p>
+<ul>
+<li>bufsize：指定要接收的最大数据量</li>
+<li>flag：提供有关消息的其他信息，通常可以忽略。</li>
+</ul>
+<h3 id="3-2-8-send-函数-公共"><a href="#3-2-8-send-函数-公共" class="headerlink" title="3.2.8 send()函数:公共"></a>3.2.8 send()函数:公共</h3><p>作用：发送TCP数据。将string中的数据发送到连接的套接字。返回值是要发送的字节数量，该数量可能小于string的字节大小。</p>
+<p>格式：</p>
+<pre><code class="python">s.send(string[,flag])
+</code></pre>
+<p>参数说明：</p>
+<ul>
+<li>string：发送到连接的套接字的数据。</li>
+<li>flag：提供有关消息的其他信息，通常可以忽略。</li>
+</ul>
+<h3 id="3-2-9-sendall-函数-公共"><a href="#3-2-9-sendall-函数-公共" class="headerlink" title="3.2.9 sendall()函数:公共"></a>3.2.9 sendall()函数:公共</h3><p>作用：完整发送TCP数据。将string中的数据发送到连接的套接字，但在返回之前会尝试发送所有数据。成功返回None，失败则抛出异常。</p>
+<p>格式：</p>
+<pre><code class="python">s.sendall(string[,flag])
+</code></pre>
+<p>参数说明：</p>
+<ul>
+<li>string：发送到连接的套接字的数据。</li>
+<li>flag：提供有关消息的其他信息，通常可以忽略。</li>
+</ul>
+<h3 id="3-2-10-recvfrom-函数-公共"><a href="#3-2-10-recvfrom-函数-公共" class="headerlink" title="3.2.10 recvfrom()函数:公共"></a>3.2.10 recvfrom()函数:公共</h3><p>作用：接受UDP套接字的数据。与recv()类似，但返回值是（data,address）。其中data是包含接收数据的字符串，address是发送数据的套接字地址。</p>
+<p>格式：</p>
+<pre><code class="python">s.recvfrom(bufsize[.flag])
+</code></pre>
+<p>参数说明：</p>
+<ul>
+<li>bufsize：指定要接收的最大数据量</li>
+<li>flag：提供有关消息的其他信息，通常可以忽略。</li>
+</ul>
+<h3 id="3-2-11-sendto-函数-公共"><a href="#3-2-11-sendto-函数-公共" class="headerlink" title="3.2.11 sendto()函数:公共"></a>3.2.11 sendto()函数:公共</h3><p>作用：发送UDP数据。将数据发送到套接字，返回值是发送的字节数。</p>
+<p>格式：</p>
+<pre><code class="python">s.sendto(string[,flag],address)
+</code></pre>
+<p>参数说明：</p>
+<ul>
+<li>string：发送到连接的套接字的数据。</li>
+<li>flag：提供有关消息的其他信息，通常可以忽略。</li>
+<li>address：形式为（ipaddr，port）的元组，指定远程地址</li>
+</ul>
+<h3 id="3-2-12-close-函数-公共"><a href="#3-2-12-close-函数-公共" class="headerlink" title="3.2.12 close()函数:公共"></a>3.2.12 close()函数:公共</h3><p>作用：关闭套接字。</p>
+<p>格式：</p>
+<pre><code class="python">s.close()
+</code></pre>
+<h3 id="3-2-13-getpeername-函数-公共"><a href="#3-2-13-getpeername-函数-公共" class="headerlink" title="3.2.13 getpeername()函数:公共"></a>3.2.13 getpeername()函数:公共</h3><p>作用：返回连接套接字的远程地址。返回值通常是元组（ipaddr,port）。</p>
+<p>格式：</p>
+<pre><code class="python">s.getpeername()
+</code></pre>
+<h3 id="3-2-14-getsockname-函数-公共"><a href="#3-2-14-getsockname-函数-公共" class="headerlink" title="3.2.14 getsockname()函数:公共"></a>3.2.14 getsockname()函数:公共</h3><p>作用：返回套接字自己的地址。通常是一个元组(ipaddr,port)。</p>
+<p>格式：</p>
+<pre><code class="python">s.getsockname()
+</code></pre>
+<h3 id="3-2-15-setsockopt-函数-公共"><a href="#3-2-15-setsockopt-函数-公共" class="headerlink" title="3.2.15 setsockopt()函数:公共"></a>3.2.15 setsockopt()函数:公共</h3><p>作用：设置给定套接字选项的值，默认的socket选项不够用的时候，就必须要使用setsockopt来调整。</p>
+<p>格式：</p>
+<pre><code class="python">s.setsockopt(level,optname,value)
+</code></pre>
+<p>参数说明：</p>
+<ul>
+<li>level：选项定义的层次。支持SOL_SOCKET、IPPROTO_TCP、IPPROTO_IP和IPPROTO_IPV6。</li>
+<li>optname：需设置的选项。</li>
+<li>value：设置选项的值。</li>
+</ul>
+<h3 id="3-2-16-getsockopt-函数-公共"><a href="#3-2-16-getsockopt-函数-公共" class="headerlink" title="3.2.16 getsockopt()函数:公共"></a>3.2.16 getsockopt()函数:公共</h3><p>作用：返回套接字选项的值。</p>
+<p>格式：</p>
+<pre><code class="python">s.getsockopt(level,optname[.buflen])
+</code></pre>
+<h3 id="3-2-17-settimeout-函数-公共"><a href="#3-2-17-settimeout-函数-公共" class="headerlink" title="3.2.17 settimeout()函数:公共"></a>3.2.17 settimeout()函数:公共</h3><p>作用：设置套接字操作的超时期，</p>
+<p>格式：</p>
+<pre><code class="python">s.settimeout(timeout)
+</code></pre>
+<p>参数说明：</p>
+<ul>
+<li>timeout：一个浮点数，单位是秒。值为None表示没有超时期。一般，超时期应该在刚创建套接字时设置，因为它们可能用于连接的操作（如connect()）</li>
+</ul>
+<h3 id="3-2-18-gettimeout-函数-公共"><a href="#3-2-18-gettimeout-函数-公共" class="headerlink" title="3.2.18 gettimeout()函数:公共"></a>3.2.18 gettimeout()函数:公共</h3><p>作用：返回当前超时期的值，单位是秒，如果没有设置超时期，则返回None。</p>
+<p>格式：</p>
+<pre><code class="python">s.gettimeout()
+</code></pre>
+<h3 id="3-2-19-fileno-函数-公共"><a href="#3-2-19-fileno-函数-公共" class="headerlink" title="3.2.19 fileno()函数:公共"></a>3.2.19 fileno()函数:公共</h3><p>作用：返回套接字的文件描述符。</p>
+<p>格式：</p>
+<pre><code class="python">s.fileno()
+</code></pre>
+<h3 id="3-2-20-setblocking-函数-公共"><a href="#3-2-20-setblocking-函数-公共" class="headerlink" title="3.2.20 setblocking()函数:公共"></a>3.2.20 setblocking()函数:公共</h3><p>作用：如果flag为0，则将套接字设为非阻塞模式，否则将套接字设为阻塞模式（默认值）。非阻塞模式下，如果调用recv()没有发现任何数据，或send()调用无法立即发送数据，那么将引起socket.error异常。</p>
+<p>格式：</p>
+<pre><code class="python">s.setblocking(flag)
+</code></pre>
+<p>参数说明：</p>
+<ul>
+<li>flag：判断套接字是不是为阻塞模式。</li>
+</ul>
+<h3 id="3-2-21-makefile-函数-公共"><a href="#3-2-21-makefile-函数-公共" class="headerlink" title="3.2.21 makefile()函数:公共"></a>3.2.21 makefile()函数:公共</h3><p>作用：创建一个与该套接字相关连的文件</p>
+<p>格式：</p>
+<pre><code class="python">s.makefile()
+</code></pre>
+<h1 id="肆-Socket编程思路"><a href="#肆-Socket编程思路" class="headerlink" title="肆 Socket编程思路"></a>肆 Socket编程思路</h1><p>这里讲述TCP套接字编程过程：</p>
+<h2 id="4-1-TCP服务端"><a href="#4-1-TCP服务端" class="headerlink" title="4.1 TCP服务端"></a>4.1 TCP服务端</h2><p>1、创建套接字，绑定套接字到本地IP与端口</p>
+<pre><code class="python">s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+s.bind((IP, PORT))
+</code></pre>
+<p>2、开始监听连接</p>
+<pre><code class="python">s.listen(num)
+</code></pre>
+<p>3、进入循环，不断接受客户端的连接请求</p>
+<pre><code class="python">s.accept()
+</code></pre>
+<p>4、然后接收传来的数据，并发送给对方数据</p>
+<pre><code class="python">s.recv(BUFLEN)
+s.sendall()
+</code></pre>
+<p>5、传输完毕后，关闭套接字</p>
+<pre><code class="python">s.close()
+</code></pre>
+<h2 id="4-2-TCP客户端"><a href="#4-2-TCP客户端" class="headerlink" title="4.2 TCP客户端"></a>4.2 TCP客户端</h2><p>1、创建套接字，连接远端地址</p>
+<pre><code class="python">s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+s.connect()
+</code></pre>
+<p>2、连接后发送数据和接收数据</p>
+<pre><code class="python">s.sendall()
+s.recv()
+</code></pre>
+<p>3、传输完毕后，关闭套接字</p>
+<pre><code class="python">s.close()
+</code></pre>
+<h1 id="伍-例子"><a href="#伍-例子" class="headerlink" title="伍 例子"></a>伍 例子</h1><h2 id="5-1-简单使用"><a href="#5-1-简单使用" class="headerlink" title="5.1 简单使用"></a>5.1 简单使用</h2><p>需要客户端、服务端两个脚本：</p>
+<pre><code class="python">#  === TCP 服务端程序 server.py ===
+
+# 导入socket 库
+from socket import *
+
+# 主机地址为空字符串，表示绑定本机所有网络接口ip地址
+# 等待客户端来连接
+IP = &#39;127.0.0.1&#39;
+# 端口号
+PORT = 50000
+# 定义一次从socket缓冲区最多读入512个字节数据
+BUFLEN = 512
+
+# 实例化一个socket对象
+# 参数 AF_INET 表示该socket网络层使用IP协议
+# 参数 SOCK_STREAM 表示该socket传输层使用TCP协议
+listenSocket = socket(AF_INET, SOCK_STREAM)
+
+# socket绑定地址和端口
+listenSocket.bind((IP, PORT))
+
+
+# 使socket处于监听状态，等待客户端的连接请求
+# 参数 8 表示 最多接受多少个等待连接的客户端
+listenSocket.listen(8)
+print(f&#39;服务端启动成功，在&#123;PORT&#125;端口等待客户端连接...&#39;)
+
+dataSocket, addr = listenSocket.accept()
+print(&#39;接受一个客户端连接:&#39;, addr)
+
+while True:
+    # 尝试读取对方发送的消息
+    # BUFLEN 指定从接收缓冲里最多读取多少字节
+    recved = dataSocket.recv(BUFLEN)
+
+    # 如果返回空bytes，表示对方关闭了连接
+    # 退出循环，结束消息收发
+    if not recved:
+        break
+
+    # 读取的字节数据是bytes类型，需要解码为字符串
+    info = recved.decode()
+    print(f&#39;收到对方信息： &#123;info&#125;&#39;)
+
+    # 发送的数据类型必须是bytes，所以要编码
+    dataSocket.send(f&#39;服务端接收到了信息 &#123;info&#125;&#39;.encode())
+
+# 服务端也调用close()关闭socket
+dataSocket.close()
+listenSocket.close()
+</code></pre>
+<pre><code class="python">#  === TCP 客户端程序 client.py ===
+
+from socket import *
+
+IP = &#39;127.0.0.1&#39;
+SERVER_PORT = 50000
+BUFLEN = 1024
+
+# 实例化一个socket对象，指明协议
+dataSocket = socket(AF_INET, SOCK_STREAM)
+
+# 连接服务端socket
+dataSocket.connect((IP, SERVER_PORT))
+
+while True:
+    # 从终端读入用户输入的字符串
+    toSend = input(&#39;&gt;&gt;&gt; &#39;)
+    if  toSend ==&#39;exit&#39;:
+        break
+    # 发送消息，也要编码为 bytes
+    dataSocket.send(toSend.encode())
+
+    # 等待接收服务端的消息
+    recved = dataSocket.recv(BUFLEN)
+    # 如果返回空bytes，表示对方关闭了连接
+    if not recved:
+        break
+    # 打印读取的信息
+    print(recved.decode())
+
+dataSocket.close()
+</code></pre>
+<h2 id="5-2-项目"><a href="#5-2-项目" class="headerlink" title="5.2 项目"></a>5.2 项目</h2><p>下面使关于Socket应用的项目：<a href="../../../undefined">Socket进行文件的传输</a></p>
+<h1 id="陆-参考"><a href="#陆-参考" class="headerlink" title="陆 参考"></a>陆 参考</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://www.byhy.net/tut/py/etc/socket/">socket编程</a></li>
+</ul>
+
+    </div>
+    
+</div>
+
+    <div id="home-card">
+        <div id="card-div">
+    <div class="card-style" style="width: 300px">
+        <div class="avatar">
+            <img src="/images/f6e2b991f74bfd7b88c3ab1a3d513b94.jpg " alt="avatar">
+        </div>
+        <div class="name">
+            小C&天天
+        </div>
+        <div class="descriptions">
+            
+            <div class="description">
+                修学储能 先博后渊
+            </div>
+            
+        </div>
+        <div class="icon-links">
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://github.com/A7cc">
+                    <i class="fa-brands fa-github fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.qq.com/">
+                    <i class="fa-brands fa-qq fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.weibo.com/">
+                    <i class="fa-brands fa-weibo fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://google.com/">
+                    <i class="fa-brands fa-google fa-fw"></i>
+                </a>
+            </span>
+            
+        </div>
+        <div class="friend-links">
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="http://www.wgs6km.top/">
+                    kyrieee个人博客
+                </a>
+            </div>
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="https://tonyd0g.gitee.io/">
+                    tonyd0g
+                </a>
+            </div>
+            
+        </div>
+    </div>
+    <!-- 目录 -->
+    
+        <div class="card-style" style="width: 300px">
+            <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A3%B9-%E7%AE%80%E4%BB%8B"><span class="toc-text">壹 简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8Socekt%EF%BC%9F"><span class="toc-text">1.1 为什么要用Socekt？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-Socket%E6%98%AF%E4%BB%80%E4%B9%88%E5%91%A2%EF%BC%9F"><span class="toc-text">1.2 Socket是什么呢？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-%E9%82%A3%E8%A6%81%E6%80%8E%E4%B9%88%E7%94%A8Socket%E5%91%A2%EF%BC%9F"><span class="toc-text">1.3 那要怎么用Socket呢？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%B0-%E5%AE%89%E8%A3%85"><span class="toc-text">贰 安装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%81-Socket%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="toc-text">叁 Socket的基本操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-Socket%E7%B1%BB%E5%9E%8B"><span class="toc-text">3.1 Socket类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-Socket%E5%87%BD%E6%95%B0"><span class="toc-text">3.2 Socket函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-1-socket-%E5%87%BD%E6%95%B0-%E5%88%9D%E5%A7%8B"><span class="toc-text">3.2.1 socket()函数:初始</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-2-bind-%E5%87%BD%E6%95%B0-%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="toc-text">3.2.2 bind()函数:服务端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-3-listen-%E5%87%BD%E6%95%B0-%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="toc-text">3.2.3 listen()函数:服务端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-4-accept-%E5%87%BD%E6%95%B0-%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="toc-text">3.2.4 accept()函数:服务端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-5-connect-%E5%87%BD%E6%95%B0-%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="toc-text">3.2.5 connect()函数:客户端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-6-connect-ex-%E5%87%BD%E6%95%B0-%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="toc-text">3.2.6 connect_ex()函数:客户端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-7-recv-%E5%87%BD%E6%95%B0-%E5%85%AC%E5%85%B1"><span class="toc-text">3.2.7 recv()函数:公共</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-8-send-%E5%87%BD%E6%95%B0-%E5%85%AC%E5%85%B1"><span class="toc-text">3.2.8 send()函数:公共</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-9-sendall-%E5%87%BD%E6%95%B0-%E5%85%AC%E5%85%B1"><span class="toc-text">3.2.9 sendall()函数:公共</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-10-recvfrom-%E5%87%BD%E6%95%B0-%E5%85%AC%E5%85%B1"><span class="toc-text">3.2.10 recvfrom()函数:公共</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-11-sendto-%E5%87%BD%E6%95%B0-%E5%85%AC%E5%85%B1"><span class="toc-text">3.2.11 sendto()函数:公共</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-12-close-%E5%87%BD%E6%95%B0-%E5%85%AC%E5%85%B1"><span class="toc-text">3.2.12 close()函数:公共</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-13-getpeername-%E5%87%BD%E6%95%B0-%E5%85%AC%E5%85%B1"><span class="toc-text">3.2.13 getpeername()函数:公共</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-14-getsockname-%E5%87%BD%E6%95%B0-%E5%85%AC%E5%85%B1"><span class="toc-text">3.2.14 getsockname()函数:公共</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-15-setsockopt-%E5%87%BD%E6%95%B0-%E5%85%AC%E5%85%B1"><span class="toc-text">3.2.15 setsockopt()函数:公共</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-16-getsockopt-%E5%87%BD%E6%95%B0-%E5%85%AC%E5%85%B1"><span class="toc-text">3.2.16 getsockopt()函数:公共</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-17-settimeout-%E5%87%BD%E6%95%B0-%E5%85%AC%E5%85%B1"><span class="toc-text">3.2.17 settimeout()函数:公共</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-18-gettimeout-%E5%87%BD%E6%95%B0-%E5%85%AC%E5%85%B1"><span class="toc-text">3.2.18 gettimeout()函数:公共</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-19-fileno-%E5%87%BD%E6%95%B0-%E5%85%AC%E5%85%B1"><span class="toc-text">3.2.19 fileno()函数:公共</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-20-setblocking-%E5%87%BD%E6%95%B0-%E5%85%AC%E5%85%B1"><span class="toc-text">3.2.20 setblocking()函数:公共</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-21-makefile-%E5%87%BD%E6%95%B0-%E5%85%AC%E5%85%B1"><span class="toc-text">3.2.21 makefile()函数:公共</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%82%86-Socket%E7%BC%96%E7%A8%8B%E6%80%9D%E8%B7%AF"><span class="toc-text">肆 Socket编程思路</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-TCP%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="toc-text">4.1 TCP服务端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-TCP%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="toc-text">4.2 TCP客户端</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BC%8D-%E4%BE%8B%E5%AD%90"><span class="toc-text">伍 例子</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8"><span class="toc-text">5.1 简单使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2-%E9%A1%B9%E7%9B%AE"><span class="toc-text">5.2 项目</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%99%86-%E5%8F%82%E8%80%83"><span class="toc-text">陆 参考</span></a></li></ol>
+            </div>    
+        </div>
+        
+    </div>
+</div>
+    </div>
+    
+</div>
+                         
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2023 小C♥天天
+            <span class="footer-icon">
+                <i class="fa-brands fa-github fa-fw"></i>
+            </span>
+            @小C&天天
+        </div>
+        <div>
+            备案号：小C&天天の窝
+        </div>
+    </div>
+</footer>
+                    </div>
+                </div>
+            </transition>
+            <div id="img_show">
+                <img id="img_content" alt="img_show">
+            </div>
+        </div>
+        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
+        <script src="/js/particlex.js"></script>
+        <script src="/js/showimg.js"></script>
+        
+
+        <!-- 3D模型 -->
+        <div id="L2dCanvas" style="position: relative;"></div>
+        <script src="/js/live2d.min.js"></script>
+        <script src="/css/live2d.css"></script>
+        <script>
+            var v = new Viewer({
+                basePath: "/model",
+                role: "zhala_2",
+                mobile: true,
+            });
+        </script>
+        <!-- 点击 -->
+        <script>
+            let body = document.getElementsByTagName('body')[0];
+            body.addEventListener('click', (e) => {
+                let contentArr = ['✊','😘','😍','😊','😭','😡','😋','👍','🐷','😱','💷','💵','×','🆗','№','⭐','🌙','♥','💴','☀','🐎','🐂','🐏','√'];
+                let randomNum = function (n) {
+                    return Math.floor(Math.random() * n)
+                }
+                let span = document.createElement('span');
+                span.innerHTML = `${contentArr[randomNum(contentArr.length)]}`;
+                span.style.color = `rgb(${randomNum(256)},${randomNum(256)},${randomNum(256)})`;
+                span.style.position = 'absolute';
+                span.style.top = `${e.pageY}px`;
+                span.style.left = `${e.pageX}px`;
+                span.style.transition = 'all 1s ease';
+                span.style.zIndex = 20000;
+                body.appendChild(span)
+                setTimeout(()=>{
+                    span.style.top = span.offsetTop - 100 + 'px';
+                    span.style.opacity = 0;
+                    setTimeout(()=>{span.remove()},700)
+                },0)
+            })
+        </script>
+        <!-- 流星背景特效 -->
+        <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/background.js"></script>
+    </body>
+</html>

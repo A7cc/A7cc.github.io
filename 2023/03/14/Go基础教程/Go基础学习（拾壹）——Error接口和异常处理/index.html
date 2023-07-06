@@ -125,6 +125,8 @@
                     </div>
                     <div id="main">
                         
+
+<div id="home-posts-wrap" class=>
 <div class="article">
     <div>
         <h1>Go基础学习（拾壹）——Error接口和异常处理 </h1>
@@ -161,7 +163,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/Golang" style="color: #00a596">
+                <a href="/tags/Golang" style="color: #00bcd4">
                     Golang
                 </a>
             </span>
@@ -356,6 +358,80 @@ func main() &#123;
 </code></pre>
 <p><img src="/images/Go%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/858296cb59d24798af410570c15765cc.png" alt="858296cb59d24798af410570c15765cc.png"><br>这时候程序会一直运行到出现<code>panic</code>为止，由于是在主函数使用<code>recover</code>函数，所以是终止<code>main</code>函数，并且<code>main</code>函数内剩余的代码将不会执行，如果有多协程运行的话，其中一个协程出现<code>panic</code>，并且在主函数使用<code>recover</code>函数，那么程序依然会报<code>panic</code>导致整个程序挂掉，正确的做法是在开启协程的函数里使用<code>recover</code>函数，所以<code>recover</code>函数只是针对当前函数和以及直接调用的该函数可能产生的<code>panic</code>，它无法处理其调用产生的其它协程的<code>panic</code>。</p>
 
+    </div>
+    
+</div>
+
+    <div id="home-card">
+        <div id="card-div">
+    <div class="card-style" style="width: 300px">
+        <div class="avatar">
+            <img src="/images/f6e2b991f74bfd7b88c3ab1a3d513b94.jpg " alt="avatar">
+        </div>
+        <div class="name">
+            小C&天天
+        </div>
+        <div class="descriptions">
+            
+            <div class="description">
+                修学储能 先博后渊
+            </div>
+            
+        </div>
+        <div class="icon-links">
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://github.com/A7cc">
+                    <i class="fa-brands fa-github fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.qq.com/">
+                    <i class="fa-brands fa-qq fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.weibo.com/">
+                    <i class="fa-brands fa-weibo fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://google.com/">
+                    <i class="fa-brands fa-google fa-fw"></i>
+                </a>
+            </span>
+            
+        </div>
+        <div class="friend-links">
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="http://www.wgs6km.top/">
+                    kyrieee个人博客
+                </a>
+            </div>
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="https://tonyd0g.gitee.io/">
+                    tonyd0g
+                </a>
+            </div>
+            
+        </div>
+    </div>
+    <!-- 目录 -->
+    
+        <div class="card-style" style="width: 300px">
+            <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A3%B9-%E4%BB%8B%E7%BB%8D"><span class="toc-text">壹 介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%B0-Error-%E6%8E%A5%E5%8F%A3"><span class="toc-text">贰 Error 接口</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%B0-%E4%BD%BF%E7%94%A8error%E6%8E%A5%E5%8F%A3%E8%BF%94%E5%9B%9E%E9%94%99%E8%AF%AF"><span class="toc-text">贰 使用error接口返回错误</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%81-%E8%87%AA%E5%AE%9A%E4%B9%89%E9%94%99%E8%AF%AF"><span class="toc-text">叁 自定义错误</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%82%86-%E9%94%99%E8%AF%AF%E7%BB%93%E6%9E%84%E4%BD%93%E7%B1%BB%E5%9E%8B"><span class="toc-text">肆 错误结构体类型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BC%8D-recover%E2%80%94%E2%80%94%E6%8D%95%E8%8E%B7%E5%BC%82%E5%B8%B8"><span class="toc-text">伍 recover——捕获异常</span></a></li></ol>
+            </div>    
+        </div>
+        
+    </div>
+</div>
     </div>
     
 </div>

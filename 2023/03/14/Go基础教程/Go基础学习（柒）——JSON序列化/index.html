@@ -1,0 +1,829 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>Go基础学习（柒）——JSON序列化 | 小C♥天天</title>
+        <meta name="author" content="小C&天天">
+        <meta name="description" content="^v^">
+        <meta name="keywords" content="">
+        <link rel="icon" href="/images/icon.jpg">
+        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
+        <link rel="stylesheet" href="/css/fonts.min.css">
+        <link rel="stylesheet" href="/css/particlex.css">
+        <link rel="stylesheet" href="/css/main.css">
+        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
+        <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+        <link rel="stylesheet" href="/css/style.css">
+    <meta name="generator" content="Hexo 6.2.0"></head>
+    <body>
+        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:30vmin;height:30vmin;padding:60px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #dd20dd;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">正在加载</p><div><img alt="loading" src="/images/afde9fa65a5742a90b51d6e1211e841e.gif"></div></div></div></div></div>
+        <div id="layout">
+            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
+            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
+            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
+            <transition name="into">
+                <div v-show="show_page" style="display: -not-none">
+                    <div id="menu_show">
+                         
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">小C♥天天</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;文章</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+        <form class="search">
+            <input type="text" placeholder="需要搜索什么？">
+            <button type="submit"></button>
+        </form>
+    </div>
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
+        <div :class="'title'" @click="menu_show = !menu_show">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;小C♥天天</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+                    </div>
+                    <div id="main">
+                        
+
+<div id="home-posts-wrap" class=>
+<div class="article">
+    <div>
+        <h1>Go基础学习（柒）——JSON序列化 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2023/3/14
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Go基础教程">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                </span>
+                Go基础教程
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/开发" style="color: #ffa2c4">
+                    开发
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Golang" style="color: #00a596">
+                    Golang
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    <div class="content" v-pre>
+        <h1 id="壹-JSON序列化介绍"><a href="#壹-JSON序列化介绍" class="headerlink" title="壹 JSON序列化介绍"></a>壹 JSON序列化介绍</h1><p><code>JSON(JavaScript Object Notation)</code> 是一种轻量级的数据交换格式，常用于前后端数据传输，易于人阅读和编写，同时也易于机器解析和生成。JSON键值对是用来保存JS对象的一种方式，键&#x2F;值对组合中的键名写在前面并用双引号<code>&quot;&quot;</code>包裹，使用冒号<code>:</code>分隔，然后紧接着值；多个键值之间使用英文<code>,</code>分隔。</p>
+<p><font color="red">为什么要序列化和反序列化？个人觉得是因为不同语言的数据类型的内存分配情况、语法等不同，我们需要一种统一的格式去识别和说明，不同语言之间数据的交换，这就需要序列化和反序列化，例如，<code>Python</code>与<code>Go</code>语言的不同，之间的交互我们就需要使用序列化和反序列化。</font></p>
+<p>对于JSON序列化，我们会使用<code>encoding/json</code>库或者第三方库<code>github.com/tidwall/gjson</code>，进行JSON序列化和反序列化，这里我们简单介绍一下官方库<code>encoding/json</code>库，其他第三方库，自行了解学习。</p>
+<span id="more"></span>
+<h1 id="贰-JSON序列化和反序列化函数"><a href="#贰-JSON序列化和反序列化函数" class="headerlink" title="贰 JSON序列化和反序列化函数"></a>贰 JSON序列化和反序列化函数</h1><p>对于JSON序列化，我们使用两个函数：<code>Unmarshal</code>函数（JSON反序列化）和<code>Marshal</code>函数（序列化）</p>
+<h2 id="2-1-Unmarshal函数——JSON格式的字符串转化为结构体"><a href="#2-1-Unmarshal函数——JSON格式的字符串转化为结构体" class="headerlink" title="2.1 Unmarshal函数——JSON格式的字符串转化为结构体"></a>2.1 Unmarshal函数——JSON格式的字符串转化为结构体</h2><p><code>Unmarshal</code>函数是将JSON格式的字符串转化为结构体，这里需要注意 <code>json.UnMarshal()</code> 函数接收的参数是字节切片，所以相当于JSON格式的字节切片转化为结构体<code>struct</code>。</p>
+<p>格式：</p>
+<pre><code class="go">func Unmarshal(data []byte, v interface&#123;&#125;) error
+// data是要进行转化的json数据
+// v是被转化后的struct数据，指针或者类型都行
+</code></pre>
+<p>举个例子：</p>
+<pre><code class="go">//Student 学生
+type Student struct &#123;
+    ID     int
+    Gender string
+    Name   string
+&#125;
+
+//Class 班级
+type Class struct &#123;
+    Title    string
+    Students []*Student
+&#125;
+
+func main() &#123;
+    c := &amp;Class&#123;
+        Title:    &quot;101&quot;,
+        Students: make([]*Student, 0, 200),
+    &#125;
+    for i := 0; i &lt; 10; i++ &#123;
+        stu := &amp;Student&#123;
+            Name:   fmt.Sprintf(&quot;stu%02d&quot;, i),
+            Gender: &quot;男&quot;,
+            ID:     i,
+        &#125;
+        c.Students = append(c.Students, stu)
+    &#125;
+    //JSON序列化：结构体--&gt;JSON格式的字符串
+    data, err := json.Marshal(c)
+    if err != nil &#123;
+        fmt.Println(&quot;json marshal failed&quot;)
+        return
+    &#125;
+    fmt.Printf(&quot;json:%s\n&quot;, data)
+    //JSON反序列化：JSON格式的字符串--&gt;结构体
+    str := `&#123;&quot;Title&quot;:&quot;101&quot;,&quot;Students&quot;:[&#123;&quot;ID&quot;:0,&quot;Gender&quot;:&quot;男&quot;,&quot;Name&quot;:&quot;stu00&quot;&#125;,&#123;&quot;ID&quot;:1,&quot;Gender&quot;:&quot;男&quot;,&quot;Name&quot;:&quot;stu01&quot;&#125;,&#123;&quot;ID&quot;:2,&quot;Gender&quot;:&quot;男&quot;,&quot;Name&quot;:&quot;stu02&quot;&#125;,&#123;&quot;ID&quot;:3,&quot;Gender&quot;:&quot;男&quot;,&quot;Name&quot;:&quot;stu03&quot;&#125;,&#123;&quot;ID&quot;:4,&quot;Gender&quot;:&quot;男&quot;,&quot;Name&quot;:&quot;stu04&quot;&#125;,&#123;&quot;ID&quot;:5,&quot;Gender&quot;:&quot;男&quot;,&quot;Name&quot;:&quot;stu05&quot;&#125;,&#123;&quot;ID&quot;:6,&quot;Gender&quot;:&quot;男&quot;,&quot;Name&quot;:&quot;stu06&quot;&#125;,&#123;&quot;ID&quot;:7,&quot;Gender&quot;:&quot;男&quot;,&quot;Name&quot;:&quot;stu07&quot;&#125;,&#123;&quot;ID&quot;:8,&quot;Gender&quot;:&quot;男&quot;,&quot;Name&quot;:&quot;stu08&quot;&#125;,&#123;&quot;ID&quot;:9,&quot;Gender&quot;:&quot;男&quot;,&quot;Name&quot;:&quot;stu09&quot;&#125;]&#125;`
+    c1 := &amp;Class&#123;&#125;
+    // Unmarshal函数是将JSON格式的字符串转化为结构体，这里需要注意json.UnMarshal() 函数接收的参数是字节切片，所以相当于JSON格式的字节切片转化为结构体
+    err = json.Unmarshal([]byte(str), c1)
+    if err != nil &#123;
+        fmt.Println(&quot;json unmarshal failed!&quot;)
+        return
+    &#125;
+    // 或者使用NewDecoder().Decode()，这里只是简单了解
+    // 	if err := json.NewDecoder([]byte(str)).Decode(&amp;Class); err != nil &#123;
+    // 		log.Fatalln(err)
+    // 	&#125;
+    fmt.Printf(&quot;%#v\n&quot;, c1)
+&#125;
+</code></pre>
+<h2 id="2-2-Marshal函数——将数据编码成JSON字符串"><a href="#2-2-Marshal函数——将数据编码成JSON字符串" class="headerlink" title="2.2 Marshal函数——将数据编码成JSON字符串"></a>2.2 Marshal函数——将数据编码成JSON字符串</h2><p><code>Marshal</code>函数是将Go语言的类型转化为JSON，这里需要注意 <code>json.Marshal()</code> 函数返回的是字节切片。</p>
+<p>格式：</p>
+<pre><code class="go">func Marshal(v interface&#123;&#125;) ([]byte, error)
+// v是要进行转化的Go语言的类型数据
+// []byte是被转化后的json字节切片数据
+</code></pre>
+<p>举个例子：</p>
+<pre><code class="go">package main
+
+import (
+    &quot;encoding/json&quot;
+    &quot;fmt&quot;
+)
+
+type Stu struct &#123;
+    Name  string `json:&quot;name&quot;`
+    Age   int
+    HIgh  bool
+    sex   string
+    Class *Class `json:&quot;class&quot;`
+&#125;
+
+type Class struct &#123;
+    Name  string
+    Grade int
+&#125;
+
+func main() &#123;
+    //实例化一个数据结构，用于生成json字符串
+    stu := Stu&#123;
+        Name: &quot;张三&quot;,
+        Age:  18,
+        HIgh: true,
+        sex:  &quot;男&quot;,
+    &#125;
+
+    //指针变量
+    cla := new(Class)
+    cla.Name = &quot;1班&quot;
+    cla.Grade = 3
+    stu.Class = cla
+
+    //Marshal失败时err!=nil
+    jsonStu, err := json.Marshal(stu)
+    if err != nil &#123;
+        fmt.Println(&quot;生成json字符串错误&quot;)
+    &#125;
+
+    //jsonStu是[]byte类型，转化成string类型便于查看
+    fmt.Println(string(jsonStu))	// &#123;&quot;name&quot;:&quot;张三&quot;,&quot;Age&quot;:18,&quot;HIgh&quot;:true,&quot;class&quot;:&#123;&quot;Name&quot;:&quot;1班&quot;,&quot;Grade&quot;:3&#125;&#125;
+&#125;
+</code></pre>
+<p>从结果中可以看出：</p>
+<ul>
+<li>只要是可导出成员（变量首字母大写），都可以转成JSON。因成员变量sex（变量首字母小写）是不可导出的，故无法转成JSON。</li>
+<li>如果变量打上了JSON标签，如Name旁边的 <code>json:&quot;name&quot;</code> ，那么转化成的<code>json key</code>就用该标签<code>name</code>，否则取变量名作为<code>key</code>，如<code>Age</code>，<code>HIgh</code>。</li>
+<li><code>bool</code>类型也是可以直接转换为JSON的<code>value</code>值。<code>Channel</code>， <code>complex</code> 以及函数不能被编码JSON字符串。当然，循环的数据结构也不行，它会导致<code>marshal</code>陷入死循环。</li>
+<li>如果是<code>指针变量</code>，编码时自动转换为<code>它所指向的值</code>，如上面例子的<code>cla</code>变量，当然，不传指针，<code>Stu struct</code>的成员<code>Class</code>如果换成<code>Class struct</code>类型，效果也是一模一样的。只不过指针更快，且能节省内存空间。</li>
+<li>最后，强调一句：·JSON编码成字符串后就是纯粹的字符串了。</li>
+</ul>
+<p>上面的成员变量都是已知的类型，只能接收指定的类型，比如<code>string</code>类型的<code>Name</code>只能赋值<code>string</code>类型的数据。但有时为了通用性，或使代码简洁，我们希望有一种类型可以接受各种类型的数据，并进行<code>JSON</code>编码。这就用到了<code>interface&#123;&#125;</code>类型。<code>Go</code>的每一种类型都实现了该接口。因此，任何其他类型的数据都可以赋值给<code>interface&#123;&#125;</code>类型。</p>
+<pre><code class="go">package main
+
+import (
+    &quot;encoding/json&quot;
+    &quot;fmt&quot;
+)
+
+type Stu struct &#123;
+    Name  interface&#123;&#125; `json:&quot;name&quot;`
+    Age   interface&#123;&#125;
+    HIgh  interface&#123;&#125;
+    sex   interface&#123;&#125;
+    Class interface&#123;&#125; `json:&quot;class&quot;`
+&#125;
+
+type Class struct &#123;
+    Name  string
+    Grade int
+&#125;
+
+func main() &#123;
+    //实例化一个数据结构，用于生成json字符串
+    stu := Stu&#123;
+        Name: &quot;张三&quot;,
+        Age:  18,
+        HIgh: true,
+        sex:  &quot;男&quot;,
+    &#125;
+
+    //指针变量
+    cla := new(Class)
+    cla.Name = &quot;1班&quot;
+    cla.Grade = 3
+    stu.Class = cla
+
+    //Marshal失败时err!=nil
+    jsonStu, err := json.Marshal(stu)
+    if err != nil &#123;
+        fmt.Println(&quot;生成json字符串错误&quot;)
+    &#125;
+
+    //jsonStu是[]byte类型，转化成string类型便于查看
+    fmt.Println(string(jsonStu)) // &#123;&quot;name&quot;:&quot;张三&quot;,&quot;Age&quot;:18,&quot;HIgh&quot;:true,&quot;class&quot;:&#123;&quot;Name&quot;:&quot;1班&quot;,&quot;Grade&quot;:3&#125;&#125;
+&#125;
+</code></pre>
+<p>从结果中可以看出，无论是<code>string</code>，<code>int</code>，<code>bool</code>，还是指针类型等，都可赋值给<code>interface&#123;&#125;</code>类型，且正常编码，效果与前面的例子一样。</p>
+<h2 id="2-3-MarshalIndent函数——将JSON字符串格式化"><a href="#2-3-MarshalIndent函数——将JSON字符串格式化" class="headerlink" title="2.3 MarshalIndent函数——将JSON字符串格式化"></a>2.3 MarshalIndent函数——将JSON字符串格式化</h2><p>我们都知道<code>json</code>格式一般是下面这种格式：</p>
+<pre><code class="json">&#123;
+ &quot;user_id&quot;: 1,
+ &quot;user_name&quot;: &quot;demo&quot;
+&#125;
+</code></pre>
+<p>而在用<code>Marshal</code>函数时，我们会发现输出的是一行<code>json</code>字符串，并不美观，这时候我们就可以使用<code>MarshalIndent</code>函数：</p>
+<pre><code class="go">func MarshalIndent(v any, prefix, indent string) ([]byte, error)
+# prefix表示json每一行都会输出的字符串
+# indent表示在prefix基础上再输出
+</code></pre>
+<p>例子：</p>
+<pre><code class="go">package main
+import (
+    &quot;encoding/json&quot;
+    &quot;fmt&quot;
+)
+func main() &#123;
+    type User struct &#123;
+        UserId   int    `json:&quot;user_id&quot;`
+        UserName string `json:&quot;user_name&quot;`
+    &#125;
+    // 输出json格式
+    u := User&#123;UserId: 1, UserName: &quot;demo&quot;&#125;
+    j, _ := json.MarshalIndent(u, &quot;=&quot;, &quot;++&quot;)
+    fmt.Println(string(j))
+    // 输出内容：
+    // &#123;
+    // =++&quot;user_id&quot;: 1,
+    // =++&quot;user_name&quot;: &quot;demo&quot;
+    // =&#125;
+&#125;
+</code></pre>
+<h1 id="叁-JSON与Map、struct转化"><a href="#叁-JSON与Map、struct转化" class="headerlink" title="叁 JSON与Map、struct转化"></a>叁 JSON与Map、struct转化</h1><p>例如我们在爬虫时，可能会获取到的时<code>JSON</code>格式的数据，这时候我们就需要将其转化为Go语言常用的数据类型，才能对<code>JSON</code>数据内容进行操作。</p>
+<h2 id="3-1-JSON与struct转化"><a href="#3-1-JSON与struct转化" class="headerlink" title="3.1 JSON与struct转化"></a>3.1 JSON与struct转化</h2><p><code>JSON</code>转化为<code>struct</code>有伍种：普通<code>JSON</code>、<code>JSON</code>内嵌普通<code>JSON</code>、<code>JSON</code>内嵌数组<code>JSON</code>、<code>JSON</code>内嵌具有动态<code>Key</code>的<code>JSON</code>、使用空接口。</p>
+<p><font color="red">思路就是创建一个与<code>JSON</code>一样格式的<code>struct</code>数据类型，使用<code>Unmarshal</code>函数将JSON格式的字符串转化为结构体。</font></p>
+<h3 id="3-1-1-普通JSON"><a href="#3-1-1-普通JSON" class="headerlink" title="3.1.1 普通JSON"></a>3.1.1 普通JSON</h3><p>由于普通JSON结构比较简单，所以我们使用基本类型作为结构体的元素即可。</p>
+<pre><code class="go">package main
+
+import (
+    &quot;encoding/json&quot;
+    &quot;fmt&quot;
+)
+
+// Actress 女演员
+// 使用基本类型作为结构体的元素
+type Actress struct &#123;
+    Name       string
+    Birthday   string
+    BirthPlace string
+    Opus       []string
+&#125;
+
+func main() &#123;
+    // 普通JSON
+    jsonData := []byte(`&#123;
+        &quot;name&quot;:&quot;迪丽热巴&quot;,
+        &quot;birthday&quot;:&quot;1992-06-03&quot;,
+        &quot;birthPlace&quot;:&quot;新疆乌鲁木齐市&quot;,
+        &quot;opus&quot;:[
+            &quot;《阿娜尔罕》&quot;,
+            &quot;《逆光之恋》&quot;,
+            &quot;《克拉恋人》&quot;
+        ]
+    &#125;`)
+
+    var actress Actress
+    // 因为json.UnMarshal() 函数接收的参数是字节切片，所以需要把JSON字符串转换成字节切片。
+    err := json.Unmarshal(jsonData, &amp;actress)
+    if err != nil &#123;
+        fmt.Println(&quot;error:&quot;, err)
+        return
+    &#125;
+    fmt.Printf(&quot;姓名：%s\n&quot;, actress.Name)
+    fmt.Printf(&quot;生日：%s\n&quot;, actress.Birthday)
+    fmt.Printf(&quot;出生地：%s\n&quot;, actress.BirthPlace)
+    fmt.Println(&quot;作品：&quot;)
+    for _, val := range actress.Opus &#123;
+        fmt.Println(&quot;\t&quot;, val)
+    &#125;
+&#125;
+</code></pre>
+<h3 id="3-1-2-JSON内嵌普通JSON"><a href="#3-1-2-JSON内嵌普通JSON" class="headerlink" title="3.1.2 JSON内嵌普通JSON"></a>3.1.2 JSON内嵌普通JSON</h3><p>JSON内嵌普通JSON结构比较稍微比较复杂，这时候我们根据JSON数据可以看到JSON其中一个元素里面是JSON，这时候我们可以定义与JSON嵌套内的JSON一样的<code>struct</code>数据类型，如下面例子中的<code>Opus</code>，接着在定义与外围JSON数据一样的<code>struct</code>数据类型，即下面例子的<code>Actress</code>。</p>
+<pre><code class="go">package main
+
+import (
+    &quot;encoding/json&quot;
+    &quot;fmt&quot;
+)
+
+// Opus 作品
+type Opus struct &#123;
+    Date  string
+    Title string
+&#125;
+
+// Actress 女演员
+type Actress struct &#123;
+    Name       string
+    Birthday   string
+    BirthPlace string
+    // 可以看到Opus不是Go语言简单的数据类型，是一个Opus作品结构体类型
+    // 这样就与JSON的内容一致了
+    Opus Opus
+&#125;
+
+func main() &#123;
+    // JSON嵌套普通JSON
+    jsonData := []byte(`&#123;
+        &quot;name&quot;:&quot;迪丽热巴&quot;,
+        &quot;birthday&quot;:&quot;1992-06-03&quot;,
+        &quot;birthPlace&quot;:&quot;新疆乌鲁木齐市&quot;,
+        &quot;opus&quot;: &#123;
+            &quot;Date&quot;:&quot;2013&quot;,
+            &quot;Title&quot;:&quot;《阿娜尔罕》&quot;
+        &#125;
+     &#125;`)
+    var actress Actress
+    err := json.Unmarshal(jsonData, &amp;actress)
+    if err != nil &#123;
+        fmt.Println(&quot;error:&quot;, err)
+        return
+    &#125;
+    fmt.Printf(&quot;姓名：%s\n&quot;, actress.Name)
+    fmt.Printf(&quot;生日：%s\n&quot;, actress.Birthday)
+    fmt.Printf(&quot;出生地：%s\n&quot;, actress.BirthPlace)
+    fmt.Println(&quot;作品：&quot;)
+    fmt.Printf(&quot;\t%s:%s&quot;, actress.Opus.Date, actress.Opus.Title)
+&#125;
+</code></pre>
+<h3 id="3-1-3-JSON内嵌数组JSON"><a href="#3-1-3-JSON内嵌数组JSON" class="headerlink" title="3.1.3 JSON内嵌数组JSON"></a>3.1.3 JSON内嵌数组JSON</h3><p>JSON内嵌数组JSON，可以理解为结构体内嵌一个结构体切片，即JSON内嵌普通JSON中的内嵌结构体改为结构体切片。</p>
+<pre><code class="go">package main
+
+import (
+    &quot;encoding/json&quot;
+    &quot;fmt&quot;
+)
+
+type Opus struct &#123;
+    Date  string
+    Title string
+&#125;
+type Actress struct &#123;
+    Name       string
+    Birthday   string
+    BirthPlace string
+    Opus       []Opus
+&#125;
+
+func main() &#123;
+    // JSON嵌套数组JSON
+    jsonData := []byte(`&#123;
+        &quot;name&quot;:&quot;迪丽热巴&quot;,
+        &quot;birthday&quot;:&quot;1992-06-03&quot;,
+        &quot;birthPlace&quot;:&quot;新疆乌鲁木齐市&quot;,
+        &quot;opus&quot;:[
+            &#123;
+                &quot;date&quot;:&quot;2013&quot;,
+                &quot;title&quot;:&quot;《阿娜尔罕》&quot;
+            &#125;,
+            &#123;
+                &quot;date&quot;:&quot;2014&quot;,
+                &quot;title&quot;:&quot;《逆光之恋》&quot;
+            &#125;,
+            &#123;
+                &quot;date&quot;:&quot;2015&quot;,
+                &quot;title&quot;:&quot;《克拉恋人》&quot;
+            &#125;
+        ]
+    &#125;`)
+    var actress Actress
+    err := json.Unmarshal(jsonData, &amp;actress)
+    if err != nil &#123;
+        fmt.Println(&quot;error:&quot;, err)
+        return
+    &#125;
+    fmt.Printf(&quot;姓名：%s\n&quot;, actress.Name)
+    fmt.Printf(&quot;生日：%s\n&quot;, actress.Birthday)
+    fmt.Printf(&quot;出生地：%s\n&quot;, actress.BirthPlace)
+    fmt.Println(&quot;作品：&quot;)
+    for _, val := range actress.Opus &#123;
+        fmt.Printf(&quot;\t%s - %s\n&quot;, val.Date, val.Title)
+    &#125;
+&#125;
+</code></pre>
+<h3 id="3-1-4-JSON内嵌具有动态Key的JSON"><a href="#3-1-4-JSON内嵌具有动态Key的JSON" class="headerlink" title="3.1.4 JSON内嵌具有动态Key的JSON"></a>3.1.4 JSON内嵌具有动态Key的JSON</h3><p>JSON内嵌具有动态Key的JSON，是由于JSON的Key不能确定，，这时候我们可以使用<code>map</code>类型，来构造这个动态的Key。</p>
+<pre><code class="go">package main
+
+import (
+    &quot;encoding/json&quot;
+    &quot;fmt&quot;
+)
+
+// Opus 作品
+type Opus struct &#123;
+    Type  string
+    Title string
+&#125;
+
+// Actress 女演员
+type Actress struct &#123;
+    Name       string
+    Birthday   string
+    BirthPlace string
+    Opus       map[string]Opus
+&#125;
+
+func main() &#123;
+    // 可以看到opus里面的2013、2014等Key是不确定的，但是Key类型都是string，这时候我们构造的Opus是map[string]Opus
+    jsonData := []byte(`&#123;
+        &quot;name&quot;:&quot;迪丽热巴&quot;,
+        &quot;birthday&quot;:&quot;1992-06-03&quot;,
+        &quot;birthPlace&quot;:&quot;新疆乌鲁木齐市&quot;,
+        &quot;opus&quot;:&#123;
+            &quot;2013&quot;:&#123;
+            &quot;Type&quot;:&quot;近代革命剧&quot;,
+            &quot;Title&quot;:&quot;《阿娜尔罕》&quot;
+            &#125;,
+            &quot;2014&quot;:&#123;
+            &quot;Type&quot;:&quot;奇幻剧&quot;,
+            &quot;Title&quot;:&quot;《逆光之恋》&quot;
+            &#125;,
+            &quot;2015&quot;:&#123;
+                &quot;Type&quot;:&quot;爱情剧&quot;,
+                &quot;Title&quot;:&quot;《克拉恋人》&quot;
+            &#125;
+        &#125;
+    &#125;`)
+    var actress Actress
+    err := json.Unmarshal(jsonData, &amp;actress)
+    if err != nil &#123;
+        fmt.Println(&quot;error:&quot;, err)
+        return
+    &#125;
+    fmt.Printf(&quot;姓名：%s\n&quot;, actress.Name)
+    fmt.Printf(&quot;生日：%s\n&quot;, actress.Birthday)
+    fmt.Printf(&quot;出生地：%s\n&quot;, actress.BirthPlace)
+    fmt.Println(&quot;作品：&quot;)
+    for index, value := range actress.Opus &#123;
+        fmt.Printf(&quot;\t日期：%s\n&quot;, index)
+        fmt.Printf(&quot;\t\t分类：%s\n&quot;, value.Type)
+        fmt.Printf(&quot;\t\t标题：%s\n&quot;, value.Title)
+    &#125;
+&#125;
+</code></pre>
+<h3 id="3-1-5-JSON内嵌数据不明确"><a href="#3-1-5-JSON内嵌数据不明确" class="headerlink" title="3.1.5 JSON内嵌数据不明确"></a>3.1.5 JSON内嵌数据不明确</h3><p>当JSON内嵌不明确，我们可以考虑使用下面的<code>map</code>，但是也可以使用空接口。</p>
+<pre><code class="go">package main
+
+import (
+    &quot;encoding/json&quot;
+    &quot;fmt&quot;
+    &quot;reflect&quot;
+)
+
+// Actress 女演员
+type Actress struct &#123;
+    Name       string
+    Birthday   string
+    BirthPlace string
+    Opus       map[string]interface&#123;&#125;
+&#125;
+
+func main() &#123;
+    // 可以看到opus里面的2013的值是不确定的，这时候我们构造的Opus是map[string]interface&#123;&#125;
+    jsonData := []byte(`&#123;
+        &quot;name&quot;:&quot;迪丽热巴&quot;,
+        &quot;birthday&quot;:&quot;1992-06-03&quot;,
+        &quot;birthPlace&quot;:&quot;新疆乌鲁木齐市&quot;,
+        &quot;opus&quot;:&#123;
+            &quot;2013&quot;:1,
+            &quot;2014&quot;:&#123;
+            &quot;Type&quot;:&quot;奇幻剧&quot;,
+            &quot;Title&quot;:&quot;《逆光之恋》&quot;
+            &#125;,
+            &quot;2015&quot;:&#123;
+                &quot;Type&quot;:&quot;爱情剧&quot;,
+                &quot;Title&quot;:&quot;《克拉恋人》&quot;
+            &#125;
+        &#125;
+    &#125;`)
+    var actress Actress
+    err := json.Unmarshal(jsonData, &amp;actress)
+    if err != nil &#123;
+        fmt.Println(&quot;error:&quot;, err)
+        return
+    &#125;
+    fmt.Printf(&quot;姓名：%s\n&quot;, actress.Name)
+    fmt.Printf(&quot;生日：%s\n&quot;, actress.Birthday)
+    fmt.Printf(&quot;出生地：%s\n&quot;, actress.BirthPlace)
+    fmt.Println(&quot;作品：&quot;)
+    for index, value := range actress.Opus &#123;
+        fmt.Printf(&quot;\t日期：%s\n&quot;, index)
+        // 由于是空接口，我们需要使用到断言
+        Type := reflect.TypeOf(value).Kind()
+        // fmt.Println(Type)
+        // 使用switch对类型进行判断不同类型输出内容格式
+        switch Type &#123;
+        case reflect.Float64:
+            // 断言获取对应内容
+            fmt.Printf(&quot;\t\t分类：%v\n&quot;, value.(float64))
+            fmt.Printf(&quot;\t\t标题：%v\n&quot;, value.(float64))
+        case reflect.Map:
+            fmt.Printf(&quot;\t\t分类：%v\n&quot;, value.(map[string]interface&#123;&#125;)[&quot;Type&quot;])
+            fmt.Printf(&quot;\t\t标题：%v\n&quot;, value.(map[string]interface&#123;&#125;)[&quot;Title&quot;])
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h2 id="3-2-JSON与map转化"><a href="#3-2-JSON与map转化" class="headerlink" title="3.2 JSON与map转化"></a>3.2 JSON与map转化</h2><p>当JSON内容格式过于复杂的时候，对应的结构体<code>struct</code>会随之增加，这样会增加大量的代码。我们采用使用<code>map[string]interface&#123;&#125;</code>加载JSON数据。就是使用<code>json.Unmarshal</code> 将 JSON 转化<code>map[string]interface&#123;&#125;</code>。</p>
+<pre><code class="go">package main
+
+import (
+    &quot;encoding/json&quot;
+    &quot;fmt&quot;
+)
+
+func main() &#123;
+    // 定义make(map[string]interface&#123;&#125;)
+    r := make(map[string]interface&#123;&#125;)
+    result := `&#123;&quot;data&quot;:&#123;&quot;flag&quot;:&quot;1&quot;,&quot;map&quot;:&#123;&quot;AOH&quot;:&quot;上海虹桥&quot;,&quot;GGQ&quot;:&quot;广州东&quot;,&quot;GZQ&quot;:&quot;广州&quot;&#125;,&quot;result&quot;:[&quot;1&quot;,&quot;sas&quot;,1,&quot;opopijh&quot;]&#125;&#125;`
+    // 调用标准库encoding/json的Unmarshal
+    // 将JSON数据（JSON以字符串形式表示）转换成[]byte，并将数据加载到对象r的内存地址
+    json.Unmarshal([]byte(result), &amp;r)
+    // r[&quot;data&quot;]是读取JSON最外层的key,即data
+    // 如果嵌套JSON数据，则使用map[string]interface&#123;&#125;读取下一层的JSON数据
+    // 如读取key为data里面嵌套的result,即：r[&quot;data&quot;].(map[string]interface&#123;&#125;)[&quot;result&quot;]
+    // 如果JSON的某个key的数据以数组表示，则使用([]interface&#123;&#125;)[index]读取数组中某个数据。
+    // 如读取key为result的第四个数据：r[&quot;data&quot;].(map[string]interface&#123;&#125;)[&quot;result&quot;].([]interface&#123;&#125;)[3]
+    fmt.Println(r[&quot;data&quot;].(map[string]interface&#123;&#125;)[&quot;result&quot;].([]interface&#123;&#125;)[3])
+&#125;
+</code></pre>
+<ul>
+<li>这里的逻辑就是<code>r[&quot;data&quot;]</code>获取的是<code>&#123;&quot;flag&quot;:&quot;1&quot;,&quot;map&quot;:&#123;&quot;AOH&quot;:&quot;上海虹桥&quot;,&quot;GGQ&quot;:&quot;广州东&quot;,&quot;GZQ&quot;:&quot;广州&quot;&#125;,&quot;result&quot;:[&quot;1&quot;,&quot;sas&quot;,1,&quot;opopijh&quot;]&#125;</code></li>
+<li>而 <code>r[&quot;data&quot;].(map[string]interface&#123;&#125;)[&quot;result&quot;]</code>中<code>(map[string]interface&#123;&#125;)[&quot;result&quot;]</code>意思是下一个要获取的元素是<code>(map[string]interface&#123;&#125;)</code>，获取的值是<code>[&quot;1&quot;,&quot;sas&quot;,1,&quot;opopijh&quot;]</code></li>
+<li>接着<code>r[&quot;data&quot;].(map[string]interface&#123;&#125;)[&quot;result&quot;].([]interface&#123;&#125;)[3]</code>意思是下一个要获取的元素类型是<code>([]interface&#123;&#125;)</code>，获取的值是<code>opopijh</code>。</li>
+</ul>
+<h2 id="3-3-选择struct还是map？"><a href="#3-3-选择struct还是map？" class="headerlink" title="3.3 选择struct还是map？"></a>3.3 选择struct还是map？</h2><p>对于JSON转化，是选择<code>struct</code>还是<code>map</code>？个人觉得根据情况决定，如果数据量不大JSON嵌套不复杂或者是JSON的逻辑清晰时，可以使用<code>struct</code>，而JSON嵌套复杂，逻辑不确定，可以考虑使用<code>map</code>，但是会出现一个问题，使用反射，反射会拉低程序执行效率。个人而言，更倾向于使用<code>struct</code>，因为<code>struct</code>可以配套空接口，对不确定的类型进行匹配。</p>
+<p>更多关于JSON的介绍可以看这两篇文章：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/wowenlong/article/details/113571853">go语言:json转换总结</a></li>
+<li><a target="_blank" rel="noopener" href="https://studygolang.com/articles/20923">GO小知识之实例演示 json 如何转化为 map 和 struct</a></li>
+</ul>
+
+    </div>
+    
+</div>
+
+    <div id="home-card">
+        <div id="card-div">
+    <div class="card-style" style="width: 300px">
+        <div class="avatar">
+            <img src="/images/f6e2b991f74bfd7b88c3ab1a3d513b94.jpg " alt="avatar">
+        </div>
+        <div class="name">
+            小C&天天
+        </div>
+        <div class="descriptions">
+            
+            <div class="description">
+                修学储能 先博后渊
+            </div>
+            
+        </div>
+        <div class="icon-links">
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://github.com/A7cc">
+                    <i class="fa-brands fa-github fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.qq.com/">
+                    <i class="fa-brands fa-qq fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.weibo.com/">
+                    <i class="fa-brands fa-weibo fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://google.com/">
+                    <i class="fa-brands fa-google fa-fw"></i>
+                </a>
+            </span>
+            
+        </div>
+        <div class="friend-links">
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="http://www.wgs6km.top/">
+                    kyrieee个人博客
+                </a>
+            </div>
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="https://tonyd0g.gitee.io/">
+                    tonyd0g
+                </a>
+            </div>
+            
+        </div>
+    </div>
+    <!-- 目录 -->
+    
+        <div class="card-style" style="width: 300px">
+            <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A3%B9-JSON%E5%BA%8F%E5%88%97%E5%8C%96%E4%BB%8B%E7%BB%8D"><span class="toc-text">壹 JSON序列化介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%B0-JSON%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%87%BD%E6%95%B0"><span class="toc-text">贰 JSON序列化和反序列化函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-Unmarshal%E5%87%BD%E6%95%B0%E2%80%94%E2%80%94JSON%E6%A0%BC%E5%BC%8F%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E5%8C%96%E4%B8%BA%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-text">2.1 Unmarshal函数——JSON格式的字符串转化为结构体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-Marshal%E5%87%BD%E6%95%B0%E2%80%94%E2%80%94%E5%B0%86%E6%95%B0%E6%8D%AE%E7%BC%96%E7%A0%81%E6%88%90JSON%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">2.2 Marshal函数——将数据编码成JSON字符串</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-MarshalIndent%E5%87%BD%E6%95%B0%E2%80%94%E2%80%94%E5%B0%86JSON%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%A0%BC%E5%BC%8F%E5%8C%96"><span class="toc-text">2.3 MarshalIndent函数——将JSON字符串格式化</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%81-JSON%E4%B8%8EMap%E3%80%81struct%E8%BD%AC%E5%8C%96"><span class="toc-text">叁 JSON与Map、struct转化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-JSON%E4%B8%8Estruct%E8%BD%AC%E5%8C%96"><span class="toc-text">3.1 JSON与struct转化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-1-%E6%99%AE%E9%80%9AJSON"><span class="toc-text">3.1.1 普通JSON</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-2-JSON%E5%86%85%E5%B5%8C%E6%99%AE%E9%80%9AJSON"><span class="toc-text">3.1.2 JSON内嵌普通JSON</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-3-JSON%E5%86%85%E5%B5%8C%E6%95%B0%E7%BB%84JSON"><span class="toc-text">3.1.3 JSON内嵌数组JSON</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-4-JSON%E5%86%85%E5%B5%8C%E5%85%B7%E6%9C%89%E5%8A%A8%E6%80%81Key%E7%9A%84JSON"><span class="toc-text">3.1.4 JSON内嵌具有动态Key的JSON</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-5-JSON%E5%86%85%E5%B5%8C%E6%95%B0%E6%8D%AE%E4%B8%8D%E6%98%8E%E7%A1%AE"><span class="toc-text">3.1.5 JSON内嵌数据不明确</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-JSON%E4%B8%8Emap%E8%BD%AC%E5%8C%96"><span class="toc-text">3.2 JSON与map转化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-%E9%80%89%E6%8B%A9struct%E8%BF%98%E6%98%AFmap%EF%BC%9F"><span class="toc-text">3.3 选择struct还是map？</span></a></li></ol></li></ol>
+            </div>    
+        </div>
+        
+    </div>
+</div>
+    </div>
+    
+</div>
+                         
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2023 小C♥天天
+            <span class="footer-icon">
+                <i class="fa-brands fa-github fa-fw"></i>
+            </span>
+            @小C&天天
+        </div>
+        <div>
+            备案号：小C&天天の窝
+        </div>
+    </div>
+</footer>
+                    </div>
+                </div>
+            </transition>
+            <div id="img_show">
+                <img id="img_content" alt="img_show">
+            </div>
+        </div>
+        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
+        <script src="/js/particlex.js"></script>
+        <script src="/js/showimg.js"></script>
+        
+
+        <!-- 3D模型 -->
+        <div id="L2dCanvas" style="position: relative;"></div>
+        <script src="/js/live2d.min.js"></script>
+        <script src="/css/live2d.css"></script>
+        <script>
+            var v = new Viewer({
+                basePath: "/model",
+                role: "zhala_2",
+                mobile: true,
+            });
+        </script>
+        <!-- 点击 -->
+        <script>
+            let body = document.getElementsByTagName('body')[0];
+            body.addEventListener('click', (e) => {
+                let contentArr = ['✊','😘','😍','😊','😭','😡','😋','👍','🐷','😱','💷','💵','×','🆗','№','⭐','🌙','♥','💴','☀','🐎','🐂','🐏','√'];
+                let randomNum = function (n) {
+                    return Math.floor(Math.random() * n)
+                }
+                let span = document.createElement('span');
+                span.innerHTML = `${contentArr[randomNum(contentArr.length)]}`;
+                span.style.color = `rgb(${randomNum(256)},${randomNum(256)},${randomNum(256)})`;
+                span.style.position = 'absolute';
+                span.style.top = `${e.pageY}px`;
+                span.style.left = `${e.pageX}px`;
+                span.style.transition = 'all 1s ease';
+                span.style.zIndex = 20000;
+                body.appendChild(span)
+                setTimeout(()=>{
+                    span.style.top = span.offsetTop - 100 + 'px';
+                    span.style.opacity = 0;
+                    setTimeout(()=>{span.remove()},700)
+                },0)
+            })
+        </script>
+        <!-- 流星背景特效 -->
+        <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/background.js"></script>
+    </body>
+</html>

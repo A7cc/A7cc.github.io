@@ -1,0 +1,393 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>Proxifier代理工具 | 小C♥天天</title>
+        <meta name="author" content="小C&天天">
+        <meta name="description" content="^v^">
+        <meta name="keywords" content="">
+        <link rel="icon" href="/images/icon.jpg">
+        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
+        <link rel="stylesheet" href="/css/fonts.min.css">
+        <link rel="stylesheet" href="/css/particlex.css">
+        <link rel="stylesheet" href="/css/main.css">
+        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
+        <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+        <link rel="stylesheet" href="/css/style.css">
+    <meta name="generator" content="Hexo 6.2.0"></head>
+    <body>
+        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:30vmin;height:30vmin;padding:60px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #dd20dd;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">正在加载</p><div><img alt="loading" src="/images/afde9fa65a5742a90b51d6e1211e841e.gif"></div></div></div></div></div>
+        <div id="layout">
+            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
+            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
+            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
+            <transition name="into">
+                <div v-show="show_page" style="display: -not-none">
+                    <div id="menu_show">
+                         
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">小C♥天天</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;文章</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+        <form class="search">
+            <input type="text" placeholder="需要搜索什么？">
+            <button type="submit"></button>
+        </form>
+    </div>
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
+        <div :class="'title'" @click="menu_show = !menu_show">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;小C♥天天</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+                    </div>
+                    <div id="main">
+                        
+
+<div id="home-posts-wrap" class=>
+<div class="article">
+    <div>
+        <h1>Proxifier代理工具 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2023/3/14
+        </span>
+        
+        <span class="category">
+            <a href="/categories/工具使用">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                </span>
+                工具使用
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/代理与转发" style="color: #00bcd4">
+                    代理与转发
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    <div class="content" v-pre>
+        <h1 id="壹-工具说明"><a href="#壹-工具说明" class="headerlink" title="壹 工具说明"></a>壹 工具说明</h1><p>Proxifier是一款功能非常强大的socks5客户端，可以让不支持通过代理服务器工作的网络程序能通过HTTPS或SOCKS代理。支持各种操作系统和各代理协议，它的运行模式可以指定端口，指定程序的特点。支持 64位系统，支持Windows，MAC OS，支持socks4，socks5，http代理协议，支持TCP，UDP协议，可以指定端口，指定IP，指定域名，指定程序等运行模式，兼容性非常好。有许多网络应用程序不支持通过代理服务器工作，Proxifier 解决了这些问题和所有限制，让您有机会不受任何限制使用你喜爱的软件。此外，它让你获得了额外的网络安全控制，创建代理隧道，并添加使用更多网络功能的权力。</p>
+<span id="more"></span>
+
+<h1 id="贰-工具适用场景"><a href="#贰-工具适用场景" class="headerlink" title="贰 工具适用场景"></a>贰 工具适用场景</h1><p>搭建代理时候用，就比如说使用nps搭建了隧道，但是这时候有了隧道，那就需要有一个东西去引导流量去走这个隧道，这个东西就是可以用Proxifier。</p>
+<h1 id="叁-安装说明"><a href="#叁-安装说明" class="headerlink" title="叁 安装说明"></a>叁 安装说明</h1><p>网上安装就行！</p>
+<p>以下是携带版：<br><a href="/tools/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/ProxifierPE.zip">ProxifierPE.zip</a></p>
+<h1 id="肆-工具参数说明"><a href="#肆-工具参数说明" class="headerlink" title="肆 工具参数说明"></a>肆 工具参数说明</h1><ul>
+<li>主页面<br><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/b3f855941dba11e7201c7ebed3c32f8c.png" alt="b3f855941dba11e7201c7ebed3c32f8c.png"></li>
+<li>profile功能（主要使用该选项）<br><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/5ccb34f8b901cfcb977e03faf548baa9.png" alt="5ccb34f8b901cfcb977e03faf548baa9.png"><br>1是代理服务器配置<br>2是代理规则设置<br>3是域名解析设置</li>
+<li>Proxy Server（配置流量要走的代理服务器）<br><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/fca55ad17c846a887935f82317e08fd1.png" alt="fca55ad17c846a887935f82317e08fd1.png"><br>其中Enable是要连接该代理通信时设置用户名密码时才用的，不设置就没有。</li>
+<li>Proxification Rule（就是将流量引路，进入后将Locahost取消勾选）<br><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/d10e07c05a04891136eaf27e88a9914f.png" alt="d10e07c05a04891136eaf27e88a9914f.png"><br>其中Applications是想要访问目标时用的App，Target hosts是想要访问的目标的IP地址，Target ports是想要访问的目标的端口。<h1 id="伍-工具使用"><a href="#伍-工具使用" class="headerlink" title="伍 工具使用"></a>伍 工具使用</h1></li>
+</ul>
+<p>设置代理服务器，再设置代理规则，最后看情况设置域名解析。</p>
+<h1 id="陆-例子"><a href="#陆-例子" class="headerlink" title="陆 例子"></a>陆 例子</h1><p>添加代理。<br><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/1c06d298248da674494d75846ec466cc.png" alt="1c06d298248da674494d75846ec466cc.png"><br>我们先添加代理服务器：<br><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/fca55ad17c846a887935f82317e08fd1.png" alt="fca55ad17c846a887935f82317e08fd1.png"><br>添加规则：<br>在这里需要注意的是选择规则时的三个选项：</p>
+<pre><code>APP是本机的APP
+hosts是要访问目标的IP
+ports是要访问目标的端口
+</code></pre>
+<p><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/d10e07c05a04891136eaf27e88a9914f.png" alt="d10e07c05a04891136eaf27e88a9914f.png"><br><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/652b708129812c6c28e3a82c33327e84.png" alt="652b708129812c6c28e3a82c33327e84.png"></p>
+<h1 id="柒-参考"><a href="#柒-参考" class="headerlink" title="柒 参考"></a>柒 参考</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/nul1/p/13952992.html">Proxifier使用教程1</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.williamlong.info/archives/4842.html">Proxifier使用教程2</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jb51.net/softjc/528238.html">代理服务器客户端Proxifier使用教程 Proxifier图文设置</a></li>
+</ul>
+<h1 id="捌-Linux设置代理：proxychains"><a href="#捌-Linux设置代理：proxychains" class="headerlink" title="捌 Linux设置代理：proxychains"></a>捌 Linux设置代理：proxychains</h1><h2 id="8-1-简介"><a href="#8-1-简介" class="headerlink" title="8.1 简介"></a>8.1 简介</h2><p>ProxyChains是Linux和其他Unices下的代理工具。它可以使任何程序通过代理上网，允许TCP和DNS通过代理隧道，支持HTTP、SOCKS4和SOCKS5类型的代理服务器，并且可配置多个代理。ProxyChains通过一个用户定义的代理列表强制连接指定的应用程序，直接断开接收方和发送方的连接。本节将介绍设置ProxyChains的方法。</p>
+<h2 id="8-2-安装"><a href="#8-2-安装" class="headerlink" title="8.2 安装"></a>8.2 安装</h2><pre><code>git clone https://github.com/rofl0r/proxychains-ng
+cd proxychains-ng
+./configure --prefix=/usr --sysconfdir=/etc
+make 
+make install
+make install-config
+cd .. &amp;&amp; rm -rf proxychains-ng
+
+# 如果执行make &amp;&amp; make install时提示make: cc: Command not found错误
+# 这是由于新安装的Linux系统没有安装gcc环境，需要安装gcc
+yum  install  gcc
+</code></pre>
+<p>或者</p>
+<pre><code>sudo apt-get install proxychains4
+</code></pre>
+<h2 id="8-3-使用"><a href="#8-3-使用" class="headerlink" title="8.3 使用"></a>8.3 使用</h2><p>配置<code>/etc/proxychains.conf</code>：<br><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/b0a8dabd31ba2ca18b775a7b1e60d2d9.png" alt="b0a8dabd31ba2ca18b775a7b1e60d2d9.png"></p>
+<pre><code># proxychains.conf说明
+# 	每个连接都将通过链接代理完成
+# 	所有代理按列表中显示的顺序链接
+# 	至少有一个代理必须在线才能使用
+#	（跳过死的代理）
+# dynamic_chain：动态模式，按照代理列表顺序自动选取可用代理
+# strict_chain：严格模式，按照代理列表顺序使用代理，所有代理必须保证可用
+# random_chain：该随机模式，随机选取代理使用
+# round_robin_chain：轮循模式，自动跳过不可用代理
+# proxy_dns：DNS代理，建议不开启
+</code></pre>
+<p>移动到最下面的<code>[ProxyList]</code>进行配置</p>
+<pre><code>其中有三列：
+第一列为协议，图中是socks5
+第二列为流量要走的IP，图中是127.0.0.1
+第三列为流量要走端口，图中是60001
+第四列为用户名，图中是第一个admin，用户名密码根据设置的代理进行添加
+第五列为密码，图中是第二个admin，用户名密码根据设置的代理进行添加
+</code></pre>
+<p><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/82c60cb4eef1603c13b86f592c1dd9ee.png" alt="82c60cb4eef1603c13b86f592c1dd9ee.png"></p>
+<h2 id="8-4-例子"><a href="#8-4-例子" class="headerlink" title="8.4 例子"></a>8.4 例子</h2><h3 id="8-4-1-查看主机局域网IP和代理转发端口号"><a href="#8-4-1-查看主机局域网IP和代理转发端口号" class="headerlink" title="8.4.1 查看主机局域网IP和代理转发端口号"></a>8.4.1 查看主机局域网IP和代理转发端口号</h3><p>在 Windows 主机上打开终端，通过 <code>ipconfig</code> 指令查看主机局域网IP，我的主机分配到的 IP 为 192.168.0.11 。</p>
+<p>因为虚拟机全局代理的实现基于局域网下的端口转发，因此，需要根据你使用的代理确认转发端口号，之后会用到，我使用到的端口号是 7890 。</p>
+<h3 id="8-4-2-配置虚拟机网络模式"><a href="#8-4-2-配置虚拟机网络模式" class="headerlink" title="8.4.2 配置虚拟机网络模式"></a>8.4.2 配置虚拟机网络模式</h3><p>首先，确保虚拟机采用<strong>NAT</strong>方式连接到网络。</p>
+<p>确认方式：<br>打开 VMware 虚拟网络编辑器，查看 NAT 子网网段，可以看到此处我的子网网段为 192.168.70.0 。<br><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/895c94d561f9a69e5c30d4848f18d384.png" alt="895c94d561f9a69e5c30d4848f18d384.png"></p>
+<p>在虚拟机终端中输入 <code>ip addr</code> 指令，查看虚拟机的IP地址在 NAT 子网网段。如图，通过查询，虚拟机IP地址为 192.167.70.128，可以确认虚拟机处在 192.168.70.0 子网网段内。<br><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/c9020b59ff09314479dd8666915a9aeb.png" alt="c9020b59ff09314479dd8666915a9aeb.png"></p>
+<h3 id="8-4-3-配置proxychains4"><a href="#8-4-3-配置proxychains4" class="headerlink" title="8.4.3 配置proxychains4"></a>8.4.3 配置proxychains4</h3><p>在虚拟机中输入如下指令进入配置文件。</p>
+<pre><code class="bash">sudo vim /etc/proxychains4.conf
+</code></pre>
+<p>将<code>dynamic_chain</code>前面的<code>#</code>去掉，并在<code>strict_chain</code>前添加<code>#</code>：<br><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/4b5e3a6f72ff6b7440ab0d1e30f3f322.png" alt="4b5e3a6f72ff6b7440ab0d1e30f3f322.png"><br>建议不要启用DNS代理，即将<code>proxy_dns</code>注释掉：<br><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/fee31988e20c89e29b2ec1babef012e6.png" alt="fee31988e20c89e29b2ec1babef012e6.png"><br>来到文件尾部，注释掉 sock4 开头的一行配置信息，因为我们需要所有流量均走 socks5 ，在其下方添加一行配置信息，格式如下：</p>
+<pre><code class="bash">socks5 &lt;主机IP&gt; &lt;转发端口&gt; &lt;用户名&gt; &lt;密码&gt;
+# 用户名密码根据设置的代理进行添加
+</code></pre>
+<p>特别注意，这里的主机 IP，不能填写主机的 VMnet8 网卡在 NAT 子网中的 IP 地址（此处结合我的实际情况即不能填写 198.168.70.1 ），而需要填写的是主机用来连接互联网的物理网卡的 IP 地址，此处我应填写的正确 IP 地址为 192.168.31.84 。<br><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/fd9fceaf735ad4524c9dbb0740091538.png" alt="fd9fceaf735ad4524c9dbb0740091538.png"><br>转发端口号则要根据自己主机代理软件设置的端口号自行填写，此处我填写的为 7890 。<br><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/e0269239e39aa722bf93b52e841edc9b.png" alt="e0269239e39aa722bf93b52e841edc9b.png"><br>最终配置文件填写如下：<br><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/fd58cb074a3804cfcbc1f97d22c3acdc.png" alt="fd58cb074a3804cfcbc1f97d22c3acdc.png"><br>保存并退出即可。<br>如果有用户名密码在后面加<code>用户名 密码</code>：<br><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/a9eca2d5c8ca58fcafe174ca012b367e.png" alt="a9eca2d5c8ca58fcafe174ca012b367e.png"></p>
+<h3 id="8-4-4-测试"><a href="#8-4-4-测试" class="headerlink" title="8.4.4 测试"></a>8.4.4 测试</h3><p>所有需要走代理运行的程序均需要在其启动命令前输入 <code>proxychains4</code> 。</p>
+<p>我们以网页浏览作为测试场景，在终端中输入指令：</p>
+<pre><code class="bash">proxychains4 firefox
+</code></pre>
+<p>在打开的浏览器中访问谷歌，如果代理设置正确，可以看到如下反馈。<br><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/c5bc3091fad3416abc6f48676e2d6b04.png" alt="c5bc3091fad3416abc6f48676e2d6b04.png"></p>
+<p>之后也测试了 Git ，速度能达到正常水平。</p>
+<h3 id="8-4-5-注意"><a href="#8-4-5-注意" class="headerlink" title="8.4.5 注意"></a>8.4.5 注意</h3><p>部分主机的代理软件中默认屏蔽了局域网内其他主机的端口转发功能，如果上述设置无误，但仍虚拟机仍无法正常通过代理访问，则可以留意代理软件是否有相关设置，其名称或可被英文表述为 “Allow LAN” 。</p>
+
+    </div>
+    
+</div>
+
+    <div id="home-card">
+        <div id="card-div">
+    <div class="card-style" style="width: 300px">
+        <div class="avatar">
+            <img src="/images/f6e2b991f74bfd7b88c3ab1a3d513b94.jpg " alt="avatar">
+        </div>
+        <div class="name">
+            小C&天天
+        </div>
+        <div class="descriptions">
+            
+            <div class="description">
+                修学储能 先博后渊
+            </div>
+            
+        </div>
+        <div class="icon-links">
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://github.com/A7cc">
+                    <i class="fa-brands fa-github fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.qq.com/">
+                    <i class="fa-brands fa-qq fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.weibo.com/">
+                    <i class="fa-brands fa-weibo fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://google.com/">
+                    <i class="fa-brands fa-google fa-fw"></i>
+                </a>
+            </span>
+            
+        </div>
+        <div class="friend-links">
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="http://www.wgs6km.top/">
+                    kyrieee个人博客
+                </a>
+            </div>
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="https://tonyd0g.gitee.io/">
+                    tonyd0g
+                </a>
+            </div>
+            
+        </div>
+    </div>
+    <!-- 目录 -->
+    
+        <div class="card-style" style="width: 300px">
+            <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A3%B9-%E5%B7%A5%E5%85%B7%E8%AF%B4%E6%98%8E"><span class="toc-text">壹 工具说明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%B0-%E5%B7%A5%E5%85%B7%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">贰 工具适用场景</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%81-%E5%AE%89%E8%A3%85%E8%AF%B4%E6%98%8E"><span class="toc-text">叁 安装说明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%82%86-%E5%B7%A5%E5%85%B7%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="toc-text">肆 工具参数说明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BC%8D-%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8"><span class="toc-text">伍 工具使用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%99%86-%E4%BE%8B%E5%AD%90"><span class="toc-text">陆 例子</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9F%92-%E5%8F%82%E8%80%83"><span class="toc-text">柒 参考</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8D%8C-Linux%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86%EF%BC%9Aproxychains"><span class="toc-text">捌 Linux设置代理：proxychains</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#8-1-%E7%AE%80%E4%BB%8B"><span class="toc-text">8.1 简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-2-%E5%AE%89%E8%A3%85"><span class="toc-text">8.2 安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-3-%E4%BD%BF%E7%94%A8"><span class="toc-text">8.3 使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-4-%E4%BE%8B%E5%AD%90"><span class="toc-text">8.4 例子</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-4-1-%E6%9F%A5%E7%9C%8B%E4%B8%BB%E6%9C%BA%E5%B1%80%E5%9F%9F%E7%BD%91IP%E5%92%8C%E4%BB%A3%E7%90%86%E8%BD%AC%E5%8F%91%E7%AB%AF%E5%8F%A3%E5%8F%B7"><span class="toc-text">8.4.1 查看主机局域网IP和代理转发端口号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-4-2-%E9%85%8D%E7%BD%AE%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%BC%8F"><span class="toc-text">8.4.2 配置虚拟机网络模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-4-3-%E9%85%8D%E7%BD%AEproxychains4"><span class="toc-text">8.4.3 配置proxychains4</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-4-4-%E6%B5%8B%E8%AF%95"><span class="toc-text">8.4.4 测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-4-5-%E6%B3%A8%E6%84%8F"><span class="toc-text">8.4.5 注意</span></a></li></ol></li></ol></li></ol>
+            </div>    
+        </div>
+        
+    </div>
+</div>
+    </div>
+    
+</div>
+                         
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2023 小C♥天天
+            <span class="footer-icon">
+                <i class="fa-brands fa-github fa-fw"></i>
+            </span>
+            @小C&天天
+        </div>
+        <div>
+            备案号：小C&天天の窝
+        </div>
+    </div>
+</footer>
+                    </div>
+                </div>
+            </transition>
+            <div id="img_show">
+                <img id="img_content" alt="img_show">
+            </div>
+        </div>
+        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
+        <script src="/js/particlex.js"></script>
+        <script src="/js/showimg.js"></script>
+        
+
+        <!-- 3D模型 -->
+        <div id="L2dCanvas" style="position: relative;"></div>
+        <script src="/js/live2d.min.js"></script>
+        <script src="/css/live2d.css"></script>
+        <script>
+            var v = new Viewer({
+                basePath: "/model",
+                role: "zhala_2",
+                mobile: true,
+            });
+        </script>
+        <!-- 点击 -->
+        <script>
+            let body = document.getElementsByTagName('body')[0];
+            body.addEventListener('click', (e) => {
+                let contentArr = ['✊','😘','😍','😊','😭','😡','😋','👍','🐷','😱','💷','💵','×','🆗','№','⭐','🌙','♥','💴','☀','🐎','🐂','🐏','√'];
+                let randomNum = function (n) {
+                    return Math.floor(Math.random() * n)
+                }
+                let span = document.createElement('span');
+                span.innerHTML = `${contentArr[randomNum(contentArr.length)]}`;
+                span.style.color = `rgb(${randomNum(256)},${randomNum(256)},${randomNum(256)})`;
+                span.style.position = 'absolute';
+                span.style.top = `${e.pageY}px`;
+                span.style.left = `${e.pageX}px`;
+                span.style.transition = 'all 1s ease';
+                span.style.zIndex = 20000;
+                body.appendChild(span)
+                setTimeout(()=>{
+                    span.style.top = span.offsetTop - 100 + 'px';
+                    span.style.opacity = 0;
+                    setTimeout(()=>{span.remove()},700)
+                },0)
+            })
+        </script>
+        <!-- 流星背景特效 -->
+        <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/background.js"></script>
+    </body>
+</html>

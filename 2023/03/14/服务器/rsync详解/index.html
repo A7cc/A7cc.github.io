@@ -1,0 +1,518 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>Rsync详解 | 小C♥天天</title>
+        <meta name="author" content="小C&天天">
+        <meta name="description" content="^v^">
+        <meta name="keywords" content="">
+        <link rel="icon" href="/images/icon.jpg">
+        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
+        <link rel="stylesheet" href="/css/fonts.min.css">
+        <link rel="stylesheet" href="/css/particlex.css">
+        <link rel="stylesheet" href="/css/main.css">
+        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
+        <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+        <link rel="stylesheet" href="/css/style.css">
+    <meta name="generator" content="Hexo 6.2.0"></head>
+    <body>
+        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:30vmin;height:30vmin;padding:60px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #dd20dd;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">正在加载</p><div><img alt="loading" src="/images/afde9fa65a5742a90b51d6e1211e841e.gif"></div></div></div></div></div>
+        <div id="layout">
+            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
+            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
+            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
+            <transition name="into">
+                <div v-show="show_page" style="display: -not-none">
+                    <div id="menu_show">
+                         
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">小C♥天天</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;文章</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+        <form class="search">
+            <input type="text" placeholder="需要搜索什么？">
+            <button type="submit"></button>
+        </form>
+    </div>
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
+        <div :class="'title'" @click="menu_show = !menu_show">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;小C♥天天</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+                    </div>
+                    <div id="main">
+                        
+
+<div id="home-posts-wrap" class=>
+<div class="article">
+    <div>
+        <h1>Rsync详解 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2023/3/14
+        </span>
+        
+        <span class="category">
+            <a href="/categories/服务器">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                </span>
+                服务器
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/rsync" style="color: #00a596">
+                    rsync
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Linux" style="color: #00bcd4">
+                    Linux
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    <div class="content" v-pre>
+        <h1 id="壹-rsync简介"><a href="#壹-rsync简介" class="headerlink" title="壹 rsync简介"></a>壹 rsync简介</h1><h2 id="1-1-介绍"><a href="#1-1-介绍" class="headerlink" title="1.1 介绍"></a>1.1 介绍</h2><p><code>rsync</code>（<code>remote synchronize</code>）是<code>Liunx/Unix</code>下的一个远程数据同步工具。它可通过<code>LAN/WAN</code>快速同步多台主机间的文件和目录，并适当利用<code>rsync</code>算法（差分编码）以减少数据的传输。<font color="red"><code>rsync</code>算法并不是每一次都整份传输，而是只传输两个文件的不同部分（即支持增量备份），因此其传输速度相当快</font>。除此之外，<code>rsync</code>可拷贝、显示目录属性，以及拷贝文件，并可选择性的压缩以及递归拷贝。</p>
+<span id="more"></span>
+<p>在远程同步任务中，负责发起<code>rsync</code>同步操作的客户机称为<strong>发起端</strong>（客户端），而负责响应来自客机的<code>rsync</code>同步操作的服务器称为<strong>备份源</strong>（服务端）。</p>
+<h2 id="1-2-优缺点"><a href="#1-2-优缺点" class="headerlink" title="1.2 优缺点"></a>1.2 优缺点</h2><ul>
+<li>优点：</li>
+</ul>
+<pre><code class="bash">可以保存整个目录树和文件系统
+可以保持原来文件的权限、时间、软硬链接等
+无需特殊权限即可安装
+增量备份：第一次同步时rsync复制全部内容，但在下一次只传输修改过的内容
+压缩传输：rysnc在传输的过程中可以实行压缩及解压缩操作，可以使用更少的带宽
+安全：可以使用scp、ssh等方式来进行文件传输
+支持匿名传输，以方便进行网站镜像
+不仅可以远程同步数据（类似于scp），而且可以本地同步数据（类似于cp），做差异同步
+</code></pre>
+<ul>
+<li>缺点：</li>
+</ul>
+<pre><code class="bash">大量小文件同步，时间长，有时会导致rsync进程中断或挂起
+由于rsync同步时，需要将客户端与服务端的文件进行对比，所以在文件数量庞大时，对比速度较慢，同时压缩过程也慢
+在同步大文件时，可能存在rsync进程中断，不过可以通过参数`--partail`来实现续传
+在同步完成前，文件是隐藏的，但是磁盘占用是发生的，如果在传输时出现中断就会生成隐藏文件占用磁盘资源
+</code></pre>
+<h2 id="1-3-rsync与scp区别"><a href="#1-3-rsync与scp区别" class="headerlink" title="1.3 rsync与scp区别"></a>1.3 rsync与scp区别</h2><p>可能有人会问为什么不用<code>scp</code>，而用<code>rsync</code>？</p>
+<ul>
+<li><code>scp</code>不支持软硬链接拷贝，而<code>rsync</code>支持本地、远程的软硬链接拷贝</li>
+<li><font color="red"><code>scp</code>更多的使用场景是复制，而<code>rsync</code>更多的是同步，<code>rsync</code>只需要将第一次的数据同步给另一个环境，后面就可以通过增量备份的方法将出现不同的地方进行更新即可</font></li>
+<li>在设置服务器同步数据时，建议使用<code>rsync</code>，而在复制时<code>scp</code>与<code>rsync</code>的作用差不多，均可使用</li>
+</ul>
+<p>所以需要在<code>Liunx/Unix</code>服务器之间互传海量数据时，建议选择<code>rsync</code>进行传输。</p>
+<h1 id="贰-rsync工作原理"><a href="#贰-rsync工作原理" class="headerlink" title="贰 rsync工作原理"></a>贰 rsync工作原理</h1><h2 id="2-1-rsync工作原理"><a href="#2-1-rsync工作原理" class="headerlink" title="2.1 rsync工作原理"></a>2.1 rsync工作原理</h2><p><code>rsync</code>的工作原理就是客户端要给服务端同步数据时，客户端会构造<code>FileList</code>（我们可以理解为客户端文件的被切成很多个数据块的校验值），客户端将<code>FileList</code>发送给服务端，服务端将本地的文件也进行构造<code>FileList</code>，然后与客户端发来的<code>FileList</code>进行对比，保留不同的地方的校验值信息，将这些信息再构造成新的<code>NewFileList</code>，发给客户端，客户端将这些对应的数据传输给服务端，即可实现增量同步。</p>
+<h2 id="2-2-三种工作模式"><a href="#2-2-三种工作模式" class="headerlink" title="2.2 三种工作模式"></a>2.2 三种工作模式</h2><ul>
+<li><p><code>local</code>模式<br>这种模式其实就是在本地进行数据同步，就类似与<code>cp</code>命令。因为只能是本地同步，所以在进行异地服务器间同步时，不建议使用。</p>
+</li>
+<li><p><code>remote shell</code>模式<br>通过<code>ssh</code>隧道进行传输，用于不同的服务器之间，类似与<code>scp</code>命令。该模式可以进行异地间同步，而且不需要配置<code>rsync</code>配置文件，但是需要系统的用户，这时候如果泛用或者滥用，就会导致用户名密码泄露。</p>
+</li>
+<li><p><code>daemon</code>模式<br>该模式是通过守护进程运行的，为其他客户端提供备份源，配置<code>rsync</code>备份源需要建立配置文件<code>rsync.conf</code>，创建备份账户，然后将<code>rsync</code>程序以<code>--daemon</code>选项运行。该模式更适合在异地同步，因为客户端只需要知道一个虚拟的用户信息即可，但是需要服务端配置<code>rsync</code>配置文件，以下操作就是用的该模式。</p>
+</li>
+</ul>
+<h1 id="叁-命令"><a href="#叁-命令" class="headerlink" title="叁 命令"></a>叁 命令</h1><pre><code class="bash">格式：rsync [选项] 源文件 目标文件
+常用选项：
+-a：--archive，归档模式，表示以递归的方式传输文件，并且保持文件属性，等同于-rlptgoD
+-r：-recursive，对子目录以递归模式处理
+-v：显示同步过程的详细信息
+--version：输出rsync版本
+-z：--compress，表示压缩传输
+--delete：删除那些目标位置有而备份源没有的文件，无差别备份，就相当于删除（慎用）
+--delete-before: 接收者在传输之前进行删除操作
+-H：-hard-links，表示硬链接文件
+-l：--links，表示复制所有的连接，拷贝链接文件
+-p：--perms，表示保持文件原有权限
+-t：--times，表示保持文件原有时间
+-g：--group，表示保持文件原有属用户组
+-o：--owner，表示保持文件所有者，只能是root
+-D：--devices，表示块设备文件信息，只能是root
+-A：-acls，保留ACL属性信息，需要配合 -perms
+-P：显示传输进度
+-u：--update，仅仅进行更新，跳过所有已经存在于目标位置，并且文件时间晚于要备份的文件
+--port=PORT：指定其他的rsync服务端口（预设为tcp 873）
+--password-file=FILE：指定密码文件获取用户密码，只能在rsync运行使用
+--bwlimit=KBPS：限制 I/O 带宽
+--filter=filename：需要过滤的文件
+--exclude=filname：需要过滤的文件
+--progress：显示备份过程
+</code></pre>
+<h1 id="肆-环境设置"><a href="#肆-环境设置" class="headerlink" title="肆 环境设置"></a>肆 环境设置</h1><p>服务端和客户端都要安装<code>rsync</code>：</p>
+<pre><code class="bash"># centos
+# 查看是否安装rsync
+rpm -qa | grep rsync
+# 安装rsync
+yum install rsync -y
+</code></pre>
+<p><img src="/images/%E6%9C%8D%E5%8A%A1%E5%99%A8/9d49f9649b0131c15e8a880b448048d6.png" alt="9d49f9649b0131c15e8a880b448048d6.png"></p>
+<pre><code class="bash"># ubuntu
+# 查看是否安装rsync
+dpkg -l | grep rsync
+# 安装rsync
+apt install rsync -y
+</code></pre>
+<p><img src="/images/%E6%9C%8D%E5%8A%A1%E5%99%A8/587b92201e4faf0f265593f4903dc51c.png" alt="587b92201e4faf0f265593f4903dc51c.png"></p>
+<p><font color="red">PS：时间的同步！</font></p>
+<h1 id="伍-设置rsync服务"><a href="#伍-设置rsync服务" class="headerlink" title="伍 设置rsync服务"></a>伍 设置rsync服务</h1><p>我们假设一个场景存在两台服务器<code>A</code>和<code>B</code>，<code>A</code>为服务端，<code>B</code>为客户端。他们之间的网络带宽比较小，但是我们需要将<code>B</code>的数据同步到<code>A</code>中，这时候我们可以设置<code>rsync</code>服务。</p>
+<p>假设服务端的<code>IP</code>地址是<code>192.168.239.143</code>，客户端的<code>IP</code>地址是<code>192.168.239.164</code>。</p>
+<h2 id="5-1-服务端"><a href="#5-1-服务端" class="headerlink" title="5.1 服务端"></a>5.1 服务端</h2><p>创建配置文件<code>rsyncd.conf</code>：</p>
+<pre><code class="bash"># 编辑/etc/rsyncd.conf文件
+
+# 以 rsync 用户启动进程
+uid = rsync
+gid = rsync
+ # 无需让rsync以root身份运行，允许接收文件的完整属性
+fake super = yes
+# 禁固推送的数据至某个目录, 不允许跳出该目录
+use chroot = no
+# 日志文件存放目录
+log file = /var/log/rsyncd.log
+# 最大连接数
+max connections = 20
+# 超时时间
+timeout = 600
+# 忽略错误程序、信息
+ignore errors
+# 是否允许查看模块信息
+list = true
+
+#### 以上是全局定义的配置，下面定义的是模块化基本信息，如果多个模块，直接在后面追加即可，当然如果需要模块内的配置设置为全局配置，将其放在上面的全局定义配置处即可
+# 模块名称
+[backup]
+# 注释该模块作用
+comment = commit
+# 该模块同步的文件路径
+path = /datebackup
+# 定义该模块的虚拟用户，作为连接认证用户
+auth users = myuser
+# 定义rsync服务用户连接认证密码文件路径
+secrets file = /etc/rsync.passwd
+# 该模块内的备份数据是否只读
+read only = false
+# 准许访问rsync服务端的客户端IP地址范围
+hosts allow = 192.168.239.0/24
+# 禁止访问rsync服务端的客户端IP地址范围
+# hosts deny = *
+</code></pre>
+<p><img src="/images/%E6%9C%8D%E5%8A%A1%E5%99%A8/72b05a0e52dfd899dd2b45a80d4df442.png" alt="72b05a0e52dfd899dd2b45a80d4df442.png"></p>
+<p>配置并启动守护进程：</p>
+<pre><code class="bash"># 因为配置文件中设置了uid，所以我们可以需要一个rsync进程运行时使用的普通用户
+useradd rsync -M -s /sbin/nologin
+
+# 要连接服务端对应的模块，需要虚拟用户名和密码，如果有多个模块，可以设置全局用户名密码，这里设置的是模块内部的，密码文件的形式为user:passwd，需要注意这里的user一定要与rsyncd.conf配置的用户名一直
+echo &quot;myuser:password&quot; &gt; /etc/rsync.passwd
+# 注意权限一定是600，否则客户端将不能连接服务器
+chmod 600 /etc/rsync.passwd
+
+# 创建模块同步的文件路径，客户端的数据都会存放在这里
+mkdir /datebackup
+# 添加权限
+chown -R rsync.rsync /datebackup
+
+# 启动daemon模式服务
+rsync --daemon
+
+# 加入开机自启动
+echo &quot;rsync --daemon&quot; &gt;&gt; /etc/rc.local
+
+# 查看服务
+ps aux | grep rsync
+netstat -lntp|grep 873
+
+# 需要注意如果有防火墙阻拦，放开rsync服务即可
+</code></pre>
+<p><img src="/images/%E6%9C%8D%E5%8A%A1%E5%99%A8/eb7475107fce597f70f204618940a1ea.png" alt="eb7475107fce597f70f204618940a1ea.png"></p>
+<h2 id="5-2-客户端"><a href="#5-2-客户端" class="headerlink" title="5.2 客户端"></a>5.2 客户端</h2><p>客户端安装完<code>rsync</code>后，不需要启动<code>rsync</code>服务，只需要在客户端创建连接<code>rsync</code>服务器时，验证用户所需要的密码文件，该密码文件的密码与<code>rsync</code>的服务端密码文件中密码对应。</p>
+<pre><code class="bash"># 注意这里密码文件的形式不是user:passwd，而是passwd
+echo &quot;password&quot; &gt;&gt; /etc/rsync.passwd
+# 添加权限
+chmod 600 /etc/rsync.passwd
+</code></pre>
+<p>可以通过查看<code>rsync</code>守护程序分配的所有<code>module</code>列表，确认服务端是否正常启动：</p>
+<pre><code class="bash"># 如果服务端没有开启，输出错误，否则可以看到模块列表，前提是服务端的rsyncd.conf配置文件中list = true，否则不输出
+rsync rsync://服务端IP
+</code></pre>
+<p><img src="/images/%E6%9C%8D%E5%8A%A1%E5%99%A8/a78c2624f9050ff16a60cb983921a380.png" alt="a78c2624f9050ff16a60cb983921a380.png"></p>
+<p>进行数据同步：</p>
+<pre><code class="bash">把本地的文件同步到远程服务器
+rsync [OPTION] [SRC] [USER@]HOST::DEST
+# rsync [选项] [--port=]  [--password-file=] [本地路径] [用户名]@服务端IP::[模块名]
+rsync -av --password-file=/etc/rsync.passwd /tmp myuser@192.168.239.143::backup
+
+# 把远程机器的文件同步到本地
+# rsync [OPTION] [USER@]HOST::SRC [DEST]
+# rsync [选项] [--port=] [--password-file=] [用户名@]服务端IP::[模块名]  [本地路径]
+rsync -av --password-file=/etc/rsync.passwd myuser@192.168.239.143::backup /tmp
+
+# PS:
+# 服务器与目标目录之间使用双冒号分隔&quot;::&quot;，地址中的模块名并不是实际路径名，而是 rsync 守护程序指定的模块名
+</code></pre>
+<p><img src="/images/%E6%9C%8D%E5%8A%A1%E5%99%A8/d31186dbea5430819c546425a401a62b.png" alt="d31186dbea5430819c546425a401a62b.png"></p>
+<h1 id="陆-设置定时任务实现自动同步"><a href="#陆-设置定时任务实现自动同步" class="headerlink" title="陆 设置定时任务实现自动同步"></a>陆 设置定时任务实现自动同步</h1><p>在客户端创建脚本：</p>
+<pre><code class="bash">touch /root/rsyncd.sh
+</code></pre>
+<p>在脚本文件中添加拉去文件的指令：</p>
+<pre><code class="bash"># vim /root/rsyncd.sh
+rsync -avz --password-file=/etc/rsync.passwd /tmp myuser@192.168.239.143::backup &gt;/dev/null 2&gt;&amp;1
+</code></pre>
+<p>授权脚本文件：</p>
+<pre><code class="bash">cd /root
+chmod 755 rsyncd.sh
+</code></pre>
+<p>设置定时任务每小时同步一次：</p>
+<pre><code class="bash"># 执行crontab -e
+0 * * * * /root/rsyncd.sh
+</code></pre>
+<p><img src="/images/%E6%9C%8D%E5%8A%A1%E5%99%A8/8933d40ee9d151009cf566d49fdea1c7.png" alt="8933d40ee9d151009cf566d49fdea1c7.png"></p>
+<h1 id="柒-配置rsync时出现的问题"><a href="#柒-配置rsync时出现的问题" class="headerlink" title="柒 配置rsync时出现的问题"></a>柒 配置rsync时出现的问题</h1><ul>
+<li><p>问题1：<code>rsync</code>同步时由于注释问题引起的<code>@ERROR: chdir failed</code><br>这个问题一般是由于在<code>rsync.conf</code>配置文件下，存在注释导致的，例如：<br><img src="/images/%E6%9C%8D%E5%8A%A1%E5%99%A8/b3061194d8323deb7846eaa570c04e6a.png" alt="b3061194d8323deb7846eaa570c04e6a.png"><br>将其注释去掉即可解决。</p>
+</li>
+<li><p>问题2：<code>cwrsync module is read only</code><br>这个问题是因为在<code>rsync.conf</code>配置文件中<code>readonly</code>参数配置不正确，应该设置为<code>false</code></p>
+</li>
+</ul>
+<h1 id="捌-参考"><a href="#捌-参考" class="headerlink" title="捌 参考"></a>捌 参考</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/JineD/article/details/111871170">rsync工作原理</a><br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/f59197d293de">Rsync（优势、缺陷）</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_34408400/article/details/125048557">Linux如何实现自动文件同步</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/wq1205750492/article/details/124497271">rsync详解</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/tangnie/p/3545028.html">read only问题</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zzw-zyba/p/7922058.html">chdir failed问题</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/Kenneth_Chen_/article/details/80613354">scp与rsync常见区别</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_46686835/article/details/107744618">Rsync的三种工作模式</a></p>
+
+    </div>
+    
+</div>
+
+    <div id="home-card">
+        <div id="card-div">
+    <div class="card-style" style="width: 300px">
+        <div class="avatar">
+            <img src="/images/f6e2b991f74bfd7b88c3ab1a3d513b94.jpg " alt="avatar">
+        </div>
+        <div class="name">
+            小C&天天
+        </div>
+        <div class="descriptions">
+            
+            <div class="description">
+                修学储能 先博后渊
+            </div>
+            
+        </div>
+        <div class="icon-links">
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://github.com/A7cc">
+                    <i class="fa-brands fa-github fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.qq.com/">
+                    <i class="fa-brands fa-qq fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.weibo.com/">
+                    <i class="fa-brands fa-weibo fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://google.com/">
+                    <i class="fa-brands fa-google fa-fw"></i>
+                </a>
+            </span>
+            
+        </div>
+        <div class="friend-links">
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="http://www.wgs6km.top/">
+                    kyrieee个人博客
+                </a>
+            </div>
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="https://tonyd0g.gitee.io/">
+                    tonyd0g
+                </a>
+            </div>
+            
+        </div>
+    </div>
+    <!-- 目录 -->
+    
+        <div class="card-style" style="width: 300px">
+            <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A3%B9-rsync%E7%AE%80%E4%BB%8B"><span class="toc-text">壹 rsync简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E4%BB%8B%E7%BB%8D"><span class="toc-text">1.1 介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="toc-text">1.2 优缺点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-rsync%E4%B8%8Escp%E5%8C%BA%E5%88%AB"><span class="toc-text">1.3 rsync与scp区别</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%B0-rsync%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-text">贰 rsync工作原理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-rsync%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-text">2.1 rsync工作原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E4%B8%89%E7%A7%8D%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="toc-text">2.2 三种工作模式</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%81-%E5%91%BD%E4%BB%A4"><span class="toc-text">叁 命令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%82%86-%E7%8E%AF%E5%A2%83%E8%AE%BE%E7%BD%AE"><span class="toc-text">肆 环境设置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BC%8D-%E8%AE%BE%E7%BD%AErsync%E6%9C%8D%E5%8A%A1"><span class="toc-text">伍 设置rsync服务</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="toc-text">5.1 服务端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2-%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="toc-text">5.2 客户端</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%99%86-%E8%AE%BE%E7%BD%AE%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E5%90%8C%E6%AD%A5"><span class="toc-text">陆 设置定时任务实现自动同步</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9F%92-%E9%85%8D%E7%BD%AErsync%E6%97%B6%E5%87%BA%E7%8E%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-text">柒 配置rsync时出现的问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8D%8C-%E5%8F%82%E8%80%83"><span class="toc-text">捌 参考</span></a></li></ol>
+            </div>    
+        </div>
+        
+    </div>
+</div>
+    </div>
+    
+</div>
+                         
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2023 小C♥天天
+            <span class="footer-icon">
+                <i class="fa-brands fa-github fa-fw"></i>
+            </span>
+            @小C&天天
+        </div>
+        <div>
+            备案号：小C&天天の窝
+        </div>
+    </div>
+</footer>
+                    </div>
+                </div>
+            </transition>
+            <div id="img_show">
+                <img id="img_content" alt="img_show">
+            </div>
+        </div>
+        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
+        <script src="/js/particlex.js"></script>
+        <script src="/js/showimg.js"></script>
+        
+
+        <!-- 3D模型 -->
+        <div id="L2dCanvas" style="position: relative;"></div>
+        <script src="/js/live2d.min.js"></script>
+        <script src="/css/live2d.css"></script>
+        <script>
+            var v = new Viewer({
+                basePath: "/model",
+                role: "zhala_2",
+                mobile: true,
+            });
+        </script>
+        <!-- 点击 -->
+        <script>
+            let body = document.getElementsByTagName('body')[0];
+            body.addEventListener('click', (e) => {
+                let contentArr = ['✊','😘','😍','😊','😭','😡','😋','👍','🐷','😱','💷','💵','×','🆗','№','⭐','🌙','♥','💴','☀','🐎','🐂','🐏','√'];
+                let randomNum = function (n) {
+                    return Math.floor(Math.random() * n)
+                }
+                let span = document.createElement('span');
+                span.innerHTML = `${contentArr[randomNum(contentArr.length)]}`;
+                span.style.color = `rgb(${randomNum(256)},${randomNum(256)},${randomNum(256)})`;
+                span.style.position = 'absolute';
+                span.style.top = `${e.pageY}px`;
+                span.style.left = `${e.pageX}px`;
+                span.style.transition = 'all 1s ease';
+                span.style.zIndex = 20000;
+                body.appendChild(span)
+                setTimeout(()=>{
+                    span.style.top = span.offsetTop - 100 + 'px';
+                    span.style.opacity = 0;
+                    setTimeout(()=>{span.remove()},700)
+                },0)
+            })
+        </script>
+        <!-- 流星背景特效 -->
+        <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/background.js"></script>
+    </body>
+</html>

