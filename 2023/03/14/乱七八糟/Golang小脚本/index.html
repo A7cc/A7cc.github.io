@@ -156,7 +156,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/Golang" style="color: #03a9f4">
+                <a href="/tags/Golang" style="color: #ffa2c4">
                     Golang
                 </a>
             </span>
@@ -167,6 +167,7 @@
     <div class="content" v-pre>
         <h1 id="壹-说明"><a href="#壹-说明" class="headerlink" title="壹 说明"></a>壹 说明</h1><p>该文章主要记录平时工作或者生活中经常使用的<code>Golang</code>小脚本。</p>
 <span id="more"></span>
+
 <h1 id="贰-小脚本"><a href="#贰-小脚本" class="headerlink" title="贰 小脚本"></a>贰 小脚本</h1><h2 id="2-1-处理错误方法"><a href="#2-1-处理错误方法" class="headerlink" title="2.1 处理错误方法"></a>2.1 处理错误方法</h2><pre><code class="Golang">// 处理错误方法
 func HandlingErrors(err error, funname string) &#123;
     if err != nil &#123;
@@ -218,9 +219,9 @@ ________   |\
  | |__/  __| |/ / __/  __/ _* | \ |* / 
  |  _/\ (__|   &lt;\__ \ (_| (_| | |\| | ❤
  | |   \___| |\__\__/\___\__,_|__\\ |
- |/        |/   version: 1.0.0     \|
+ |/        |/   version: %8s  \|
 `
-    fmt.Println(tag)
+    fmt.Printf(tag, version)
         // tag5
     tag := `
     ___  /|         /|            |\                |\
@@ -299,13 +300,15 @@ func RemoveDuplicate[T any](old []T) (result []T) &#123;
 var (
     ERR     string = &quot;[\033[1;31m✘\033[0m]&quot;
     RIGHT   string = &quot;[\033[1;32m✓\033[0m]&quot;
-    WARNING string = &quot;[\033[0;38;5;214m*\033[0m]&quot;
-    YELLOW  string = &quot;\033[1;33m&quot;
-    MAIN    string = &quot;\033[38;5;50m&quot;
-    ORANGE  string = &quot;\033[0;38;5;214m&quot;
-    GREEN   string = &quot;\033[1;32m&quot;
-    BLUE    string = &quot;\033[1;34m&quot;
+    WARNING string = &quot;[\033[0;38;5;214m!\033[0m]&quot;
+    GREY    string = &quot;\033[1;30m&quot;
     RED     string = &quot;\033[1;31m&quot;
+    GREEN   string = &quot;\033[1;32m&quot;
+    YELLOW  string = &quot;\033[1;33m&quot;
+    BLUE    string = &quot;\033[1;34m&quot;
+    PURPLE  string = &quot;\033[1;35m&quot;
+    MAIN    string = &quot;\033[1;36m&quot;
+    ORANGE  string = &quot;\033[0;38;5;214m&quot;
     END     string = &quot;\033[0m&quot;
 )
 func Tag() &#123;
@@ -1085,6 +1088,195 @@ func main() &#123;
     &#125;
 &#125;
 </code></pre>
+<h2 id="2-27-快速判断文件类型"><a href="#2-27-快速判断文件类型" class="headerlink" title="2.27 快速判断文件类型"></a>2.27 快速判断文件类型</h2><p>在正常情况下，我们需要判断文件类型有两种方法：</p>
+<ul>
+<li>根据文件的扩展名来判断，比如<code>.jpg</code>表示<code>JPEG</code>图像，<code>.mp3</code>表示<code>MP3</code>音频等<ul>
+<li>优点：简单快速</li>
+<li>缺点：容易被伪造或者缺失</li>
+</ul>
+</li>
+<li>根据文件内容的特征来判断，比如<code>JPEG</code>图像的前几个字节是<code>FF D8 FF</code>，<code>MP3</code>音频的前几个字节是<code>ID3</code>等。<ul>
+<li>优点：准确可靠</li>
+<li>缺点：需要读取文件内容并进行分析</li>
+</ul>
+</li>
+</ul>
+<p>而在<code>Go</code>语言的标准库<code>net/http</code>包中提供了一个简单的判断文件类型的方法<code>DetectContentType()</code>，该方法是读取文件内容的前<code>512</code>个字节内容，返回一个<code>MIME</code>类型字符串。它使用了<code>mimesniff</code>算法，根据一组预定义的规则来匹配文件内容的特征和对应的<code>MIME</code>类型。这个方法既不依赖于文件扩展名，也不需要完整地读取文件内容，因此既快速又准确。同时我们可以使用<code>mime.ExtensionsByType</code>获取该类型可能的后缀名：</p>
+<pre><code class="Golang">package main
+
+import (
+    &quot;fmt&quot;
+    &quot;log&quot;
+    &quot;mime&quot;
+    &quot;net/http&quot;
+    &quot;os&quot;
+)
+
+// 处理错误方法
+func HandlingErrors(err error, funname string) &#123;
+    if err != nil &#123;
+        fmt.Println(&quot;[\033[31;1m-\033[0m] &quot;, funname, &quot;Error：&quot;, err)
+        log.Panic(err)
+    &#125;
+&#125;
+func main() &#123;
+    // 打开一个 MP3 文件
+    file, err := os.Open(&quot;a.jpg&quot;)
+    if err != nil &#123;
+        fmt.Println(err)
+        return
+    &#125;
+    // 关闭文件
+    defer file.Close()
+
+    // 读取文件的前 512 个字节到一个缓冲区
+    buffer := make([]byte, 512)
+    n, err := file.Read(buffer)
+    if err != nil &#123;
+        HandlingErrors(err, &quot;file.Read&quot;)
+    &#125;
+
+    // 调用 http.DetectContentType 方法判断文件类型，并传入了缓冲区中的数据，这个方法会返回一个字符串表示文件的 MIME 类型
+    // 实际上，如果字节数超过 512，该函数也只会使用前 512 个字节
+    contentType := http.DetectContentType(buffer[:n])
+    // 返回文件类型可能的文件后缀名
+    ext, err := mime.ExtensionsByType(contentType)
+    if err != nil &#123;
+        HandlingErrors(err, &quot;mime.ExtensionsByType&quot;)
+    &#125;
+    // 输出文件类型
+    fmt.Println(&quot;[\033[0;38;5;214m!\033[0m] 文件类型为：&quot;, contentType)
+    // 输出文件类型可能的文件后缀名
+    fmt.Println(&quot;[\033[0;38;5;214m!\033[0m]&quot;, contentType, &quot;类型可能的后缀名：&quot;, ext)
+&#125;
+</code></pre>
+<h2 id="2-28-搭建http文件下载服务"><a href="#2-28-搭建http文件下载服务" class="headerlink" title="2.28 搭建http文件下载服务"></a>2.28 搭建http文件下载服务</h2><pre><code class="Golang">package main
+
+import (
+    &quot;flag&quot;
+    &quot;fmt&quot;
+    &quot;io/fs&quot;
+    &quot;io/ioutil&quot;
+    &quot;net/http&quot;
+    &quot;os&quot;
+    &quot;strconv&quot;
+)
+
+// 获取文件信息
+func getfile() ([]fs.FileInfo, error) &#123;
+    directory := &quot;./&quot;
+    files, err := os.Open(directory)
+    if err != nil &#123;
+        fmt.Println(&quot;打开目录时出错:&quot;, err)
+        return nil, err
+    &#125;
+    defer files.Close()
+
+    fileInfos, err := files.Readdir(-1)
+    if err != nil &#123;
+        fmt.Println(&quot;读取目录时出错:&quot;, err)
+        return nil, err
+    &#125;
+    return fileInfos, nil
+&#125;
+
+// 显示首页
+func index(rw http.ResponseWriter, r *http.Request) &#123;
+    files, err := getfile()
+    if err != nil &#123;
+        fmt.Fprintln(rw, err)
+    &#125;
+    html := &quot;&quot;
+    for _, val := range files &#123;
+        html = html + &quot;&lt;a href=&#39;download?filename=&quot; + val.Name() + &quot;&#39;&gt;&quot; + val.Name() + &quot;&lt;/a&gt;&lt;/br&gt;&quot;
+    &#125;
+    fmt.Fprintln(rw, html)
+
+&#125;
+
+// 下载功能
+func download(rw http.ResponseWriter, r *http.Request) &#123;
+    //获取请求参数
+    fn := r.FormValue(&quot;filename&quot;)
+    //设置响应头
+    header := rw.Header()
+    header.Add(&quot;Content-Type&quot;, &quot;application/octet-stream&quot;)
+    header.Add(&quot;Content-Disposition&quot;, &quot;attachment;filename=&quot;+fn)
+    //使用ioutil包读取文件
+    b, _ := ioutil.ReadFile(fn)
+    //写入到响应流中
+    rw.Write(b)
+&#125;
+
+func main() &#123;
+    // 设置端口
+    var port int
+    flag.IntVar(&amp;port, &quot;p&quot;, 9090, &quot;自定义端口&quot;)
+    // 解析命令行参数
+    flag.Parse()
+    if port &lt;= 0 || port &gt; 65535 &#123;
+        fmt.Printf(&quot;[x] 该端口不合规！\n&quot;)
+        return
+    &#125;
+    fmt.Println(&quot;[!] 服务端口为：&quot; + strconv.Itoa(port))
+    http.HandleFunc(&quot;/&quot;, index)
+    http.HandleFunc(&quot;/download&quot;, download)
+    err := http.ListenAndServe(&quot;:&quot;+strconv.Itoa(port), nil)
+    if err != nil &#123;
+        fmt.Printf(&quot;[x] http服务器失败，err:%v\n&quot;, err)
+        return
+    &#125;
+&#125;
+</code></pre>
+<h2 id="2-29-判断为空方法"><a href="#2-29-判断为空方法" class="headerlink" title="2.29 判断为空方法"></a>2.29 判断为空方法</h2><pre><code class="Golang">func main() &#123;
+    // 判断字符串为空
+    str := &quot;&quot;
+    if str != &quot;&quot; &#123;
+        fmt.Println(&quot;字符串为空&quot;)
+    &#125;
+
+    // 判断数组或者切片为空
+    List := []string&#123;&#125;
+    if len(List) != 0 &#123;
+        fmt.Println(&quot;数组为空&quot;)
+    &#125;
+
+    // 判断map为空
+    Map := make(map[string]int)
+    if len(Map) != 0 &#123;
+        fmt.Println(&quot;数组为空&quot;)
+    &#125;
+&#125;
+</code></pre>
+<h2 id="2-30-以行的方式读取文件内的字符串"><a href="#2-30-以行的方式读取文件内的字符串" class="headerlink" title="2.30 以行的方式读取文件内的字符串"></a>2.30 以行的方式读取文件内的字符串</h2><pre><code class="golang">// 读取文件并以[]string形式返回内容
+func ReadingLines(filename string) []string &#123;
+    // 设置结果变量
+    var result []string
+    // 打开文件
+    file, err := os.Open(filename)
+    if err != nil &#123;
+        return result
+    &#125;
+    defer file.Close()
+    // 开始读取文件
+    scanner := bufio.NewScanner(file)
+    // 循环读取
+    for scanner.Scan() &#123;
+        val := scanner.Text()
+        // 判断是否为空
+        if val == &quot;&quot; &#123;
+            continue
+        &#125;
+        // 拼接
+        result = append(result, val)
+    &#125;
+    // 判断是否存在终止错误
+    if err := scanner.Err(); err != nil &#123;
+        return result
+    &#125;
+    return result
+&#125;
+</code></pre>
 
     </div>
     
@@ -1156,7 +1348,7 @@ func main() &#123;
     <div class="card-style" style="width: 300px">
         <div id="toc" class="toc-article">
             <strong class="toc-title">文章目录</strong>
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A3%B9-%E8%AF%B4%E6%98%8E"><span class="toc-text">壹 说明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%B0-%E5%B0%8F%E8%84%9A%E6%9C%AC"><span class="toc-text">贰 小脚本</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E5%A4%84%E7%90%86%E9%94%99%E8%AF%AF%E6%96%B9%E6%B3%95"><span class="toc-text">2.1 处理错误方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E6%A0%87%E5%BF%97"><span class="toc-text">2.2 标志</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E5%88%87%E7%89%87%E5%8E%BB%E9%87%8D"><span class="toc-text">2.3 切片去重</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-%E6%8E%92%E9%99%A4%E5%86%85%E7%BD%91IP"><span class="toc-text">2.4 排除内网IP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-5-IP%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-text">2.5 IP的正则表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-6-%E7%BB%88%E7%AB%AF%E9%A2%9C%E8%89%B2"><span class="toc-text">2.6 终端颜色</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-7-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B1%BB%E5%9E%8B%E7%9A%84%E7%AB%AF%E5%8F%A3%E8%BD%AC%E6%8D%A2%E4%B8%BAint%E5%88%87%E7%89%87%E7%9A%84%E7%AB%AF%E5%8F%A3"><span class="toc-text">2.7 字符串类型的端口转换为int切片的端口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-8-%E5%B0%86int%E8%BD%AC%E6%8D%A2%E4%B8%BA%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">2.8 将int转换为字符串</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-9-Ping%E9%80%9A%E4%B8%BB%E6%9C%BA%E4%BB%A5%E5%8F%8A%E5%88%A4%E6%96%AD%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%B1%BB%E5%9E%8B"><span class="toc-text">2.9 Ping通主机以及判断操作系统类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-10-%E5%AE%9E%E7%8E%B0SHA256%E7%94%9F%E6%88%90%E6%95%A3%E5%88%97%E5%80%BC"><span class="toc-text">2.10 实现SHA256生成散列值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-11-%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D%E7%9B%AE%E5%BD%95%E4%B8%8B%E6%89%80%E6%9C%89%E6%96%87%E4%BB%B6"><span class="toc-text">2.11 获取当前目录下所有文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-12-%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E6%95%B0"><span class="toc-text">2.12 生成随机数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-13-Base64%E7%BC%96%E7%A0%81"><span class="toc-text">2.13 Base64编码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-14-%E5%88%A4%E6%96%AD%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E6%9F%90%E4%B8%AA%E5%AD%97%E7%AC%A6"><span class="toc-text">2.14 判断字符串是否包含某个字符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-15-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%8D%E8%BD%AC"><span class="toc-text">2.15 字符串反转</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-16-%E8%AF%BB%E5%8F%96json%E6%96%87%E4%BB%B6"><span class="toc-text">2.16 读取json文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-17-%E8%BF%9B%E5%BA%A6%E6%9D%A1"><span class="toc-text">2.17 进度条</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-18-%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD"><span class="toc-text">2.18 动态加载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-19-%E6%B1%89%E5%AD%97%E8%BD%AC%E6%8B%BC%E9%9F%B3"><span class="toc-text">2.19 汉字转拼音</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-20-%E8%8E%B7%E5%8F%96%E5%AE%A2%E6%88%B7%E7%AB%AFIP"><span class="toc-text">2.20 获取客户端IP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-21-%E6%A0%BC%E5%BC%8F%E5%8C%96%E7%94%A8%E6%88%B7%E8%BE%93%E5%85%A5%E7%9A%84IP"><span class="toc-text">2.21 格式化用户输入的IP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-22-%E6%96%87%E4%BB%B6%E5%86%99%E5%85%A5"><span class="toc-text">2.22 文件写入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-23-%E5%88%A4%E6%96%AD%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%98%AF%E5%90%A6%E5%9C%A8%E5%88%97%E8%A1%A8%E4%B8%AD"><span class="toc-text">2.23 判断字符串是否在列表中</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-24-%E8%AF%BB%E5%8F%96json%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9%E5%B9%B6%E8%AE%BE%E7%BD%AE%E4%B8%BA%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-text">2.24 读取json文件内容并设置为结构体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-25-%E7%BB%93%E6%9E%84%E4%BD%93%E8%BD%AC%E6%8D%A2%E4%B8%BAjson%E6%96%87%E4%BB%B6"><span class="toc-text">2.25 结构体转换为json文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-26-%E6%A0%BC%E5%BC%8F%E5%8C%96%E7%94%A8%E6%88%B7%E8%BE%93%E5%85%A5%E7%9A%84%E7%AB%AF%E5%8F%A3"><span class="toc-text">2.26 格式化用户输入的端口</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A3%B9-%E8%AF%B4%E6%98%8E"><span class="toc-text">壹 说明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%B0-%E5%B0%8F%E8%84%9A%E6%9C%AC"><span class="toc-text">贰 小脚本</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E5%A4%84%E7%90%86%E9%94%99%E8%AF%AF%E6%96%B9%E6%B3%95"><span class="toc-text">2.1 处理错误方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E6%A0%87%E5%BF%97"><span class="toc-text">2.2 标志</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E5%88%87%E7%89%87%E5%8E%BB%E9%87%8D"><span class="toc-text">2.3 切片去重</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-%E6%8E%92%E9%99%A4%E5%86%85%E7%BD%91IP"><span class="toc-text">2.4 排除内网IP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-5-IP%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-text">2.5 IP的正则表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-6-%E7%BB%88%E7%AB%AF%E9%A2%9C%E8%89%B2"><span class="toc-text">2.6 终端颜色</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-7-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B1%BB%E5%9E%8B%E7%9A%84%E7%AB%AF%E5%8F%A3%E8%BD%AC%E6%8D%A2%E4%B8%BAint%E5%88%87%E7%89%87%E7%9A%84%E7%AB%AF%E5%8F%A3"><span class="toc-text">2.7 字符串类型的端口转换为int切片的端口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-8-%E5%B0%86int%E8%BD%AC%E6%8D%A2%E4%B8%BA%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">2.8 将int转换为字符串</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-9-Ping%E9%80%9A%E4%B8%BB%E6%9C%BA%E4%BB%A5%E5%8F%8A%E5%88%A4%E6%96%AD%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%B1%BB%E5%9E%8B"><span class="toc-text">2.9 Ping通主机以及判断操作系统类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-10-%E5%AE%9E%E7%8E%B0SHA256%E7%94%9F%E6%88%90%E6%95%A3%E5%88%97%E5%80%BC"><span class="toc-text">2.10 实现SHA256生成散列值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-11-%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D%E7%9B%AE%E5%BD%95%E4%B8%8B%E6%89%80%E6%9C%89%E6%96%87%E4%BB%B6"><span class="toc-text">2.11 获取当前目录下所有文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-12-%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E6%95%B0"><span class="toc-text">2.12 生成随机数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-13-Base64%E7%BC%96%E7%A0%81"><span class="toc-text">2.13 Base64编码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-14-%E5%88%A4%E6%96%AD%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E6%9F%90%E4%B8%AA%E5%AD%97%E7%AC%A6"><span class="toc-text">2.14 判断字符串是否包含某个字符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-15-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%8D%E8%BD%AC"><span class="toc-text">2.15 字符串反转</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-16-%E8%AF%BB%E5%8F%96json%E6%96%87%E4%BB%B6"><span class="toc-text">2.16 读取json文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-17-%E8%BF%9B%E5%BA%A6%E6%9D%A1"><span class="toc-text">2.17 进度条</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-18-%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD"><span class="toc-text">2.18 动态加载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-19-%E6%B1%89%E5%AD%97%E8%BD%AC%E6%8B%BC%E9%9F%B3"><span class="toc-text">2.19 汉字转拼音</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-20-%E8%8E%B7%E5%8F%96%E5%AE%A2%E6%88%B7%E7%AB%AFIP"><span class="toc-text">2.20 获取客户端IP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-21-%E6%A0%BC%E5%BC%8F%E5%8C%96%E7%94%A8%E6%88%B7%E8%BE%93%E5%85%A5%E7%9A%84IP"><span class="toc-text">2.21 格式化用户输入的IP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-22-%E6%96%87%E4%BB%B6%E5%86%99%E5%85%A5"><span class="toc-text">2.22 文件写入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-23-%E5%88%A4%E6%96%AD%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%98%AF%E5%90%A6%E5%9C%A8%E5%88%97%E8%A1%A8%E4%B8%AD"><span class="toc-text">2.23 判断字符串是否在列表中</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-24-%E8%AF%BB%E5%8F%96json%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9%E5%B9%B6%E8%AE%BE%E7%BD%AE%E4%B8%BA%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-text">2.24 读取json文件内容并设置为结构体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-25-%E7%BB%93%E6%9E%84%E4%BD%93%E8%BD%AC%E6%8D%A2%E4%B8%BAjson%E6%96%87%E4%BB%B6"><span class="toc-text">2.25 结构体转换为json文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-26-%E6%A0%BC%E5%BC%8F%E5%8C%96%E7%94%A8%E6%88%B7%E8%BE%93%E5%85%A5%E7%9A%84%E7%AB%AF%E5%8F%A3"><span class="toc-text">2.26 格式化用户输入的端口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-27-%E5%BF%AB%E9%80%9F%E5%88%A4%E6%96%AD%E6%96%87%E4%BB%B6%E7%B1%BB%E5%9E%8B"><span class="toc-text">2.27 快速判断文件类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-28-%E6%90%AD%E5%BB%BAhttp%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E6%9C%8D%E5%8A%A1"><span class="toc-text">2.28 搭建http文件下载服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-29-%E5%88%A4%E6%96%AD%E4%B8%BA%E7%A9%BA%E6%96%B9%E6%B3%95"><span class="toc-text">2.29 判断为空方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-30-%E4%BB%A5%E8%A1%8C%E7%9A%84%E6%96%B9%E5%BC%8F%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E5%86%85%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">2.30 以行的方式读取文件内的字符串</span></a></li></ol></li></ol>
         </div>    
     </div>
     
