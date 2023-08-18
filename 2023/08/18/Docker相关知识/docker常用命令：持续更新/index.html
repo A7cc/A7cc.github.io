@@ -1,0 +1,461 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>Docker常用命令 | 小C♥天天</title>
+        <meta name="author" content="小C&天天">
+        <meta name="description" content="^v^">
+        <meta name="keywords" content="">
+        <link rel="icon" href="/images/icon.jpg">
+        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
+        <link rel="stylesheet" href="/css/fonts.min.css">
+        <link rel="stylesheet" href="/css/particlex.css">
+        <link rel="stylesheet" href="/css/main.css">
+        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
+        <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+        <link rel="stylesheet" href="/css/style.css">
+    <meta name="generator" content="Hexo 6.2.0"></head>
+    <body>
+        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:30vmin;height:30vmin;padding:60px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #dd20dd;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">正在加载</p><div><img alt="loading" src="/images/afde9fa65a5742a90b51d6e1211e841e.gif"></div></div></div></div></div>
+        <div id="layout">
+            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
+            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
+            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
+            <transition name="into">
+                <div v-show="show_page" style="display: -not-none">
+                    <div id="menu_show">
+                         
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">小C♥天天</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;文章</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+        <form class="search">
+            <input type="text" placeholder="需要搜索什么？">
+            <button type="submit"></button>
+        </form>
+    </div>
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
+        <div :class="'title'" @click="menu_show = !menu_show">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;小C♥天天</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+                    </div>
+                    <div id="main">
+                        
+
+<div id="home-posts-wrap" class=>
+<div class="article">
+    <div>
+        <h1>Docker常用命令 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2023/8/18
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Docker相关知识">
+                <span class="icon">
+                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                </span>
+                Docker相关知识
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/小技巧" style="color: #03a9f4">
+                    小技巧
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Docker" style="color: #00bcd4">
+                    Docker
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    <div class="content" v-pre>
+        <h1 id="壹-说明"><a href="#壹-说明" class="headerlink" title="壹 说明"></a>壹 说明</h1><p>该文章主要记录平时使用的<code>docker</code>命令。</p>
+<span id="more"></span>
+<h1 id="贰-常用命令"><a href="#贰-常用命令" class="headerlink" title="贰 常用命令"></a>贰 常用命令</h1><h2 id="2-1-查看运行容器"><a href="#2-1-查看运行容器" class="headerlink" title="2.1 查看运行容器"></a>2.1 查看运行容器</h2><p>语法：<code>docker ps \[OPTIONS\]</code><br>OPTIONS说明：</p>
+<pre><code class="bash">-a :显示所有的容器，包括未运行的。
+-f :根据条件过滤显示的内容。
+--format :指定返回值的模板文件。
+-l :显示最近创建的容器。
+-n :列出最近创建的n个容器。
+--no-trunc :不截断输出。
+-q :静默模式，只显示容器编号。
+-s :显示总的文件大小。
+</code></pre>
+<h2 id="2-2-启动运行一个docker-compose"><a href="#2-2-启动运行一个docker-compose" class="headerlink" title="2.2 启动运行一个docker-compose"></a>2.2 启动运行一个docker-compose</h2><pre><code class="bash"># -d：是进入后台运行
+docker-compose up -d
+</code></pre>
+<h2 id="2-3-运行dockerfile"><a href="#2-3-运行dockerfile" class="headerlink" title="2.3 运行dockerfile"></a>2.3 运行dockerfile</h2><pre><code class="bash">docker build -t 生成的标签 -f dockerfile文件路径
+docker run -d -p 本机端口:docker端口 imageID
+</code></pre>
+<h2 id="2-4-运行本地dockerimae"><a href="#2-4-运行本地dockerimae" class="headerlink" title="2.4 运行本地dockerimae"></a>2.4 运行本地dockerimae</h2><p>要在使用的文件夹目录上使用选择：</p>
+<pre><code class="bash">docker：docker load -i 文件路径
+端口映射：docker run -d -p 本机端口:docker端口 imageID
+</code></pre>
+<h2 id="2-5-查看docker详细信息"><a href="#2-5-查看docker详细信息" class="headerlink" title="2.5 查看docker详细信息"></a>2.5 查看docker详细信息</h2><pre><code class="bash">docker inspect &lt;id&gt;
+</code></pre>
+<h2 id="2-6-进入仓库"><a href="#2-6-进入仓库" class="headerlink" title="2.6 进入仓库"></a>2.6 进入仓库</h2><pre><code class="bash"># 列出docker仓库
+docker ps -a
+# 进入仓库
+docker exec -it 容器ID bash
+
+# 打开docker服务
+service docker start
+# 列出docker
+docker images ls
+</code></pre>
+<h2 id="2-7-停用删除容器"><a href="#2-7-停用删除容器" class="headerlink" title="2.7 停用删除容器"></a>2.7 停用删除容器</h2><pre><code class="bash"># 停用全部运行中的容器
+docker stop $(docker ps -q)
+# 删除全部容器
+docker rm $(docker ps -aq)
+# 一条命令实现停用并删除容器
+docker stop $(docker ps -q) &amp; docker rm $(docker ps -aq)
+# 删除镜像
+docker stop 镜像ID
+docker rm 镜像ID
+docker rmi  REPOSITORY:TAG
+</code></pre>
+<p>或者使用<code>shell</code>脚本：</p>
+<pre><code class="bash">#!/bin/sh
+
+docker rm -f $1
+docker rmi $2
+</code></pre>
+<h2 id="2-8-导入导出tar"><a href="#2-8-导入导出tar" class="headerlink" title="2.8 导入导出tar"></a>2.8 导入导出tar</h2><p>导出：<code>docker save 镜像名字 -o 绝对路径/名字.tar</code></p>
+<p>导入：<br><img src="/images/Docker%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/064b60d1ce955d1aeeee7ea94d6a38d2.png" alt="064b60d1ce955d1aeeee7ea94d6a38d2.png"></p>
+<p>导入：<code>docker load -i 名字.tar</code><br>映射端口：<code>docker run -itd -p 本机端口:docker端口  imageID</code></p>
+<p>详细说明：<a target="_blank" rel="noopener" href="https://www.runoob.com/docker/docker-container-usage.html">Docker 容器使用</a></p>
+<h2 id="2-9-docker自启动"><a href="#2-9-docker自启动" class="headerlink" title="2.9 docker自启动"></a>2.9 docker自启动</h2><pre><code class="bash"># 未启动
+docker run -itd -p 58001:80 --restart=always --name web1-tingdia b0a15300483c
+# 如果已经启动的项目.则使用update更新
+docker update --restart=always 容器id
+</code></pre>
+<h2 id="2-10-使用对应功能"><a href="#2-10-使用对应功能" class="headerlink" title="2.10 使用对应功能"></a>2.10 使用对应功能</h2><p><img src="/images/Docker%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/d5c440d73a1a0e58069ac6a2aee73eb7.png" alt="d5c440d73a1a0e58069ac6a2aee73eb7.png"></p>
+<h2 id="2-11-把文件复制至docker容器"><a href="#2-11-把文件复制至docker容器" class="headerlink" title="2.11 把文件复制至docker容器"></a>2.11 把文件复制至docker容器</h2><p>执行复制时命令的时候一定要退出<code>docker</code>环境：</p>
+<pre><code class="bash">docker cp dir1 容器ID:/dir2
+# 即把目录1整个复制到了容器中的dir2目录下
+docker cp 容器ID:/dir1 dir2
+# 即把容器中的目录1整个复制到了dir2目录下
+</code></pre>
+<h2 id="2-12-看docker日志"><a href="#2-12-看docker日志" class="headerlink" title="2.12 看docker日志"></a>2.12 看docker日志</h2><pre><code class="bash">docker logs docker的环境ID
+</code></pre>
+<h2 id="2-13-重命名"><a href="#2-13-重命名" class="headerlink" title="2.13 重命名"></a>2.13 重命名</h2><pre><code class="bash"># 这里将ceshi:vim重命名为ceshi/v1:vim
+docker tag 旧的镜像名:TAG 新的镜像名:TAG
+# 或者
+docker tag image的ID 新的镜像名:TAG
+docker tag ceshi:vim ceshi/v1:vim
+</code></pre>
+<h2 id="2-14-将运行的容器打包成镜像"><a href="#2-14-将运行的容器打包成镜像" class="headerlink" title="2.14 将运行的容器打包成镜像"></a>2.14 将运行的容器打包成镜像</h2><pre><code class="bash"># -a :提交的镜像作者；
+# -c :使用Dockerfile指令来创建镜像，就是在commit后面追加一个Dockerfile指令
+# -m :提交时的说明文字；
+# -p :在commit时，将容器暂停。
+docker commit -a &quot;runoob.com&quot; -m &quot;my apache&quot; 容器名称或id 打包的镜像名称:标签
+# 例子
+docker commit 34170f88159e file_include
+</code></pre>
+<h2 id="2-15-镜像命令"><a href="#2-15-镜像命令" class="headerlink" title="2.15 镜像命令"></a>2.15 镜像命令</h2><p><img src="/images/Docker%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/8debd36dd0d2ce0dfd78d53b92544c6b.png" alt="8debd36dd0d2ce0dfd78d53b92544c6b.png"></p>
+<h2 id="2-16-创建容器常用选项"><a href="#2-16-创建容器常用选项" class="headerlink" title="2.16 创建容器常用选项"></a>2.16 创建容器常用选项</h2><p><img src="/images/Docker%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/1f87032c5e05054c89e83651d2fd3d69.png" alt="1f87032c5e05054c89e83651d2fd3d69.png"><br><img src="/images/Docker%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/5c0300b40cb9c41ce6e0b890010a4ccb.png" alt="5c0300b40cb9c41ce6e0b890010a4ccb.png"></p>
+<p>有用：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/nulige/articles/10910334.html">docker命令详细讲解</a></p>
+<h2 id="2-17-docker-exec-不同用户登入"><a href="#2-17-docker-exec-不同用户登入" class="headerlink" title="2.17 docker exec 不同用户登入"></a>2.17 docker exec 不同用户登入</h2><pre><code class="bash">docker exec -it --user root &lt;容器ID&gt; /bin/bash
+</code></pre>
+<h2 id="2-18-在运行的容器追加dockerfile命令"><a href="#2-18-在运行的容器追加dockerfile命令" class="headerlink" title="2.18 在运行的容器追加dockerfile命令"></a>2.18 在运行的容器追加dockerfile命令</h2><pre><code class="bash"> docker commit -c &quot;ENTRYPOINT [&quot;/run.sh&quot;]&quot; &lt;容器id&gt; &lt;images名&gt;
+</code></pre>
+<h2 id="2-19-Harbor私服使用"><a href="#2-19-Harbor私服使用" class="headerlink" title="2.19 Harbor私服使用"></a>2.19 Harbor私服使用</h2><p>首先在存放环境的虚拟机，将私服的htp地址配置到<code>docker</code>的不安全<code>register</code>中。</p>
+<pre><code class="bash"># vim /etc/docker/daemon.json
+&#123;&quot;insecure-registries&quot;: [&quot;10.10.10.137:23080&quot;]&#125;
+</code></pre>
+<p>重启<code>docker</code>服务后可以正常<code>login</code>进<code>docker</code>私服</p>
+<pre><code class="bash">systemctl daemon-reload &amp;&amp; systemctl restart docker
+</code></pre>
+<p>接着就是登录</p>
+<pre><code class="bash">docker login IP:23080
+user:admin
+password:
+Login Succeeded
+</code></pre>
+<p>上传镜像到在<code>Harbor</code>上，查看<code>docker images</code>：</p>
+<pre><code class="bash">docker images
+</code></pre>
+<p><img src="/images/Docker%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/44e8a8474742966e1f5da76b90c25a31.png" alt="44e8a8474742966e1f5da76b90c25a31.png"></p>
+<p>修改<code>tag</code>，<code>tag</code>的命名需要通过<code>Harbor</code>仓库获得命令：</p>
+<p><img src="/images/Docker%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/98ace426c1902b0d78332029f65bf538.png" alt="98ace426c1902b0d78332029f65bf538.png"></p>
+<pre><code class="bash"># 通过Harbor仓库获得tag，执行下面命令
+docker tag imagesID &#123;Harbor地址&#125;:&#123;端口&#125;/&#123;Harbor项目名&#125;/&#123;自定义镜像名&#125;:&#123;自定义tag&#125;
+# 例子
+docker tag fdb2dda420ac IP:23080/2021-xianxiajs/pwn-mid-akernel:v1 
+</code></pre>
+<p>上传镜像到<code>Harbor</code>仓库：</p>
+<pre><code class="bash">docker push 就是刚刚修改的tag
+</code></pre>
+<p><img src="/images/Docker%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/00610892dacb487501a27247fbc79bdf.png" alt="00610892dacb487501a27247fbc79bdf.png"></p>
+<h2 id="2-20-查看docker前台命令"><a href="#2-20-查看docker前台命令" class="headerlink" title="2.20 查看docker前台命令"></a>2.20 查看docker前台命令</h2><pre><code class="bash">docker ps -a --no-trunc
+</code></pre>
+<p><img src="/images/Docker%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/434278ca01b6d30a052ac6212094a509.png" alt="434278ca01b6d30a052ac6212094a509.png"></p>
+
+    </div>
+    
+</div>
+
+    <div id="home-card">
+        
+<div id="card-div">
+    <div class="card-style" style="width: 300px">
+        <div class="avatar">
+            <img src="/images/f6e2b991f74bfd7b88c3ab1a3d513b94.jpg " alt="avatar">
+        </div>
+        <div class="name">
+            小C&天天
+        </div>
+        <div class="descriptions">
+            
+            <div class="description">
+                修学储能 先博后渊
+            </div>
+            
+        </div>
+        <div class="icon-links">
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://github.com/A7cc">
+                    <i class="fa-brands fa-github fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.qq.com/">
+                    <i class="fa-brands fa-qq fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.weibo.com/">
+                    <i class="fa-brands fa-weibo fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://google.com/">
+                    <i class="fa-brands fa-google fa-fw"></i>
+                </a>
+            </span>
+            
+        </div>
+        <div class="friend-links">
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="http://www.wgs6km.top/">
+                    kyrieee个人博客
+                </a>
+            </div>
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="https://tonyd0g.gitee.io/">
+                    tonyd0g
+                </a>
+            </div>
+            
+        </div>
+    </div>
+    <br />
+    <!-- 目录 -->
+    
+    <div class="card-style" style="width: 300px">
+        <div id="toc" class="toc-article">
+            <strong class="toc-title">文章目录</strong>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A3%B9-%E8%AF%B4%E6%98%8E"><span class="toc-text">壹 说明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%B0-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-text">贰 常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E6%9F%A5%E7%9C%8B%E8%BF%90%E8%A1%8C%E5%AE%B9%E5%99%A8"><span class="toc-text">2.1 查看运行容器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E5%90%AF%E5%8A%A8%E8%BF%90%E8%A1%8C%E4%B8%80%E4%B8%AAdocker-compose"><span class="toc-text">2.2 启动运行一个docker-compose</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E8%BF%90%E8%A1%8Cdockerfile"><span class="toc-text">2.3 运行dockerfile</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-%E8%BF%90%E8%A1%8C%E6%9C%AC%E5%9C%B0dockerimae"><span class="toc-text">2.4 运行本地dockerimae</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-5-%E6%9F%A5%E7%9C%8Bdocker%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF"><span class="toc-text">2.5 查看docker详细信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-6-%E8%BF%9B%E5%85%A5%E4%BB%93%E5%BA%93"><span class="toc-text">2.6 进入仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-7-%E5%81%9C%E7%94%A8%E5%88%A0%E9%99%A4%E5%AE%B9%E5%99%A8"><span class="toc-text">2.7 停用删除容器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-8-%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BAtar"><span class="toc-text">2.8 导入导出tar</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-9-docker%E8%87%AA%E5%90%AF%E5%8A%A8"><span class="toc-text">2.9 docker自启动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-10-%E4%BD%BF%E7%94%A8%E5%AF%B9%E5%BA%94%E5%8A%9F%E8%83%BD"><span class="toc-text">2.10 使用对应功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-11-%E6%8A%8A%E6%96%87%E4%BB%B6%E5%A4%8D%E5%88%B6%E8%87%B3docker%E5%AE%B9%E5%99%A8"><span class="toc-text">2.11 把文件复制至docker容器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-12-%E7%9C%8Bdocker%E6%97%A5%E5%BF%97"><span class="toc-text">2.12 看docker日志</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-13-%E9%87%8D%E5%91%BD%E5%90%8D"><span class="toc-text">2.13 重命名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-14-%E5%B0%86%E8%BF%90%E8%A1%8C%E7%9A%84%E5%AE%B9%E5%99%A8%E6%89%93%E5%8C%85%E6%88%90%E9%95%9C%E5%83%8F"><span class="toc-text">2.14 将运行的容器打包成镜像</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-15-%E9%95%9C%E5%83%8F%E5%91%BD%E4%BB%A4"><span class="toc-text">2.15 镜像命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-16-%E5%88%9B%E5%BB%BA%E5%AE%B9%E5%99%A8%E5%B8%B8%E7%94%A8%E9%80%89%E9%A1%B9"><span class="toc-text">2.16 创建容器常用选项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-17-docker-exec-%E4%B8%8D%E5%90%8C%E7%94%A8%E6%88%B7%E7%99%BB%E5%85%A5"><span class="toc-text">2.17 docker exec 不同用户登入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-18-%E5%9C%A8%E8%BF%90%E8%A1%8C%E7%9A%84%E5%AE%B9%E5%99%A8%E8%BF%BD%E5%8A%A0dockerfile%E5%91%BD%E4%BB%A4"><span class="toc-text">2.18 在运行的容器追加dockerfile命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-19-Harbor%E7%A7%81%E6%9C%8D%E4%BD%BF%E7%94%A8"><span class="toc-text">2.19 Harbor私服使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-20-%E6%9F%A5%E7%9C%8Bdocker%E5%89%8D%E5%8F%B0%E5%91%BD%E4%BB%A4"><span class="toc-text">2.20 查看docker前台命令</span></a></li></ol></li></ol>
+        </div>    
+    </div>
+    
+</div>
+    </div>
+    
+</div>
+                         
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+            <script>
+                var now = new Date(); 
+                function createtime() { 
+                    var grt= new Date("07/10/2022 00:00:00");
+                    now.setTime(now.getTime()+250); 
+                    days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+                    hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+                    if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+                    mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+                    seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+                    snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+                    document.getElementById("timeDate").innerHTML = "已运行 "+dnum+" 天 "; 
+                    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+                } 
+            setInterval("createtime()",250);
+            </script>
+            </div>
+        <div>
+        <div>
+            © 2022 - 2023 小C♥天天
+            <span class="footer-icon">
+                <i class="fa-brands fa-github fa-fw"></i>
+            </span>
+            @小C&天天
+        </div>
+        <div>
+            备案号：小C&天天の窝
+        </div>
+    </div>
+</footer>
+                    </div>
+                </div>
+            </transition>
+            <div id="img_show">
+                <img id="img_content" alt="img_show">
+            </div>
+        </div>
+        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
+        <script src="/js/particlex.js"></script>
+        <script src="/js/showimg.js"></script>
+        
+
+        <!-- 3D模型 -->
+        <div id="L2dCanvas" style="position: relative;"></div>
+        <script src="/js/live2d.min.js"></script>
+        <script src="/css/live2d.css"></script>
+        <script>
+            var v = new Viewer({
+                basePath: "/model",
+                role: "zhala_2",
+                mobile: true,
+            });
+        </script>
+        <!-- 点击 -->
+        <script>
+            let body = document.getElementsByTagName('body')[0];
+            body.addEventListener('click', (e) => {
+                let contentArr = ['✊','😘','😍','😊','😭','😡','😋','👍','🐷','😱','💷','💵','×','🆗','№','⭐','🌙','♥','💴','☀','🐎','🐂','🐏','√'];
+                let randomNum = function (n) {
+                    return Math.floor(Math.random() * n)
+                }
+                let span = document.createElement('span');
+                span.innerHTML = `${contentArr[randomNum(contentArr.length)]}`;
+                span.style.color = `rgb(${randomNum(256)},${randomNum(256)},${randomNum(256)})`;
+                span.style.position = 'absolute';
+                span.style.top = `${e.pageY}px`;
+                span.style.left = `${e.pageX}px`;
+                span.style.transition = 'all 1s ease';
+                span.style.zIndex = 20000;
+                body.appendChild(span)
+                setTimeout(()=>{
+                    span.style.top = span.offsetTop - 100 + 'px';
+                    span.style.opacity = 0;
+                    setTimeout(()=>{span.remove()},700)
+                },0)
+            })
+        </script>
+        <!-- 流星背景特效 -->
+        <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/background.js"></script>
+    </body>
+</html>
