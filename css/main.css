@@ -1201,7 +1201,8 @@ ol li {
     }
 }
 @media (min-width: 900px) and (max-width: 1200px) {
-    #home-card {
+    #home-card,
+    #article-card {
         display: none;
     }
     #home-posts {
@@ -1270,7 +1271,8 @@ ol li {
         width: 100%;
     }
     #menu #desktop-menu,
-    #home-card {
+    #home-card,
+    #article-card {
         display: none;
     }
     #menu #mobile-menu {
