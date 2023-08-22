@@ -96,6 +96,11 @@
             <span>&ensp;标签</span>
         </a>
         
+        <a href="/tools">
+            <i class="fa-solid fa-tools fa-fw"></i>
+            <span>&ensp;工具</span>
+        </a>
+        
     </nav>
     <nav id="mobile-menu">
         <div class="title" @click="showMenuItems = !showMenuItems">
@@ -150,6 +155,15 @@
                     </div>
                 </a>
                 
+                <a href="/tools">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tools fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">工具</div>
+                    </div>
+                </a>
+                
             </div>
         </transition>
     </nav>
@@ -195,7 +209,7 @@
                 
                 <span class="tag">
                     
-                    <a href="/tags/Docker/" style="color: #03a9f4">Docker</a>
+                    <a href="/tags/Docker/" style="color: #ff7d73">Docker</a>
                 </span>
                 
             </span>
@@ -491,7 +505,7 @@ docker tag fdb2dda420ac IP:23080/2021-xianxiajs/pwn-mid-akernel:v1
         <script>
             var v = new Viewer({
                 basePath: "/model",
-                role: "qibolin_2",
+                role: "banrenma_2",
                 mobile: true,
             });
         </script>

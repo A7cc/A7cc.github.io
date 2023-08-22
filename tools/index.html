@@ -3,7 +3,7 @@
 <html lang="zh-Hans">
     <head>
         <meta charset="utf-8" />
-        <title>tools | 小C♥天天</title>
+        <title>工具 | 小C♥天天</title>
         <meta name="author" content="小C&天天" />
         <meta name="description" content="^v^" />
         <meta name="keywords" content="" />
@@ -39,11 +39,6 @@
 
 <!-- 看板娘 -->
 <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
-
-
-
-
-<!-- 评论功能设置 -->
 
 
 
@@ -94,6 +89,11 @@
         <a href="/tags">
             <i class="fa-solid fa-tags fa-fw"></i>
             <span>&ensp;标签</span>
+        </a>
+        
+        <a href="/tools">
+            <i class="fa-solid fa-tools fa-fw"></i>
+            <span>&ensp;工具</span>
         </a>
         
     </nav>
@@ -150,6 +150,15 @@
                     </div>
                 </a>
                 
+                <a href="/tools">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tools fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">工具</div>
+                    </div>
+                </a>
+                
             </div>
         </transition>
     </nav>
@@ -159,132 +168,171 @@
 </transition>
 
             <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-                <div id="article-posts-wrap" true ref="homePostsWrap">
-    <div class="article">
-        <div>
-            <h1>tools</h1>
+                <div id="tools">
+    <section class="py-5 text-center container">
+        <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light" _msttexthash="12426492" _msthash="7">梦想集团</h1>
+            <a href="/login.html" class="btn btn-primary my-2" _msttexthash="5298241" _msthash="8">登录</a>
+            <a href="#" class="btn btn-secondary my-2" _msttexthash="15282969" _msthash="9">个人云桌面</a>
+            <p></p>
         </div>
-        <div class="info">
-            <span class="date">
-                <span class="icon">
-                    <i class="fa-solid fa-calendar fa-fw"></i>
-                </span>
-                2022/7/5
-            </span>
-            
-            
         </div>
-        
-        <div class="content" v-pre>
-            
-        </div>
-        
-        
-        
-        
-        <div id="comment">
-            <div id="giscus-container" class="giscus"></div>
-        </div>
-        
-        
-        
-        
-    </div>
+    </section>
     
-    <div id="article-card">
-        <div id="card-style">
-    <div id="card-div">
-        <div class="avatar">
-            <img src="/images/f6e2b991f74bfd7b88c3ab1a3d513b94.jpg" alt="avatar" />
-        </div>
-        <div class="name">小C&amp;天天</div>
-        <div class="description">
-            <p>修学储能 先博后渊</p>
-
-        </div>
-        
-        <div class="icon-links">
-            
-            <span class="icon-link">
-                <a target="_blank" rel="noopener" href="https://github.com/A7cc">
-                    <i class="fa-brands fa-github fa-fw"></i>
-                </a>
-            </span>
-            
-            <span class="icon-link">
-                <a target="_blank" rel="noopener" href="https://www.qq.com/">
-                    <i class="fa-brands fa-qq fa-fw"></i>
-                </a>
-            </span>
-            
-            <span class="icon-link">
-                <a target="_blank" rel="noopener" href="https://www.weibo.com/">
-                    <i class="fa-brands fa-weibo fa-fw"></i>
-                </a>
-            </span>
-            
-            <span class="icon-link">
-                <a target="_blank" rel="noopener" href="https://google.com/">
-                    <i class="fa-brands fa-google fa-fw"></i>
-                </a>
-            </span>
-            
-        </div>
-        
-        
-        <div class="friend-links">
-            
-            <span class="friend-link">
-                <a target="_blank" rel="noopener" href="http://www.wgs6km.top/">kyrieee</a>
-            </span>
-            
-            <span class="friend-link">
-                <a target="_blank" rel="noopener" href="https://tonyd0g.gitee.io/">tonyd0g</a>
-            </span>
-            
-            <span class="friend-link">
-                <a target="_blank" rel="noopener" href="https://ruyueattention.github.io/">ruyueattention</a>
-            </span>
-            
-        </div>
-        
-    </div>
+    <div class="album py-5 bg-light">
+        <div class="container">
     
-    <!-- <br /> -->
-    <!-- 目录 -->
-    <!-- 
-    <div id="card-div">
-        <div id="toc" class="toc-article">
-            <strong class="toc-title">文章目录</strong>
-            
-        </div>    
-    </div>
-     -->
-</div>
-
-<div id="card-style-fun">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <div class="col">
+            <div class="card shadow-sm">
+                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="占位符： 待机中" preserveAspectRatio="xMidYMid slice" focusable="false" _mstaria-label="18565287" _mstHash="10"><title _mstTextHash="7742150" _mstHash="11">占 位 符</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em" _mstTextHash="7315048" _mstHash="12">待机中</text></svg>
     
-    <br />
-    <div id="card-div">
-        <div class="good-sentence">
-            <div class="tools">
-                <div class="circle"><span class="red"></span></div>
-                <div class="circle"><span class="yellow"></span></div>
-                <div class="circle"><span class="green"></span></div>
-                <div class="circle"><span class="text">今日诗句</span></div>
+                <div class="card-body">
+                <p class="card-text" _msttexthash="111185997" _msthash="13">王多鱼的个人PC，由Administrator创建与2021年8月9日。</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" _msttexthash="4161781" _msthash="14">启动</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" _msttexthash="6782906" _msthash="15">编辑</button>
+                    </div>
+                    <small class="text-muted" _msttexthash="28579356" _msthash="16">上一次操作：9 mins前</small>
+                </div>
+                </div>
             </div>
-            <div class="sentence">
-                <div id="sentenceid" onload="getsentence();"></div>
+            </div>
+            <div class="col">
+            <div class="card shadow-sm">
+                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="占位符： 待机中" preserveAspectRatio="xMidYMid slice" focusable="false" _mstaria-label="18565287" _mstHash="17"><title _mstTextHash="7742150" _mstHash="18">占 位 符</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em" _mstTextHash="7315048" _mstHash="19">待机中</text></svg>
+    
+                <div class="card-body">
+                <p class="card-text" _msttexthash="104153257" _msthash="20">王xx的个人PC，由Administrator创建与2021年8月9日。</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" _msttexthash="4161781" _msthash="21">启动</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" _msttexthash="6782906" _msthash="22">编辑</button>
+                    </div>
+                    <small class="text-muted" _msttexthash="28867982" _msthash="23">上一次操作：19 mins前</small>
+                </div>
+                </div>
+            </div>
+            </div>
+            <div class="col">
+            <div class="card shadow-sm">
+                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="占位符： 待机中" preserveAspectRatio="xMidYMid slice" focusable="false" _mstaria-label="18565287" _mstHash="24"><title _mstTextHash="7742150" _mstHash="25">占 位 符</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em" _mstTextHash="7315048" _mstHash="26">待机中</text></svg>
+    
+                <div class="card-body">
+                <p class="card-text" _msttexthash="108570605" _msthash="27">王二二的个人PC，由Administrator创建与2021年8月9日。</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" _msttexthash="4161781" _msthash="28">启动</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" _msttexthash="6782906" _msthash="29">编辑</button>
+                    </div>
+                    <small class="text-muted" _msttexthash="28868151" _msthash="30">上一次操作：29 mins前</small>
+                </div>
+                </div>
+            </div>
+            </div>
+    
+            <div class="col">
+            <div class="card shadow-sm">
+                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="占位符： 待机中" preserveAspectRatio="xMidYMid slice" focusable="false" _mstaria-label="18565287" _mstHash="31"><title _mstTextHash="7742150" _mstHash="32">占 位 符</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em" _mstTextHash="7315048" _mstHash="33">待机中</text></svg>
+    
+                <div class="card-body">
+                <p class="card-text" _msttexthash="112286850" _msthash="34">王逍遥的个人PC，由Administrator创建与2021年8月9日。</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" _msttexthash="4161781" _msthash="35">启动</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" _msttexthash="6782906" _msthash="36">编辑</button>
+                    </div>
+                    <small class="text-muted" _msttexthash="28868320" _msthash="37">上一次操作：39 mins前</small>
+                </div>
+                </div>
+            </div>
+            </div>
+            <div class="col">
+            <div class="card shadow-sm">
+                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="占位符： 待机中" preserveAspectRatio="xMidYMid slice" focusable="false" _mstaria-label="18565287" _mstHash="38"><title _mstTextHash="7742150" _mstHash="39">占 位 符</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em" _mstTextHash="7315048" _mstHash="40">待机中</text></svg>
+    
+                <div class="card-body">
+                <p class="card-text" _msttexthash="102105432" _msthash="41">王儿的个人PC，由Administrator创建与2021年8月9日。</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" _msttexthash="4161781" _msthash="42">启动</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" _msttexthash="6782906" _msthash="43">编辑</button>
+                    </div>
+                    <small class="text-muted" _msttexthash="28868489" _msthash="44">上一次操作：49 mins前</small>
+                </div>
+                </div>
+            </div>
+            </div>
+            <div class="col">
+            <div class="card shadow-sm">
+                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="占位符： 待机中" preserveAspectRatio="xMidYMid slice" focusable="false" _mstaria-label="18565287" _mstHash="45"><title _mstTextHash="7742150" _mstHash="46">占 位 符</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em" _mstTextHash="7315048" _mstHash="47">待机中</text></svg>
+    
+                <div class="card-body">
+                <p class="card-text" _msttexthash="109779020" _msthash="48">王大海的个人PC，由Administrator创建与2021年8月9日。</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" _msttexthash="4161781" _msthash="49">启动</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" _msttexthash="6782906" _msthash="50">编辑</button>
+                    </div>
+                    <small class="text-muted" _msttexthash="28868658" _msthash="51">上一次操作：59 mins前</small>
+                </div>
+                </div>
+            </div>
+            </div>
+    
+            <div class="col">
+            <div class="card shadow-sm">
+                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="占位符： 待机中" preserveAspectRatio="xMidYMid slice" focusable="false" _mstaria-label="18565287" _mstHash="52"><title _mstTextHash="7742150" _mstHash="53">占 位 符</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em" _mstTextHash="7315048" _mstHash="54">待机中</text></svg>
+    
+                <div class="card-body">
+                <p class="card-text" _msttexthash="108875598" _msthash="55">王多余的个人PC，由Administrator创建与2021年8月9日。</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" _msttexthash="4161781" _msthash="56">启动</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" _msttexthash="6782906" _msthash="57">编辑</button>
+                    </div>
+                    <small class="text-muted" _msttexthash="28868827" _msthash="58">上一次操作：69 mins前</small>
+                </div>
+                </div>
+            </div>
+            </div>
+            <div class="col">
+            <div class="card shadow-sm">
+                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="占位符： 待机中" preserveAspectRatio="xMidYMid slice" focusable="false" _mstaria-label="18565287" _mstHash="59"><title _mstTextHash="7742150" _mstHash="60">占 位 符</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em" _mstTextHash="7315048" _mstHash="61">待机中</text></svg>
+    
+                <div class="card-body">
+                <p class="card-text" _msttexthash="108878003" _msthash="62">望多多的个人PC，由Administrator创建与2021年8月9日。</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" _msttexthash="4161781" _msthash="63">启动</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" _msttexthash="6782906" _msthash="64">编辑</button>
+                    </div>
+                    <small class="text-muted" _msttexthash="28868996" _msthash="65">上一次操作：79 mins前</small>
+                </div>
+                </div>
+            </div>
+            </div>
+            <div class="col">
+            <div class="card shadow-sm">
+                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="占位符： 待机中" preserveAspectRatio="xMidYMid slice" focusable="false" _mstaria-label="18565287" _mstHash="66"><title _mstTextHash="7742150" _mstHash="67">占 位 符</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em" _mstTextHash="7315048" _mstHash="68">待机中</text></svg>
+    
+                <div class="card-body">
+                <p class="card-text" _msttexthash="109866146" _msthash="69">王美丽的个人PC，由Administrator创建与2021年8月9日。</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" _msttexthash="4161781" _msthash="70">启动</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" _msttexthash="6782906" _msthash="71">编辑</button>
+                    </div>
+                    <small class="text-muted" _msttexthash="28869165" _msthash="72">上一次操作：89 mins前</small>
+                </div>
+                </div>
+            </div>
             </div>
         </div>
+        </div>
     </div>
-    
-</div>
-
-
-
-    </div>
-    
 </div>
                 <!-- 页脚 -->
                 <footer id="footer">
@@ -343,7 +391,7 @@
         <script>
             var v = new Viewer({
                 basePath: "/model",
-                role: "qibolin_2",
+                role: "tierbici_2",
                 mobile: true,
             });
         </script>
@@ -403,29 +451,6 @@
         
         <script src="/js/main.js"></script>
         <!-- 评论设置 -->
-        
-        
-<script
-    src="https://giscus.app/client.js"
-    data-repo="argvchs/giscus-comments"
-    data-repo-id="R_kgDOI_uC-w"
-    data-category="Announcements"
-    data-category-id="DIC_kwDOI_uC-84CUToF"
-    data-mapping="pathname"
-    data-strict="1"
-    data-reactions-enabled="1"
-    data-emit-metadata="0"
-    data-input-position="bottom"
-    data-theme="https://static-argvchs.netlify.app/css/giscus.css"
-    data-lang="zh-CN"
-    crossorigin
-    async
-></script>
-
-
-
-
-
         
     </body>
 </html>

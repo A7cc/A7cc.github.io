@@ -96,6 +96,11 @@
             <span>&ensp;标签</span>
         </a>
         
+        <a href="/tools">
+            <i class="fa-solid fa-tools fa-fw"></i>
+            <span>&ensp;工具</span>
+        </a>
+        
     </nav>
     <nav id="mobile-menu">
         <div class="title" @click="showMenuItems = !showMenuItems">
@@ -150,6 +155,15 @@
                     </div>
                 </a>
                 
+                <a href="/tools">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tools fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">工具</div>
+                    </div>
+                </a>
+                
             </div>
         </transition>
     </nav>
@@ -190,12 +204,12 @@
                 
                 <span class="tag">
                     
-                    <a href="/tags/%E5%BC%80%E5%8F%91/" style="color: #00bcd4">开发</a>
+                    <a href="/tags/%E5%BC%80%E5%8F%91/" style="color: #ffa2c4">开发</a>
                 </span>
                 
                 <span class="tag">
                     
-                    <a href="/tags/Golang/" style="color: #00a596">Golang</a>
+                    <a href="/tags/Golang/" style="color: #03a9f4">Golang</a>
                 </span>
                 
             </span>
@@ -936,7 +950,7 @@ var _ IRouter = &amp;RouterGroup&#123;&#125;  // 确保RouterGroup实现了接�
         <script>
             var v = new Viewer({
                 basePath: "/model",
-                role: "tierbici_2",
+                role: "bisimai_2",
                 mobile: true,
             });
         </script>
