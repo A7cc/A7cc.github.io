@@ -2,36 +2,70 @@
 <!DOCTYPE html>
 <html lang="zh-Hans">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <meta charset="utf-8" />
         <title>小C♥天天</title>
-        <meta name="author" content="小C&天天">
-        <meta name="description" content="^v^">
-        <meta name="keywords" content="">
-        <link rel="icon" href="/images/icon.jpg">
-        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
-        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
-        <link rel="stylesheet" href="/css/fonts.min.css">
-        <link rel="stylesheet" href="/css/particlex.css">
-        <link rel="stylesheet" href="/css/main.css">
-        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
-        <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
-        <link rel="stylesheet" href="/css/style.css">
+        <meta name="author" content="小C&天天" />
+        <meta name="description" content="^v^" />
+        <meta name="keywords" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <link rel="icon" href="/images/icon.jpg" />
+        <script src="https://static-argvchs.netlify.app/libs/vue/3.3.4/vue.global.prod.min.js"></script>
+<link rel="preconnect" href="https://static-argvchs.netlify.app" crossorigin />
+<link rel="stylesheet" href="https://static-argvchs.netlify.app/libs/font-awesome/6.4.0/css/all.min.css" />
+<link rel="stylesheet" href="https://static-argvchs.netlify.app/css/fonts.min.css" />
+<script> const mixins = {}; </script>
+
+<!-- 兼容不同版本的浏览器 -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<!-- 高亮代码 -->
+<script src="https://static-argvchs.netlify.app/libs/highlight.js/11.8.0/highlight.min.js"></script>
+<script src="https://static-argvchs.netlify.app/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link rel="stylesheet" href="https://static-argvchs.netlify.app/libs/highlight.js/11.8.0/styles/base16-onedark.min.css" />
+<script src="/js/lib/highlight.js"></script>
+
+
+<!-- 使用 KaTeX 渲染数学公式 -->
+<script src="https://static-argvchs.netlify.app/libs/KaTeX/0.16.8/katex.min.js"></script>
+<script src="https://static-argvchs.netlify.app/libs/KaTeX/0.16.8/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://static-argvchs.netlify.app/libs/KaTeX/0.16.8/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<!-- 简单的点击图片放大缩小的预览 -->
+<script src="/js/lib/preview.js"></script>
+
+
+<!-- 看板娘 -->
+<script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+
+
+
+
+
+<script src="/js/lib/home.js"></script>
+
+<script src="https://static-argvchs.netlify.app/libs/animejs/3.2.1/anime.min.js"></script>
+<link rel="stylesheet" href="/css/main.css" />
+
     <meta name="generator" content="Hexo 6.2.0"></head>
     <body>
-        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:30vmin;height:30vmin;padding:60px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #dd20dd;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">正在加载</p><div><img alt="loading" src="/images/afde9fa65a5742a90b51d6e1211e841e.gif"></div></div></div></div></div>
         <div id="layout">
-            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
-            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
-            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
-            <transition name="into">
-                <div v-show="show_page" style="display: -not-none">
-                    <div id="menu_show">
-                         
-<nav id="menu">
-    <div class="desktop-menu">
-        <a href="/">
-            <span class="title">小C♥天天</span>
+            <!-- 页面加载 -->
+            <transition name="fade">
+                <div id="loading" v-show="loading">
+                    <div id="loading-circle">
+                        <h2>LOADING</h2>
+                        <p>正在加载</p>
+                        <img src="/images/afde9fa65a5742a90b51d6e1211e841e.gif" />
+                    </div>
+                </div>
+            </transition>
+            <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>小C♥天天</span>
         </a>
         
         <a href="/">
@@ -59,75 +93,72 @@
             <span>&ensp;标签</span>
         </a>
         
-        <form class="search">
-            <input type="text" placeholder="需要搜索什么？">
-            <button type="submit"></button>
-        </form>
-    </div>
-    <div :class="'phone-menu ' + menu_show" id="phone-menu">
-        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
-        <div :class="'title'" @click="menu_show = !menu_show">
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
             <i class="fa-solid fa-bars fa-fw"></i>
             <span>&emsp;小C♥天天</span>
         </div>
         <transition name="slide">
-        <div class="items" v-show="menu_show">
-            
-            <a href="/">
-                <div class="item">
-                    <div style="min-width: 20px; max-width: 50px; width: 10%">
-                        <i class="fa-solid fa-house fa-fw"></i>
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
                     </div>
-                    <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
-                </div>
-            </a>
-            
-            <a href="/about">
-                <div class="item">
-                    <div style="min-width: 20px; max-width: 50px; width: 10%">
-                        <i class="fa-solid fa-id-card fa-fw"></i>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
                     </div>
-                    <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
-                </div>
-            </a>
-            
-            <a href="/archives">
-                <div class="item">
-                    <div style="min-width: 20px; max-width: 50px; width: 10%">
-                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
                     </div>
-                    <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
-                </div>
-            </a>
-            
-            <a href="/categories">
-                <div class="item">
-                    <div style="min-width: 20px; max-width: 50px; width: 10%">
-                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
                     </div>
-                    <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
-                </div>
-            </a>
-            
-            <a href="/tags">
-                <div class="item">
-                    <div style="min-width: 20px; max-width: 50px; width: 10%">
-                        <i class="fa-solid fa-tags fa-fw"></i>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
                     </div>
-                    <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
-                </div>
-            </a>
-            
-        </div>
+                </a>
+                
+            </div>
         </transition>
-    </div>
-</nav>
-                    </div>
-                    <div id="main">
-                        <div id="home-head">
-    <div id="home-background" style="background-image: url(/images/8da71ea6db89c66eba44f6c89d5820c7.jpg)"></div>
-    
-    <div id="home-info" class="home-info" @click="home_click">
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+            <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+                <div id="home-head">
+    <div id="home-background" ref="homeBackground" data-images="/images/background/8da71ea6db89c66eba44f6c89d5820c7.jpg,/images/background/e2d17407dc023b204f50d1230a57f7eb.jpg,/images/background/f76fa3f3ffc17b5903da14cb5ca7612c.jpg,/images/background/d65c0a4b218aabd9f11f562fbc63df5b.jpeg"></div>
+    <div id="home-info" @click="homeClick">
         <span class="loop"></span>
         <span class="loop"></span>
         <span class="loop"></span>
@@ -140,38 +171,94 @@
             </div>
         </span>
     </div>
-    
 </div>
-
-<div id="home-posts-wrap" class=>
+<div id="home-posts-wrap" true ref="homePostsWrap">
     <div id="home-posts">
-        <div id="posts">
-            
+        
 
 <div class="post">
-    <a href="/2023/03/14/Python库学习/轻量级数据库——sqlite3库/">
-        <h2>
-            轻量级数据库——Sqlite3库
-        </h2>
+    <a href="/2023/03/14/Python%E5%BA%93%E5%AD%A6%E4%B9%A0/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%BA%93%E2%80%94%E2%80%94Socket%E5%BA%93/">
+        <h2 class="post-title">网络编程库——Socket库</h2>
     </a>
     <div class="category-and-date">
         
         <span class="category">
-            <a href="/categories/Python库学习">
+            <a href="/categories/Python%E5%BA%93%E5%AD%A6%E4%B9%A0/">
                 <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
                 Python库学习
             </a>
         </span>
         
         <span class="date">
             <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+                <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
             2023/3/14
         </span>
+        
+        
     </div>
-    <div class="excerpt">
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h1 id="壹-简介"><a href="#壹-简介" class="headerlink" title="壹 简介"></a>壹 简介</h1><h2 id="1-1-为什么要用Socekt？"><a href="#1-1-为什么要用Socekt？" class="headerlink" title="1.1 为什么要用Socekt？"></a>1.1 为什么要用Socekt？</h2><p>有一个问题，网络中进程之间如何通信？<br>本地的进程间通信（IPC）有很多种方式，但可以总结为下面4类（这里这些可以不用理解）：</p>
+<ul>
+<li>消息传递（管道、FIFO、消息队列）</li>
+<li>同步（互斥量、条件变量、读写锁、文件和写记录锁、信号量）</li>
+<li>共享内存（匿名的和具名的）</li>
+<li>远程过程调用（Solaris门和Sun RPC）
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/Python/" style="color: #03a9f4">Python</a>
+        </span>
+        
+        <span class="tag">
+            
+            <a href="/tags/%E5%BC%80%E5%8F%91/" style="color: #ffa2c4">开发</a>
+        </span>
+        
+    </div>
+    <a href="/2023/03/14/Python%E5%BA%93%E5%AD%A6%E4%B9%A0/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%BA%93%E2%80%94%E2%80%94Socket%E5%BA%93/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
+    <a href="/2023/03/14/Python%E5%BA%93%E5%AD%A6%E4%B9%A0/%E8%BD%BB%E9%87%8F%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E2%80%94%E2%80%94sqlite3%E5%BA%93/">
+        <h2 class="post-title">轻量级数据库——sqlite3库</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/Python%E5%BA%93%E5%AD%A6%E4%B9%A0/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                Python库学习
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2023/3/14
+        </span>
+        
+        
+    </div>
+    <div class="description">
         <div class="content" v-pre>
             
             <h1 id="壹-简介"><a href="#壹-简介" class="headerlink" title="壹 简介"></a>壹 简介</h1><p>Python的SQLITE数据库是一款非常小巧的嵌入式开源数据库软件，也就是说没有独立的维护进程，所有的维护都来自于程序本身。它使用一个文件存储整个数据库，操作十分方便。它的最大优点是使用方便，功能相比于其它大型数据库来说，确实有些差距。但是性能表现上，SQLITE并不逊色。麻雀虽小，五脏俱全， sqlite 实现了多数 sql-92 的标准，比如说 transaction 、 trigger 和复杂的查询等。</p>
@@ -181,54 +268,50 @@
     <div class="post-tags">
         
         <span class="icon">
-            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            <i class="fa-solid fa-tags fa-fw"></i>
         </span>
+        
         
         
         <span class="tag">
             
-            <a href="/tags/Python" style="color: #ffa2c4">
-                Python
-            </a>
+            <a href="/tags/Python/" style="color: #00a596">Python</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/开发" style="color: #ffa2c4">
-                开发
-            </a>
+            <a href="/tags/%E5%BC%80%E5%8F%91/" style="color: #03a9f4">开发</a>
         </span>
         
     </div>
-    <a href="/2023/03/14/Python库学习/轻量级数据库——sqlite3库/" class="go-post">
-        阅读全文
-    </a>
+    <a href="/2023/03/14/Python%E5%BA%93%E5%AD%A6%E4%B9%A0/%E8%BD%BB%E9%87%8F%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E2%80%94%E2%80%94sqlite3%E5%BA%93/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/2023/03/14/Python基本学习/Python学习（六）——模块/">
-        <h2>
-            Python学习（六）——模块
-        </h2>
+    <a href="/2023/03/14/Python%E5%9F%BA%E6%9C%AC%E5%AD%A6%E4%B9%A0/Python%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%85%AD%EF%BC%89%E2%80%94%E2%80%94%E6%A8%A1%E5%9D%97/">
+        <h2 class="post-title">Python学习（六）——模块</h2>
     </a>
     <div class="category-and-date">
         
         <span class="category">
-            <a href="/categories/Python基础教程">
+            <a href="/categories/Python%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/">
                 <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
                 Python基础教程
             </a>
         </span>
         
         <span class="date">
             <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+                <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
             2023/3/14
         </span>
+        
+        
     </div>
-    <div class="excerpt">
+    <div class="description">
         <div class="content" v-pre>
             
             <h1 id="一、这东西是啥，为什么要学它？？？"><a href="#一、这东西是啥，为什么要学它？？？" class="headerlink" title="一、这东西是啥，为什么要学它？？？"></a>一、这东西是啥，为什么要学它？？？</h1><p>因为它牛，Python因为有强大的第三方模块，加上简单易学的语法，使得python编程语言在这几年很快的挤入编程语言的前五强。Python的模块可以等价与C&#x2F;C++里面的库文件、Java里面的包。</p>
@@ -238,54 +321,50 @@
     <div class="post-tags">
         
         <span class="icon">
-            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            <i class="fa-solid fa-tags fa-fw"></i>
         </span>
+        
         
         
         <span class="tag">
             
-            <a href="/tags/Python" style="color: #ff7d73">
-                Python
-            </a>
+            <a href="/tags/Python/" style="color: #ff7d73">Python</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/开发" style="color: #ffa2c4">
-                开发
-            </a>
+            <a href="/tags/%E5%BC%80%E5%8F%91/" style="color: #00bcd4">开发</a>
         </span>
         
     </div>
-    <a href="/2023/03/14/Python基本学习/Python学习（六）——模块/" class="go-post">
-        阅读全文
-    </a>
+    <a href="/2023/03/14/Python%E5%9F%BA%E6%9C%AC%E5%AD%A6%E4%B9%A0/Python%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%85%AD%EF%BC%89%E2%80%94%E2%80%94%E6%A8%A1%E5%9D%97/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/2023/03/14/Python基本学习/Python学习（十）——附加知识/">
-        <h2>
-            Python学习（十）——附加知识
-        </h2>
+    <a href="/2023/03/14/Python%E5%9F%BA%E6%9C%AC%E5%AD%A6%E4%B9%A0/Python%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%8D%81%EF%BC%89%E2%80%94%E2%80%94%E9%99%84%E5%8A%A0%E7%9F%A5%E8%AF%86/">
+        <h2 class="post-title">Python学习（十）——附加知识</h2>
     </a>
     <div class="category-and-date">
         
         <span class="category">
-            <a href="/categories/Python基础教程">
+            <a href="/categories/Python%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/">
                 <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
                 Python基础教程
             </a>
         </span>
         
         <span class="date">
             <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+                <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
             2023/3/14
         </span>
+        
+        
     </div>
-    <div class="excerpt">
+    <div class="description">
         <div class="content" v-pre>
             
             <h1 id="一、枚举"><a href="#一、枚举" class="headerlink" title="一、枚举"></a>一、枚举</h1><h2 id="1-什么是枚举？"><a href="#1-什么是枚举？" class="headerlink" title="1.什么是枚举？"></a>1.什么是枚举？</h2><p>起初 Python 中并未内置枚举（enum）类型，枚举是在 Python3.4 添加的新功能，此时我们可能会有一个疑问：Python3.4 之前的版本还能不能使用枚举呢？<br>答案是可以使用，但是不能直接使用，使用之前需要先用<code>pip install enum</code>安装。<br>枚举可看作是一系列符号名称的集合，集合中每一个元素要保证唯一性和不可变，因此我们可以对枚举中元素进行恒等比较，通俗来讲枚举就是一系列常量的集合，枚举是可迭代的。</p>
@@ -295,54 +374,50 @@
     <div class="post-tags">
         
         <span class="icon">
-            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            <i class="fa-solid fa-tags fa-fw"></i>
         </span>
+        
         
         
         <span class="tag">
             
-            <a href="/tags/Python" style="color: #03a9f4">
-                Python
-            </a>
+            <a href="/tags/Python/" style="color: #00a596">Python</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/开发" style="color: #03a9f4">
-                开发
-            </a>
+            <a href="/tags/%E5%BC%80%E5%8F%91/" style="color: #ffa2c4">开发</a>
         </span>
         
     </div>
-    <a href="/2023/03/14/Python基本学习/Python学习（十）——附加知识/" class="go-post">
-        阅读全文
-    </a>
+    <a href="/2023/03/14/Python%E5%9F%BA%E6%9C%AC%E5%AD%A6%E4%B9%A0/Python%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%8D%81%EF%BC%89%E2%80%94%E2%80%94%E9%99%84%E5%8A%A0%E7%9F%A5%E8%AF%86/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/2023/03/14/Python基本学习/Python学习（四）——三大程序流程结构/">
-        <h2>
-            Python学习（四）——三大程序流程结构
-        </h2>
+    <a href="/2023/03/14/Python%E5%9F%BA%E6%9C%AC%E5%AD%A6%E4%B9%A0/Python%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9B%9B%EF%BC%89%E2%80%94%E2%80%94%E4%B8%89%E5%A4%A7%E7%A8%8B%E5%BA%8F%E6%B5%81%E7%A8%8B%E7%BB%93%E6%9E%84/">
+        <h2 class="post-title">Python学习（四）——三大程序流程结构</h2>
     </a>
     <div class="category-and-date">
         
         <span class="category">
-            <a href="/categories/Python基础教程">
+            <a href="/categories/Python%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/">
                 <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
                 Python基础教程
             </a>
         </span>
         
         <span class="date">
             <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+                <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
             2023/3/14
         </span>
+        
+        
     </div>
-    <div class="excerpt">
+    <div class="description">
         <div class="content" v-pre>
             
             <h1 id="一、程序设计流程结构概述"><a href="#一、程序设计流程结构概述" class="headerlink" title="一、程序设计流程结构概述"></a>一、程序设计流程结构概述</h1><p>在程序设计语言中，有三种基础的流程结构顺序结构、选择结构和循环结构。许多简单或复杂的算法都可以由这三种基本结构组合而成，是学习任何一门编程语言的基础语法及结构。</p>
@@ -352,54 +427,50 @@
     <div class="post-tags">
         
         <span class="icon">
-            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            <i class="fa-solid fa-tags fa-fw"></i>
         </span>
+        
         
         
         <span class="tag">
             
-            <a href="/tags/Python" style="color: #ffa2c4">
-                Python
-            </a>
+            <a href="/tags/Python/" style="color: #ff7d73">Python</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/开发" style="color: #ffa2c4">
-                开发
-            </a>
+            <a href="/tags/%E5%BC%80%E5%8F%91/" style="color: #03a9f4">开发</a>
         </span>
         
     </div>
-    <a href="/2023/03/14/Python基本学习/Python学习（四）——三大程序流程结构/" class="go-post">
-        阅读全文
-    </a>
+    <a href="/2023/03/14/Python%E5%9F%BA%E6%9C%AC%E5%AD%A6%E4%B9%A0/Python%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9B%9B%EF%BC%89%E2%80%94%E2%80%94%E4%B8%89%E5%A4%A7%E7%A8%8B%E5%BA%8F%E6%B5%81%E7%A8%8B%E7%BB%93%E6%9E%84/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/2023/03/14/Python基本学习/Python学习（一）——基础/">
-        <h2>
-            Python学习（一）——基础
-        </h2>
+    <a href="/2023/03/14/Python%E5%9F%BA%E6%9C%AC%E5%AD%A6%E4%B9%A0/Python%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80/">
+        <h2 class="post-title">Python学习（一）——基础</h2>
     </a>
     <div class="category-and-date">
         
         <span class="category">
-            <a href="/categories/Python基础教程">
+            <a href="/categories/Python%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/">
                 <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
                 Python基础教程
             </a>
         </span>
         
         <span class="date">
             <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+                <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
             2023/3/14
         </span>
+        
+        
     </div>
-    <div class="excerpt">
+    <div class="description">
         <div class="content" v-pre>
             
             <h1 id="壹-计算机编程语言的发展历史"><a href="#壹-计算机编程语言的发展历史" class="headerlink" title="壹 计算机编程语言的发展历史"></a>壹 计算机编程语言的发展历史</h1><p>1946年在费城第一代计算机——<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/ENIAC/431133?fr=aladdin">ENIAC</a>公诸于世，标志现代计算机的诞生，是计算机发展史上的里程碑。<br>计算机终究是一种机器，在没有人类的驱动下是无法运行的，所以需要人类对其内部进行相关的配置，才能运行，但计算机却采用二进制进行运算和存储，而人类通常使用十进制数进行逻辑运算，这样使得人类不容易理解、编写计算机程序，由此<strong>计算机编程语言</strong>也就随着诞生了。<br>计算机的第一代编程语言也就是机器语言，一条机器指令规定了计算机系统的一个特定动作，使得计算机可以按照人们的意识去运行，但由于这种语言需要专业的计算机编程人员才能编写，加上对计算机系统的兼容性问题使得二代编程语言应运而生——汇编语言，这种语言相对于机器语言更容易让人理解和接受，但还是没有得到广泛的认可，其复杂性有待提高因此人们有发明了第三代编程语言高级语言也就是我们平时说的C&#x2F;C++语言等编程语言。<br>第三代编程语言在目前为止已经是非常成熟的编程语言了，但是呢，由于人们为了缩短传统的编写-编译-链接-运行过程就就创建了脚本编程语言。目前世界上主流的脚本语言有javascript、Python等。</p>
@@ -409,54 +480,50 @@
     <div class="post-tags">
         
         <span class="icon">
-            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            <i class="fa-solid fa-tags fa-fw"></i>
         </span>
+        
         
         
         <span class="tag">
             
-            <a href="/tags/Python" style="color: #00a596">
-                Python
-            </a>
+            <a href="/tags/Python/" style="color: #00a596">Python</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/开发" style="color: #00a596">
-                开发
-            </a>
+            <a href="/tags/%E5%BC%80%E5%8F%91/" style="color: #ff7d73">开发</a>
         </span>
         
     </div>
-    <a href="/2023/03/14/Python基本学习/Python学习（一）——基础/" class="go-post">
-        阅读全文
-    </a>
+    <a href="/2023/03/14/Python%E5%9F%BA%E6%9C%AC%E5%AD%A6%E4%B9%A0/Python%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/2023/03/14/Python基本学习/Python学习（三）——容器/">
-        <h2>
-            Python学习（三）——容器
-        </h2>
+    <a href="/2023/03/14/Python%E5%9F%BA%E6%9C%AC%E5%AD%A6%E4%B9%A0/Python%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%89%EF%BC%89%E2%80%94%E2%80%94%E5%AE%B9%E5%99%A8/">
+        <h2 class="post-title">Python学习（三）——容器</h2>
     </a>
     <div class="category-and-date">
         
         <span class="category">
-            <a href="/categories/Python基础教程">
+            <a href="/categories/Python%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/">
                 <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
                 Python基础教程
             </a>
         </span>
         
         <span class="date">
             <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+                <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
             2023/3/14
         </span>
+        
+        
     </div>
-    <div class="excerpt">
+    <div class="description">
         <div class="content" v-pre>
             
             <h1 id="一、容器"><a href="#一、容器" class="headerlink" title="一、容器"></a>一、容器</h1><p>Python中的容器就是之前提到的复杂数据类型，用来存放大量数据的容器，是Python语言里面的比较重要数据类型，本质是对象，Python底层基于双向链表的实现。而且Python中有许多有关于容器的方法。个人觉得，Python设计者对容器有一种莫名的热爱。真的！方法超级多。</p>
@@ -467,54 +534,50 @@
     <div class="post-tags">
         
         <span class="icon">
-            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            <i class="fa-solid fa-tags fa-fw"></i>
         </span>
+        
         
         
         <span class="tag">
             
-            <a href="/tags/Python" style="color: #03a9f4">
-                Python
-            </a>
+            <a href="/tags/Python/" style="color: #00bcd4">Python</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/开发" style="color: #03a9f4">
-                开发
-            </a>
+            <a href="/tags/%E5%BC%80%E5%8F%91/" style="color: #03a9f4">开发</a>
         </span>
         
     </div>
-    <a href="/2023/03/14/Python基本学习/Python学习（三）——容器/" class="go-post">
-        阅读全文
-    </a>
+    <a href="/2023/03/14/Python%E5%9F%BA%E6%9C%AC%E5%AD%A6%E4%B9%A0/Python%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%89%EF%BC%89%E2%80%94%E2%80%94%E5%AE%B9%E5%99%A8/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/2023/03/14/Python基本学习/Python学习（五）——函数/">
-        <h2>
-            Python学习（五）——函数
-        </h2>
+    <a href="/2023/03/14/Python%E5%9F%BA%E6%9C%AC%E5%AD%A6%E4%B9%A0/Python%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%94%EF%BC%89%E2%80%94%E2%80%94%E5%87%BD%E6%95%B0/">
+        <h2 class="post-title">Python学习（五）——函数</h2>
     </a>
     <div class="category-and-date">
         
         <span class="category">
-            <a href="/categories/Python基础教程">
+            <a href="/categories/Python%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/">
                 <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
                 Python基础教程
             </a>
         </span>
         
         <span class="date">
             <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+                <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
             2023/3/14
         </span>
+        
+        
     </div>
-    <div class="excerpt">
+    <div class="description">
         <div class="content" v-pre>
             
             <h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>在学习函数之前，需要明白为什么要学习函数？</p>
@@ -524,54 +587,50 @@
     <div class="post-tags">
         
         <span class="icon">
-            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            <i class="fa-solid fa-tags fa-fw"></i>
         </span>
+        
         
         
         <span class="tag">
             
-            <a href="/tags/Python" style="color: #00a596">
-                Python
-            </a>
+            <a href="/tags/Python/" style="color: #03a9f4">Python</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/开发" style="color: #00a596">
-                开发
-            </a>
+            <a href="/tags/%E5%BC%80%E5%8F%91/" style="color: #00bcd4">开发</a>
         </span>
         
     </div>
-    <a href="/2023/03/14/Python基本学习/Python学习（五）——函数/" class="go-post">
-        阅读全文
-    </a>
+    <a href="/2023/03/14/Python%E5%9F%BA%E6%9C%AC%E5%AD%A6%E4%B9%A0/Python%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%94%EF%BC%89%E2%80%94%E2%80%94%E5%87%BD%E6%95%B0/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/2023/03/14/Python基本学习/Python学习（二）——字符串/">
-        <h2>
-            Python学习（二）——字符串
-        </h2>
+    <a href="/2023/03/14/Python%E5%9F%BA%E6%9C%AC%E5%AD%A6%E4%B9%A0/Python%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+        <h2 class="post-title">Python学习（二）——字符串</h2>
     </a>
     <div class="category-and-date">
         
         <span class="category">
-            <a href="/categories/Python基础教程">
+            <a href="/categories/Python%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/">
                 <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
                 Python基础教程
             </a>
         </span>
         
         <span class="date">
             <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+                <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
             2023/3/14
         </span>
+        
+        
     </div>
-    <div class="excerpt">
+    <div class="description">
         <div class="content" v-pre>
             
             <h1 id="一、首先我们得明白为什么要学习字符串？"><a href="#一、首先我们得明白为什么要学习字符串？" class="headerlink" title="一、首先我们得明白为什么要学习字符串？"></a>一、首先我们得明白为什么要学习字符串？</h1><p>字符串在编程语言中一直占据着非常重要的地位，就相当于人们说话一样，人想要把自己的意思表达出去就需要语言，而在Python中字符串就是理解为说话时的语言一样重要。这时候就会有人说那可以拿整型或者浮点型来表达呀？我的回答是，是可以，但是如果人们说话的时候只有冰冷的数字的话，好像就缺少了一点语言所带来的心灵上的美感了，就比如说我爱你，用夏目漱石的话说是今晚的月色真美呀！显得委婉而美感！</p>
@@ -581,54 +640,50 @@
     <div class="post-tags">
         
         <span class="icon">
-            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            <i class="fa-solid fa-tags fa-fw"></i>
         </span>
+        
         
         
         <span class="tag">
             
-            <a href="/tags/Python" style="color: #ffa2c4">
-                Python
-            </a>
+            <a href="/tags/Python/" style="color: #00bcd4">Python</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/开发" style="color: #ff7d73">
-                开发
-            </a>
+            <a href="/tags/%E5%BC%80%E5%8F%91/" style="color: #00a596">开发</a>
         </span>
         
     </div>
-    <a href="/2023/03/14/Python基本学习/Python学习（二）——字符串/" class="go-post">
-        阅读全文
-    </a>
+    <a href="/2023/03/14/Python%E5%9F%BA%E6%9C%AC%E5%AD%A6%E4%B9%A0/Python%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/2023/03/14/Go基础教程/Go基础学习（捌）——假“类”/">
-        <h2>
-            Go基础学习（捌）——假“类”
-        </h2>
+    <a href="/2023/03/14/Go%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/Go%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%EF%BC%88%E6%8D%8C%EF%BC%89%E2%80%94%E2%80%94%E5%81%87%E2%80%9C%E7%B1%BB%E2%80%9D/">
+        <h2 class="post-title">Go基础学习（捌）——假“类”</h2>
     </a>
     <div class="category-and-date">
         
         <span class="category">
-            <a href="/categories/Go基础教程">
+            <a href="/categories/Go%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/">
                 <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
                 Go基础教程
             </a>
         </span>
         
         <span class="date">
             <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+                <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
             2023/3/14
         </span>
+        
+        
     </div>
-    <div class="excerpt">
+    <div class="description">
         <div class="content" v-pre>
             
             <h1 id="壹-介绍"><a href="#壹-介绍" class="headerlink" title="壹 介绍"></a>壹 介绍</h1><p>在结构体中我们说过，在Go语言中没有类的概念，也不支持类的继承等面向对象的概念，那为什么这里会又有个类呢？<font color="red">因为在Go语言中，我们可以通过结构体的内嵌再配合接口比面向对象具有更高的扩展性和灵活性，所以这里说的类其实是Go语言的结构体的内嵌和接口。</font></p>
@@ -639,97 +694,31 @@
     <div class="post-tags">
         
         <span class="icon">
-            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            <i class="fa-solid fa-tags fa-fw"></i>
         </span>
+        
         
         
         <span class="tag">
             
-            <a href="/tags/开发" style="color: #03a9f4">
-                开发
-            </a>
+            <a href="/tags/%E5%BC%80%E5%8F%91/" style="color: #03a9f4">开发</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/Golang" style="color: #00bcd4">
-                Golang
-            </a>
+            <a href="/tags/Golang/" style="color: #00bcd4">Golang</a>
         </span>
         
     </div>
-    <a href="/2023/03/14/Go基础教程/Go基础学习（捌）——假“类”/" class="go-post">
-        阅读全文
-    </a>
+    <a href="/2023/03/14/Go%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/Go%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%EF%BC%88%E6%8D%8C%EF%BC%89%E2%80%94%E2%80%94%E5%81%87%E2%80%9C%E7%B1%BB%E2%80%9D/" class="go-post">阅读全文</a>
 </div>
 
-<div class="post">
-    <a href="/2023/03/14/Go基础教程/Go基础学习（柒）——JSON序列化/">
-        <h2>
-            Go基础学习（柒）——JSON序列化
-        </h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/Go基础教程">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
-                Go基础教程
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
-            </span>
-            2023/3/14
-        </span>
-    </div>
-    <div class="excerpt">
-        <div class="content" v-pre>
-            
-            <h1 id="壹-JSON序列化介绍"><a href="#壹-JSON序列化介绍" class="headerlink" title="壹 JSON序列化介绍"></a>壹 JSON序列化介绍</h1><p><code>JSON(JavaScript Object Notation)</code> 是一种轻量级的数据交换格式，常用于前后端数据传输，易于人阅读和编写，同时也易于机器解析和生成。JSON键值对是用来保存JS对象的一种方式，键&#x2F;值对组合中的键名写在前面并用双引号<code>&quot;&quot;</code>包裹，使用冒号<code>:</code>分隔，然后紧接着值；多个键值之间使用英文<code>,</code>分隔。</p>
-<p><font color="red">为什么要序列化和反序列化？个人觉得是因为不同语言的数据类型的内存分配情况、语法等不同，我们需要一种统一的格式去识别和说明，不同语言之间数据的交换，这就需要序列化和反序列化，例如，<code>Python</code>与<code>Go</code>语言的不同，之间的交互我们就需要使用序列化和反序列化。</font></p>
-<p>对于JSON序列化，我们会使用<code>encoding/json</code>库或者第三方库<code>github.com/tidwall/gjson</code>，进行JSON序列化和反序列化，这里我们简单介绍一下官方库<code>encoding/json</code>库，其他第三方库，自行了解学习。</p>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-        </span>
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/开发" style="color: #ffa2c4">
-                开发
-            </a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/Golang" style="color: #ff7d73">
-                Golang
-            </a>
-        </span>
-        
-    </div>
-    <a href="/2023/03/14/Go基础教程/Go基础学习（柒）——JSON序列化/" class="go-post">
-        阅读全文
-    </a>
-</div>
 
-             
-<div class="page-current">
+        <div class="page-current">
     <div class="prev">
         
-        <a href="/page/4/">
-            <span class="page-num">
-                <svg class="fa-icon"><use xlink:href="#caret-left-solid"></use></svg>
-            </span>
+        <a class="page-num" href="/page/4/">
+            <i class="fa-solid fa-caret-left fa-fw"></i>
         </a>
         
     </div>
@@ -737,42 +726,24 @@
         
         <span>
             
-            <a href="/"><span class="page-num">1</span></a>
+            <a class="page-num" href="/">1</a>
             <span class="page-omit">...</span>
             
             
-                
-                
-                <a href="/page/3">
-                    <span class="page-num">
-                        3
-                    </span>
-                </a>
-                
             
-            <a href="/page/4/">
-                <span class="page-num">
-                    4
-                </span>
-            </a>
+            
+            <a class="page-num" href="/page/3">3</a>
+            
+            
+            <a class="page-num" href="/page/4/">4</a>
         </span>
         
-        <span class="current">
-            5
-        </span>
+        <span class="current">5</span>
         
         <span>
-            <a href="/page/6/">
-                <span class="page-num">
-                    6
-                </span>
-            </a>
+            <a class="page-num" href="/page/6/">6</a>
             
-            <a href="/page/7">
-                <span class="page-num">
-                    7
-                </span>
-            </a>
+            <a class="page-num" href="/page/7">7</a>
             
             
         </span>
@@ -780,34 +751,27 @@
     </div>
     <div class="next">
         
-        <a href="/page/6/ ">
-            <span class="page-num">
-                <svg class="fa-icon"><use xlink:href="#caret-right-solid"></use></svg>
-            </span>
+        <a class="page-num" href="/page/6/">
+            <i class="fa-solid fa-caret-right fa-fw"></i>
         </a>
         
     </div>
 </div>
-        </div>
+
     </div>
     
     <div id="home-card">
-        
-<div id="card-div">
-    <div class="card-style" style="width: 300px">
+        <div id="card-style">
+    <div id="card-div">
         <div class="avatar">
-            <img src="/images/f6e2b991f74bfd7b88c3ab1a3d513b94.jpg " alt="avatar">
+            <img src="/images/f6e2b991f74bfd7b88c3ab1a3d513b94.jpg" alt="avatar" />
         </div>
-        <div class="name">
-            小C&天天
+        <div class="name">小C&amp;天天</div>
+        <div class="description">
+            <p>修学储能 先博后渊</p>
+
         </div>
-        <div class="descriptions">
-            
-            <div class="description">
-                修学储能 先博后渊
-            </div>
-            
-        </div>
+        
         <div class="icon-links">
             
             <span class="icon-link">
@@ -835,32 +799,59 @@
             </span>
             
         </div>
+        
+        
         <div class="friend-links">
             
-            <div class="friend-link">
-                <a target="_blank" rel="noopener" href="http://www.wgs6km.top/">
-                    kyrieee个人博客
-                </a>
-            </div>
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="http://www.wgs6km.top/">kyrieee</a>
+            </span>
             
-            <div class="friend-link">
-                <a target="_blank" rel="noopener" href="https://tonyd0g.gitee.io/">
-                    tonyd0g
-                </a>
-            </div>
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="https://tonyd0g.gitee.io/">tonyd0g</a>
+            </span>
+            
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="https://ruyueattention.github.io/">ruyueattention</a>
+            </span>
             
         </div>
+        
     </div>
-    <br />
+    
+    <!-- <br /> -->
     <!-- 目录 -->
-    
+    <!--  -->
 </div>
+
+<div id="card-style-fun">
+    
+    <br />
+    <div id="card-div">
+        <div class="good-sentence">
+            <div class="tools">
+                <div class="circle"><span class="red"></span></div>
+                <div class="circle"><span class="yellow"></span></div>
+                <div class="circle"><span class="green"></span></div>
+                <div class="circle"><span class="text">今日诗句</span></div>
+            </div>
+            <div class="sentence">
+                <div id="sentenceid" onload="getsentence();"></div>
+            </div>
+        </div>
     </div>
     
 </div>
-                         
-<footer id="footer">
-    <div class="footer-wrap">
+
+
+
+    </div>
+    
+</div>
+
+                <!-- 页脚 -->
+                <footer id="footer">
+    <div id="footer-wrap">
         <div>
             <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
             <script>
@@ -879,43 +870,72 @@
                 } 
             setInterval("createtime()",250);
             </script>
-            </div>
+        </div>
         <div>
-        <div>
-            © 2022 - 2023 小C♥天天
+            &copy;
+            2022 - 2023 小C♥天天
             <span class="footer-icon">
                 <i class="fa-brands fa-github fa-fw"></i>
             </span>
-            @小C&天天
+            &commat;小C&amp;天天
         </div>
         <div>
-            备案号：小C&天天の窝
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX</a> 
         </div>
+        
     </div>
 </footer>
-                    </div>
+
+            </div>
+            <!-- 简单的点击图片放大缩小的预览 -->
+            
+            <transition name="fade">
+                <div id="preview" ref="preview" v-show="previewShow">
+                    <img id="preview-content" ref="previewContent" />
                 </div>
             </transition>
-            <div id="img_show">
-                <img id="img_content" alt="img_show">
-            </div>
+            
         </div>
-        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
-        <script src="/js/particlex.js"></script>
-        <script src="/js/showimg.js"></script>
+        <script src="/js/main.js"></script>
+        <!-- 看板娘 -->
         
-
-        <!-- 3D模型 -->
-        <div id="L2dCanvas" style="position: relative;"></div>
-        <script src="/js/live2d.min.js"></script>
-        <script src="/css/live2d.css"></script>
+        <div id="L2dCanvas"></div>
+        <script src="/js/lib/live2d.min.js"></script>
+        <!-- 设置随机模板 -->
+        
         <script>
             var v = new Viewer({
                 basePath: "/model",
-                role: "zhala_2",
+                role: "huangjiafangzhou_3",
                 mobile: true,
             });
         </script>
+        
+        <!-- 诗句 -->
+        
+        <script>
+            // // 每隔10分钟执行一次getsentence这个函数
+            window.setInterval(getsentence, 100*60*5);
+            function getsentence() {
+                // 这里没有考虑IE浏览器，如果需要择if判断加
+                var xhr = new XMLHttpRequest();  
+                xhr.open('GET', "https://zj.v.api.aa1.cn/api/wenan-shici/?type=json",true);
+                xhr.send(JSON.stringify(null));
+                xhr.onreadystatechange = function () {
+                    if (xhr.status === 200 && xhr.readyState === 4) {
+                        //js处理数据
+                        // xhr.responseText.match(/content":(".+?")/g)
+                        getdata = JSON.parse(xhr.responseText).msg;
+                    }else{
+                        getdata = "长风破浪会有时，直挂云帆济沧海。——李白《行路难》";
+                    }
+                    document.getElementById("sentenceid").innerHTML = getdata;
+                }
+            }
+            window.onload = getsentence;
+        </script>
+        
         <!-- 点击 -->
         <script>
             let body = document.getElementsByTagName('body')[0];
@@ -941,7 +961,11 @@
             })
         </script>
         <!-- 流星背景特效 -->
+        
         <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
-        <script src="/js/background.js"></script>
+        <script src="/js/meteorbackground.js"></script>
+        
+        <!-- 评论设置 -->
+        
     </body>
 </html>

@@ -2,36 +2,73 @@
 <!DOCTYPE html>
 <html lang="zh-Hans">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <meta charset="utf-8" />
         <title>Python学习（三）——容器 | 小C♥天天</title>
-        <meta name="author" content="小C&天天">
-        <meta name="description" content="^v^">
-        <meta name="keywords" content="">
-        <link rel="icon" href="/images/icon.jpg">
-        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
-        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
-        <link rel="stylesheet" href="/css/fonts.min.css">
-        <link rel="stylesheet" href="/css/particlex.css">
-        <link rel="stylesheet" href="/css/main.css">
-        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
-        <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
-        <link rel="stylesheet" href="/css/style.css">
+        <meta name="author" content="小C&天天" />
+        <meta name="description" content="^v^" />
+        <meta name="keywords" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <link rel="icon" href="/images/icon.jpg" />
+        <script src="https://static-argvchs.netlify.app/libs/vue/3.3.4/vue.global.prod.min.js"></script>
+<link rel="preconnect" href="https://static-argvchs.netlify.app" crossorigin />
+<link rel="stylesheet" href="https://static-argvchs.netlify.app/libs/font-awesome/6.4.0/css/all.min.css" />
+<link rel="stylesheet" href="https://static-argvchs.netlify.app/css/fonts.min.css" />
+<script> const mixins = {}; </script>
+
+<!-- 兼容不同版本的浏览器 -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<!-- 高亮代码 -->
+<script src="https://static-argvchs.netlify.app/libs/highlight.js/11.8.0/highlight.min.js"></script>
+<script src="https://static-argvchs.netlify.app/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link rel="stylesheet" href="https://static-argvchs.netlify.app/libs/highlight.js/11.8.0/styles/base16-onedark.min.css" />
+<script src="/js/lib/highlight.js"></script>
+
+
+<!-- 使用 KaTeX 渲染数学公式 -->
+<script src="https://static-argvchs.netlify.app/libs/KaTeX/0.16.8/katex.min.js"></script>
+<script src="https://static-argvchs.netlify.app/libs/KaTeX/0.16.8/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://static-argvchs.netlify.app/libs/KaTeX/0.16.8/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<!-- 简单的点击图片放大缩小的预览 -->
+<script src="/js/lib/preview.js"></script>
+
+
+<!-- 看板娘 -->
+<script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+
+
+
+
+<!-- 评论功能设置 -->
+
+
+
+
+
+<script src="https://static-argvchs.netlify.app/libs/animejs/3.2.1/anime.min.js"></script>
+<link rel="stylesheet" href="/css/main.css" />
+
     <meta name="generator" content="Hexo 6.2.0"></head>
     <body>
-        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:30vmin;height:30vmin;padding:60px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #dd20dd;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">正在加载</p><div><img alt="loading" src="/images/afde9fa65a5742a90b51d6e1211e841e.gif"></div></div></div></div></div>
         <div id="layout">
-            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
-            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
-            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
-            <transition name="into">
-                <div v-show="show_page" style="display: -not-none">
-                    <div id="menu_show">
-                         
-<nav id="menu">
-    <div class="desktop-menu">
-        <a href="/">
-            <span class="title">小C♥天天</span>
+            <!-- 页面加载 -->
+            <transition name="fade">
+                <div id="loading" v-show="loading">
+                    <div id="loading-circle">
+                        <h2>LOADING</h2>
+                        <p>正在加载</p>
+                        <img src="/images/afde9fa65a5742a90b51d6e1211e841e.gif" />
+                    </div>
+                </div>
+            </transition>
+            <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>小C♥天天</span>
         </a>
         
         <a href="/">
@@ -59,120 +96,114 @@
             <span>&ensp;标签</span>
         </a>
         
-        <form class="search">
-            <input type="text" placeholder="需要搜索什么？">
-            <button type="submit"></button>
-        </form>
-    </div>
-    <div :class="'phone-menu ' + menu_show" id="phone-menu">
-        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
-        <div :class="'title'" @click="menu_show = !menu_show">
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
             <i class="fa-solid fa-bars fa-fw"></i>
             <span>&emsp;小C♥天天</span>
         </div>
         <transition name="slide">
-        <div class="items" v-show="menu_show">
-            
-            <a href="/">
-                <div class="item">
-                    <div style="min-width: 20px; max-width: 50px; width: 10%">
-                        <i class="fa-solid fa-house fa-fw"></i>
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
                     </div>
-                    <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
-                </div>
-            </a>
-            
-            <a href="/about">
-                <div class="item">
-                    <div style="min-width: 20px; max-width: 50px; width: 10%">
-                        <i class="fa-solid fa-id-card fa-fw"></i>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
                     </div>
-                    <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
-                </div>
-            </a>
-            
-            <a href="/archives">
-                <div class="item">
-                    <div style="min-width: 20px; max-width: 50px; width: 10%">
-                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
                     </div>
-                    <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
-                </div>
-            </a>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+            <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+                <div id="article-posts-wrap" true ref="homePostsWrap">
+    <div class="article">
+        <div>
+            <h1>Python学习（三）——容器</h1>
+        </div>
+        <div class="info">
+            <span class="date">
+                <span class="icon">
+                    <i class="fa-solid fa-calendar fa-fw"></i>
+                </span>
+                2023/3/14
+            </span>
             
-            <a href="/categories">
-                <div class="item">
-                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+            <span class="category">
+                <a href="/categories/Python%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/">
+                    <span class="icon">
                         <i class="fa-solid fa-bookmark fa-fw"></i>
-                    </div>
-                    <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
-                </div>
-            </a>
+                    </span>
+                    Python基础教程
+                </a>
+            </span>
             
-            <a href="/tags">
-                <div class="item">
-                    <div style="min-width: 20px; max-width: 50px; width: 10%">
-                        <i class="fa-solid fa-tags fa-fw"></i>
-                    </div>
-                    <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
-                </div>
-            </a>
+            
+            <span class="tags">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                
+                
+                <span class="tag">
+                    
+                    <a href="/tags/Python/" style="color: #03a9f4">Python</a>
+                </span>
+                
+                <span class="tag">
+                    
+                    <a href="/tags/%E5%BC%80%E5%8F%91/" style="color: #ffa2c4">开发</a>
+                </span>
+                
+            </span>
             
         </div>
-        </transition>
-    </div>
-</nav>
-                    </div>
-                    <div id="main">
-                        
-
-<div id="home-posts-wrap" class=>
-<div class="article">
-    <div>
-        <h1>Python学习（三）——容器 </h1>
-    </div>
-    <div class="info">
-        <span class="date">
-            <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
-            </span>
-            2023/3/14
-        </span>
         
-        <span class="category">
-            <a href="/categories/Python基础教程">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
-                </span>
-                Python基础教程
-            </a>
-        </span>
-        
-        
-        <span class="tags">
-            <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-            </span>
-            
-            <span class="tag">
-                
-                <a href="/tags/Python" style="color: #ff7d73">
-                    Python
-                </a>
-            </span>
-            
-            <span class="tag">
-                
-                <a href="/tags/开发" style="color: #03a9f4">
-                    开发
-                </a>
-            </span>
-            
-        </span>
-        
-    </div>
-    <div class="content" v-pre>
-        <h1 id="一、容器"><a href="#一、容器" class="headerlink" title="一、容器"></a>一、容器</h1><p>Python中的容器就是之前提到的复杂数据类型，用来存放大量数据的容器，是Python语言里面的比较重要数据类型，本质是对象，Python底层基于双向链表的实现。而且Python中有许多有关于容器的方法。个人觉得，Python设计者对容器有一种莫名的热爱。真的！方法超级多。</p>
+        <div class="content" v-pre>
+            <h1 id="一、容器"><a href="#一、容器" class="headerlink" title="一、容器"></a>一、容器</h1><p>Python中的容器就是之前提到的复杂数据类型，用来存放大量数据的容器，是Python语言里面的比较重要数据类型，本质是对象，Python底层基于双向链表的实现。而且Python中有许多有关于容器的方法。个人觉得，Python设计者对容器有一种莫名的热爱。真的！方法超级多。</p>
 <p>共有四种，分别是列表（list）、集合（set），元组（tuple），字典（dict）</p>
 <span id="more"></span>
 <p>可以输入通过使用<code>dir()</code>方法，展示关于序列所有的方法，还可以通过<code>len()</code>方法，判断一个序列有多少个元素，还可以通过<code>del</code>关键字，删除序列对象或者元素。</p>
@@ -607,27 +638,32 @@ for x in range(1,5):
 </code></pre>
 <p><strong>但是不推荐使用这个表达式，在编写时容易逻辑混乱，在阅读时不容易理解。</strong></p>
 
+        </div>
+        
+        
+        
+        
+        <div id="comment">
+            <div id="giscus-container" class="giscus"></div>
+        </div>
+        
+        
+        
+        
     </div>
     
-</div>
-
-    <div id="home-card">
-        
-<div id="card-div">
-    <div class="card-style" style="width: 300px">
+    <div id="article-card">
+        <div id="card-style">
+    <div id="card-div">
         <div class="avatar">
-            <img src="/images/f6e2b991f74bfd7b88c3ab1a3d513b94.jpg " alt="avatar">
+            <img src="/images/f6e2b991f74bfd7b88c3ab1a3d513b94.jpg" alt="avatar" />
         </div>
-        <div class="name">
-            小C&天天
+        <div class="name">小C&amp;天天</div>
+        <div class="description">
+            <p>修学储能 先博后渊</p>
+
         </div>
-        <div class="descriptions">
-            
-            <div class="description">
-                修学储能 先博后渊
-            </div>
-            
-        </div>
+        
         <div class="icon-links">
             
             <span class="icon-link">
@@ -655,39 +691,65 @@ for x in range(1,5):
             </span>
             
         </div>
+        
+        
         <div class="friend-links">
             
-            <div class="friend-link">
-                <a target="_blank" rel="noopener" href="http://www.wgs6km.top/">
-                    kyrieee个人博客
-                </a>
-            </div>
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="http://www.wgs6km.top/">kyrieee</a>
+            </span>
             
-            <div class="friend-link">
-                <a target="_blank" rel="noopener" href="https://tonyd0g.gitee.io/">
-                    tonyd0g
-                </a>
-            </div>
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="https://tonyd0g.gitee.io/">tonyd0g</a>
+            </span>
+            
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="https://ruyueattention.github.io/">ruyueattention</a>
+            </span>
             
         </div>
+        
     </div>
-    <br />
-    <!-- 目录 -->
     
-    <div class="card-style" style="width: 300px">
+    <!-- <br /> -->
+    <!-- 目录 -->
+    <!-- 
+    <div id="card-div">
         <div id="toc" class="toc-article">
             <strong class="toc-title">文章目录</strong>
             <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%AE%B9%E5%99%A8"><span class="toc-text">一、容器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%BA%8F%E5%88%97"><span class="toc-text">二、序列</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%88%97%E8%A1%A8%EF%BC%88list%EF%BC%89"><span class="toc-text">三、列表（list）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E5%88%9B%E5%BB%BA"><span class="toc-text">1、创建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E8%AE%BF%E9%97%AE%E5%88%97%E8%A1%A8%E4%B8%AD%E7%9A%84%E5%85%83%E7%B4%A0"><span class="toc-text">2、访问列表中的元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E8%B5%8B%E5%80%BC"><span class="toc-text">3、赋值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81%E6%96%B9%E6%B3%95"><span class="toc-text">4、方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#a%E3%80%81append%E6%96%B9%E6%B3%95"><span class="toc-text">a、append方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#b%E3%80%81clear%E6%96%B9%E6%B3%95"><span class="toc-text">b、clear方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#c%E3%80%81copy%E6%96%B9%E6%B3%95"><span class="toc-text">c、copy方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#d%E3%80%81count%E6%96%B9%E6%B3%95"><span class="toc-text">d、count方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#e%E3%80%81index%E6%96%B9%E6%B3%95"><span class="toc-text">e、index方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#f%E3%80%81extend%E6%96%B9%E6%B3%95"><span class="toc-text">f、extend方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#g%E3%80%81insert%E6%96%B9%E6%B3%95"><span class="toc-text">g、insert方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#h%E3%80%81pop%E6%96%B9%E6%B3%95"><span class="toc-text">h、pop方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#i%E3%80%81remove%E6%96%B9%E6%B3%95"><span class="toc-text">i、remove方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#j%E3%80%81reverse%E6%96%B9%E6%B3%95"><span class="toc-text">j、reverse方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#k%E3%80%81sort%E6%96%B9%E6%B3%95"><span class="toc-text">k、sort方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E9%9B%86%E5%90%88%EF%BC%88Set%EF%BC%89"><span class="toc-text">四、集合（Set）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E5%88%9B%E5%BB%BA-1"><span class="toc-text">1、创建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E8%AE%BF%E9%97%AE%E9%9B%86%E5%90%88%E4%B8%AD%E7%9A%84%E5%85%83%E7%B4%A0"><span class="toc-text">2、访问集合中的元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E8%B5%8B%E5%80%BC-1"><span class="toc-text">3、赋值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81%E6%96%B9%E6%B3%95-1"><span class="toc-text">4、方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#a%E3%80%81add%E6%96%B9%E6%B3%95"><span class="toc-text">a、add方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#b%E3%80%81clear%E6%96%B9%E6%B3%95-1"><span class="toc-text">b、clear方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#c%E3%80%81copy%E6%96%B9%E6%B3%95-1"><span class="toc-text">c、copy方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#d%E3%80%81difference%E6%96%B9%E6%B3%95"><span class="toc-text">d、difference方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#e%E3%80%81discard%E6%96%B9%E6%B3%95"><span class="toc-text">e、discard方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#f%E3%80%81intersection%E6%96%B9%E6%B3%95"><span class="toc-text">f、intersection方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#g%E3%80%81union%E6%96%B9%E6%B3%95"><span class="toc-text">g、union方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#h%E3%80%81pop%E6%96%B9%E6%B3%95-1"><span class="toc-text">h、pop方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#i%E3%80%81remove%E6%96%B9%E6%B3%95-1"><span class="toc-text">i、remove方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E5%85%83%E7%BB%84%EF%BC%88tuple%EF%BC%89"><span class="toc-text">五、元组（tuple）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E5%88%9B%E5%BB%BA-2"><span class="toc-text">1、创建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E8%AE%BF%E9%97%AE%E5%85%83%E7%BB%84%E4%B8%AD%E7%9A%84%E5%85%83%E7%B4%A0"><span class="toc-text">2、访问元组中的元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E8%B5%8B%E5%80%BC-2"><span class="toc-text">3、赋值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81%E6%96%B9%E6%B3%95-2"><span class="toc-text">4、方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#a%E3%80%81count%E6%96%B9%E6%B3%95"><span class="toc-text">a、count方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#b%E3%80%81index%E6%96%B9%E6%B3%95"><span class="toc-text">b、index方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E5%AD%97%E5%85%B8%EF%BC%88dict%EF%BC%89"><span class="toc-text">六、字典（dict）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E5%88%9B%E5%BB%BA-3"><span class="toc-text">1、创建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E8%AE%BF%E9%97%AE%E5%AD%97%E5%85%B8%E4%B8%AD%E7%9A%84%E5%85%83%E7%B4%A0"><span class="toc-text">2、访问字典中的元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E8%B5%8B%E5%80%BC-3"><span class="toc-text">3、赋值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81%E6%96%B9%E6%B3%95-3"><span class="toc-text">4、方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#a%E3%80%81clear%E6%96%B9%E6%B3%95"><span class="toc-text">a、clear方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#b%E3%80%81copy%E6%96%B9%E6%B3%95"><span class="toc-text">b、copy方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#c%E3%80%81fromkeys%E6%96%B9%E6%B3%95"><span class="toc-text">c、fromkeys方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#d%E3%80%81get%E6%96%B9%E6%B3%95"><span class="toc-text">d、get方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#e%E3%80%81items%E6%96%B9%E6%B3%95"><span class="toc-text">e、items方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#f%E3%80%81keys%E6%96%B9%E6%B3%95"><span class="toc-text">f、keys方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#g%E3%80%81pop%E6%96%B9%E6%B3%95"><span class="toc-text">g、pop方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#h%E3%80%81popitem%E6%96%B9%E6%B3%95"><span class="toc-text">h、popitem方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#i%E3%80%81values%E6%96%B9%E6%B3%95"><span class="toc-text">i、values方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E5%85%B6%E4%BB%96%E6%93%8D%E4%BD%9C"><span class="toc-text">七、其他操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%88%87%E7%89%87%E6%93%8D%E4%BD%9C"><span class="toc-text">1.切片操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%9B%B8%E5%8A%A0"><span class="toc-text">2.相加</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%9B%B8%E4%B9%98"><span class="toc-text">3.相乘</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%85%83%E7%B4%A0%E6%98%AF%E5%90%A6%E5%9C%A8%E5%BA%8F%E5%88%97%E4%B8%AD"><span class="toc-text">4.元素是否在序列中</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E5%88%97%E8%A1%A8%E6%8E%A8%E5%AF%BC%E5%BC%8F%EF%BC%88%E4%B8%8D%E6%8E%A8%E8%8D%90%E4%BD%BF%E7%94%A8%EF%BC%89"><span class="toc-text">八、列表推导式（不推荐使用）</span></a></li></ol>
         </div>    
     </div>
-    
+     -->
 </div>
+
+<div id="card-style-fun">
+    
+    <br />
+    <div id="card-div">
+        <div class="good-sentence">
+            <div class="tools">
+                <div class="circle"><span class="red"></span></div>
+                <div class="circle"><span class="yellow"></span></div>
+                <div class="circle"><span class="green"></span></div>
+                <div class="circle"><span class="text">今日诗句</span></div>
+            </div>
+            <div class="sentence">
+                <div id="sentenceid" onload="getsentence();"></div>
+            </div>
+        </div>
     </div>
     
 </div>
-                         
-<footer id="footer">
-    <div class="footer-wrap">
+
+
+
+    </div>
+    
+</div>
+                <!-- 页脚 -->
+                <footer id="footer">
+    <div id="footer-wrap">
         <div>
             <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
             <script>
@@ -706,43 +768,72 @@ for x in range(1,5):
                 } 
             setInterval("createtime()",250);
             </script>
-            </div>
+        </div>
         <div>
-        <div>
-            © 2022 - 2023 小C♥天天
+            &copy;
+            2022 - 2023 小C♥天天
             <span class="footer-icon">
                 <i class="fa-brands fa-github fa-fw"></i>
             </span>
-            @小C&天天
+            &commat;小C&amp;天天
         </div>
         <div>
-            备案号：小C&天天の窝
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX</a> 
         </div>
+        
     </div>
 </footer>
-                    </div>
+
+            </div>
+            <!-- 简单的点击图片放大缩小的预览 -->
+            
+            <transition name="fade">
+                <div id="preview" ref="preview" v-show="previewShow">
+                    <img id="preview-content" ref="previewContent" />
                 </div>
             </transition>
-            <div id="img_show">
-                <img id="img_content" alt="img_show">
-            </div>
+            
         </div>
-        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
-        <script src="/js/particlex.js"></script>
-        <script src="/js/showimg.js"></script>
+        <script src="/js/main.js"></script>
+        <!-- 看板娘 -->
         
-
-        <!-- 3D模型 -->
-        <div id="L2dCanvas" style="position: relative;"></div>
-        <script src="/js/live2d.min.js"></script>
-        <script src="/css/live2d.css"></script>
+        <div id="L2dCanvas"></div>
+        <script src="/js/lib/live2d.min.js"></script>
+        <!-- 设置随机模板 -->
+        
         <script>
             var v = new Viewer({
                 basePath: "/model",
-                role: "zhala_2",
+                role: "beierfasite_2",
                 mobile: true,
             });
         </script>
+        
+        <!-- 诗句 -->
+        
+        <script>
+            // // 每隔10分钟执行一次getsentence这个函数
+            window.setInterval(getsentence, 100*60*5);
+            function getsentence() {
+                // 这里没有考虑IE浏览器，如果需要择if判断加
+                var xhr = new XMLHttpRequest();  
+                xhr.open('GET', "https://zj.v.api.aa1.cn/api/wenan-shici/?type=json",true);
+                xhr.send(JSON.stringify(null));
+                xhr.onreadystatechange = function () {
+                    if (xhr.status === 200 && xhr.readyState === 4) {
+                        //js处理数据
+                        // xhr.responseText.match(/content":(".+?")/g)
+                        getdata = JSON.parse(xhr.responseText).msg;
+                    }else{
+                        getdata = "长风破浪会有时，直挂云帆济沧海。——李白《行路难》";
+                    }
+                    document.getElementById("sentenceid").innerHTML = getdata;
+                }
+            }
+            window.onload = getsentence;
+        </script>
+        
         <!-- 点击 -->
         <script>
             let body = document.getElementsByTagName('body')[0];
@@ -768,7 +859,34 @@ for x in range(1,5):
             })
         </script>
         <!-- 流星背景特效 -->
+        
         <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
-        <script src="/js/background.js"></script>
+        <script src="/js/meteorbackground.js"></script>
+        
+        <!-- 评论设置 -->
+        
+        
+<script
+    src="https://giscus.app/client.js"
+    data-repo="argvchs/giscus-comments"
+    data-repo-id="R_kgDOI_uC-w"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOI_uC-84CUToF"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="https://static-argvchs.netlify.app/css/giscus.css"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+        
     </body>
 </html>

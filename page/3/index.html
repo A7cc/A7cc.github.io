@@ -2,36 +2,70 @@
 <!DOCTYPE html>
 <html lang="zh-Hans">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <meta charset="utf-8" />
         <title>小C♥天天</title>
-        <meta name="author" content="小C&天天">
-        <meta name="description" content="^v^">
-        <meta name="keywords" content="">
-        <link rel="icon" href="/images/icon.jpg">
-        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
-        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
-        <link rel="stylesheet" href="/css/fonts.min.css">
-        <link rel="stylesheet" href="/css/particlex.css">
-        <link rel="stylesheet" href="/css/main.css">
-        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
-        <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
-        <link rel="stylesheet" href="/css/style.css">
+        <meta name="author" content="小C&天天" />
+        <meta name="description" content="^v^" />
+        <meta name="keywords" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <link rel="icon" href="/images/icon.jpg" />
+        <script src="https://static-argvchs.netlify.app/libs/vue/3.3.4/vue.global.prod.min.js"></script>
+<link rel="preconnect" href="https://static-argvchs.netlify.app" crossorigin />
+<link rel="stylesheet" href="https://static-argvchs.netlify.app/libs/font-awesome/6.4.0/css/all.min.css" />
+<link rel="stylesheet" href="https://static-argvchs.netlify.app/css/fonts.min.css" />
+<script> const mixins = {}; </script>
+
+<!-- 兼容不同版本的浏览器 -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<!-- 高亮代码 -->
+<script src="https://static-argvchs.netlify.app/libs/highlight.js/11.8.0/highlight.min.js"></script>
+<script src="https://static-argvchs.netlify.app/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link rel="stylesheet" href="https://static-argvchs.netlify.app/libs/highlight.js/11.8.0/styles/base16-onedark.min.css" />
+<script src="/js/lib/highlight.js"></script>
+
+
+<!-- 使用 KaTeX 渲染数学公式 -->
+<script src="https://static-argvchs.netlify.app/libs/KaTeX/0.16.8/katex.min.js"></script>
+<script src="https://static-argvchs.netlify.app/libs/KaTeX/0.16.8/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://static-argvchs.netlify.app/libs/KaTeX/0.16.8/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<!-- 简单的点击图片放大缩小的预览 -->
+<script src="/js/lib/preview.js"></script>
+
+
+<!-- 看板娘 -->
+<script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+
+
+
+
+
+<script src="/js/lib/home.js"></script>
+
+<script src="https://static-argvchs.netlify.app/libs/animejs/3.2.1/anime.min.js"></script>
+<link rel="stylesheet" href="/css/main.css" />
+
     <meta name="generator" content="Hexo 6.2.0"></head>
     <body>
-        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:30vmin;height:30vmin;padding:60px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #dd20dd;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">正在加载</p><div><img alt="loading" src="/images/afde9fa65a5742a90b51d6e1211e841e.gif"></div></div></div></div></div>
         <div id="layout">
-            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
-            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
-            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
-            <transition name="into">
-                <div v-show="show_page" style="display: -not-none">
-                    <div id="menu_show">
-                         
-<nav id="menu">
-    <div class="desktop-menu">
-        <a href="/">
-            <span class="title">小C♥天天</span>
+            <!-- 页面加载 -->
+            <transition name="fade">
+                <div id="loading" v-show="loading">
+                    <div id="loading-circle">
+                        <h2>LOADING</h2>
+                        <p>正在加载</p>
+                        <img src="/images/afde9fa65a5742a90b51d6e1211e841e.gif" />
+                    </div>
+                </div>
+            </transition>
+            <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>小C♥天天</span>
         </a>
         
         <a href="/">
@@ -59,75 +93,72 @@
             <span>&ensp;标签</span>
         </a>
         
-        <form class="search">
-            <input type="text" placeholder="需要搜索什么？">
-            <button type="submit"></button>
-        </form>
-    </div>
-    <div :class="'phone-menu ' + menu_show" id="phone-menu">
-        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
-        <div :class="'title'" @click="menu_show = !menu_show">
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
             <i class="fa-solid fa-bars fa-fw"></i>
             <span>&emsp;小C♥天天</span>
         </div>
         <transition name="slide">
-        <div class="items" v-show="menu_show">
-            
-            <a href="/">
-                <div class="item">
-                    <div style="min-width: 20px; max-width: 50px; width: 10%">
-                        <i class="fa-solid fa-house fa-fw"></i>
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
                     </div>
-                    <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
-                </div>
-            </a>
-            
-            <a href="/about">
-                <div class="item">
-                    <div style="min-width: 20px; max-width: 50px; width: 10%">
-                        <i class="fa-solid fa-id-card fa-fw"></i>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
                     </div>
-                    <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
-                </div>
-            </a>
-            
-            <a href="/archives">
-                <div class="item">
-                    <div style="min-width: 20px; max-width: 50px; width: 10%">
-                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
                     </div>
-                    <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
-                </div>
-            </a>
-            
-            <a href="/categories">
-                <div class="item">
-                    <div style="min-width: 20px; max-width: 50px; width: 10%">
-                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
                     </div>
-                    <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
-                </div>
-            </a>
-            
-            <a href="/tags">
-                <div class="item">
-                    <div style="min-width: 20px; max-width: 50px; width: 10%">
-                        <i class="fa-solid fa-tags fa-fw"></i>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
                     </div>
-                    <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
-                </div>
-            </a>
-            
-        </div>
+                </a>
+                
+            </div>
         </transition>
-    </div>
-</nav>
-                    </div>
-                    <div id="main">
-                        <div id="home-head">
-    <div id="home-background" style="background-image: url(/images/8da71ea6db89c66eba44f6c89d5820c7.jpg)"></div>
-    
-    <div id="home-info" class="home-info" @click="home_click">
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+            <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+                <div id="home-head">
+    <div id="home-background" ref="homeBackground" data-images="/images/background/8da71ea6db89c66eba44f6c89d5820c7.jpg,/images/background/e2d17407dc023b204f50d1230a57f7eb.jpg,/images/background/f76fa3f3ffc17b5903da14cb5ca7612c.jpg,/images/background/d65c0a4b218aabd9f11f562fbc63df5b.jpeg"></div>
+    <div id="home-info" @click="homeClick">
         <span class="loop"></span>
         <span class="loop"></span>
         <span class="loop"></span>
@@ -140,38 +171,84 @@
             </div>
         </span>
     </div>
-    
 </div>
-
-<div id="home-posts-wrap" class=>
+<div id="home-posts-wrap" true ref="homePostsWrap">
     <div id="home-posts">
-        <div id="posts">
-            
+        
 
 <div class="post">
-    <a href="/2023/03/14/工具使用/Proxifier代理工具/">
-        <h2>
-            Proxifier代理工具
-        </h2>
+    <a href="/2023/03/14/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/NPS%E4%BB%A3%E7%90%86%E5%B7%A5%E5%85%B7/">
+        <h2 class="post-title">NPS代理工具</h2>
     </a>
     <div class="category-and-date">
         
         <span class="category">
-            <a href="/categories/工具使用">
+            <a href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">
                 <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
                 工具使用
             </a>
         </span>
         
         <span class="date">
             <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+                <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
             2023/3/14
         </span>
+        
+        
     </div>
-    <div class="excerpt">
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h1 id="壹-工具说明"><a href="#壹-工具说明" class="headerlink" title="壹 工具说明"></a>壹 工具说明</h1><p>nps是一款轻量级、高性能、功能强大的<strong>内网穿透</strong>代理服务器。目前支持<strong>tcp、udp流量转发</strong>，可支持任何<strong>tcp、udp</strong>上层协议（访问内网网站、本地支付接口调试、ssh访问、远程桌面，内网dns解析等等……），此外还<strong>支持内网http代理、内网socks5代理</strong>、<strong>p2p等</strong>，并带有功能强大的web管理端。</p>
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/%E4%BB%A3%E7%90%86%E4%B8%8E%E8%BD%AC%E5%8F%91/" style="color: #03a9f4">代理与转发</a>
+        </span>
+        
+    </div>
+    <a href="/2023/03/14/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/NPS%E4%BB%A3%E7%90%86%E5%B7%A5%E5%85%B7/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
+    <a href="/2023/03/14/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/Proxifier%E4%BB%A3%E7%90%86%E5%B7%A5%E5%85%B7/">
+        <h2 class="post-title">Proxifier代理工具</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                工具使用
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2023/3/14
+        </span>
+        
+        
+    </div>
+    <div class="description">
         <div class="content" v-pre>
             
             <h1 id="壹-工具说明"><a href="#壹-工具说明" class="headerlink" title="壹 工具说明"></a>壹 工具说明</h1><p>Proxifier是一款功能非常强大的socks5客户端，可以让不支持通过代理服务器工作的网络程序能通过HTTPS或SOCKS代理。支持各种操作系统和各代理协议，它的运行模式可以指定端口，指定程序的特点。支持 64位系统，支持Windows，MAC OS，支持socks4，socks5，http代理协议，支持TCP，UDP协议，可以指定端口，指定IP，指定域名，指定程序等运行模式，兼容性非常好。有许多网络应用程序不支持通过代理服务器工作，Proxifier 解决了这些问题和所有限制，让您有机会不受任何限制使用你喜爱的软件。此外，它让你获得了额外的网络安全控制，创建代理隧道，并添加使用更多网络功能的权力。</p>
@@ -181,47 +258,45 @@
     <div class="post-tags">
         
         <span class="icon">
-            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            <i class="fa-solid fa-tags fa-fw"></i>
         </span>
+        
         
         
         <span class="tag">
             
-            <a href="/tags/代理与转发" style="color: #00bcd4">
-                代理与转发
-            </a>
+            <a href="/tags/%E4%BB%A3%E7%90%86%E4%B8%8E%E8%BD%AC%E5%8F%91/" style="color: #ff7d73">代理与转发</a>
         </span>
         
     </div>
-    <a href="/2023/03/14/工具使用/Proxifier代理工具/" class="go-post">
-        阅读全文
-    </a>
+    <a href="/2023/03/14/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/Proxifier%E4%BB%A3%E7%90%86%E5%B7%A5%E5%85%B7/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/2023/03/14/工具使用/OpenSSL子命令详解/">
-        <h2>
-            OpenSSL子命令详解
-        </h2>
+    <a href="/2023/03/14/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/OpenSSL%E5%AD%90%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/">
+        <h2 class="post-title">OpenSSL子命令详解</h2>
     </a>
     <div class="category-and-date">
         
         <span class="category">
-            <a href="/categories/工具使用">
+            <a href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">
                 <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
                 工具使用
             </a>
         </span>
         
         <span class="date">
             <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+                <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
             2023/3/14
         </span>
+        
+        
     </div>
-    <div class="excerpt">
+    <div class="description">
         <div class="content" v-pre>
             
             <h1 id="壹-前言"><a href="#壹-前言" class="headerlink" title="壹 前言"></a>壹 前言</h1><p>OpenSSL是目前最流行的 SSL 密码库工具，其提供了一个通用、健壮、功能完备的工具套件，用以支持SSL&#x2F;TLS 协议的实现。OpenSSL有四个主要的子命令：genrsa、rsa、req、x509子命令，用于RSA密钥的生成和处理，以及证书的申请和制作。</p>
@@ -231,47 +306,45 @@
     <div class="post-tags">
         
         <span class="icon">
-            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            <i class="fa-solid fa-tags fa-fw"></i>
         </span>
+        
         
         
         <span class="tag">
             
-            <a href="/tags/密码学" style="color: #ffa2c4">
-                密码学
-            </a>
+            <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="color: #ffa2c4">密码学</a>
         </span>
         
     </div>
-    <a href="/2023/03/14/工具使用/OpenSSL子命令详解/" class="go-post">
-        阅读全文
-    </a>
+    <a href="/2023/03/14/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/OpenSSL%E5%AD%90%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/2023/03/14/乱七八糟/Github部署Hexo博客/">
-        <h2>
-            Github部署hexo博客
-        </h2>
+    <a href="/2023/03/14/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/Github%E9%83%A8%E7%BD%B2Hexo%E5%8D%9A%E5%AE%A2/">
+        <h2 class="post-title">Github部署hexo博客</h2>
     </a>
     <div class="category-and-date">
         
         <span class="category">
-            <a href="/categories/乱七八糟">
+            <a href="/categories/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/">
                 <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
                 乱七八糟
             </a>
         </span>
         
         <span class="date">
             <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+                <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
             2023/3/14
         </span>
+        
+        
     </div>
-    <div class="excerpt">
+    <div class="description">
         <div class="content" v-pre>
             
             <h1 id="壹-前言"><a href="#壹-前言" class="headerlink" title="壹 前言"></a>壹 前言</h1><p>使用GIthub+hexo搭建博客，成功后的效果：<code>https://a7cc.github.io</code>。</p>
@@ -281,47 +354,45 @@
     <div class="post-tags">
         
         <span class="icon">
-            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            <i class="fa-solid fa-tags fa-fw"></i>
         </span>
+        
         
         
         <span class="tag">
             
-            <a href="/tags/hexo" style="color: #00bcd4">
-                hexo
-            </a>
+            <a href="/tags/hexo/" style="color: #00a596">hexo</a>
         </span>
         
     </div>
-    <a href="/2023/03/14/乱七八糟/Github部署Hexo博客/" class="go-post">
-        阅读全文
-    </a>
+    <a href="/2023/03/14/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/Github%E9%83%A8%E7%BD%B2Hexo%E5%8D%9A%E5%AE%A2/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/2023/03/14/乱七八糟/Golang交叉编译/">
-        <h2>
-            Golang交叉编译
-        </h2>
+    <a href="/2023/03/14/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/Golang%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/">
+        <h2 class="post-title">Golang交叉编译</h2>
     </a>
     <div class="category-and-date">
         
         <span class="category">
-            <a href="/categories/乱七八糟">
+            <a href="/categories/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/">
                 <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
                 乱七八糟
             </a>
         </span>
         
         <span class="date">
             <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+                <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
             2023/3/14
         </span>
+        
+        
     </div>
-    <div class="excerpt">
+    <div class="description">
         <div class="content" v-pre>
             
             <h1 id="壹-介绍"><a href="#壹-介绍" class="headerlink" title="壹 介绍"></a>壹 介绍</h1><p><code>Golang</code>其中一个优势就是支持交叉编译，顾名思义就是可以在一个平台编译其他平台的可执行程序。</p>
@@ -331,54 +402,50 @@
     <div class="post-tags">
         
         <span class="icon">
-            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            <i class="fa-solid fa-tags fa-fw"></i>
         </span>
+        
         
         
         <span class="tag">
             
-            <a href="/tags/Golang" style="color: #ffa2c4">
-                Golang
-            </a>
+            <a href="/tags/Golang/" style="color: #ffa2c4">Golang</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/小技巧" style="color: #00bcd4">
-                小技巧
-            </a>
+            <a href="/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/" style="color: #00a596">小技巧</a>
         </span>
         
     </div>
-    <a href="/2023/03/14/乱七八糟/Golang交叉编译/" class="go-post">
-        阅读全文
-    </a>
+    <a href="/2023/03/14/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/Golang%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/2023/03/14/乱七八糟/Golang小脚本/">
-        <h2>
-            Golang小脚本（持续更新）
-        </h2>
+    <a href="/2023/03/14/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/Golang%E5%B0%8F%E8%84%9A%E6%9C%AC/">
+        <h2 class="post-title">Golang小脚本（持续更新）</h2>
     </a>
     <div class="category-and-date">
         
         <span class="category">
-            <a href="/categories/乱七八糟">
+            <a href="/categories/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/">
                 <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
                 乱七八糟
             </a>
         </span>
         
         <span class="date">
             <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+                <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
             2023/3/14
         </span>
+        
+        
     </div>
-    <div class="excerpt">
+    <div class="description">
         <div class="content" v-pre>
             
             <h1 id="壹-说明"><a href="#壹-说明" class="headerlink" title="壹 说明"></a>壹 说明</h1><p>该文章主要记录平时工作或者生活中经常使用的<code>Golang</code>小脚本。</p>
@@ -388,47 +455,45 @@
     <div class="post-tags">
         
         <span class="icon">
-            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            <i class="fa-solid fa-tags fa-fw"></i>
         </span>
+        
         
         
         <span class="tag">
             
-            <a href="/tags/Golang" style="color: #ffa2c4">
-                Golang
-            </a>
+            <a href="/tags/Golang/" style="color: #00a596">Golang</a>
         </span>
         
     </div>
-    <a href="/2023/03/14/乱七八糟/Golang小脚本/" class="go-post">
-        阅读全文
-    </a>
+    <a href="/2023/03/14/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/Golang%E5%B0%8F%E8%84%9A%E6%9C%AC/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/2023/03/14/乱七八糟/JS逆向登录分析/">
-        <h2>
-            JS逆向登录分析
-        </h2>
+    <a href="/2023/03/14/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/JS%E9%80%86%E5%90%91%E7%99%BB%E5%BD%95%E5%88%86%E6%9E%90/">
+        <h2 class="post-title">JS逆向登录分析</h2>
     </a>
     <div class="category-and-date">
         
         <span class="category">
-            <a href="/categories/乱七八糟">
+            <a href="/categories/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/">
                 <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
                 乱七八糟
             </a>
         </span>
         
         <span class="date">
             <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+                <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
             2023/3/14
         </span>
+        
+        
     </div>
-    <div class="excerpt">
+    <div class="description">
         <div class="content" v-pre>
             
             <h1 id="壹-前言"><a href="#壹-前言" class="headerlink" title="壹 前言"></a>壹 前言</h1><p>在做爬虫登录的时候，除了一些简单的爬取或者传参，不需要设置太过复杂的参数构造，但是大多数情况下一些网站的用户名或者密码都会在前端进行一次加密，然后传输到后端进行登录，这时候我们可以选择对登录页面进行分析。</p>
@@ -438,54 +503,50 @@
     <div class="post-tags">
         
         <span class="icon">
-            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            <i class="fa-solid fa-tags fa-fw"></i>
         </span>
+        
         
         
         <span class="tag">
             
-            <a href="/tags/小技巧" style="color: #00a596">
-                小技巧
-            </a>
+            <a href="/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/" style="color: #00a596">小技巧</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/JS逆向" style="color: #03a9f4">
-                JS逆向
-            </a>
+            <a href="/tags/JS%E9%80%86%E5%90%91/" style="color: #00bcd4">JS逆向</a>
         </span>
         
     </div>
-    <a href="/2023/03/14/乱七八糟/JS逆向登录分析/" class="go-post">
-        阅读全文
-    </a>
+    <a href="/2023/03/14/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/JS%E9%80%86%E5%90%91%E7%99%BB%E5%BD%95%E5%88%86%E6%9E%90/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/2023/03/14/乱七八糟/Hexo博客的优化/">
-        <h2>
-            Hexo博客的优化
-        </h2>
+    <a href="/2023/03/14/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/Hexo%E5%8D%9A%E5%AE%A2%E7%9A%84%E4%BC%98%E5%8C%96/">
+        <h2 class="post-title">hexo博客的优化</h2>
     </a>
     <div class="category-and-date">
         
         <span class="category">
-            <a href="/categories/乱七八糟">
+            <a href="/categories/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/">
                 <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
                 乱七八糟
             </a>
         </span>
         
         <span class="date">
             <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+                <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
             2023/3/14
         </span>
+        
+        
     </div>
-    <div class="excerpt">
+    <div class="description">
         <div class="content" v-pre>
             
             <h1 id="壹-熟悉博客"><a href="#壹-熟悉博客" class="headerlink" title="壹 熟悉博客"></a>壹 熟悉博客</h1><p>在优化博客前，首先我们需要熟悉博客的相关参数！</p>
@@ -495,47 +556,45 @@
     <div class="post-tags">
         
         <span class="icon">
-            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            <i class="fa-solid fa-tags fa-fw"></i>
         </span>
+        
         
         
         <span class="tag">
             
-            <a href="/tags/hexo" style="color: #00bcd4">
-                hexo
-            </a>
+            <a href="/tags/hexo/" style="color: #03a9f4">hexo</a>
         </span>
         
     </div>
-    <a href="/2023/03/14/乱七八糟/Hexo博客的优化/" class="go-post">
-        阅读全文
-    </a>
+    <a href="/2023/03/14/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/Hexo%E5%8D%9A%E5%AE%A2%E7%9A%84%E4%BC%98%E5%8C%96/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/2023/03/14/乱七八糟/使用代理IP池ProxyPool/">
-        <h2>
-            使用代理IP池ProxyPool
-        </h2>
+    <a href="/2023/03/14/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%90%86IP%E6%B1%A0ProxyPool/">
+        <h2 class="post-title">使用代理IP池ProxyPool</h2>
     </a>
     <div class="category-and-date">
         
         <span class="category">
-            <a href="/categories/乱七八糟">
+            <a href="/categories/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/">
                 <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
                 乱七八糟
             </a>
         </span>
         
         <span class="date">
             <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+                <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
             2023/3/14
         </span>
+        
+        
     </div>
-    <div class="excerpt">
+    <div class="description">
         <div class="content" v-pre>
             
             <h1 id="壹-准备"><a href="#壹-准备" class="headerlink" title="壹 准备"></a>壹 准备</h1><p>当我们需要使用网上免费的代理池时，我们可以通过<code>jhao104</code>师傅的<a target="_blank" rel="noopener" href="https://github.com/jhao104/proxy_pool">proxy_pool</a>进行搭建自己的代理池。</p>
@@ -545,54 +604,50 @@
     <div class="post-tags">
         
         <span class="icon">
-            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            <i class="fa-solid fa-tags fa-fw"></i>
         </span>
+        
         
         
         <span class="tag">
             
-            <a href="/tags/代理" style="color: #ff7d73">
-                代理
-            </a>
+            <a href="/tags/%E4%BB%A3%E7%90%86/" style="color: #ffa2c4">代理</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/工具" style="color: #03a9f4">
-                工具
-            </a>
+            <a href="/tags/%E5%B7%A5%E5%85%B7/" style="color: #00a596">工具</a>
         </span>
         
     </div>
-    <a href="/2023/03/14/乱七八糟/使用代理IP池ProxyPool/" class="go-post">
-        阅读全文
-    </a>
+    <a href="/2023/03/14/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%90%86IP%E6%B1%A0ProxyPool/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/2023/03/14/乱七八糟/Python小脚本/">
-        <h2>
-            Python小脚本（持续更新）
-        </h2>
+    <a href="/2023/03/14/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/Python%E5%B0%8F%E8%84%9A%E6%9C%AC/">
+        <h2 class="post-title">Python小脚本（持续更新）</h2>
     </a>
     <div class="category-and-date">
         
         <span class="category">
-            <a href="/categories/乱七八糟">
+            <a href="/categories/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/">
                 <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
                 乱七八糟
             </a>
         </span>
         
         <span class="date">
             <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+                <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
             2023/3/14
         </span>
+        
+        
     </div>
-    <div class="excerpt">
+    <div class="description">
         <div class="content" v-pre>
             
             <h1 id="壹-说明"><a href="#壹-说明" class="headerlink" title="壹 说明"></a>壹 说明</h1><p>该文章主要记录平时工作或者生活中经常使用的<code>Python</code>小脚本。</p>
@@ -602,87 +657,26 @@
     <div class="post-tags">
         
         <span class="icon">
-            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            <i class="fa-solid fa-tags fa-fw"></i>
         </span>
+        
         
         
         <span class="tag">
             
-            <a href="/tags/Python" style="color: #03a9f4">
-                Python
-            </a>
+            <a href="/tags/Python/" style="color: #00a596">Python</a>
         </span>
         
     </div>
-    <a href="/2023/03/14/乱七八糟/Python小脚本/" class="go-post">
-        阅读全文
-    </a>
+    <a href="/2023/03/14/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/Python%E5%B0%8F%E8%84%9A%E6%9C%AC/" class="go-post">阅读全文</a>
 </div>
 
-<div class="post">
-    <a href="/2023/03/14/内网/内网代理与转发/">
-        <h2>
-            内网代理与转发技巧
-        </h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/内网">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
-                内网
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
-            </span>
-            2023/3/14
-        </span>
-    </div>
-    <div class="excerpt">
-        <div class="content" v-pre>
-            
-            <h1 id="壹-内网代理与转发技巧"><a href="#壹-内网代理与转发技巧" class="headerlink" title="壹 内网代理与转发技巧"></a>壹 内网代理与转发技巧</h1><h2 id="1-1-概念"><a href="#1-1-概念" class="headerlink" title="1.1 概念"></a>1.1 概念</h2><p>内网穿透：利用各种隧道技术，绕过网络防火墙的封锁，实现访问被封锁的目标网络，需要考虑的点：</p>
-<ul>
-<li>能出网，通过允许的协议或一些旁门</li>
-<li>隐蔽，被发现了那就凉了呀</li>
-<li>稳定，关键时刻不能出问题</li>
-<li>限制少，需要的条件越少越好</li>
-<li>覆盖面广，跟上一条其实有点关联，主要考虑使用场景越多越好
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-        </span>
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/代理与转发" style="color: #ff7d73">
-                代理与转发
-            </a>
-        </span>
-        
-    </div>
-    <a href="/2023/03/14/内网/内网代理与转发/" class="go-post">
-        阅读全文
-    </a>
-</div>
 
-             
-<div class="page-current">
+        <div class="page-current">
     <div class="prev">
         
-        <a href="/page/2/">
-            <span class="page-num">
-                <svg class="fa-icon"><use xlink:href="#caret-left-solid"></use></svg>
-            </span>
+        <a class="page-num" href="/page/2/">
+            <i class="fa-solid fa-caret-left fa-fw"></i>
         </a>
         
     </div>
@@ -691,78 +685,51 @@
         <span>
             
             
-                
-                <a href="/">
-                    <span class="page-num">1</span>
-                </a>
-                
-                
             
-            <a href="/page/2/">
-                <span class="page-num">
-                    2
-                </span>
-            </a>
+            <a class="page-num" href="/">1</a>
+            
+            
+            
+            <a class="page-num" href="/page/2/">2</a>
         </span>
         
-        <span class="current">
-            3
-        </span>
+        <span class="current">3</span>
         
         <span>
-            <a href="/page/4/">
-                <span class="page-num">
-                    4
-                </span>
-            </a>
+            <a class="page-num" href="/page/4/">4</a>
             
-            <a href="/page/5">
-                <span class="page-num">
-                    5
-                </span>
-            </a>
+            <a class="page-num" href="/page/5">5</a>
             
             
             <span class="page-omit">...</span>
-            <a href="/page/7">
-                <span class="page-num">
-                    7
-                </span>
-            </a>
+            <a class="page-num" href="/page/7">7</a>
             
         </span>
         
     </div>
     <div class="next">
         
-        <a href="/page/4/ ">
-            <span class="page-num">
-                <svg class="fa-icon"><use xlink:href="#caret-right-solid"></use></svg>
-            </span>
+        <a class="page-num" href="/page/4/">
+            <i class="fa-solid fa-caret-right fa-fw"></i>
         </a>
         
     </div>
 </div>
-        </div>
+
     </div>
     
     <div id="home-card">
-        
-<div id="card-div">
-    <div class="card-style" style="width: 300px">
+        <div id="card-style">
+    <div id="card-div">
         <div class="avatar">
-            <img src="/images/f6e2b991f74bfd7b88c3ab1a3d513b94.jpg " alt="avatar">
+            <img src="/images/f6e2b991f74bfd7b88c3ab1a3d513b94.jpg" alt="avatar" />
         </div>
-        <div class="name">
-            小C&天天
+        <div class="name">小C&amp;天天</div>
+        <div class="description">
+            <p>修学储能 先博后渊</p>
+
         </div>
-        <div class="descriptions">
-            
-            <div class="description">
-                修学储能 先博后渊
-            </div>
-            
-        </div>
+        
         <div class="icon-links">
             
             <span class="icon-link">
@@ -790,32 +757,59 @@
             </span>
             
         </div>
+        
+        
         <div class="friend-links">
             
-            <div class="friend-link">
-                <a target="_blank" rel="noopener" href="http://www.wgs6km.top/">
-                    kyrieee个人博客
-                </a>
-            </div>
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="http://www.wgs6km.top/">kyrieee</a>
+            </span>
             
-            <div class="friend-link">
-                <a target="_blank" rel="noopener" href="https://tonyd0g.gitee.io/">
-                    tonyd0g
-                </a>
-            </div>
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="https://tonyd0g.gitee.io/">tonyd0g</a>
+            </span>
+            
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="https://ruyueattention.github.io/">ruyueattention</a>
+            </span>
             
         </div>
+        
     </div>
-    <br />
+    
+    <!-- <br /> -->
     <!-- 目录 -->
-    
+    <!--  -->
 </div>
+
+<div id="card-style-fun">
+    
+    <br />
+    <div id="card-div">
+        <div class="good-sentence">
+            <div class="tools">
+                <div class="circle"><span class="red"></span></div>
+                <div class="circle"><span class="yellow"></span></div>
+                <div class="circle"><span class="green"></span></div>
+                <div class="circle"><span class="text">今日诗句</span></div>
+            </div>
+            <div class="sentence">
+                <div id="sentenceid" onload="getsentence();"></div>
+            </div>
+        </div>
     </div>
     
 </div>
-                         
-<footer id="footer">
-    <div class="footer-wrap">
+
+
+
+    </div>
+    
+</div>
+
+                <!-- 页脚 -->
+                <footer id="footer">
+    <div id="footer-wrap">
         <div>
             <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
             <script>
@@ -834,43 +828,72 @@
                 } 
             setInterval("createtime()",250);
             </script>
-            </div>
+        </div>
         <div>
-        <div>
-            © 2022 - 2023 小C♥天天
+            &copy;
+            2022 - 2023 小C♥天天
             <span class="footer-icon">
                 <i class="fa-brands fa-github fa-fw"></i>
             </span>
-            @小C&天天
+            &commat;小C&amp;天天
         </div>
         <div>
-            备案号：小C&天天の窝
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX</a> 
         </div>
+        
     </div>
 </footer>
-                    </div>
+
+            </div>
+            <!-- 简单的点击图片放大缩小的预览 -->
+            
+            <transition name="fade">
+                <div id="preview" ref="preview" v-show="previewShow">
+                    <img id="preview-content" ref="previewContent" />
                 </div>
             </transition>
-            <div id="img_show">
-                <img id="img_content" alt="img_show">
-            </div>
+            
         </div>
-        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
-        <script src="/js/particlex.js"></script>
-        <script src="/js/showimg.js"></script>
+        <script src="/js/main.js"></script>
+        <!-- 看板娘 -->
         
-
-        <!-- 3D模型 -->
-        <div id="L2dCanvas" style="position: relative;"></div>
-        <script src="/js/live2d.min.js"></script>
-        <script src="/css/live2d.css"></script>
+        <div id="L2dCanvas"></div>
+        <script src="/js/lib/live2d.min.js"></script>
+        <!-- 设置随机模板 -->
+        
         <script>
             var v = new Viewer({
                 basePath: "/model",
-                role: "zhala_2",
+                role: "heitaizi_2",
                 mobile: true,
             });
         </script>
+        
+        <!-- 诗句 -->
+        
+        <script>
+            // // 每隔10分钟执行一次getsentence这个函数
+            window.setInterval(getsentence, 100*60*5);
+            function getsentence() {
+                // 这里没有考虑IE浏览器，如果需要择if判断加
+                var xhr = new XMLHttpRequest();  
+                xhr.open('GET', "https://zj.v.api.aa1.cn/api/wenan-shici/?type=json",true);
+                xhr.send(JSON.stringify(null));
+                xhr.onreadystatechange = function () {
+                    if (xhr.status === 200 && xhr.readyState === 4) {
+                        //js处理数据
+                        // xhr.responseText.match(/content":(".+?")/g)
+                        getdata = JSON.parse(xhr.responseText).msg;
+                    }else{
+                        getdata = "长风破浪会有时，直挂云帆济沧海。——李白《行路难》";
+                    }
+                    document.getElementById("sentenceid").innerHTML = getdata;
+                }
+            }
+            window.onload = getsentence;
+        </script>
+        
         <!-- 点击 -->
         <script>
             let body = document.getElementsByTagName('body')[0];
@@ -896,7 +919,11 @@
             })
         </script>
         <!-- 流星背景特效 -->
+        
         <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
-        <script src="/js/background.js"></script>
+        <script src="/js/meteorbackground.js"></script>
+        
+        <!-- 评论设置 -->
+        
     </body>
 </html>

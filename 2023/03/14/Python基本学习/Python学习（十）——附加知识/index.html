@@ -2,36 +2,73 @@
 <!DOCTYPE html>
 <html lang="zh-Hans">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <meta charset="utf-8" />
         <title>Python学习（十）——附加知识 | 小C♥天天</title>
-        <meta name="author" content="小C&天天">
-        <meta name="description" content="^v^">
-        <meta name="keywords" content="">
-        <link rel="icon" href="/images/icon.jpg">
-        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
-        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
-        <link rel="stylesheet" href="/css/fonts.min.css">
-        <link rel="stylesheet" href="/css/particlex.css">
-        <link rel="stylesheet" href="/css/main.css">
-        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
-        <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
-        <link rel="stylesheet" href="/css/style.css">
+        <meta name="author" content="小C&天天" />
+        <meta name="description" content="^v^" />
+        <meta name="keywords" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <link rel="icon" href="/images/icon.jpg" />
+        <script src="https://static-argvchs.netlify.app/libs/vue/3.3.4/vue.global.prod.min.js"></script>
+<link rel="preconnect" href="https://static-argvchs.netlify.app" crossorigin />
+<link rel="stylesheet" href="https://static-argvchs.netlify.app/libs/font-awesome/6.4.0/css/all.min.css" />
+<link rel="stylesheet" href="https://static-argvchs.netlify.app/css/fonts.min.css" />
+<script> const mixins = {}; </script>
+
+<!-- 兼容不同版本的浏览器 -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<!-- 高亮代码 -->
+<script src="https://static-argvchs.netlify.app/libs/highlight.js/11.8.0/highlight.min.js"></script>
+<script src="https://static-argvchs.netlify.app/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link rel="stylesheet" href="https://static-argvchs.netlify.app/libs/highlight.js/11.8.0/styles/base16-onedark.min.css" />
+<script src="/js/lib/highlight.js"></script>
+
+
+<!-- 使用 KaTeX 渲染数学公式 -->
+<script src="https://static-argvchs.netlify.app/libs/KaTeX/0.16.8/katex.min.js"></script>
+<script src="https://static-argvchs.netlify.app/libs/KaTeX/0.16.8/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://static-argvchs.netlify.app/libs/KaTeX/0.16.8/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<!-- 简单的点击图片放大缩小的预览 -->
+<script src="/js/lib/preview.js"></script>
+
+
+<!-- 看板娘 -->
+<script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+
+
+
+
+<!-- 评论功能设置 -->
+
+
+
+
+
+<script src="https://static-argvchs.netlify.app/libs/animejs/3.2.1/anime.min.js"></script>
+<link rel="stylesheet" href="/css/main.css" />
+
     <meta name="generator" content="Hexo 6.2.0"></head>
     <body>
-        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:30vmin;height:30vmin;padding:60px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #dd20dd;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">正在加载</p><div><img alt="loading" src="/images/afde9fa65a5742a90b51d6e1211e841e.gif"></div></div></div></div></div>
         <div id="layout">
-            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
-            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
-            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
-            <transition name="into">
-                <div v-show="show_page" style="display: -not-none">
-                    <div id="menu_show">
-                         
-<nav id="menu">
-    <div class="desktop-menu">
-        <a href="/">
-            <span class="title">小C♥天天</span>
+            <!-- 页面加载 -->
+            <transition name="fade">
+                <div id="loading" v-show="loading">
+                    <div id="loading-circle">
+                        <h2>LOADING</h2>
+                        <p>正在加载</p>
+                        <img src="/images/afde9fa65a5742a90b51d6e1211e841e.gif" />
+                    </div>
+                </div>
+            </transition>
+            <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>小C♥天天</span>
         </a>
         
         <a href="/">
@@ -59,120 +96,114 @@
             <span>&ensp;标签</span>
         </a>
         
-        <form class="search">
-            <input type="text" placeholder="需要搜索什么？">
-            <button type="submit"></button>
-        </form>
-    </div>
-    <div :class="'phone-menu ' + menu_show" id="phone-menu">
-        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
-        <div :class="'title'" @click="menu_show = !menu_show">
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
             <i class="fa-solid fa-bars fa-fw"></i>
             <span>&emsp;小C♥天天</span>
         </div>
         <transition name="slide">
-        <div class="items" v-show="menu_show">
-            
-            <a href="/">
-                <div class="item">
-                    <div style="min-width: 20px; max-width: 50px; width: 10%">
-                        <i class="fa-solid fa-house fa-fw"></i>
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
                     </div>
-                    <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
-                </div>
-            </a>
-            
-            <a href="/about">
-                <div class="item">
-                    <div style="min-width: 20px; max-width: 50px; width: 10%">
-                        <i class="fa-solid fa-id-card fa-fw"></i>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
                     </div>
-                    <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
-                </div>
-            </a>
-            
-            <a href="/archives">
-                <div class="item">
-                    <div style="min-width: 20px; max-width: 50px; width: 10%">
-                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
                     </div>
-                    <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
-                </div>
-            </a>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+            <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+                <div id="article-posts-wrap" true ref="homePostsWrap">
+    <div class="article">
+        <div>
+            <h1>Python学习（十）——附加知识</h1>
+        </div>
+        <div class="info">
+            <span class="date">
+                <span class="icon">
+                    <i class="fa-solid fa-calendar fa-fw"></i>
+                </span>
+                2023/3/14
+            </span>
             
-            <a href="/categories">
-                <div class="item">
-                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+            <span class="category">
+                <a href="/categories/Python%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/">
+                    <span class="icon">
                         <i class="fa-solid fa-bookmark fa-fw"></i>
-                    </div>
-                    <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
-                </div>
-            </a>
+                    </span>
+                    Python基础教程
+                </a>
+            </span>
             
-            <a href="/tags">
-                <div class="item">
-                    <div style="min-width: 20px; max-width: 50px; width: 10%">
-                        <i class="fa-solid fa-tags fa-fw"></i>
-                    </div>
-                    <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
-                </div>
-            </a>
+            
+            <span class="tags">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                
+                
+                <span class="tag">
+                    
+                    <a href="/tags/Python/" style="color: #00bcd4">Python</a>
+                </span>
+                
+                <span class="tag">
+                    
+                    <a href="/tags/%E5%BC%80%E5%8F%91/" style="color: #ffa2c4">开发</a>
+                </span>
+                
+            </span>
             
         </div>
-        </transition>
-    </div>
-</nav>
-                    </div>
-                    <div id="main">
-                        
-
-<div id="home-posts-wrap" class=>
-<div class="article">
-    <div>
-        <h1>Python学习（十）——附加知识 </h1>
-    </div>
-    <div class="info">
-        <span class="date">
-            <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
-            </span>
-            2023/3/14
-        </span>
         
-        <span class="category">
-            <a href="/categories/Python基础教程">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
-                </span>
-                Python基础教程
-            </a>
-        </span>
-        
-        
-        <span class="tags">
-            <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-            </span>
-            
-            <span class="tag">
-                
-                <a href="/tags/Python" style="color: #03a9f4">
-                    Python
-                </a>
-            </span>
-            
-            <span class="tag">
-                
-                <a href="/tags/开发" style="color: #00bcd4">
-                    开发
-                </a>
-            </span>
-            
-        </span>
-        
-    </div>
-    <div class="content" v-pre>
-        <h1 id="一、枚举"><a href="#一、枚举" class="headerlink" title="一、枚举"></a>一、枚举</h1><h2 id="1-什么是枚举？"><a href="#1-什么是枚举？" class="headerlink" title="1.什么是枚举？"></a>1.什么是枚举？</h2><p>起初 Python 中并未内置枚举（enum）类型，枚举是在 Python3.4 添加的新功能，此时我们可能会有一个疑问：Python3.4 之前的版本还能不能使用枚举呢？<br>答案是可以使用，但是不能直接使用，使用之前需要先用<code>pip install enum</code>安装。<br>枚举可看作是一系列符号名称的集合，集合中每一个元素要保证唯一性和不可变，因此我们可以对枚举中元素进行恒等比较，通俗来讲枚举就是一系列常量的集合，枚举是可迭代的。</p>
+        <div class="content" v-pre>
+            <h1 id="一、枚举"><a href="#一、枚举" class="headerlink" title="一、枚举"></a>一、枚举</h1><h2 id="1-什么是枚举？"><a href="#1-什么是枚举？" class="headerlink" title="1.什么是枚举？"></a>1.什么是枚举？</h2><p>起初 Python 中并未内置枚举（enum）类型，枚举是在 Python3.4 添加的新功能，此时我们可能会有一个疑问：Python3.4 之前的版本还能不能使用枚举呢？<br>答案是可以使用，但是不能直接使用，使用之前需要先用<code>pip install enum</code>安装。<br>枚举可看作是一系列符号名称的集合，集合中每一个元素要保证唯一性和不可变，因此我们可以对枚举中元素进行恒等比较，通俗来讲枚举就是一系列常量的集合，枚举是可迭代的。</p>
 <span id="more"></span>
 <h2 id="2-枚举有什么作用？"><a href="#2-枚举有什么作用？" class="headerlink" title="2.枚举有什么作用？"></a>2.枚举有什么作用？</h2><p>我们先来思考一个问题：不使用枚举我们如何定义常量呢？<br>常用的做法是采用变量名大写的方式来定义，这种方式虽然简单，但问题在于我们定义的仍然是变量、是可以被修改的，而常量是什么呢？简单来说就是不可变的量，枚举就有不可变的特性，所以枚举的主要作用就是用来定义常量的。</p>
 <h2 id="3-使用"><a href="#3-使用" class="headerlink" title="3.使用"></a>3.使用</h2><h3 id="a-创建"><a href="#a-创建" class="headerlink" title="a.创建"></a>a.创建</h3><p>枚举语法与 class 语法相同，之前我们在Python 基础（十一）：面向对象中已经介绍过 class 了，枚举的定义可以通过继承 Enum 的方式来实现， 看一下示例：</p>
@@ -479,27 +510,32 @@ hello()
 </code></pre>
 <p>Python 装饰器的 <code>@...</code> 相当于将被装饰的函数（业务函数）作为参数传入装饰函数（类）。</p>
 
+        </div>
+        
+        
+        
+        
+        <div id="comment">
+            <div id="giscus-container" class="giscus"></div>
+        </div>
+        
+        
+        
+        
     </div>
     
-</div>
-
-    <div id="home-card">
-        
-<div id="card-div">
-    <div class="card-style" style="width: 300px">
+    <div id="article-card">
+        <div id="card-style">
+    <div id="card-div">
         <div class="avatar">
-            <img src="/images/f6e2b991f74bfd7b88c3ab1a3d513b94.jpg " alt="avatar">
+            <img src="/images/f6e2b991f74bfd7b88c3ab1a3d513b94.jpg" alt="avatar" />
         </div>
-        <div class="name">
-            小C&天天
+        <div class="name">小C&amp;天天</div>
+        <div class="description">
+            <p>修学储能 先博后渊</p>
+
         </div>
-        <div class="descriptions">
-            
-            <div class="description">
-                修学储能 先博后渊
-            </div>
-            
-        </div>
+        
         <div class="icon-links">
             
             <span class="icon-link">
@@ -527,39 +563,65 @@ hello()
             </span>
             
         </div>
+        
+        
         <div class="friend-links">
             
-            <div class="friend-link">
-                <a target="_blank" rel="noopener" href="http://www.wgs6km.top/">
-                    kyrieee个人博客
-                </a>
-            </div>
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="http://www.wgs6km.top/">kyrieee</a>
+            </span>
             
-            <div class="friend-link">
-                <a target="_blank" rel="noopener" href="https://tonyd0g.gitee.io/">
-                    tonyd0g
-                </a>
-            </div>
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="https://tonyd0g.gitee.io/">tonyd0g</a>
+            </span>
+            
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="https://ruyueattention.github.io/">ruyueattention</a>
+            </span>
             
         </div>
+        
     </div>
-    <br />
-    <!-- 目录 -->
     
-    <div class="card-style" style="width: 300px">
+    <!-- <br /> -->
+    <!-- 目录 -->
+    <!-- 
+    <div id="card-div">
         <div id="toc" class="toc-article">
             <strong class="toc-title">文章目录</strong>
             <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%9E%9A%E4%B8%BE"><span class="toc-text">一、枚举</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E6%9E%9A%E4%B8%BE%EF%BC%9F"><span class="toc-text">1.什么是枚举？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%9E%9A%E4%B8%BE%E6%9C%89%E4%BB%80%E4%B9%88%E4%BD%9C%E7%94%A8%EF%BC%9F"><span class="toc-text">2.枚举有什么作用？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E4%BD%BF%E7%94%A8"><span class="toc-text">3.使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#a-%E5%88%9B%E5%BB%BA"><span class="toc-text">a.创建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#b-%E8%AE%BF%E9%97%AE"><span class="toc-text">b.访问</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#c-%E6%AF%94%E8%BE%83"><span class="toc-text">c.比较</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#d-%E7%A1%AE%E4%BF%9D%E6%9E%9A%E4%B8%BE%E5%80%BC%E5%94%AF%E4%B8%80"><span class="toc-text">d.确保枚举值唯一</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4"><span class="toc-text">二、命名空间</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%A6%82%E5%BF%B5"><span class="toc-text">1.概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%A7%8D%E7%B1%BB"><span class="toc-text">2.种类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-text">3.生命周期</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-text">三、作用域</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%A6%82%E5%BF%B5-1"><span class="toc-text">1.概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%A7%8D%E7%B1%BB-1"><span class="toc-text">2.种类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-global-amp-nonlocal"><span class="toc-text">3.global &amp; nonlocal</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="toc-text">全局变量</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#d-%E5%9C%A8%E8%BF%99%E4%B8%BA%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F"><span class="toc-text">d 在这为局部变量</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="toc-text">四、迭代器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E8%BF%AD%E4%BB%A3"><span class="toc-text">1.迭代</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%8F%AF%E8%BF%AD%E4%BB%A3%E5%AF%B9%E8%B1%A1"><span class="toc-text">2.可迭代对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="toc-text">3.迭代器</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BC%8D%E3%80%81%E7%94%9F%E6%88%90%E5%99%A8"><span class="toc-text">伍、生成器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%A4%BA%E4%BE%8B-1"><span class="toc-text">1.示例 1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%A4%BA%E4%BE%8B-2"><span class="toc-text">2.示例 2</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%99%86-%E8%A3%85%E9%A5%B0%E5%99%A8"><span class="toc-text">陆 装饰器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E9%97%AD%E5%8C%85"><span class="toc-text">1.闭包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E8%A3%85%E9%A5%B0%E5%99%A8"><span class="toc-text">2.装饰器</span></a></li></ol></li></ol>
         </div>    
     </div>
-    
+     -->
 </div>
+
+<div id="card-style-fun">
+    
+    <br />
+    <div id="card-div">
+        <div class="good-sentence">
+            <div class="tools">
+                <div class="circle"><span class="red"></span></div>
+                <div class="circle"><span class="yellow"></span></div>
+                <div class="circle"><span class="green"></span></div>
+                <div class="circle"><span class="text">今日诗句</span></div>
+            </div>
+            <div class="sentence">
+                <div id="sentenceid" onload="getsentence();"></div>
+            </div>
+        </div>
     </div>
     
 </div>
-                         
-<footer id="footer">
-    <div class="footer-wrap">
+
+
+
+    </div>
+    
+</div>
+                <!-- 页脚 -->
+                <footer id="footer">
+    <div id="footer-wrap">
         <div>
             <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
             <script>
@@ -578,43 +640,72 @@ hello()
                 } 
             setInterval("createtime()",250);
             </script>
-            </div>
+        </div>
         <div>
-        <div>
-            © 2022 - 2023 小C♥天天
+            &copy;
+            2022 - 2023 小C♥天天
             <span class="footer-icon">
                 <i class="fa-brands fa-github fa-fw"></i>
             </span>
-            @小C&天天
+            &commat;小C&amp;天天
         </div>
         <div>
-            备案号：小C&天天の窝
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX</a> 
         </div>
+        
     </div>
 </footer>
-                    </div>
+
+            </div>
+            <!-- 简单的点击图片放大缩小的预览 -->
+            
+            <transition name="fade">
+                <div id="preview" ref="preview" v-show="previewShow">
+                    <img id="preview-content" ref="previewContent" />
                 </div>
             </transition>
-            <div id="img_show">
-                <img id="img_content" alt="img_show">
-            </div>
+            
         </div>
-        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
-        <script src="/js/particlex.js"></script>
-        <script src="/js/showimg.js"></script>
+        <script src="/js/main.js"></script>
+        <!-- 看板娘 -->
         
-
-        <!-- 3D模型 -->
-        <div id="L2dCanvas" style="position: relative;"></div>
-        <script src="/js/live2d.min.js"></script>
-        <script src="/css/live2d.css"></script>
+        <div id="L2dCanvas"></div>
+        <script src="/js/lib/live2d.min.js"></script>
+        <!-- 设置随机模板 -->
+        
         <script>
             var v = new Viewer({
                 basePath: "/model",
-                role: "zhala_2",
+                role: "genaisennao_2",
                 mobile: true,
             });
         </script>
+        
+        <!-- 诗句 -->
+        
+        <script>
+            // // 每隔10分钟执行一次getsentence这个函数
+            window.setInterval(getsentence, 100*60*5);
+            function getsentence() {
+                // 这里没有考虑IE浏览器，如果需要择if判断加
+                var xhr = new XMLHttpRequest();  
+                xhr.open('GET', "https://zj.v.api.aa1.cn/api/wenan-shici/?type=json",true);
+                xhr.send(JSON.stringify(null));
+                xhr.onreadystatechange = function () {
+                    if (xhr.status === 200 && xhr.readyState === 4) {
+                        //js处理数据
+                        // xhr.responseText.match(/content":(".+?")/g)
+                        getdata = JSON.parse(xhr.responseText).msg;
+                    }else{
+                        getdata = "长风破浪会有时，直挂云帆济沧海。——李白《行路难》";
+                    }
+                    document.getElementById("sentenceid").innerHTML = getdata;
+                }
+            }
+            window.onload = getsentence;
+        </script>
+        
         <!-- 点击 -->
         <script>
             let body = document.getElementsByTagName('body')[0];
@@ -640,7 +731,34 @@ hello()
             })
         </script>
         <!-- 流星背景特效 -->
+        
         <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
-        <script src="/js/background.js"></script>
+        <script src="/js/meteorbackground.js"></script>
+        
+        <!-- 评论设置 -->
+        
+        
+<script
+    src="https://giscus.app/client.js"
+    data-repo="argvchs/giscus-comments"
+    data-repo-id="R_kgDOI_uC-w"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOI_uC-84CUToF"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="https://static-argvchs.netlify.app/css/giscus.css"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+        
     </body>
 </html>

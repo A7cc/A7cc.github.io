@@ -2,36 +2,73 @@
 <!DOCTYPE html>
 <html lang="zh-Hans">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <meta charset="utf-8" />
         <title>Python学习（二）——字符串 | 小C♥天天</title>
-        <meta name="author" content="小C&天天">
-        <meta name="description" content="^v^">
-        <meta name="keywords" content="">
-        <link rel="icon" href="/images/icon.jpg">
-        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
-        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
-        <link rel="stylesheet" href="/css/fonts.min.css">
-        <link rel="stylesheet" href="/css/particlex.css">
-        <link rel="stylesheet" href="/css/main.css">
-        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
-        <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
-        <link rel="stylesheet" href="/css/style.css">
+        <meta name="author" content="小C&天天" />
+        <meta name="description" content="^v^" />
+        <meta name="keywords" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <link rel="icon" href="/images/icon.jpg" />
+        <script src="https://static-argvchs.netlify.app/libs/vue/3.3.4/vue.global.prod.min.js"></script>
+<link rel="preconnect" href="https://static-argvchs.netlify.app" crossorigin />
+<link rel="stylesheet" href="https://static-argvchs.netlify.app/libs/font-awesome/6.4.0/css/all.min.css" />
+<link rel="stylesheet" href="https://static-argvchs.netlify.app/css/fonts.min.css" />
+<script> const mixins = {}; </script>
+
+<!-- 兼容不同版本的浏览器 -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<!-- 高亮代码 -->
+<script src="https://static-argvchs.netlify.app/libs/highlight.js/11.8.0/highlight.min.js"></script>
+<script src="https://static-argvchs.netlify.app/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link rel="stylesheet" href="https://static-argvchs.netlify.app/libs/highlight.js/11.8.0/styles/base16-onedark.min.css" />
+<script src="/js/lib/highlight.js"></script>
+
+
+<!-- 使用 KaTeX 渲染数学公式 -->
+<script src="https://static-argvchs.netlify.app/libs/KaTeX/0.16.8/katex.min.js"></script>
+<script src="https://static-argvchs.netlify.app/libs/KaTeX/0.16.8/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://static-argvchs.netlify.app/libs/KaTeX/0.16.8/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<!-- 简单的点击图片放大缩小的预览 -->
+<script src="/js/lib/preview.js"></script>
+
+
+<!-- 看板娘 -->
+<script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+
+
+
+
+<!-- 评论功能设置 -->
+
+
+
+
+
+<script src="https://static-argvchs.netlify.app/libs/animejs/3.2.1/anime.min.js"></script>
+<link rel="stylesheet" href="/css/main.css" />
+
     <meta name="generator" content="Hexo 6.2.0"></head>
     <body>
-        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:30vmin;height:30vmin;padding:60px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #dd20dd;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">正在加载</p><div><img alt="loading" src="/images/afde9fa65a5742a90b51d6e1211e841e.gif"></div></div></div></div></div>
         <div id="layout">
-            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
-            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
-            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
-            <transition name="into">
-                <div v-show="show_page" style="display: -not-none">
-                    <div id="menu_show">
-                         
-<nav id="menu">
-    <div class="desktop-menu">
-        <a href="/">
-            <span class="title">小C♥天天</span>
+            <!-- 页面加载 -->
+            <transition name="fade">
+                <div id="loading" v-show="loading">
+                    <div id="loading-circle">
+                        <h2>LOADING</h2>
+                        <p>正在加载</p>
+                        <img src="/images/afde9fa65a5742a90b51d6e1211e841e.gif" />
+                    </div>
+                </div>
+            </transition>
+            <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>小C♥天天</span>
         </a>
         
         <a href="/">
@@ -59,120 +96,114 @@
             <span>&ensp;标签</span>
         </a>
         
-        <form class="search">
-            <input type="text" placeholder="需要搜索什么？">
-            <button type="submit"></button>
-        </form>
-    </div>
-    <div :class="'phone-menu ' + menu_show" id="phone-menu">
-        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
-        <div :class="'title'" @click="menu_show = !menu_show">
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
             <i class="fa-solid fa-bars fa-fw"></i>
             <span>&emsp;小C♥天天</span>
         </div>
         <transition name="slide">
-        <div class="items" v-show="menu_show">
-            
-            <a href="/">
-                <div class="item">
-                    <div style="min-width: 20px; max-width: 50px; width: 10%">
-                        <i class="fa-solid fa-house fa-fw"></i>
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
                     </div>
-                    <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
-                </div>
-            </a>
-            
-            <a href="/about">
-                <div class="item">
-                    <div style="min-width: 20px; max-width: 50px; width: 10%">
-                        <i class="fa-solid fa-id-card fa-fw"></i>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
                     </div>
-                    <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
-                </div>
-            </a>
-            
-            <a href="/archives">
-                <div class="item">
-                    <div style="min-width: 20px; max-width: 50px; width: 10%">
-                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
                     </div>
-                    <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
-                </div>
-            </a>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+            <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+                <div id="article-posts-wrap" true ref="homePostsWrap">
+    <div class="article">
+        <div>
+            <h1>Python学习（二）——字符串</h1>
+        </div>
+        <div class="info">
+            <span class="date">
+                <span class="icon">
+                    <i class="fa-solid fa-calendar fa-fw"></i>
+                </span>
+                2023/3/14
+            </span>
             
-            <a href="/categories">
-                <div class="item">
-                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+            <span class="category">
+                <a href="/categories/Python%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/">
+                    <span class="icon">
                         <i class="fa-solid fa-bookmark fa-fw"></i>
-                    </div>
-                    <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
-                </div>
-            </a>
+                    </span>
+                    Python基础教程
+                </a>
+            </span>
             
-            <a href="/tags">
-                <div class="item">
-                    <div style="min-width: 20px; max-width: 50px; width: 10%">
-                        <i class="fa-solid fa-tags fa-fw"></i>
-                    </div>
-                    <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
-                </div>
-            </a>
+            
+            <span class="tags">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                
+                
+                <span class="tag">
+                    
+                    <a href="/tags/Python/" style="color: #00bcd4">Python</a>
+                </span>
+                
+                <span class="tag">
+                    
+                    <a href="/tags/%E5%BC%80%E5%8F%91/" style="color: #00a596">开发</a>
+                </span>
+                
+            </span>
             
         </div>
-        </transition>
-    </div>
-</nav>
-                    </div>
-                    <div id="main">
-                        
-
-<div id="home-posts-wrap" class=>
-<div class="article">
-    <div>
-        <h1>Python学习（二）——字符串 </h1>
-    </div>
-    <div class="info">
-        <span class="date">
-            <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
-            </span>
-            2023/3/14
-        </span>
         
-        <span class="category">
-            <a href="/categories/Python基础教程">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
-                </span>
-                Python基础教程
-            </a>
-        </span>
-        
-        
-        <span class="tags">
-            <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-            </span>
-            
-            <span class="tag">
-                
-                <a href="/tags/Python" style="color: #ffa2c4">
-                    Python
-                </a>
-            </span>
-            
-            <span class="tag">
-                
-                <a href="/tags/开发" style="color: #00a596">
-                    开发
-                </a>
-            </span>
-            
-        </span>
-        
-    </div>
-    <div class="content" v-pre>
-        <h1 id="一、首先我们得明白为什么要学习字符串？"><a href="#一、首先我们得明白为什么要学习字符串？" class="headerlink" title="一、首先我们得明白为什么要学习字符串？"></a>一、首先我们得明白为什么要学习字符串？</h1><p>字符串在编程语言中一直占据着非常重要的地位，就相当于人们说话一样，人想要把自己的意思表达出去就需要语言，而在Python中字符串就是理解为说话时的语言一样重要。这时候就会有人说那可以拿整型或者浮点型来表达呀？我的回答是，是可以，但是如果人们说话的时候只有冰冷的数字的话，好像就缺少了一点语言所带来的心灵上的美感了，就比如说我爱你，用夏目漱石的话说是今晚的月色真美呀！显得委婉而美感！</p>
+        <div class="content" v-pre>
+            <h1 id="一、首先我们得明白为什么要学习字符串？"><a href="#一、首先我们得明白为什么要学习字符串？" class="headerlink" title="一、首先我们得明白为什么要学习字符串？"></a>一、首先我们得明白为什么要学习字符串？</h1><p>字符串在编程语言中一直占据着非常重要的地位，就相当于人们说话一样，人想要把自己的意思表达出去就需要语言，而在Python中字符串就是理解为说话时的语言一样重要。这时候就会有人说那可以拿整型或者浮点型来表达呀？我的回答是，是可以，但是如果人们说话的时候只有冰冷的数字的话，好像就缺少了一点语言所带来的心灵上的美感了，就比如说我爱你，用夏目漱石的话说是今晚的月色真美呀！显得委婉而美感！</p>
 <span id="more"></span>
 <p>不论是在什么编程语言上字符串都是不可缺的一大重要元素。所以学习编程语言的话，不学字符串反而显得美好和灵活！！！</p>
 <h1 id="二、什么是字符串？"><a href="#二、什么是字符串？" class="headerlink" title="二、什么是字符串？"></a>二、什么是字符串？</h1><p>字符串顾名思义就是字母、数字和符号构成的一串文本数据类型。和<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41734243/article/details/104419276">上一篇博文</a>说的容器一样也是一种容器，一种Python编程语言不可或缺的数据类型。</p>
@@ -541,27 +572,32 @@ print(ord(s))
 print(chr(65))
 </code></pre>
 
+        </div>
+        
+        
+        
+        
+        <div id="comment">
+            <div id="giscus-container" class="giscus"></div>
+        </div>
+        
+        
+        
+        
     </div>
     
-</div>
-
-    <div id="home-card">
-        
-<div id="card-div">
-    <div class="card-style" style="width: 300px">
+    <div id="article-card">
+        <div id="card-style">
+    <div id="card-div">
         <div class="avatar">
-            <img src="/images/f6e2b991f74bfd7b88c3ab1a3d513b94.jpg " alt="avatar">
+            <img src="/images/f6e2b991f74bfd7b88c3ab1a3d513b94.jpg" alt="avatar" />
         </div>
-        <div class="name">
-            小C&天天
+        <div class="name">小C&amp;天天</div>
+        <div class="description">
+            <p>修学储能 先博后渊</p>
+
         </div>
-        <div class="descriptions">
-            
-            <div class="description">
-                修学储能 先博后渊
-            </div>
-            
-        </div>
+        
         <div class="icon-links">
             
             <span class="icon-link">
@@ -589,39 +625,65 @@ print(chr(65))
             </span>
             
         </div>
+        
+        
         <div class="friend-links">
             
-            <div class="friend-link">
-                <a target="_blank" rel="noopener" href="http://www.wgs6km.top/">
-                    kyrieee个人博客
-                </a>
-            </div>
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="http://www.wgs6km.top/">kyrieee</a>
+            </span>
             
-            <div class="friend-link">
-                <a target="_blank" rel="noopener" href="https://tonyd0g.gitee.io/">
-                    tonyd0g
-                </a>
-            </div>
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="https://tonyd0g.gitee.io/">tonyd0g</a>
+            </span>
+            
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="https://ruyueattention.github.io/">ruyueattention</a>
+            </span>
             
         </div>
+        
     </div>
-    <br />
-    <!-- 目录 -->
     
-    <div class="card-style" style="width: 300px">
+    <!-- <br /> -->
+    <!-- 目录 -->
+    <!-- 
+    <div id="card-div">
         <div id="toc" class="toc-article">
             <strong class="toc-title">文章目录</strong>
             <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E9%A6%96%E5%85%88%E6%88%91%E4%BB%AC%E5%BE%97%E6%98%8E%E7%99%BD%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%AD%A6%E4%B9%A0%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%9F"><span class="toc-text">一、首先我们得明白为什么要学习字符串？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AF%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%9F"><span class="toc-text">二、什么是字符串？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%88%9B%E5%BB%BA"><span class="toc-text">三、创建</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E8%AE%BF%E9%97%AE%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">四、访问字符串</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E6%96%B9%E6%B3%95"><span class="toc-text">四、方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-capitalize%E6%96%B9%E6%B3%95"><span class="toc-text">1.capitalize方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-center%E6%96%B9%E6%B3%95"><span class="toc-text">2.center方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-count%E6%96%B9%E6%B3%95"><span class="toc-text">3.count方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-encode%E6%96%B9%E6%B3%95"><span class="toc-text">4.encode方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-endswith%E6%96%B9%E6%B3%95"><span class="toc-text">5.endswith方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-startswith%E6%96%B9%E6%B3%95"><span class="toc-text">6.startswith方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-find%E6%96%B9%E6%B3%95"><span class="toc-text">7.find方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-rfind%E6%96%B9%E6%B3%95"><span class="toc-text">8.rfind方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-index%E6%96%B9%E6%B3%95"><span class="toc-text">9.index方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-rindex%E6%96%B9%E6%B3%95"><span class="toc-text">10.rindex方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-format%E6%96%B9%E6%B3%95"><span class="toc-text">11.format方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-join%E6%96%B9%E6%B3%95"><span class="toc-text">12.join方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-split%E6%96%B9%E6%B3%95"><span class="toc-text">13.split方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#14-rsplit%E6%96%B9%E6%B3%95"><span class="toc-text">14.rsplit方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#15-lower%E6%96%B9%E6%B3%95"><span class="toc-text">15.lower方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#16-upper%E6%96%B9%E6%B3%95"><span class="toc-text">16.upper方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#17-title%E6%96%B9%E6%B3%95"><span class="toc-text">17.title方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#18-lstrip%E6%96%B9%E6%B3%95"><span class="toc-text">18.lstrip方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#19-rstrip%E6%96%B9%E6%B3%95"><span class="toc-text">19.rstrip方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#20-strip%E6%96%B9%E6%B3%95"><span class="toc-text">20.strip方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#21-replace%E6%96%B9%E6%B3%95"><span class="toc-text">21.replace方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#22-istitle%E6%96%B9%E6%B3%95"><span class="toc-text">22.istitle方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#23-isspace%E6%96%B9%E6%B3%95"><span class="toc-text">23.isspace方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#24-islower"><span class="toc-text">24.islower</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#25-isupper%E6%96%B9%E6%B3%95"><span class="toc-text">25.isupper方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#26-isalnum%E6%96%B9%E6%B3%95"><span class="toc-text">26.isalnum方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#27-isalpha%E6%96%B9%E6%B3%95"><span class="toc-text">27.isalpha方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#28-isdigit%E6%96%B9%E6%B3%95"><span class="toc-text">28.isdigit方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">五、字符串的运算符</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">1.字符串的运算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%88%87%E7%89%87%E6%93%8D%E4%BD%9C"><span class="toc-text">2.切片操作</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E5%85%B6%E4%BB%96"><span class="toc-text">六、其他</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%89%8D%E5%AD%97%E6%AF%8D"><span class="toc-text">1.字符串前字母</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E8%BD%AC%E4%B9%89%E7%AC%A6"><span class="toc-text">2.转义符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%8D%95%E4%B8%AA%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E5%87%BD%E6%95%B0"><span class="toc-text">3.单个字符编码函数</span></a></li></ol></li></ol>
         </div>    
     </div>
-    
+     -->
 </div>
+
+<div id="card-style-fun">
+    
+    <br />
+    <div id="card-div">
+        <div class="good-sentence">
+            <div class="tools">
+                <div class="circle"><span class="red"></span></div>
+                <div class="circle"><span class="yellow"></span></div>
+                <div class="circle"><span class="green"></span></div>
+                <div class="circle"><span class="text">今日诗句</span></div>
+            </div>
+            <div class="sentence">
+                <div id="sentenceid" onload="getsentence();"></div>
+            </div>
+        </div>
     </div>
     
 </div>
-                         
-<footer id="footer">
-    <div class="footer-wrap">
+
+
+
+    </div>
+    
+</div>
+                <!-- 页脚 -->
+                <footer id="footer">
+    <div id="footer-wrap">
         <div>
             <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
             <script>
@@ -640,43 +702,72 @@ print(chr(65))
                 } 
             setInterval("createtime()",250);
             </script>
-            </div>
+        </div>
         <div>
-        <div>
-            © 2022 - 2023 小C♥天天
+            &copy;
+            2022 - 2023 小C♥天天
             <span class="footer-icon">
                 <i class="fa-brands fa-github fa-fw"></i>
             </span>
-            @小C&天天
+            &commat;小C&amp;天天
         </div>
         <div>
-            备案号：小C&天天の窝
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX</a> 
         </div>
+        
     </div>
 </footer>
-                    </div>
+
+            </div>
+            <!-- 简单的点击图片放大缩小的预览 -->
+            
+            <transition name="fade">
+                <div id="preview" ref="preview" v-show="previewShow">
+                    <img id="preview-content" ref="previewContent" />
                 </div>
             </transition>
-            <div id="img_show">
-                <img id="img_content" alt="img_show">
-            </div>
+            
         </div>
-        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
-        <script src="/js/particlex.js"></script>
-        <script src="/js/showimg.js"></script>
+        <script src="/js/main.js"></script>
+        <!-- 看板娘 -->
         
-
-        <!-- 3D模型 -->
-        <div id="L2dCanvas" style="position: relative;"></div>
-        <script src="/js/live2d.min.js"></script>
-        <script src="/css/live2d.css"></script>
+        <div id="L2dCanvas"></div>
+        <script src="/js/lib/live2d.min.js"></script>
+        <!-- 设置随机模板 -->
+        
         <script>
             var v = new Viewer({
                 basePath: "/model",
-                role: "zhala_2",
+                role: "qibolin_2",
                 mobile: true,
             });
         </script>
+        
+        <!-- 诗句 -->
+        
+        <script>
+            // // 每隔10分钟执行一次getsentence这个函数
+            window.setInterval(getsentence, 100*60*5);
+            function getsentence() {
+                // 这里没有考虑IE浏览器，如果需要择if判断加
+                var xhr = new XMLHttpRequest();  
+                xhr.open('GET', "https://zj.v.api.aa1.cn/api/wenan-shici/?type=json",true);
+                xhr.send(JSON.stringify(null));
+                xhr.onreadystatechange = function () {
+                    if (xhr.status === 200 && xhr.readyState === 4) {
+                        //js处理数据
+                        // xhr.responseText.match(/content":(".+?")/g)
+                        getdata = JSON.parse(xhr.responseText).msg;
+                    }else{
+                        getdata = "长风破浪会有时，直挂云帆济沧海。——李白《行路难》";
+                    }
+                    document.getElementById("sentenceid").innerHTML = getdata;
+                }
+            }
+            window.onload = getsentence;
+        </script>
+        
         <!-- 点击 -->
         <script>
             let body = document.getElementsByTagName('body')[0];
@@ -702,7 +793,34 @@ print(chr(65))
             })
         </script>
         <!-- 流星背景特效 -->
+        
         <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
-        <script src="/js/background.js"></script>
+        <script src="/js/meteorbackground.js"></script>
+        
+        <!-- 评论设置 -->
+        
+        
+<script
+    src="https://giscus.app/client.js"
+    data-repo="argvchs/giscus-comments"
+    data-repo-id="R_kgDOI_uC-w"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOI_uC-84CUToF"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="https://static-argvchs.netlify.app/css/giscus.css"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+        
     </body>
 </html>

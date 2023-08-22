@@ -2,36 +2,70 @@
 <!DOCTYPE html>
 <html lang="zh-Hans">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <meta charset="utf-8" />
         <title>小C♥天天</title>
-        <meta name="author" content="小C&天天">
-        <meta name="description" content="^v^">
-        <meta name="keywords" content="">
-        <link rel="icon" href="/images/icon.jpg">
-        <script src="https://cdn.staticfile.org/instant.page/5.1.0/instantpage.min.js" type="module"></script>
-        <script src="https://cdn.staticfile.org/font-awesome/6.1.1/js/all.min.js"></script>
-        <link rel="stylesheet" href="/css/fonts.min.css">
-        <link rel="stylesheet" href="/css/particlex.css">
-        <link rel="stylesheet" href="/css/main.css">
-        <script src="https://cdn.staticfile.org/vue/3.2.33/vue.global.prod.min.js"></script>
-        <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
-        <link rel="stylesheet" href="/css/style.css">
+        <meta name="author" content="小C&天天" />
+        <meta name="description" content="^v^" />
+        <meta name="keywords" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <link rel="icon" href="/images/icon.jpg" />
+        <script src="https://static-argvchs.netlify.app/libs/vue/3.3.4/vue.global.prod.min.js"></script>
+<link rel="preconnect" href="https://static-argvchs.netlify.app" crossorigin />
+<link rel="stylesheet" href="https://static-argvchs.netlify.app/libs/font-awesome/6.4.0/css/all.min.css" />
+<link rel="stylesheet" href="https://static-argvchs.netlify.app/css/fonts.min.css" />
+<script> const mixins = {}; </script>
+
+<!-- 兼容不同版本的浏览器 -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<!-- 高亮代码 -->
+<script src="https://static-argvchs.netlify.app/libs/highlight.js/11.8.0/highlight.min.js"></script>
+<script src="https://static-argvchs.netlify.app/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link rel="stylesheet" href="https://static-argvchs.netlify.app/libs/highlight.js/11.8.0/styles/base16-onedark.min.css" />
+<script src="/js/lib/highlight.js"></script>
+
+
+<!-- 使用 KaTeX 渲染数学公式 -->
+<script src="https://static-argvchs.netlify.app/libs/KaTeX/0.16.8/katex.min.js"></script>
+<script src="https://static-argvchs.netlify.app/libs/KaTeX/0.16.8/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://static-argvchs.netlify.app/libs/KaTeX/0.16.8/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<!-- 简单的点击图片放大缩小的预览 -->
+<script src="/js/lib/preview.js"></script>
+
+
+<!-- 看板娘 -->
+<script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+
+
+
+
+
+<script src="/js/lib/home.js"></script>
+
+<script src="https://static-argvchs.netlify.app/libs/animejs/3.2.1/anime.min.js"></script>
+<link rel="stylesheet" href="/css/main.css" />
+
     <meta name="generator" content="Hexo 6.2.0"></head>
     <body>
-        <div id="loading" style="height:100vh;width:100vw;position:fixed;display:flex;z-index:200;justify-content:space-between;background:#fff;transition:opacity 0.3s ease-out"><div style="position:fixed;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center"><div id="loadcontent" style="width:30vmin;height:30vmin;padding:60px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px #dd20dd;text-align:center"><div><h2>LOADING...</h2><p style="word-break:keep-all">正在加载</p><div><img alt="loading" src="/images/afde9fa65a5742a90b51d6e1211e841e.gif"></div></div></div></div></div>
         <div id="layout">
-            <i data-fa-symbol="calendar-solid" class="fa-solid fa-calendar fa-fw"></i>
-            <i data-fa-symbol="bookmark-solid" class="fa-solid fa-bookmark fa-fw"></i>
-            <i data-fa-symbol="tags-solid" class="fa-solid fa-tags fa-fw"></i>
-            <transition name="into">
-                <div v-show="show_page" style="display: -not-none">
-                    <div id="menu_show">
-                         
-<nav id="menu">
-    <div class="desktop-menu">
-        <a href="/">
-            <span class="title">小C♥天天</span>
+            <!-- 页面加载 -->
+            <transition name="fade">
+                <div id="loading" v-show="loading">
+                    <div id="loading-circle">
+                        <h2>LOADING</h2>
+                        <p>正在加载</p>
+                        <img src="/images/afde9fa65a5742a90b51d6e1211e841e.gif" />
+                    </div>
+                </div>
+            </transition>
+            <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>小C♥天天</span>
         </a>
         
         <a href="/">
@@ -59,75 +93,72 @@
             <span>&ensp;标签</span>
         </a>
         
-        <form class="search">
-            <input type="text" placeholder="需要搜索什么？">
-            <button type="submit"></button>
-        </form>
-    </div>
-    <div :class="'phone-menu ' + menu_show" id="phone-menu">
-        <div class="curtain" @click="menu_show = !menu_show" v-show="menu_show"></div>
-        <div :class="'title'" @click="menu_show = !menu_show">
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
             <i class="fa-solid fa-bars fa-fw"></i>
             <span>&emsp;小C♥天天</span>
         </div>
         <transition name="slide">
-        <div class="items" v-show="menu_show">
-            
-            <a href="/">
-                <div class="item">
-                    <div style="min-width: 20px; max-width: 50px; width: 10%">
-                        <i class="fa-solid fa-house fa-fw"></i>
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
                     </div>
-                    <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
-                </div>
-            </a>
-            
-            <a href="/about">
-                <div class="item">
-                    <div style="min-width: 20px; max-width: 50px; width: 10%">
-                        <i class="fa-solid fa-id-card fa-fw"></i>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
                     </div>
-                    <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
-                </div>
-            </a>
-            
-            <a href="/archives">
-                <div class="item">
-                    <div style="min-width: 20px; max-width: 50px; width: 10%">
-                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
                     </div>
-                    <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
-                </div>
-            </a>
-            
-            <a href="/categories">
-                <div class="item">
-                    <div style="min-width: 20px; max-width: 50px; width: 10%">
-                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
                     </div>
-                    <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
-                </div>
-            </a>
-            
-            <a href="/tags">
-                <div class="item">
-                    <div style="min-width: 20px; max-width: 50px; width: 10%">
-                        <i class="fa-solid fa-tags fa-fw"></i>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
                     </div>
-                    <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
-                </div>
-            </a>
-            
-        </div>
+                </a>
+                
+            </div>
         </transition>
-    </div>
-</nav>
-                    </div>
-                    <div id="main">
-                        <div id="home-head">
-    <div id="home-background" style="background-image: url(/images/8da71ea6db89c66eba44f6c89d5820c7.jpg)"></div>
-    
-    <div id="home-info" class="home-info" @click="home_click">
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+            <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+                <div id="home-head">
+    <div id="home-background" ref="homeBackground" data-images="/images/background/8da71ea6db89c66eba44f6c89d5820c7.jpg,/images/background/e2d17407dc023b204f50d1230a57f7eb.jpg,/images/background/f76fa3f3ffc17b5903da14cb5ca7612c.jpg,/images/background/d65c0a4b218aabd9f11f562fbc63df5b.jpeg"></div>
+    <div id="home-info" @click="homeClick">
         <span class="loop"></span>
         <span class="loop"></span>
         <span class="loop"></span>
@@ -140,38 +171,89 @@
             </div>
         </span>
     </div>
-    
 </div>
-
-<div id="home-posts-wrap" class=>
+<div id="home-posts-wrap" true ref="homePostsWrap">
     <div id="home-posts">
-        <div id="posts">
-            
+        
 
 <div class="post">
-    <a href="/2023/08/18/Docker相关知识/docker常用命令：持续更新/">
-        <h2>
-            Docker常用命令
-        </h2>
+    <a href="/2023/08/22/Go%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/Go%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%EF%BC%88%E9%99%86%EF%BC%89%E2%80%94%E2%80%94%E7%BB%93%E6%9E%84%E4%BD%93/">
+        <h2 class="post-title">Go基础学习（陆）——结构体</h2>
     </a>
     <div class="category-and-date">
         
         <span class="category">
-            <a href="/categories/Docker相关知识">
+            <a href="/categories/Go%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/">
                 <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                Go基础教程
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2023/8/22
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h1 id="壹-介绍"><a href="#壹-介绍" class="headerlink" title="壹 介绍"></a>壹 介绍</h1><p>Go语言中的基础数据类型可以表示一些事物的基本属性，但是当我们想表达一个事物的全部或部分属性时，这时候再用单一的基本数据类型明显就无法满足需求了，Go语言提供了一种自定义数据类型，可以封装多个基本数据类型（<strong>这是数组与结构体区别</strong>），这种数据类型叫<strong>结构体</strong>，英文名称<code>struct</code>。 </p>
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/%E5%BC%80%E5%8F%91/" style="color: #ff7d73">开发</a>
+        </span>
+        
+        <span class="tag">
+            
+            <a href="/tags/Golang/" style="color: #00a596">Golang</a>
+        </span>
+        
+    </div>
+    <a href="/2023/08/22/Go%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/Go%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%EF%BC%88%E9%99%86%EF%BC%89%E2%80%94%E2%80%94%E7%BB%93%E6%9E%84%E4%BD%93/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
+    <a href="/2023/08/18/Docker%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%EF%BC%9A%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0/">
+        <h2 class="post-title">docker常用命令</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/Docker%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
                 Docker相关知识
             </a>
         </span>
         
         <span class="date">
             <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+                <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
             2023/8/18
         </span>
+        
+        
     </div>
-    <div class="excerpt">
+    <div class="description">
         <div class="content" v-pre>
             
             <h1 id="壹-说明"><a href="#壹-说明" class="headerlink" title="壹 说明"></a>壹 说明</h1><p>该文章主要记录平时使用的<code>docker</code>命令。</p>
@@ -181,54 +263,50 @@
     <div class="post-tags">
         
         <span class="icon">
-            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            <i class="fa-solid fa-tags fa-fw"></i>
         </span>
+        
         
         
         <span class="tag">
             
-            <a href="/tags/小技巧" style="color: #03a9f4">
-                小技巧
-            </a>
+            <a href="/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/" style="color: #03a9f4">小技巧</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/Docker" style="color: #00bcd4">
-                Docker
-            </a>
+            <a href="/tags/Docker/" style="color: #ff7d73">Docker</a>
         </span>
         
     </div>
-    <a href="/2023/08/18/Docker相关知识/docker常用命令：持续更新/" class="go-post">
-        阅读全文
-    </a>
+    <a href="/2023/08/18/Docker%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%EF%BC%9A%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/2023/05/05/乱七八糟/Golang使用GUI图形化QT库/">
-        <h2>
-            Golang使用GUI图形化QT库
-        </h2>
+    <a href="/2023/05/05/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/Golang%E4%BD%BF%E7%94%A8GUI%E5%9B%BE%E5%BD%A2%E5%8C%96QT%E5%BA%93/">
+        <h2 class="post-title">Golang使用GUI图形化QT库</h2>
     </a>
     <div class="category-and-date">
         
         <span class="category">
-            <a href="/categories/乱七八糟">
+            <a href="/categories/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/">
                 <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
                 乱七八糟
             </a>
         </span>
         
         <span class="date">
             <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+                <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
             2023/5/5
         </span>
+        
+        
     </div>
-    <div class="excerpt">
+    <div class="description">
         <div class="content" v-pre>
             
             <h1 id="壹-介绍"><a href="#壹-介绍" class="headerlink" title="壹 介绍"></a>壹 介绍</h1><p><code>Qt</code>是一个跨平台的<code>C++</code>开发库，主要用来开发图形用户界面（<code>Graphical User Interface-GUI</code>）程序，当然也可以开发不带界面的命令行（<code>Command User Interface-CUI</code>）程序。<code>Qt</code>是纯<code>C++</code>开发的，<code>Qt</code>还存在<code>Python</code>、<code>Ruby</code>、<code>Perl</code>等语言的绑定， 也就是说可以使用其他编程语言开发基于<code>Qt</code>的程序。<font color="red">这里我们主要讲解<code>golang</code>安装使用<code>Qt</code>库，<code>golang</code>版本为<code>1.18</code></font>。</p>
@@ -238,61 +316,55 @@
     <div class="post-tags">
         
         <span class="icon">
-            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            <i class="fa-solid fa-tags fa-fw"></i>
         </span>
+        
         
         
         <span class="tag">
             
-            <a href="/tags/Golang" style="color: #ffa2c4">
-                Golang
-            </a>
+            <a href="/tags/Golang/" style="color: #ffa2c4">Golang</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/小技巧" style="color: #03a9f4">
-                小技巧
-            </a>
+            <a href="/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/" style="color: #ff7d73">小技巧</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/Qt" style="color: #ffa2c4">
-                Qt
-            </a>
+            <a href="/tags/Qt/" style="color: #03a9f4">Qt</a>
         </span>
         
     </div>
-    <a href="/2023/05/05/乱七八糟/Golang使用GUI图形化QT库/" class="go-post">
-        阅读全文
-    </a>
+    <a href="/2023/05/05/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/Golang%E4%BD%BF%E7%94%A8GUI%E5%9B%BE%E5%BD%A2%E5%8C%96QT%E5%BA%93/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/2023/03/28/漏洞复现/如何追踪通用型漏洞/">
-        <h2>
-            如何追踪通用型漏洞
-        </h2>
+    <a href="/2023/03/28/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/%E5%A6%82%E4%BD%95%E8%BF%BD%E8%B8%AA%E9%80%9A%E7%94%A8%E5%9E%8B%E6%BC%8F%E6%B4%9E/">
+        <h2 class="post-title">如何追踪通用型漏洞</h2>
     </a>
     <div class="category-and-date">
         
         <span class="category">
-            <a href="/categories/漏洞复现">
+            <a href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">
                 <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
                 漏洞复现
             </a>
         </span>
         
         <span class="date">
             <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+                <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
             2023/3/28
         </span>
+        
+        
     </div>
-    <div class="excerpt">
+    <div class="description">
         <div class="content" v-pre>
             
             <h1 id="壹-介绍"><a href="#壹-介绍" class="headerlink" title="壹 介绍"></a>壹 介绍</h1><p>首先我们要确认什么是通用性漏洞？什么是事件性漏洞？</p>
@@ -306,47 +378,45 @@
     <div class="post-tags">
         
         <span class="icon">
-            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            <i class="fa-solid fa-tags fa-fw"></i>
         </span>
+        
         
         
         <span class="tag">
             
-            <a href="/tags/小技巧" style="color: #03a9f4">
-                小技巧
-            </a>
+            <a href="/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/" style="color: #ffa2c4">小技巧</a>
         </span>
         
     </div>
-    <a href="/2023/03/28/漏洞复现/如何追踪通用型漏洞/" class="go-post">
-        阅读全文
-    </a>
+    <a href="/2023/03/28/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/%E5%A6%82%E4%BD%95%E8%BF%BD%E8%B8%AA%E9%80%9A%E7%94%A8%E5%9E%8B%E6%BC%8F%E6%B4%9E/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/2023/03/14/漏洞复现/CVE-2021-4034：Linux Polkit权限提升漏洞/">
-        <h2>
-            CVE-2021-4034：Linux Polkit权限提升漏洞
-        </h2>
+    <a href="/2023/03/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/CVE-2021-4034%EF%BC%9ALinux%20Polkit%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%87%E6%BC%8F%E6%B4%9E/">
+        <h2 class="post-title">CVE-2021-4034：Linux Polkit权限提升漏洞</h2>
     </a>
     <div class="category-and-date">
         
         <span class="category">
-            <a href="/categories/漏洞复现">
+            <a href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">
                 <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
                 漏洞复现
             </a>
         </span>
         
         <span class="date">
             <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+                <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
             2023/3/14
         </span>
+        
+        
     </div>
-    <div class="excerpt">
+    <div class="description">
         <div class="content" v-pre>
             
             <h1 id="壹-漏洞概念"><a href="#壹-漏洞概念" class="headerlink" title="壹 漏洞概念"></a>壹 漏洞概念</h1><p>2022年1月26日，<code>Qualys</code>研究团队公开披露了在<code>Polkit</code>的<code>pkexec</code>中发现的一个权限提升漏洞（<code>CVE-2021-4034</code>），也被称为<code>PwnKit</code>。该漏洞是由于<code>pkexec</code>无法正确处理调用参数，从而将环境变量作为命令执行，具有任意用户权限的攻击者都可以在默认配置下通过修改环境变量来利用此漏洞，从而获得受影响主机的<code>root</code>权限。</p>
@@ -356,54 +426,50 @@
     <div class="post-tags">
         
         <span class="icon">
-            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            <i class="fa-solid fa-tags fa-fw"></i>
         </span>
+        
         
         
         <span class="tag">
             
-            <a href="/tags/Linux" style="color: #ff7d73">
-                Linux
-            </a>
+            <a href="/tags/Linux/" style="color: #00bcd4">Linux</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/提权" style="color: #03a9f4">
-                提权
-            </a>
+            <a href="/tags/%E6%8F%90%E6%9D%83/" style="color: #03a9f4">提权</a>
         </span>
         
     </div>
-    <a href="/2023/03/14/漏洞复现/CVE-2021-4034：Linux Polkit权限提升漏洞/" class="go-post">
-        阅读全文
-    </a>
+    <a href="/2023/03/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/CVE-2021-4034%EF%BC%9ALinux%20Polkit%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%87%E6%BC%8F%E6%B4%9E/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/2023/03/14/漏洞复现/CVE-2022-0847：Dirty Pipe提权漏洞/">
-        <h2>
-            CVE-2022-0847：Dirty Pipe提权漏洞
-        </h2>
+    <a href="/2023/03/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/CVE-2022-0847%EF%BC%9ADirty%20Pipe%E6%8F%90%E6%9D%83%E6%BC%8F%E6%B4%9E/">
+        <h2 class="post-title">CVE-2022-0847：Dirty Pipe提权漏洞</h2>
     </a>
     <div class="category-and-date">
         
         <span class="category">
-            <a href="/categories/漏洞复现">
+            <a href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">
                 <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
                 漏洞复现
             </a>
         </span>
         
         <span class="date">
             <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+                <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
             2023/3/14
         </span>
+        
+        
     </div>
-    <div class="excerpt">
+    <div class="description">
         <div class="content" v-pre>
             
             <h1 id="壹-漏洞概念"><a href="#壹-漏洞概念" class="headerlink" title="壹 漏洞概念"></a>壹 漏洞概念</h1><p><code>CVE-2022-0847</code> 是存在于<code>Linux</code>内核 5.8 及之后版本中的本地提权漏洞。攻击者通过利用此漏洞，可覆盖重写任意可读文件中的数据，从而将普通权限的用户提升至<code>root</code>权限。由于漏洞原理与脏牛漏洞（<code>CVE-2016-5195</code>）类似，漏洞作者将此漏洞命名为<code>Dirty Pipe</code>。</p>
@@ -413,54 +479,50 @@
     <div class="post-tags">
         
         <span class="icon">
-            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            <i class="fa-solid fa-tags fa-fw"></i>
         </span>
+        
         
         
         <span class="tag">
             
-            <a href="/tags/Linux" style="color: #ff7d73">
-                Linux
-            </a>
+            <a href="/tags/Linux/" style="color: #00bcd4">Linux</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/提权" style="color: #00a596">
-                提权
-            </a>
+            <a href="/tags/%E6%8F%90%E6%9D%83/" style="color: #00a596">提权</a>
         </span>
         
     </div>
-    <a href="/2023/03/14/漏洞复现/CVE-2022-0847：Dirty Pipe提权漏洞/" class="go-post">
-        阅读全文
-    </a>
+    <a href="/2023/03/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/CVE-2022-0847%EF%BC%9ADirty%20Pipe%E6%8F%90%E6%9D%83%E6%BC%8F%E6%B4%9E/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/2023/03/14/漏洞复现/NPS代理工具未授权漏洞/">
-        <h2>
-            NPS代理工具未授权漏洞
-        </h2>
+    <a href="/2023/03/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/NPS%E4%BB%A3%E7%90%86%E5%B7%A5%E5%85%B7%E6%9C%AA%E6%8E%88%E6%9D%83%E6%BC%8F%E6%B4%9E/">
+        <h2 class="post-title">NPS代理工具未授权漏洞</h2>
     </a>
     <div class="category-and-date">
         
         <span class="category">
-            <a href="/categories/漏洞复现">
+            <a href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">
                 <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
                 漏洞复现
             </a>
         </span>
         
         <span class="date">
             <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+                <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
             2023/3/14
         </span>
+        
+        
     </div>
-    <div class="excerpt">
+    <div class="description">
         <div class="content" v-pre>
             
             <h1 id="壹-漏洞概念"><a href="#壹-漏洞概念" class="headerlink" title="壹 漏洞概念"></a>壹 漏洞概念</h1><p>之前一直用<code>NPS</code>做代理，后来和朋友聊天的时候，说该工具有<code>0day</code>未授权漏洞，然后白嫖了一下思路，然后自己进行简单分析后利用成功！<code>NPS</code>是一款轻量级、高性能、功能强大的内网穿透代理服务器。对于<code>NPS</code>近期爆出来了一个未授权的漏洞。</p>
@@ -470,61 +532,55 @@
     <div class="post-tags">
         
         <span class="icon">
-            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            <i class="fa-solid fa-tags fa-fw"></i>
         </span>
+        
         
         
         <span class="tag">
             
-            <a href="/tags/代理" style="color: #ff7d73">
-                代理
-            </a>
+            <a href="/tags/%E4%BB%A3%E7%90%86/" style="color: #ffa2c4">代理</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/反制" style="color: #ffa2c4">
-                反制
-            </a>
+            <a href="/tags/%E5%8F%8D%E5%88%B6/" style="color: #ff7d73">反制</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/未授权" style="color: #00a596">
-                未授权
-            </a>
+            <a href="/tags/%E6%9C%AA%E6%8E%88%E6%9D%83/" style="color: #00bcd4">未授权</a>
         </span>
         
     </div>
-    <a href="/2023/03/14/漏洞复现/NPS代理工具未授权漏洞/" class="go-post">
-        阅读全文
-    </a>
+    <a href="/2023/03/14/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/NPS%E4%BB%A3%E7%90%86%E5%B7%A5%E5%85%B7%E6%9C%AA%E6%8E%88%E6%9D%83%E6%BC%8F%E6%B4%9E/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/2023/03/14/服务器/DELL服务器安装ESXI/">
-        <h2>
-            DELL服务器安装ESXI
-        </h2>
+    <a href="/2023/03/14/%E6%9C%8D%E5%8A%A1%E5%99%A8/DELL%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%89%E8%A3%85ESXI/">
+        <h2 class="post-title">DELL服务器安装ESXI</h2>
     </a>
     <div class="category-and-date">
         
         <span class="category">
-            <a href="/categories/服务器">
+            <a href="/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/">
                 <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
                 服务器
             </a>
         </span>
         
         <span class="date">
             <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+                <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
             2023/3/14
         </span>
+        
+        
     </div>
-    <div class="excerpt">
+    <div class="description">
         <div class="content" v-pre>
             
             <h1 id="壹-DELL服务器（工作站）安装ESXi"><a href="#壹-DELL服务器（工作站）安装ESXi" class="headerlink" title="壹 DELL服务器（工作站）安装ESXi"></a>壹 DELL服务器（工作站）安装ESXi</h1><p>本安装环境所需ESXi镜像：6.5 版本</p>
@@ -534,47 +590,45 @@
     <div class="post-tags">
         
         <span class="icon">
-            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            <i class="fa-solid fa-tags fa-fw"></i>
         </span>
+        
         
         
         <span class="tag">
             
-            <a href="/tags/ESXI" style="color: #00a596">
-                ESXI
-            </a>
+            <a href="/tags/ESXI/" style="color: #00bcd4">ESXI</a>
         </span>
         
     </div>
-    <a href="/2023/03/14/服务器/DELL服务器安装ESXI/" class="go-post">
-        阅读全文
-    </a>
+    <a href="/2023/03/14/%E6%9C%8D%E5%8A%A1%E5%99%A8/DELL%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%89%E8%A3%85ESXI/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/2023/03/14/服务器/rsync详解/">
-        <h2>
-            Rsync详解
-        </h2>
+    <a href="/2023/03/14/%E6%9C%8D%E5%8A%A1%E5%99%A8/rsync%E8%AF%A6%E8%A7%A3/">
+        <h2 class="post-title">rsync详解</h2>
     </a>
     <div class="category-and-date">
         
         <span class="category">
-            <a href="/categories/服务器">
+            <a href="/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/">
                 <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
                 服务器
             </a>
         </span>
         
         <span class="date">
             <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+                <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
             2023/3/14
         </span>
+        
+        
     </div>
-    <div class="excerpt">
+    <div class="description">
         <div class="content" v-pre>
             
             <h1 id="壹-rsync简介"><a href="#壹-rsync简介" class="headerlink" title="壹 rsync简介"></a>壹 rsync简介</h1><h2 id="1-1-介绍"><a href="#1-1-介绍" class="headerlink" title="1.1 介绍"></a>1.1 介绍</h2><p><code>rsync</code>（<code>remote synchronize</code>）是<code>Liunx/Unix</code>下的一个远程数据同步工具。它可通过<code>LAN/WAN</code>快速同步多台主机间的文件和目录，并适当利用<code>rsync</code>算法（差分编码）以减少数据的传输。<font color="red"><code>rsync</code>算法并不是每一次都整份传输，而是只传输两个文件的不同部分（即支持增量备份），因此其传输速度相当快</font>。除此之外，<code>rsync</code>可拷贝、显示目录属性，以及拷贝文件，并可选择性的压缩以及递归拷贝。</p>
@@ -584,54 +638,50 @@
     <div class="post-tags">
         
         <span class="icon">
-            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            <i class="fa-solid fa-tags fa-fw"></i>
         </span>
+        
         
         
         <span class="tag">
             
-            <a href="/tags/rsync" style="color: #00a596">
-                rsync
-            </a>
+            <a href="/tags/rsync/" style="color: #03a9f4">rsync</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/Linux" style="color: #00a596">
-                Linux
-            </a>
+            <a href="/tags/Linux/" style="color: #00bcd4">Linux</a>
         </span>
         
     </div>
-    <a href="/2023/03/14/服务器/rsync详解/" class="go-post">
-        阅读全文
-    </a>
+    <a href="/2023/03/14/%E6%9C%8D%E5%8A%A1%E5%99%A8/rsync%E8%AF%A6%E8%A7%A3/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/2023/03/14/工具使用/微步自检工具/">
-        <h2>
-            微步自检工具
-        </h2>
+    <a href="/2023/03/14/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/%E5%BE%AE%E6%AD%A5%E8%87%AA%E6%A3%80%E5%B7%A5%E5%85%B7/">
+        <h2 class="post-title">微步自检工具</h2>
     </a>
     <div class="category-and-date">
         
         <span class="category">
-            <a href="/categories/工具使用">
+            <a href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">
                 <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
                 工具使用
             </a>
         </span>
         
         <span class="date">
             <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+                <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
             2023/3/14
         </span>
+        
+        
     </div>
-    <div class="excerpt">
+    <div class="description">
         <div class="content" v-pre>
             
             <h1 id="壹-简介"><a href="#壹-简介" class="headerlink" title="壹 简介"></a>壹 简介</h1><p>平时因为用很多安全工具，然后怕有后门外联，所以就想的是写有个简单的自检工具！</p>
@@ -641,152 +691,69 @@
     <div class="post-tags">
         
         <span class="icon">
-            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
+            <i class="fa-solid fa-tags fa-fw"></i>
         </span>
+        
         
         
         <span class="tag">
             
-            <a href="/tags/Golang" style="color: #00bcd4">
-                Golang
-            </a>
+            <a href="/tags/Golang/" style="color: #00bcd4">Golang</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/应急响应" style="color: #ff7d73">
-                应急响应
-            </a>
+            <a href="/tags/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/" style="color: #00a596">应急响应</a>
         </span>
         
     </div>
-    <a href="/2023/03/14/工具使用/微步自检工具/" class="go-post">
-        阅读全文
-    </a>
+    <a href="/2023/03/14/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/%E5%BE%AE%E6%AD%A5%E8%87%AA%E6%A3%80%E5%B7%A5%E5%85%B7/" class="go-post">阅读全文</a>
 </div>
 
-<div class="post">
-    <a href="/2023/03/14/工具使用/杀软识别工具/">
-        <h2>
-            杀软识别工具
-        </h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/工具使用">
-                <span class="icon">
-                    <svg class="fa-icon"><use xlink:href="#bookmark-solid"></use></svg>
-                工具使用
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
-            </span>
-            2023/3/14
-        </span>
-    </div>
-    <div class="excerpt">
-        <div class="content" v-pre>
-            
-            <h1 id="壹-简介"><a href="#壹-简介" class="headerlink" title="壹 简介"></a>壹 简介</h1><p>该工具主要是用于在<code>Windows</code>中对杀软的识别工具！</p>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <svg class="fa-icon"><use xlink:href="#tags-solid"></use></svg>
-        </span>
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/Golang" style="color: #ffa2c4">
-                Golang
-            </a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/杀软识别" style="color: #00bcd4">
-                杀软识别
-            </a>
-        </span>
-        
-    </div>
-    <a href="/2023/03/14/工具使用/杀软识别工具/" class="go-post">
-        阅读全文
-    </a>
-</div>
 
-             
-<div class="page-current">
+        <div class="page-current">
     <div class="prev">
         
     </div>
     <div class="page-index">
         
-        <span class="current">
-            1
-        </span>
+        <span class="current">1</span>
         
         <span>
-            <a href="/page/2/">
-                <span class="page-num">
-                    2
-                </span>
-            </a>
+            <a class="page-num" href="/page/2/">2</a>
             
-            <a href="/page/3">
-                <span class="page-num">
-                    3
-                </span>
-            </a>
+            <a class="page-num" href="/page/3">3</a>
             
             
             <span class="page-omit">...</span>
-            <a href="/page/7">
-                <span class="page-num">
-                    7
-                </span>
-            </a>
+            <a class="page-num" href="/page/7">7</a>
             
         </span>
         
     </div>
     <div class="next">
         
-        <a href="/page/2/ ">
-            <span class="page-num">
-                <svg class="fa-icon"><use xlink:href="#caret-right-solid"></use></svg>
-            </span>
+        <a class="page-num" href="/page/2/">
+            <i class="fa-solid fa-caret-right fa-fw"></i>
         </a>
         
     </div>
 </div>
-        </div>
+
     </div>
     
     <div id="home-card">
-        
-<div id="card-div">
-    <div class="card-style" style="width: 300px">
+        <div id="card-style">
+    <div id="card-div">
         <div class="avatar">
-            <img src="/images/f6e2b991f74bfd7b88c3ab1a3d513b94.jpg " alt="avatar">
+            <img src="/images/f6e2b991f74bfd7b88c3ab1a3d513b94.jpg" alt="avatar" />
         </div>
-        <div class="name">
-            小C&天天
+        <div class="name">小C&amp;天天</div>
+        <div class="description">
+            <p>修学储能 先博后渊</p>
+
         </div>
-        <div class="descriptions">
-            
-            <div class="description">
-                修学储能 先博后渊
-            </div>
-            
-        </div>
+        
         <div class="icon-links">
             
             <span class="icon-link">
@@ -814,32 +781,59 @@
             </span>
             
         </div>
+        
+        
         <div class="friend-links">
             
-            <div class="friend-link">
-                <a target="_blank" rel="noopener" href="http://www.wgs6km.top/">
-                    kyrieee个人博客
-                </a>
-            </div>
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="http://www.wgs6km.top/">kyrieee</a>
+            </span>
             
-            <div class="friend-link">
-                <a target="_blank" rel="noopener" href="https://tonyd0g.gitee.io/">
-                    tonyd0g
-                </a>
-            </div>
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="https://tonyd0g.gitee.io/">tonyd0g</a>
+            </span>
+            
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="https://ruyueattention.github.io/">ruyueattention</a>
+            </span>
             
         </div>
+        
     </div>
-    <br />
+    
+    <!-- <br /> -->
     <!-- 目录 -->
-    
+    <!--  -->
 </div>
+
+<div id="card-style-fun">
+    
+    <br />
+    <div id="card-div">
+        <div class="good-sentence">
+            <div class="tools">
+                <div class="circle"><span class="red"></span></div>
+                <div class="circle"><span class="yellow"></span></div>
+                <div class="circle"><span class="green"></span></div>
+                <div class="circle"><span class="text">今日诗句</span></div>
+            </div>
+            <div class="sentence">
+                <div id="sentenceid" onload="getsentence();"></div>
+            </div>
+        </div>
     </div>
     
 </div>
-                         
-<footer id="footer">
-    <div class="footer-wrap">
+
+
+
+    </div>
+    
+</div>
+
+                <!-- 页脚 -->
+                <footer id="footer">
+    <div id="footer-wrap">
         <div>
             <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
             <script>
@@ -858,43 +852,72 @@
                 } 
             setInterval("createtime()",250);
             </script>
-            </div>
+        </div>
         <div>
-        <div>
-            © 2022 - 2023 小C♥天天
+            &copy;
+            2022 - 2023 小C♥天天
             <span class="footer-icon">
                 <i class="fa-brands fa-github fa-fw"></i>
             </span>
-            @小C&天天
+            &commat;小C&amp;天天
         </div>
         <div>
-            备案号：小C&天天の窝
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX</a> 
         </div>
+        
     </div>
 </footer>
-                    </div>
+
+            </div>
+            <!-- 简单的点击图片放大缩小的预览 -->
+            
+            <transition name="fade">
+                <div id="preview" ref="preview" v-show="previewShow">
+                    <img id="preview-content" ref="previewContent" />
                 </div>
             </transition>
-            <div id="img_show">
-                <img id="img_content" alt="img_show">
-            </div>
+            
         </div>
-        <script src="https://cdn.staticfile.org/highlight.js/11.5.1/highlight.min.js"></script>
-        <script src="/js/particlex.js"></script>
-        <script src="/js/showimg.js"></script>
+        <script src="/js/main.js"></script>
+        <!-- 看板娘 -->
         
-
-        <!-- 3D模型 -->
-        <div id="L2dCanvas" style="position: relative;"></div>
-        <script src="/js/live2d.min.js"></script>
-        <script src="/css/live2d.css"></script>
+        <div id="L2dCanvas"></div>
+        <script src="/js/lib/live2d.min.js"></script>
+        <!-- 设置随机模板 -->
+        
         <script>
             var v = new Viewer({
                 basePath: "/model",
-                role: "zhala_2",
+                role: "tierbici_2",
                 mobile: true,
             });
         </script>
+        
+        <!-- 诗句 -->
+        
+        <script>
+            // // 每隔10分钟执行一次getsentence这个函数
+            window.setInterval(getsentence, 100*60*5);
+            function getsentence() {
+                // 这里没有考虑IE浏览器，如果需要择if判断加
+                var xhr = new XMLHttpRequest();  
+                xhr.open('GET', "https://zj.v.api.aa1.cn/api/wenan-shici/?type=json",true);
+                xhr.send(JSON.stringify(null));
+                xhr.onreadystatechange = function () {
+                    if (xhr.status === 200 && xhr.readyState === 4) {
+                        //js处理数据
+                        // xhr.responseText.match(/content":(".+?")/g)
+                        getdata = JSON.parse(xhr.responseText).msg;
+                    }else{
+                        getdata = "长风破浪会有时，直挂云帆济沧海。——李白《行路难》";
+                    }
+                    document.getElementById("sentenceid").innerHTML = getdata;
+                }
+            }
+            window.onload = getsentence;
+        </script>
+        
         <!-- 点击 -->
         <script>
             let body = document.getElementsByTagName('body')[0];
@@ -920,7 +943,11 @@
             })
         </script>
         <!-- 流星背景特效 -->
+        
         <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
-        <script src="/js/background.js"></script>
+        <script src="/js/meteorbackground.js"></script>
+        
+        <!-- 评论设置 -->
+        
     </body>
 </html>
