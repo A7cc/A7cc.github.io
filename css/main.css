@@ -1,45 +1,54 @@
-#archives {
+#archives,
+#tools {
     margin: auto;
     margin-top: 100px;
     padding: 20px;
 }
-#archives .categories-tags {
+#archives .categories-tags,
+#tools .categories-tags {
     margin: auto;
     margin-bottom: 50px;
     max-width: 900px;
     text-align: center;
     width: 100%;
 }
-#archives .categories-tags span {
+#archives .categories-tags span,
+#tools .categories-tags span {
     display: inline-block;
     margin: 10px;
 }
-#archives .categories-tags span .icon {
+#archives .categories-tags span .icon,
+#tools .categories-tags span .icon {
     color: #fff;
     margin-left: 0;
     margin-right: 10px;
 }
-#archives .categories-tags span a {
+#archives .categories-tags span a,
+#tools .categories-tags span a {
     border: #ffffff80 1px solid;
     border-radius: 10px;
     color: #fff;
     padding: 10px 15px;
     transition: background 0.25s, border 0.25s, color 0.25s;
 }
-#archives .categories-tags span a:hover {
+#archives .categories-tags span a:hover,
+#tools .categories-tags span a:hover {
     background: #fff !important;
     border: #a5c2f5 1px solid;
     color: #5c6b72;
 }
 #archives .category,
 #archives .tags .tag,
+#tools .category,
+#tools .tags .tag,
 .article .info .category,
 .article .info .tags,
 .article .info .tags .tag {
     display: inline-block;
     margin-right: 10px;
 }
-#archives h3 {
+#archives h3,
+#tools h3 {
     margin: 10px 0;
 }
 #crypto {
@@ -194,7 +203,7 @@
     background-color: #757575;
     z-index: 1;
 }
-.good-sentence .tools {
+.good-sentence .toolio {
     display: flex;
     align-items: center;
     padding: 9px;
@@ -359,11 +368,15 @@
 #archives .tag-icon,
 #archives .item-time,
 #archives .categories-tags span a:hover .icon,
+#tools a,
+#tools .tag-icon,
+#tools .item-time,
+#tools .categories-tags span a:hover .icon,
 .article .info a {
     color: #5c6b72;
 }
 #home-posts .post .category-and-date .date,
-#archives .tags,
+#tools .tags,
 #menu #desktop-menu a span {
     display: inline-block;
 }
@@ -399,6 +412,7 @@
 }
 #home-posts .post .post-tags,
 #archives .info,
+#tools .info,
 .article .info {
     line-height: 1.7;
 }
@@ -1189,6 +1203,7 @@ ol li {
     }
     .article,
     #archives,
+    #tools,
     #footer #footer-wrap {
         width: 900px;
     }
@@ -1210,7 +1225,8 @@ ol li {
     }
     #home-posts-wrap,
     #article-posts-wrap,
-    #archives {
+    #archives,
+    #tools {
         width: 800px;
     }
 }
@@ -1267,6 +1283,7 @@ ol li {
     #article-posts-wrap,
     .article,
     #archives,
+    #tools,
     #footer #footer-wrap {
         width: 100%;
     }
