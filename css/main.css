@@ -1201,8 +1201,6 @@ ol li {
         display: none;
     }
     .article,
-    #archives,
-    #tools,
     #footer #footer-wrap {
         width: 900px;
     }
@@ -1223,9 +1221,7 @@ ol li {
         width: 100%;
     }
     #home-posts-wrap,
-    #article-posts-wrap,
-    #archives,
-    #tools {
+    #article-posts-wrap {
         width: 800px;
     }
 }
@@ -1281,8 +1277,6 @@ ol li {
     #home-posts-wrap,
     #article-posts-wrap,
     .article,
-    #archives,
-    #tools,
     #footer #footer-wrap {
         width: 100%;
     }
