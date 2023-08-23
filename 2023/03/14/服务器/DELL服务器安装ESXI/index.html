@@ -33,20 +33,30 @@
 <script src="/js/lib/math.js"></script>
 
 
-<!-- 简单的点击图片放大缩小的预览 -->
-<script src="/js/lib/preview.js"></script>
-
 
 <!-- 看板娘 -->
 <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
 
 
 
+<!-- 评论设置 -->
 
-<!-- 评论功能设置 -->
-
-
-
+<script
+    src="https://giscus.app/client.js"
+    data-repo="A7cc/giscus-comments"
+    data-repo-id="R_kgDOKKSvfw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOKKSvf84CYyp2"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="https://static-argvchs.netlify.app/css/giscus.css"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
 
 
 
@@ -205,7 +215,7 @@
                 
                 <span class="tag">
                     
-                    <a href="/tags/ESXI/" style="color: #03a9f4">ESXI</a>
+                    <a href="/tags/ESXI/" style="color: #ffa2c4">ESXI</a>
                 </span>
                 
             </span>
@@ -341,14 +351,9 @@ MY0R3-2W04J-9Z340-8CAQP-1AJ56
         </div>
         
         
-        
-        
         <div id="comment">
             <div id="giscus-container" class="giscus"></div>
         </div>
-        
-        
-        
         
     </div>
     
@@ -488,12 +493,6 @@ MY0R3-2W04J-9Z340-8CAQP-1AJ56
             </div>
             <!-- 简单的点击图片放大缩小的预览 -->
             
-            <transition name="fade">
-                <div id="preview" ref="preview" v-show="previewShow">
-                    <img id="preview-content" ref="previewContent" />
-                </div>
-            </transition>
-            
         </div>
         <!-- 看板娘 -->
         
@@ -504,7 +503,7 @@ MY0R3-2W04J-9Z340-8CAQP-1AJ56
         <script>
             var v = new Viewer({
                 basePath: "/model",
-                role: "aidang_2",
+                role: "zhala_2",
                 mobile: true,
             });
         </script>
@@ -563,30 +562,5 @@ MY0R3-2W04J-9Z340-8CAQP-1AJ56
         <script src="/js/meteorbackground.js"></script>
         
         <script src="/js/main.js"></script>
-        <!-- 评论设置 -->
-        
-        
-<script
-    src="https://giscus.app/client.js"
-    data-repo="argvchs/giscus-comments"
-    data-repo-id="R_kgDOI_uC-w"
-    data-category="Announcements"
-    data-category-id="DIC_kwDOI_uC-84CUToF"
-    data-mapping="pathname"
-    data-strict="1"
-    data-reactions-enabled="1"
-    data-emit-metadata="0"
-    data-input-position="bottom"
-    data-theme="https://static-argvchs.netlify.app/css/giscus.css"
-    data-lang="zh-CN"
-    crossorigin
-    async
-></script>
-
-
-
-
-
-        
     </body>
 </html>

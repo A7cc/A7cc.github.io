@@ -33,15 +33,13 @@
 <script src="/js/lib/math.js"></script>
 
 
-<!-- 简单的点击图片放大缩小的预览 -->
-<script src="/js/lib/preview.js"></script>
-
 
 <!-- 看板娘 -->
 <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
 
 
 
+<!-- 评论设置 -->
 
 
 <script src="/js/lib/home.js"></script>
@@ -232,7 +230,7 @@
         
         <span class="tag">
             
-            <a href="/tags/%E5%BC%80%E5%8F%91/" style="color: #00a596">开发</a>
+            <a href="/tags/%E5%BC%80%E5%8F%91/" style="color: #03a9f4">开发</a>
         </span>
         
         <span class="tag">
@@ -457,12 +455,6 @@
             </div>
             <!-- 简单的点击图片放大缩小的预览 -->
             
-            <transition name="fade">
-                <div id="preview" ref="preview" v-show="previewShow">
-                    <img id="preview-content" ref="previewContent" />
-                </div>
-            </transition>
-            
         </div>
         <!-- 看板娘 -->
         
@@ -473,7 +465,7 @@
         <script>
             var v = new Viewer({
                 basePath: "/model",
-                role: "deyizhi_3",
+                role: "huonululu_3",
                 mobile: true,
             });
         </script>
@@ -532,7 +524,5 @@
         <script src="/js/meteorbackground.js"></script>
         
         <script src="/js/main.js"></script>
-        <!-- 评论设置 -->
-        
     </body>
 </html>

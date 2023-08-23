@@ -33,20 +33,30 @@
 <script src="/js/lib/math.js"></script>
 
 
-<!-- 简单的点击图片放大缩小的预览 -->
-<script src="/js/lib/preview.js"></script>
-
 
 <!-- 看板娘 -->
 <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
 
 
 
+<!-- 评论设置 -->
 
-<!-- 评论功能设置 -->
-
-
-
+<script
+    src="https://giscus.app/client.js"
+    data-repo="A7cc/giscus-comments"
+    data-repo-id="R_kgDOKKSvfw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOKKSvf84CYyp2"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="https://static-argvchs.netlify.app/css/giscus.css"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
 
 
 
@@ -205,12 +215,12 @@
                 
                 <span class="tag">
                     
-                    <a href="/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/" style="color: #ffa2c4">小技巧</a>
+                    <a href="/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/" style="color: #03a9f4">小技巧</a>
                 </span>
                 
                 <span class="tag">
                     
-                    <a href="/tags/Docker/" style="color: #ff7d73">Docker</a>
+                    <a href="/tags/Docker/" style="color: #00bcd4">Docker</a>
                 </span>
                 
             </span>
@@ -343,14 +353,9 @@ docker tag fdb2dda420ac IP:23080/2021-xianxiajs/pwn-mid-akernel:v1
         </div>
         
         
-        
-        
         <div id="comment">
             <div id="giscus-container" class="giscus"></div>
         </div>
-        
-        
-        
         
     </div>
     
@@ -490,12 +495,6 @@ docker tag fdb2dda420ac IP:23080/2021-xianxiajs/pwn-mid-akernel:v1
             </div>
             <!-- 简单的点击图片放大缩小的预览 -->
             
-            <transition name="fade">
-                <div id="preview" ref="preview" v-show="previewShow">
-                    <img id="preview-content" ref="previewContent" />
-                </div>
-            </transition>
-            
         </div>
         <!-- 看板娘 -->
         
@@ -506,7 +505,7 @@ docker tag fdb2dda420ac IP:23080/2021-xianxiajs/pwn-mid-akernel:v1
         <script>
             var v = new Viewer({
                 basePath: "/model",
-                role: "tianlangxing_3",
+                role: "aidang_2",
                 mobile: true,
             });
         </script>
@@ -565,30 +564,5 @@ docker tag fdb2dda420ac IP:23080/2021-xianxiajs/pwn-mid-akernel:v1
         <script src="/js/meteorbackground.js"></script>
         
         <script src="/js/main.js"></script>
-        <!-- 评论设置 -->
-        
-        
-<script
-    src="https://giscus.app/client.js"
-    data-repo="argvchs/giscus-comments"
-    data-repo-id="R_kgDOI_uC-w"
-    data-category="Announcements"
-    data-category-id="DIC_kwDOI_uC-84CUToF"
-    data-mapping="pathname"
-    data-strict="1"
-    data-reactions-enabled="1"
-    data-emit-metadata="0"
-    data-input-position="bottom"
-    data-theme="https://static-argvchs.netlify.app/css/giscus.css"
-    data-lang="zh-CN"
-    crossorigin
-    async
-></script>
-
-
-
-
-
-        
     </body>
 </html>

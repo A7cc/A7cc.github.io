@@ -33,20 +33,30 @@
 <script src="/js/lib/math.js"></script>
 
 
-<!-- 简单的点击图片放大缩小的预览 -->
-<script src="/js/lib/preview.js"></script>
-
 
 <!-- 看板娘 -->
 <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
 
 
 
+<!-- 评论设置 -->
 
-<!-- 评论功能设置 -->
-
-
-
+<script
+    src="https://giscus.app/client.js"
+    data-repo="A7cc/giscus-comments"
+    data-repo-id="R_kgDOKKSvfw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOKKSvf84CYyp2"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="https://static-argvchs.netlify.app/css/giscus.css"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
 
 
 
@@ -210,12 +220,12 @@
                 
                 <span class="tag">
                     
-                    <a href="/tags/%E5%8F%8D%E5%88%B6/" style="color: #00a596">反制</a>
+                    <a href="/tags/%E5%8F%8D%E5%88%B6/" style="color: #ff7d73">反制</a>
                 </span>
                 
                 <span class="tag">
                     
-                    <a href="/tags/%E6%9C%AA%E6%8E%88%E6%9D%83/" style="color: #ffa2c4">未授权</a>
+                    <a href="/tags/%E6%9C%AA%E6%8E%88%E6%9D%83/" style="color: #03a9f4">未授权</a>
                 </span>
                 
             </span>
@@ -281,14 +291,9 @@ except BaseException as err:
         </div>
         
         
-        
-        
         <div id="comment">
             <div id="giscus-container" class="giscus"></div>
         </div>
-        
-        
-        
         
     </div>
     
@@ -428,12 +433,6 @@ except BaseException as err:
             </div>
             <!-- 简单的点击图片放大缩小的预览 -->
             
-            <transition name="fade">
-                <div id="preview" ref="preview" v-show="previewShow">
-                    <img id="preview-content" ref="previewContent" />
-                </div>
-            </transition>
-            
         </div>
         <!-- 看板娘 -->
         
@@ -444,7 +443,7 @@ except BaseException as err:
         <script>
             var v = new Viewer({
                 basePath: "/model",
-                role: "banrenma_2",
+                role: "heitaizi_2",
                 mobile: true,
             });
         </script>
@@ -503,30 +502,5 @@ except BaseException as err:
         <script src="/js/meteorbackground.js"></script>
         
         <script src="/js/main.js"></script>
-        <!-- 评论设置 -->
-        
-        
-<script
-    src="https://giscus.app/client.js"
-    data-repo="argvchs/giscus-comments"
-    data-repo-id="R_kgDOI_uC-w"
-    data-category="Announcements"
-    data-category-id="DIC_kwDOI_uC-84CUToF"
-    data-mapping="pathname"
-    data-strict="1"
-    data-reactions-enabled="1"
-    data-emit-metadata="0"
-    data-input-position="bottom"
-    data-theme="https://static-argvchs.netlify.app/css/giscus.css"
-    data-lang="zh-CN"
-    crossorigin
-    async
-></script>
-
-
-
-
-
-        
     </body>
 </html>
