@@ -33,6 +33,9 @@
 <script src="/js/lib/math.js"></script>
 
 
+<!-- 简单的点击图片放大缩小的预览 -->
+<script src="/js/lib/preview.js"></script>
+
 
 <!-- 看板娘 -->
 <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
@@ -215,7 +218,7 @@
                 
                 <span class="tag">
                     
-                    <a href="/tags/hexo/" style="color: #03a9f4">hexo</a>
+                    <a href="/tags/hexo/" style="color: #00a596">hexo</a>
                 </span>
                 
             </span>
@@ -796,6 +799,12 @@ hexo d -g
             </div>
             <!-- 简单的点击图片放大缩小的预览 -->
             
+            <div name="fade">
+                <div id="preview" ref="preview" v-show="previewShow">
+                    <img id="preview-content" ref="previewContent" />
+                </div>
+            </div>
+            
         </div>
         <!-- 看板娘 -->
         
@@ -806,7 +815,7 @@ hexo d -g
         <script>
             var v = new Viewer({
                 basePath: "/model",
-                role: "dafeng_2",
+                role: "tierbici_2",
                 mobile: true,
             });
         </script>

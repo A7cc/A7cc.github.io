@@ -33,6 +33,9 @@
 <script src="/js/lib/math.js"></script>
 
 
+<!-- 简单的点击图片放大缩小的预览 -->
+<script src="/js/lib/preview.js"></script>
+
 
 <!-- 看板娘 -->
 <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
@@ -215,7 +218,7 @@
                 
                 <span class="tag">
                     
-                    <a href="/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/" style="color: #ff7d73">小技巧</a>
+                    <a href="/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/" style="color: #03a9f4">小技巧</a>
                 </span>
                 
                 <span class="tag">
@@ -495,6 +498,12 @@ docker tag fdb2dda420ac IP:23080/2021-xianxiajs/pwn-mid-akernel:v1
             </div>
             <!-- 简单的点击图片放大缩小的预览 -->
             
+            <div name="fade">
+                <div id="preview" ref="preview" v-show="previewShow">
+                    <img id="preview-content" ref="previewContent" />
+                </div>
+            </div>
+            
         </div>
         <!-- 看板娘 -->
         
@@ -505,7 +514,7 @@ docker tag fdb2dda420ac IP:23080/2021-xianxiajs/pwn-mid-akernel:v1
         <script>
             var v = new Viewer({
                 basePath: "/model",
-                role: "banrenma_2",
+                role: "aimierbeierding_2",
                 mobile: true,
             });
         </script>

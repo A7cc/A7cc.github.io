@@ -33,6 +33,9 @@
 <script src="/js/lib/math.js"></script>
 
 
+<!-- 简单的点击图片放大缩小的预览 -->
+<script src="/js/lib/preview.js"></script>
+
 
 <!-- 看板娘 -->
 <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
@@ -235,12 +238,12 @@
         
         <span class="tag">
             
-            <a href="/tags/Python/" style="color: #03a9f4">Python</a>
+            <a href="/tags/Python/" style="color: #00a596">Python</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/%E5%BC%80%E5%8F%91/" style="color: #00bcd4">开发</a>
+            <a href="/tags/%E5%BC%80%E5%8F%91/" style="color: #03a9f4">开发</a>
         </span>
         
     </div>
@@ -288,12 +291,12 @@
         
         <span class="tag">
             
-            <a href="/tags/Python/" style="color: #00a596">Python</a>
+            <a href="/tags/Python/" style="color: #ff7d73">Python</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/%E5%BC%80%E5%8F%91/" style="color: #ff7d73">开发</a>
+            <a href="/tags/%E5%BC%80%E5%8F%91/" style="color: #00bcd4">开发</a>
         </span>
         
     </div>
@@ -346,7 +349,7 @@
         
         <span class="tag">
             
-            <a href="/tags/%E5%BC%80%E5%8F%91/" style="color: #03a9f4">开发</a>
+            <a href="/tags/%E5%BC%80%E5%8F%91/" style="color: #ffa2c4">开发</a>
         </span>
         
     </div>
@@ -394,7 +397,7 @@
         
         <span class="tag">
             
-            <a href="/tags/Python/" style="color: #00a596">Python</a>
+            <a href="/tags/Python/" style="color: #00bcd4">Python</a>
         </span>
         
         <span class="tag">
@@ -452,7 +455,7 @@
         
         <span class="tag">
             
-            <a href="/tags/%E5%BC%80%E5%8F%91/" style="color: #00a596">开发</a>
+            <a href="/tags/%E5%BC%80%E5%8F%91/" style="color: #00bcd4">开发</a>
         </span>
         
     </div>
@@ -500,12 +503,12 @@
         
         <span class="tag">
             
-            <a href="/tags/Python/" style="color: #00bcd4">Python</a>
+            <a href="/tags/Python/" style="color: #ffa2c4">Python</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/%E5%BC%80%E5%8F%91/" style="color: #00a596">开发</a>
+            <a href="/tags/%E5%BC%80%E5%8F%91/" style="color: #ff7d73">开发</a>
         </span>
         
     </div>
@@ -554,12 +557,12 @@
         
         <span class="tag">
             
-            <a href="/tags/Python/" style="color: #03a9f4">Python</a>
+            <a href="/tags/Python/" style="color: #ff7d73">Python</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/%E5%BC%80%E5%8F%91/" style="color: #00a596">开发</a>
+            <a href="/tags/%E5%BC%80%E5%8F%91/" style="color: #00bcd4">开发</a>
         </span>
         
     </div>
@@ -612,7 +615,7 @@
         
         <span class="tag">
             
-            <a href="/tags/%E5%BC%80%E5%8F%91/" style="color: #03a9f4">开发</a>
+            <a href="/tags/%E5%BC%80%E5%8F%91/" style="color: #00a596">开发</a>
         </span>
         
     </div>
@@ -660,7 +663,7 @@
         
         <span class="tag">
             
-            <a href="/tags/Python/" style="color: #ff7d73">Python</a>
+            <a href="/tags/Python/" style="color: #00a596">Python</a>
         </span>
         
         <span class="tag">
@@ -714,12 +717,12 @@
         
         <span class="tag">
             
-            <a href="/tags/%E5%BC%80%E5%8F%91/" style="color: #03a9f4">开发</a>
+            <a href="/tags/%E5%BC%80%E5%8F%91/" style="color: #ff7d73">开发</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/Golang/" style="color: #00bcd4">Golang</a>
+            <a href="/tags/Golang/" style="color: #ffa2c4">Golang</a>
         </span>
         
     </div>
@@ -903,6 +906,12 @@
             </div>
             <!-- 简单的点击图片放大缩小的预览 -->
             
+            <div name="fade">
+                <div id="preview" ref="preview" v-show="previewShow">
+                    <img id="preview-content" ref="previewContent" />
+                </div>
+            </div>
+            
         </div>
         <!-- 看板娘 -->
         
@@ -913,7 +922,7 @@
         <script>
             var v = new Viewer({
                 basePath: "/model",
-                role: "dafeng_2",
+                role: "bisimai_2",
                 mobile: true,
             });
         </script>

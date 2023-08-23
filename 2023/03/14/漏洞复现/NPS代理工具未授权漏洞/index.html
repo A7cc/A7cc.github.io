@@ -33,6 +33,9 @@
 <script src="/js/lib/math.js"></script>
 
 
+<!-- 简单的点击图片放大缩小的预览 -->
+<script src="/js/lib/preview.js"></script>
+
 
 <!-- 看板娘 -->
 <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
@@ -215,7 +218,7 @@
                 
                 <span class="tag">
                     
-                    <a href="/tags/%E4%BB%A3%E7%90%86/" style="color: #ffa2c4">代理</a>
+                    <a href="/tags/%E4%BB%A3%E7%90%86/" style="color: #ff7d73">代理</a>
                 </span>
                 
                 <span class="tag">
@@ -225,7 +228,7 @@
                 
                 <span class="tag">
                     
-                    <a href="/tags/%E6%9C%AA%E6%8E%88%E6%9D%83/" style="color: #ff7d73">未授权</a>
+                    <a href="/tags/%E6%9C%AA%E6%8E%88%E6%9D%83/" style="color: #00a596">未授权</a>
                 </span>
                 
             </span>
@@ -433,6 +436,12 @@ except BaseException as err:
             </div>
             <!-- 简单的点击图片放大缩小的预览 -->
             
+            <div name="fade">
+                <div id="preview" ref="preview" v-show="previewShow">
+                    <img id="preview-content" ref="previewContent" />
+                </div>
+            </div>
+            
         </div>
         <!-- 看板娘 -->
         
@@ -443,7 +452,7 @@ except BaseException as err:
         <script>
             var v = new Viewer({
                 basePath: "/model",
-                role: "huangjiafangzhou_3",
+                role: "dunkeerke_2",
                 mobile: true,
             });
         </script>

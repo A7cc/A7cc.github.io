@@ -33,6 +33,9 @@
 <script src="/js/lib/math.js"></script>
 
 
+<!-- 简单的点击图片放大缩小的预览 -->
+<script src="/js/lib/preview.js"></script>
+
 
 <!-- 看板娘 -->
 <script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
@@ -220,7 +223,7 @@
                 
                 <span class="tag">
                     
-                    <a href="/tags/%E5%BC%80%E5%8F%91/" style="color: #00a596">开发</a>
+                    <a href="/tags/%E5%BC%80%E5%8F%91/" style="color: #00bcd4">开发</a>
                 </span>
                 
             </span>
@@ -808,6 +811,12 @@ for x in range(1,5):
             </div>
             <!-- 简单的点击图片放大缩小的预览 -->
             
+            <div name="fade">
+                <div id="preview" ref="preview" v-show="previewShow">
+                    <img id="preview-content" ref="previewContent" />
+                </div>
+            </div>
+            
         </div>
         <!-- 看板娘 -->
         
@@ -818,7 +827,7 @@ for x in range(1,5):
         <script>
             var v = new Viewer({
                 basePath: "/model",
-                role: "tierbici_2",
+                role: "tianlangxing_3",
                 mobile: true,
             });
         </script>
