@@ -218,12 +218,12 @@
                 
                 <span class="tag">
                     
-                    <a href="/tags/WPS/" style="color: #ff7d73">WPS</a>
+                    <a href="/tags/WPS/" style="color: #ffa2c4">WPS</a>
                 </span>
                 
                 <span class="tag">
                     
-                    <a href="/tags/%E9%92%93%E9%B1%BC/" style="color: #03a9f4">钓鱼</a>
+                    <a href="/tags/%E9%92%93%E9%B1%BC/" style="color: #00a596">钓鱼</a>
                 </span>
                 
             </span>
@@ -314,8 +314,9 @@ msf6 exploit(multi/handler) &gt; run
 <p><img src="/images/%E5%A4%8D%E7%8E%B0/image-20230828120654382.png" alt="image-20230828120654382"></p>
 <p><img src="/images/%E5%A4%8D%E7%8E%B0/image-20230828120706088.png" alt="image-20230828120706088"></p>
 <h2 id="5-3-实战中的思考"><a href="#5-3-实战中的思考" class="headerlink" title="5.3 实战中的思考"></a>5.3 实战中的思考</h2><p>整体的利用相对较为简单，利用的方法不需要受害机设置过多的配置，只需要点击攻击者发送的文档，即可被远控，在实验中，我们需要在客户端设置<code>host</code>文件绑定，但在实战中，只要购买一个遵循<code>clientweb.docer.wps.cn.&#123;xxxxx&#125;wps.cn</code>的域名即可，其他前期操作只需要在攻击机上设置。</p>
-<h1 id="陆-利用Poc-Exp以及工具"><a href="#陆-利用Poc-Exp以及工具" class="headerlink" title="陆 利用Poc|Exp以及工具"></a>陆 利用Poc|Exp以及工具</h1><p>利用的<code>poc</code>和存在问题的版本软件：</p>
+<h1 id="陆-利用Poc-Exp以及工具"><a href="#陆-利用Poc-Exp以及工具" class="headerlink" title="陆 利用Poc|Exp以及工具"></a>陆 利用Poc|Exp以及工具</h1><p>利用的<code>poc</code>：</p>
 <p><a href="/tools/%E5%A4%8D%E7%8E%B0/WPS_RCE%E5%A4%8D%E7%8E%B0.zip">WPS_RCE复现.zip</a></p>
+<p>存在问题的版本软件太大了，需要的私信或者评论！</p>
 <h1 id="柒-危害"><a href="#柒-危害" class="headerlink" title="柒 危害"></a>柒 危害</h1><p>攻击者通过诱导用户打开文档中嵌入的远程链接即可触发此漏洞执行任意代码。</p>
 <h1 id="捌-修复建议"><a href="#捌-修复建议" class="headerlink" title="捌 修复建议"></a>捌 修复建议</h1><ul>
 <li><p>官方修复方案：<br>参考官方通告，升级至安全版本：<a target="_blank" rel="noopener" href="https://security.wps.cn/notices/35">https://security.wps.cn/notices/35</a></p>
@@ -490,7 +491,7 @@ msf6 exploit(multi/handler) &gt; run
         <script>
             var v = new Viewer({
                 basePath: "/model",
-                role: "heitaizi_2",
+                role: "huangjiafangzhou_3",
                 mobile: true,
             });
         </script>
