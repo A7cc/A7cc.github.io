@@ -197,7 +197,7 @@
                 <span class="icon">
                     <i class="fa-solid fa-calendar fa-fw"></i>
                 </span>
-                2023/3/14
+                2023/8/23
             </span>
             
             <span class="category">
@@ -218,7 +218,7 @@
                 
                 <span class="tag">
                     
-                    <a href="/tags/%E4%BB%A3%E7%90%86%E4%B8%8E%E8%BD%AC%E5%8F%91/" style="color: #00a596">代理与转发</a>
+                    <a href="/tags/%E4%BB%A3%E7%90%86%E4%B8%8E%E8%BD%AC%E5%8F%91/" style="color: #ff7d73">代理与转发</a>
                 </span>
                 
             </span>
@@ -226,15 +226,16 @@
         </div>
         
         <div class="content" v-pre>
-            <h1 id="壹-内网代理与转发技巧"><a href="#壹-内网代理与转发技巧" class="headerlink" title="壹 内网代理与转发技巧"></a>壹 内网代理与转发技巧</h1><h2 id="1-1-概念"><a href="#1-1-概念" class="headerlink" title="1.1 概念"></a>1.1 概念</h2><p>内网穿透：利用各种隧道技术，绕过网络防火墙的封锁，实现访问被封锁的目标网络，需要考虑的点：</p>
+            <h1 id="壹-内网代理与转发技巧"><a href="#壹-内网代理与转发技巧" class="headerlink" title="壹 内网代理与转发技巧"></a>壹 内网代理与转发技巧</h1><h2 id="1-1-概念"><a href="#1-1-概念" class="headerlink" title="1.1 概念"></a>1.1 概念</h2><p>内网穿透就是利用各种隧道技术，绕过网络防火墙的封锁，实现访问被封锁的目标网络，需要考虑的点：</p>
 <ul>
 <li>能出网，通过允许的协议或一些旁门</li>
-<li>隐蔽，被发现了那就凉了呀</li>
-<li>稳定，关键时刻不能出问题</li>
-<li>限制少，需要的条件越少越好</li>
-<li>覆盖面广，跟上一条其实有点关联，主要考虑使用场景越多越好<span id="more"></span></li>
+<li>隐蔽，不容易被发现，流量可加密，开放代理可设置认证</li>
+<li>稳定，关键时刻不能出问题，自动断线重连</li>
+<li>限制少，需要的条件越少越好，支持多种协议方式</li>
+<li>覆盖面广，跟上一条其实有点关联，主要考虑使用场景越多越好</li>
 </ul>
-<p>隧道技术：一种通过使用互联网络的基础设施在网络之间传递数据的方式，包括数据封装、传输和解包在内的全过程。使用隧道传递的数据（或负载）可以是不同协议的数据帧或包。</p>
+<span id="more"></span>
+<p>隧道技术是指一种通过使用互联网络的基础设施在网络之间传递数据的方式，包括数据封装、传输和解包在内的全过程。使用隧道传递的数据（或负载）可以是不同协议的数据帧或包。</p>
 <ul>
 <li>封装：隧道协议将这些其他协议的数据帧或包重新封装在新的包头中发送。新的包头提供了路由信息，从而使封装的负载数据能够通过互联网络传递</li>
 <li>传输：被封装的数据包在隧道的两个端点之间通过公共互联网络进行路由。被封装的数据包在公共互联网络上传递时所经过的逻辑路径称为隧道</li>
@@ -259,11 +260,18 @@
 <li>注意那些 <code>ICMP</code> 数据包中 <code>payload</code> 大于 <code>64</code> 比特的数据包。当然 <code>icmptunnel</code> 可以配置限制所有数据包的 <code>payload</code> 为 <code>64</code> 比特，这样会使得更难以被检测到</li>
 <li>检查<code>ICMP</code>数据包的协议标签，例如 <code>icmptunnel</code> 会在所有的 <code>ICMPpayload</code> 前面增加 <code>TUNL</code> 标记以用于识别隧道，这就是特征</li>
 </ul>
+<p>探测<code>ICMP</code>出网方法：通过<code>ping</code>命令进行探测。</p>
+<pre><code class="bash">ping &lt;IP地址或域名&gt;
+</code></pre>
 <h3 id="1-2-2-允许特定的TCP或UDP协议端口出网"><a href="#1-2-2-允许特定的TCP或UDP协议端口出网" class="headerlink" title="1.2.2 允许特定的TCP或UDP协议端口出网"></a>1.2.2 允许特定的TCP或UDP协议端口出网</h3><p>网络防火墙允许特定的<code>TCP</code>或者<code>UDP</code>端口出网，比如连接外网的<code>22</code>、<code>53</code>、<code>80</code>、<code>443</code>、<code>3389</code>等常见应用的默认监听端口。在一个不能出网的网络环境里面，将所有的<code>TCP</code>和<code>UPD</code>端口都探测一遍，通常都能发现有一两个常见的端口能出网。这通常是由于网络管理员的错误配置和偷懒行为导致：</p>
 <ul>
 <li>比如配置的防火墙规则前后矛盾，解析的时候遇到匹配规则就退出执行</li>
 <li>比如网络管理员配置允许<code>web</code>服务器访问另一子网的<code>mysql</code>数据库的<code>3306</code>端口。网络管理员配置时偷懒，可能会直接放行<code>web</code>服务器到任意<code>ip</code>地址的<code>3306</code>端口</li>
 </ul>
+<p>探测<code>TCP</code>或<code>UDP</code>出网方法：通过<code>nc</code>或者<code>telnet</code>工具进行探测。</p>
+<pre><code class="bash">nc &lt;IP地址或域名] &lt;端口&gt;
+telnet &lt;IP地址或域名&gt; &lt;端口&gt;
+</code></pre>
 <h3 id="1-2-3-允许特定的应用层协议出网（比如HTTP、SSH、DNS等应用层协议）"><a href="#1-2-3-允许特定的应用层协议出网（比如HTTP、SSH、DNS等应用层协议）" class="headerlink" title="1.2.3 允许特定的应用层协议出网（比如HTTP、SSH、DNS等应用层协议）"></a>1.2.3 允许特定的应用层协议出网（比如HTTP、SSH、DNS等应用层协议）</h3><h4 id="1-2-3-1-DNS隧道"><a href="#1-2-3-1-DNS隧道" class="headerlink" title="1.2.3.1 DNS隧道"></a>1.2.3.1 DNS隧道</h4><p>原理：配置某个域名的<code>NS</code>服务器，使得对该域名的所有子域解析请求最终到达该<code>NS</code>服务器上，然后将另一个协议的数据编码为一系列<code>DNS</code>查询，响应时客户端将返回的<code>Response</code>数据进行解码得到另一协议的数据</p>
 <p>特征：</p>
 <ul>
@@ -280,6 +288,10 @@
 <li>基于请求域名长度及请求频率统计分析方法</li>
 <li><code>dnscat</code> 查询中包含了 <code>dnscat</code> 字符串</li>
 </ul>
+<p>探测<code>DNS</code>出网方法：通过<code>nslookup</code>或者<code>dig</code>命令进行探测。</p>
+<pre><code class="bash">nslookup &lt;IP地址或域名&gt; [dns服务器]
+dig [@dns服务器] &lt;IP地址或域名&gt;
+</code></pre>
 <h4 id="1-2-3-2-HTTP隧道"><a href="#1-2-3-2-HTTP隧道" class="headerlink" title="1.2.3.2 HTTP隧道"></a>1.2.3.2 HTTP隧道</h4><p>原理：通过<code>HTTP</code>协议与代理服务器建立连接，协议信令中包含要连接到的远程主机的<code>IP</code>和端口，如果有需要身份验证的话还需要加上授权信息，服务器收到信令后首先进行身份验证，通过后便与远程主机建立连接，连接成功之后会返回给客户端<code>200</code>，表示验证通过。此外<code>HTTP</code>隧道是没有进行加密的，不安全的，一般再嵌套一个<code>SSH</code>安全隧道。</p>
 <pre><code class="bash">CONNECT 124.xxx.xxx.xx:443 HTTP/1.1 //建立http隧道要443端口
 Proxy-Connection: Keep-Alive   //客户端到服务器端的连接持续有效
@@ -288,6 +300,10 @@ Host: 124.xxx.xxx.xx   //主机地址
 Proxy-Authorization:Basic YTph //身份验证信息
 User-Agent: OpenFetion //可以标识请求者的信息,如什么浏览器类型和版本、操作系统、使用语言等信息
 </code></pre>
+<p>探测<code>HTTP</code>出网方法：通过<code>curl</code>命令或者浏览器进行探测。</p>
+<pre><code class="bash">curl &lt;IP地址或域名&gt;
+</code></pre>
+<h3 id="1-2-4-通过工具探测出网情况"><a href="#1-2-4-通过工具探测出网情况" class="headerlink" title="1.2.4 通过工具探测出网情况"></a>1.2.4 通过工具探测出网情况</h3><p>由于探测出网的协议较多，而且繁杂，所以通过使用<a target="_blank" rel="noopener" href="https://github.com/A7cc/outnet">outnet</a>工具批量探测出网情况。</p>
 <h2 id="1-3-端口映射和端口转发"><a href="#1-3-端口映射和端口转发" class="headerlink" title="1.3 端口映射和端口转发"></a>1.3 端口映射和端口转发</h2><h3 id="1-3-1-端口映射"><a href="#1-3-1-端口映射" class="headerlink" title="1.3.1 端口映射"></a>1.3.1 端口映射</h3><p>假设一个<code>hacker</code>通过扫描暴露到公网中的主机<code>A</code> ，主机<code>A</code>开放了一些敏感端口，而且是弱口令，导致主机<code>A</code>被<code>hacker</code>完全控制。接着<code>hacker</code>就想往公司内网中渗透，通过在主机<code>A</code>监控流量或者扫描的方式，发现了主机<code>B</code>，但是主机<code>B</code>只能由主机<code>A</code>进行访问，开放了<code>80</code>端口，而且没有公网<code>IP</code>。如果<code>hacker</code>想直接访问主机<code>B</code>的<code>80</code>端口，对上面的Web服务进行继续渗透，这就需要进行端口映射，让<code>hacker</code>可以远程连接到<code>80</code>端口，这就是一个端口映射场景，<font color="red">端口映射是将内网主机<code>B</code>的<code>80</code>端口映射到了具有公网IP的主机A上，本质上是将一个本来无法访问的端口映射到可以访问的<code>IP</code>上了</font>。<br><img src="/images/%E5%86%85%E7%BD%91/aca3654e148615c4c95d418bdcb3ac42.png" alt="aca3654e148615c4c95d418bdcb3ac42.png"></p>
 <h3 id="1-3-2-端口转发"><a href="#1-3-2-端口转发" class="headerlink" title="1.3.2 端口转发"></a>1.3.2 端口转发</h3><p>假设<code>hacker</code>位于主机<code>A</code>，主机<code>A</code>可能是攻击者个人电脑，也可能是<code>hacker</code>控制的主机。<code>hacker</code>通过发送恶意邮件的方式给主机<code>B</code>，主机<code>B</code>的用户点开邮件，运行恶意木马导致主机<code>B</code>被感染，就成了我们俗称的肉鸡。虽然已经有木马运行在主机<code>B</code>中，但是由于主机<code>B</code>不在公网中，<code>hacker</code>无法访问到主机<code>B</code>。主机<code>B</code>运行着<code>ssh</code>服务，开放着<code>22</code>端口，<code>hacker</code>如果想在主机<code>A</code>上直接连接主机<code>B</code>的<code>22</code>端口，执行<code>shell</code>命令，这就需要端口转发。<br><img src="/images/%E5%86%85%E7%BD%91/b5dd48d0d0c9c2ab990518d5989856fb.png" alt="b5dd48d0d0c9c2ab990518d5989856fb.png"><br>这时候需要一台主机<code>C</code>，一个公网的<code>VPS</code>，来打通两个机器的通信：</p>
 <ul>
@@ -323,6 +339,58 @@ User-Agent: OpenFetion //可以标识请求者的信息,如什么浏览器类型
 </tbody></table>
 <p><font color=red size=5>个人理解：<strong>Socket</strong>其实并不是一个协议，而是为了方便使用TCP或者UDP而抽象出来的一层，介于应用层和传输层之间的接口，不过也会说它属于传输层协议，而<strong>HTTP</strong>是应用层协议，在渗透中使用Socket5代理是因为<strong>Socket5代理</strong>可以代理的<strong>服务、端口比较多</strong>，而<strong>HTTP</strong>代理相对<strong>比较少</strong>。并不是内网渗透都使用<code>Socket5</code>代理的，一般根据情况而定。</font></p>
 <p><strong>为什么做Socket5代理时，不能ping通对方呢？</strong><br><strong>ping是ICMP协议</strong>，不属于TCP或者UDP的协议，ICMP是网络层与IPV4、6协议（TCP或者UDP）为同层协议，所以在使用Socket5代理时不可以ping通目标的。</p>
+<h2 id="1-5-正向代理与反向代理"><a href="#1-5-正向代理与反向代理" class="headerlink" title="1.5 正向代理与反向代理"></a>1.5 正向代理与反向代理</h2><p><strong>正向代理（forward proxy）</strong>：是一个位于客户端和目标服务器之间的服务器（代理服务器），为了从目标服务器取得内容，客户端向代理服务器发送一个请求并指定目标，然后代理服务器向目标服务器转交请求并将获得的内容返回给客户端。<br>有时候，用户想要访问某国外网站，该网站无法在国内直接访问，但是我们可以访问到一个代理服务器，这个代理服务器可以访问到这个国外网站。这样呢，用户对该国外网站的访问就需要通过代理服务器来转发请求，并且该代理服务器也会将请求的响应再返回给用户。这个上网的过程就是用到了正向代理。<br><img src="/images/%E5%86%85%E7%BD%91/ff6b03d7c57cd230d53c161fd7c59b30.png" alt="ff6b03d7c57cd230d53c161fd7c59b30.png"></p>
+<blockquote>
+<p><strong>举个例子：</strong><br>租房子的时候，一般情况下，我们很难联系到房东，因为有些房东为了图方便，只把自己的房屋信息和钥匙交给中介了。而房客想要租房子，只能通过中介才能联系到房东。而对于房东来说，他可能根本不知道真正要租他的房子的人是谁，他只知道是中介在联系他。</p>
+</blockquote>
+<p>这里面一共有三个角色，租客（用户）、中介（代理服务器）和房东（国外网站，目标服务器）。引入中介（代理服务器）的原因是用户无法联系上房东（用户无法访问国外网站）。</p>
+<p><strong>反向代理（reverse proxy）</strong>：是指以代理服务器来接受internet上的连接请求，然后将请求转发给内部网络上的服务器，并将从服务器上得到的结果返回给internet上请求连接的客户端，此时代理服务器对外就表现为一个反向代理服务器。</p>
+<p><img src="/images/%E5%86%85%E7%BD%91/8a4e70fcf22ba640a8aa54db1db36b71.png" alt="8a4e70fcf22ba640a8aa54db1db36b71.png"></p>
+<blockquote>
+<p>举例子：<br>我们在租房子的过程中，除了有些房源需要通过中介以外，还有一些是可以直接通过房东来租的。用户直接找到房东租房的这种情况就是我们不使用代理直接访问国内的网站的情况。<br>还有一种情况，就是我们以为我们接触的是房东，其实有时候也有可能并非房主本人，有可能是他的亲戚、朋友，甚至是二房东。但是我们并不知道和我们沟通的并不是真正的房东。这种帮助真正的房主租房的二房东其实就是反向代理服务器。这个过程就是反向代理。</p>
+</blockquote>
+<p>对于常用的场景，就是我们在Web开发中用到的负载均衡服务器（二房东），客户端（租客）发送请求到负载均衡服务器（二房东）上，负载均衡服务器（二房东）再把请求转发给一台真正的服务器（房东）来执行，再把执行结果返回给客户端（租客）。</p>
+<h2 id="1-6-用途"><a href="#1-6-用途" class="headerlink" title="1.6 用途"></a>1.6 用途</h2><h3 id="1-6-1-正向代理的用途"><a href="#1-6-1-正向代理的用途" class="headerlink" title="1.6.1 正向代理的用途"></a>1.6.1 正向代理的用途</h3><ul>
+<li>a.突破访问限制</li>
+</ul>
+<p>通过代理服务器，可以突破自身IP访问限制，访问国外网站，教育网等。即，租客可以通过中介，来解决无法联系上房东的问题。</p>
+<ul>
+<li>b.提高访问速度</li>
+</ul>
+<p>通常代理服务器都设置一个较大的硬盘缓冲区，会将部分请求的响应保存到缓冲区中，当其他用户再访问相同的信息时， 则直接由缓冲区中取出信息，传给用户，以提高访问速度。即，中介手里留存了很多房源信息和钥匙，可以直接带租客去看房。</p>
+<ul>
+<li>c.隐藏客户端真实IP</li>
+</ul>
+<p>上网者也可以通过这种方法隐藏自己的IP，免受攻击。即，房东并不知道租客的真实身份。</p>
+<h3 id="1-6-2-反向代理的用途"><a href="#1-6-2-反向代理的用途" class="headerlink" title="1.6.2 反向代理的用途"></a>1.6.2 反向代理的用途</h3><ul>
+<li>a.隐藏服务器真实IP</li>
+</ul>
+<p>使用反向代理，可以对客户端隐藏服务器的IP地址。即，租客并不房东知道的真实身份。</p>
+<ul>
+<li>b.负载均衡</li>
+</ul>
+<p>反向代理服务器可以做负载均衡，根据所有真实服务器的负载情况，将客户端请求分发到不同的真实服务器上。即，二房东发现房主本人很忙，于是找到房主的妻子帮忙处理租房事宜。</p>
+<ul>
+<li>c.提高访问速度</li>
+</ul>
+<p>反向代理服务器可以对于静态内容及短时间内有大量访问请求的动态内容提供缓存服务，提高访问速度。即，二房东同样有房屋信息和钥匙。</p>
+<ul>
+<li>d.提供安全保障</li>
+</ul>
+<p>反向代理服务器可以作为应用层防火墙，为网站提供对基于Web的攻击行为（例如DoS&#x2F;DDoS）的防护，更容易排查恶意软件等。还可以为后端服务器统一提供加密和SSL加速（如SSL终端代理），提供HTTP访问认证等。即，二房东可以有效的保护房东的安全。</p>
+<h2 id="1-7-正向代理和反向代理的区别"><a href="#1-7-正向代理和反向代理的区别" class="headerlink" title="1.7 正向代理和反向代理的区别"></a>1.7 正向代理和反向代理的区别</h2><p>虽然正向代理服务器和反向代理服务器所处的位置都是客户端和真实服务器之间，所做的事情也都是把客户端的请求转发给服务器，再把服务器的响应转发给客户端，但是二者之间还是有一定的差异的。</p>
+<ul>
+<li>a.<strong>正向代理</strong>指一对一或多对一，Server 不知道请求的 Client 都是哪些人。<strong>反向代理</strong>一般是负载均衡的一个原理。按照上面所说，正向代理是一对一或多对一，那么反向代理就是一对多。</li>
+</ul>
+<p><img src="/images/%E5%86%85%E7%BD%91/7ee9209c5803fc7f397f91fbd828f6b4.png" alt="7ee9209c5803fc7f397f91fbd828f6b4.png"><br><img src="/images/%E5%86%85%E7%BD%91/a65d47fa9f89e4f514d4067e1a2a6d17.png" alt="a65d47fa9f89e4f514d4067e1a2a6d17.png"></p>
+<ul>
+<li>b.<strong>正向代理其实是客户端的代理</strong>，帮助客户端访问其无法访问的服务器资源。<strong>反向代理则是服务器的代理</strong>，帮助服务器做负载均衡，安全防护等。</li>
+<li>c.<strong>正向代理一般是客户端架设的</strong>，比如在自己的机器上安装一个代理软件。而<strong>反向代理一般是服务器架设的</strong>，比如在自己的机器集群中部署一个反向代理服务器。</li>
+<li>d.<strong>正向代理中，服务器不知道真正的客户端到底是谁</strong>，以为访问自己的就是真实的客户端。而在<strong>反向代理中，客户端不知道真正的服务器是谁</strong>，以为自己访问的就是真实的客户端。</li>
+<li>e.正向代理和反向代理的作用和目的不同。<strong>正向代理主要是用来解决访问限制问题。而反向代理则是提供负载均衡、安全防护等作用。二者均能提高访问速度。</strong></li>
+</ul>
+<p><font color=red size=5>说白了，正向代理与反向代理的概念是<strong>相对而言的</strong>，正向代理是<strong>客户端为主动发起请求端</strong>，而反向代理是<strong>服务端为主动发起请求端</strong>，一般在内网渗透中我们都是将代理工具的服务端放在攻击机上，导致很多时候使用的是反向代理（不过不能一概而论，看实际情况），而在翻墙时我们是请求外网的网站，自然用的是正向代理。</font></p>
+<p>这里有一篇推荐文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_34240520/article/details/91452339?utm_source=app&app_version=4.16.0&code=app_1562916241&uLinkId=usr1mkqgl919blen">漫话：如何给女朋友解释什么是反向代理？</a></p>
 <h1 id="贰-SSH-隧道"><a href="#贰-SSH-隧道" class="headerlink" title="贰 SSH 隧道"></a>贰 SSH 隧道</h1><h2 id="2-1-介绍"><a href="#2-1-介绍" class="headerlink" title="2.1 介绍"></a>2.1 介绍</h2><p>在内网中几乎所有的<code>linux</code>服务器和网络设备都支持<code>ssh</code>协议。一般情况下，<code>ssh</code>协议是允许通过防火墙和边界设备的，而且<code>ssh</code>协议的传输过程是加密的，所以很难区分合法的<code>ssh</code>会话和攻击者利用其他网络建立的隧道。攻击者就可以使用<code>ssh</code>端口隧道突破防火墙的限制后，建立一些之前无法建立的<code>TCP</code>连接。</p>
 <pre><code class="bash">-C 压缩传输，提高传输速度。
 -f 将 SSH 传输转入后台执行，不占用当前 shell
@@ -464,11 +532,10 @@ shutdown （断开被控机）
 <li>缺点<br><code>ICMP</code>隐蔽传输是无连接的，传输不是很稳定，而且隐蔽通道的带宽很低<br>利用隧道传输时，需要接触更低层次的协议 ，这就需要高级用户权限</li>
 </ul>
 <h2 id="4-2-前提"><a href="#4-2-前提" class="headerlink" title="4.2 前提"></a>4.2 前提</h2><ul>
-<li>拓扑图：<br><img src="/images/%E5%86%85%E7%BD%91/7db7b3af0025daf3ca359b7fdc963f66.png" alt="7db7b3af0025daf3ca359b7fdc963f66.png"></li>
-</ul>
-<p>使用工具：</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/bdamele/icmpsh"><code>icmpsh</code></a>：最后更新于2013年，客户端使用C语言实现，只能运行在目标<code>Windows</code>机器上；而服务端由于已经有<code>C</code>和<code>Perl</code>实现的版本，而且之后又移植到了<code>Python</code>上，因此可以运行在任何平台的攻击者机器中，该工具能通过<code>ICMP</code>协议反弹<code>cmd</code>，不用管理员权限，但反弹回来的<code>cmd</code>极不稳定，加上常年未维护，版本过老，<font color="red">不推荐使用</font>。<br><a href="/tools/%E5%86%85%E7%BD%91/icmpsh-master.zip">icmpsh-master.zip</a></li>
+<li><p>拓扑图：<br><img src="/images/%E5%86%85%E7%BD%91/7db7b3af0025daf3ca359b7fdc963f66.png" alt="7db7b3af0025daf3ca359b7fdc963f66.png"></p>
+</li>
+<li><p>使用工具：<br><a target="_blank" rel="noopener" href="https://github.com/bdamele/icmpsh"><code>icmpsh</code></a>：最后更新于2013年，客户端使用C语言实现，只能运行在目标<code>Windows</code>机器上；而服务端由于已经有<code>C</code>和<code>Perl</code>实现的版本，而且之后又移植到了<code>Python</code>上，因此可以运行在任何平台的攻击者机器中，该工具能通过<code>ICMP</code>协议反弹<code>cmd</code>，不用管理员权限，但反弹回来的<code>cmd</code>极不稳定，加上常年未维护，版本过老，<font color="red">不推荐使用</font>。<br><a href="/tools/%E5%86%85%E7%BD%91/icmpsh-master.zip">icmpsh-master.zip</a></p>
+</li>
 </ul>
 <pre><code class="bash"># 用法
 # git clone https://github.com/inquisb/icmpsh.git
@@ -520,7 +587,7 @@ sudo ./pingtunnel -type server -key 密码
 
 # 注意这里有两个参数需要说明：noprint和nolog两个参数，noprint为调试输出，记录当前连接状况等，nolog为日志输入，将连接状况记录到日志中，如果不需要这两个参数将其置为1即可，实验手册中均置为1
 </code></pre>
-<h2 id="4-3-复现"><a href="#4-3-复现" class="headerlink" title="4.3 复现"></a>4.3 复现</h2><p>这个复现是通过<code>B</code>这个跳板机去实现的<code>A</code>服务<code>C</code>，即<code>A</code>访问<code>C</code>的<code>Web</code>服务，我们将<code>B</code>主机设置为服务端，<code>B</code>是内网的一个机器：</p>
+<h2 id="4-3-复现"><a href="#4-3-复现" class="headerlink" title="4.3 复现"></a>4.3 复现</h2><p>这个复现是通过<code>B</code>这个跳板机去实现的<code>A</code>访问<code>C</code>，即<code>A</code>访问<code>C</code>的<code>Web</code>服务，我们将<code>B</code>主机设置为服务端，<code>B</code>是内网的一个机器：</p>
 <pre><code class="bash">sudo ./pingtunnel -type server -key 1234
 </code></pre>
 <p><img src="/images/%E5%86%85%E7%BD%91/0243211d654493c10182f205b257c719.png" alt="0243211d654493c10182f205b257c719.png"></p>
@@ -536,7 +603,21 @@ sudo ./pingtunnel -type server -key 密码
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qingzhantianxia/article/details/123526939">icmp隧道</a></li>
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/xwj1590/article/details/121782372">icmp端口_icmptunnel搭建icmp隧道——超详细步骤</a></li>
 </ul>
-<h1 id="伍-UDP隧道"><a href="#伍-UDP隧道" class="headerlink" title="伍 UDP隧道"></a>伍 UDP隧道</h1><p>后面有空在写吧，目前还没怎么用过！</p>
+<h1 id="伍-HTTP隧道"><a href="#伍-HTTP隧道" class="headerlink" title="伍 HTTP隧道"></a>伍 HTTP隧道</h1><h2 id="5-1-介绍"><a href="#5-1-介绍" class="headerlink" title="5.1 介绍"></a>5.1 介绍</h2><p><code>HTTP</code>隧道是通过<code>HTTP</code>协议与代理服务器建立连接，把所有要传送的数据全部封装到<code>HTTP</code>协议里进行传送，协议中包含有要连接的远程主机的<code>IP</code>和端口，连接成功之后会返回给客户端<code>200</code>，表示验证通过。当我们获取到一台<code>web</code>主机服务器并且该服务器除了<code>http</code>协议可以出网，其他都不能使用时，我们可以考虑搭建正向的<code>http</code>隧道，通过<code>webshell</code>进行连接。</p>
+<h2 id="5-2-前提"><a href="#5-2-前提" class="headerlink" title="5.2 前提"></a>5.2 前提</h2><ul>
+<li><p>拓扑图：<br><img src="/images/%E5%86%85%E7%BD%91/6f9f3436cb19c266033f17b567cabf64.png" alt="6f9f3436cb19c266033f17b567cabf64.png"></p>
+</li>
+<li><p>使用工具：<a target="_blank" rel="noopener" href="https://github.com/L-codes/Neo-reGeorg">Neo-reGeorg</a>是一个基于<code>http</code>协议的内网穿透神器，也就是我们在获得服务器的<code>webshell</code>后可以通过上传生成好的<code>tunnel</code>来建立<code>sock5</code>连接，通过<code>sock5</code>连接更好的对内网进行横向渗透，是常见的<code>http</code>正向隧道工具，是<code>reGeorg</code>工具的升级版。增加了很多特性，例如像内容加密、避免被检测、请求头定制、响应码定制、支持<code>py3</code>等等。</p>
+</li>
+</ul>
+<h2 id="5-3-复现"><a href="#5-3-复现" class="headerlink" title="5.3 复现"></a>5.3 复现</h2><p>由于没有搭建代理不可访问：<code>192.168.52.143</code><br><img src="/images/%E5%86%85%E7%BD%91/a1c5c927f0781e9e26827096e75ae77d.png" alt="a1c5c927f0781e9e26827096e75ae77d.png"></p>
+<p>在攻击机中，使用<code>py neoreg.py generate -k 123456 -o a</code>将客户端文件生成到<code>a</code>文件夹中，密码为<code>1234566</code>。<br><img src="/images/%E5%86%85%E7%BD%91/b95143fc09334d43a9685b0891f800dd.png" alt="b95143fc09334d43a9685b0891f800dd.png"><br><img src="/images/%E5%86%85%E7%BD%91/5b91023dd2c28e2d12a0b0fb08f61307.png" alt="5b91023dd2c28e2d12a0b0fb08f61307.png"></p>
+<h3 id="6-2-2-上传脚本"><a href="#6-2-2-上传脚本" class="headerlink" title="6.2.2 上传脚本"></a>6.2.2 上传脚本</h3><p>将生成好的脚本上传到受害机中。注意这里上传的目录一定要能访问到。<br><img src="/images/%E5%86%85%E7%BD%91/910f9defb67ebb19250d9e0c71058c62.png" alt="910f9defb67ebb19250d9e0c71058c62.png"><br>使用攻击机浏览器探测一下，确认可以访问。<br><img src="/images/%E5%86%85%E7%BD%91/f083d40e3f08f5ee5b254096d0ff3933.png" alt="f083d40e3f08f5ee5b254096d0ff3933.png"><br>在攻击机上输入<code>py neoreg.py -k 123456 -u http://192.168.0.192/tunnel.php</code>。<br><img src="/images/%E5%86%85%E7%BD%91/dee051026c5336fdac79a409a1f6e804.png" alt="dee051026c5336fdac79a409a1f6e804.png"><br>根据提示我们需要使用<code>socks5</code>协议连接<code>127.0.0.1:1080</code>，URL为<code>http://192.168.106.129/tunnel.php</code>。<br>在攻击机火狐浏览器中，添加代理插件，修改参数，进行访问。<br><img src="/images/%E5%86%85%E7%BD%91/2ef70134a4b41a76e85e3fd41b763d82.png" alt="2ef70134a4b41a76e85e3fd41b763d82.png"><br><img src="/images/%E5%86%85%E7%BD%91/b1ffa82dacdc8522e3d02ea6ca0acfa9.png" alt="b1ffa82dacdc8522e3d02ea6ca0acfa9.png"></p>
+<h2 id="5-4-参考"><a href="#5-4-参考" class="headerlink" title="5.4 参考"></a>5.4 参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/L-codes/Neo-reGeorg">Neo-reGeorg</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.naraku.cn/posts/82.html">实习记录(一) - 内网渗透之Neo-reGeorg</a></li>
+</ul>
+<h1 id="陆-小结"><a href="#陆-小结" class="headerlink" title="陆 小结"></a>陆 小结</h1><p>当然还有<code>TCP</code>、<code>UDP</code>、<code>Socket</code>隧道等，这些隧道属于使用场景较广的隧道，很多时候我们搭建的都是<code>Socket</code>隧道，它可以包装很多中协议进行通信，同时支持该隧道的工具也很多，而<code>TCP</code>隧道算是一个大类，包含<code>http</code>隧道、<code>ssh</code>隧道等，而<code>UDP</code>隧道也是大类，包含<code>DNS</code>隧道，故这里不做过多介绍。不管是平时的工作还是做内网渗透，都会用到隧道技术，隧道技术并不仅限于在特定的环境下使用，而是应该将其灵活运用。</p>
 
         </div>
         
@@ -612,7 +693,7 @@ sudo ./pingtunnel -type server -key 密码
     <div id="card-div">
         <div id="toc" class="toc-article">
             <strong class="toc-title">文章目录</strong>
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A3%B9-%E5%86%85%E7%BD%91%E4%BB%A3%E7%90%86%E4%B8%8E%E8%BD%AC%E5%8F%91%E6%8A%80%E5%B7%A7"><span class="toc-text">壹 内网代理与转发技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E6%A6%82%E5%BF%B5"><span class="toc-text">1.1 概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E5%86%85%E7%BD%91%E4%B8%BB%E6%9C%BA%E6%89%80%E6%9C%89%E5%8F%AF%E8%83%BD%E7%9A%84%E5%87%BA%E7%BD%91%E6%96%B9%E5%BC%8F"><span class="toc-text">1.2 内网主机所有可能的出网方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-1-%E5%85%81%E8%AE%B8ICMP%E5%8D%8F%E8%AE%AE%E5%87%BA%E7%BD%91"><span class="toc-text">1.2.1 允许ICMP协议出网</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-2-%E5%85%81%E8%AE%B8%E7%89%B9%E5%AE%9A%E7%9A%84TCP%E6%88%96UDP%E5%8D%8F%E8%AE%AE%E7%AB%AF%E5%8F%A3%E5%87%BA%E7%BD%91"><span class="toc-text">1.2.2 允许特定的TCP或UDP协议端口出网</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-3-%E5%85%81%E8%AE%B8%E7%89%B9%E5%AE%9A%E7%9A%84%E5%BA%94%E7%94%A8%E5%B1%82%E5%8D%8F%E8%AE%AE%E5%87%BA%E7%BD%91%EF%BC%88%E6%AF%94%E5%A6%82HTTP%E3%80%81SSH%E3%80%81DNS%E7%AD%89%E5%BA%94%E7%94%A8%E5%B1%82%E5%8D%8F%E8%AE%AE%EF%BC%89"><span class="toc-text">1.2.3 允许特定的应用层协议出网（比如HTTP、SSH、DNS等应用层协议）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-3-1-DNS%E9%9A%A7%E9%81%93"><span class="toc-text">1.2.3.1 DNS隧道</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-3-2-HTTP%E9%9A%A7%E9%81%93"><span class="toc-text">1.2.3.2 HTTP隧道</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-%E7%AB%AF%E5%8F%A3%E6%98%A0%E5%B0%84%E5%92%8C%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91"><span class="toc-text">1.3 端口映射和端口转发</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-1-%E7%AB%AF%E5%8F%A3%E6%98%A0%E5%B0%84"><span class="toc-text">1.3.1 端口映射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-2-%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91"><span class="toc-text">1.3.2 端口转发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-3-%E5%8C%BA%E5%88%AB"><span class="toc-text">1.3.3 区别</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-HTTP%E3%80%81Socket4%E3%80%81Socket5%E4%BB%A3%E7%90%86%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">1.4 HTTP、Socket4、Socket5代理的区别</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%B0-SSH-%E9%9A%A7%E9%81%93"><span class="toc-text">贰 SSH 隧道</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E4%BB%8B%E7%BB%8D"><span class="toc-text">2.1 介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E5%89%8D%E6%8F%90"><span class="toc-text">2.2 前提</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E5%A4%8D%E7%8E%B0"><span class="toc-text">2.3 复现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-%E5%8F%82%E8%80%83"><span class="toc-text">2.4 参考</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%81-DNS%E9%9A%A7%E9%81%93"><span class="toc-text">叁 DNS隧道</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E4%BB%8B%E7%BB%8D"><span class="toc-text">3.1 介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E5%89%8D%E6%8F%90"><span class="toc-text">3.2 前提</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-%E5%A4%8D%E7%8E%B0"><span class="toc-text">3.3 复现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4-%E5%8F%82%E8%80%83"><span class="toc-text">3.4 参考</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%82%86-ICMP%E9%9A%A7%E9%81%93"><span class="toc-text">肆 ICMP隧道</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-%E4%BB%8B%E7%BB%8D"><span class="toc-text">4.1 介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-%E5%89%8D%E6%8F%90"><span class="toc-text">4.2 前提</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-%E5%A4%8D%E7%8E%B0"><span class="toc-text">4.3 复现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-4-%E5%8F%82%E8%80%83"><span class="toc-text">4.4 参考</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BC%8D-UDP%E9%9A%A7%E9%81%93"><span class="toc-text">伍 UDP隧道</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A3%B9-%E5%86%85%E7%BD%91%E4%BB%A3%E7%90%86%E4%B8%8E%E8%BD%AC%E5%8F%91%E6%8A%80%E5%B7%A7"><span class="toc-text">壹 内网代理与转发技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E6%A6%82%E5%BF%B5"><span class="toc-text">1.1 概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E5%86%85%E7%BD%91%E4%B8%BB%E6%9C%BA%E6%89%80%E6%9C%89%E5%8F%AF%E8%83%BD%E7%9A%84%E5%87%BA%E7%BD%91%E6%96%B9%E5%BC%8F"><span class="toc-text">1.2 内网主机所有可能的出网方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-1-%E5%85%81%E8%AE%B8ICMP%E5%8D%8F%E8%AE%AE%E5%87%BA%E7%BD%91"><span class="toc-text">1.2.1 允许ICMP协议出网</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-2-%E5%85%81%E8%AE%B8%E7%89%B9%E5%AE%9A%E7%9A%84TCP%E6%88%96UDP%E5%8D%8F%E8%AE%AE%E7%AB%AF%E5%8F%A3%E5%87%BA%E7%BD%91"><span class="toc-text">1.2.2 允许特定的TCP或UDP协议端口出网</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-3-%E5%85%81%E8%AE%B8%E7%89%B9%E5%AE%9A%E7%9A%84%E5%BA%94%E7%94%A8%E5%B1%82%E5%8D%8F%E8%AE%AE%E5%87%BA%E7%BD%91%EF%BC%88%E6%AF%94%E5%A6%82HTTP%E3%80%81SSH%E3%80%81DNS%E7%AD%89%E5%BA%94%E7%94%A8%E5%B1%82%E5%8D%8F%E8%AE%AE%EF%BC%89"><span class="toc-text">1.2.3 允许特定的应用层协议出网（比如HTTP、SSH、DNS等应用层协议）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-3-1-DNS%E9%9A%A7%E9%81%93"><span class="toc-text">1.2.3.1 DNS隧道</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-3-2-HTTP%E9%9A%A7%E9%81%93"><span class="toc-text">1.2.3.2 HTTP隧道</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-4-%E9%80%9A%E8%BF%87%E5%B7%A5%E5%85%B7%E6%8E%A2%E6%B5%8B%E5%87%BA%E7%BD%91%E6%83%85%E5%86%B5"><span class="toc-text">1.2.4 通过工具探测出网情况</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-%E7%AB%AF%E5%8F%A3%E6%98%A0%E5%B0%84%E5%92%8C%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91"><span class="toc-text">1.3 端口映射和端口转发</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-1-%E7%AB%AF%E5%8F%A3%E6%98%A0%E5%B0%84"><span class="toc-text">1.3.1 端口映射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-2-%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91"><span class="toc-text">1.3.2 端口转发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-3-%E5%8C%BA%E5%88%AB"><span class="toc-text">1.3.3 区别</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-HTTP%E3%80%81Socket4%E3%80%81Socket5%E4%BB%A3%E7%90%86%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">1.4 HTTP、Socket4、Socket5代理的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-5-%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="toc-text">1.5 正向代理与反向代理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-6-%E7%94%A8%E9%80%94"><span class="toc-text">1.6 用途</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-6-1-%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86%E7%9A%84%E7%94%A8%E9%80%94"><span class="toc-text">1.6.1 正向代理的用途</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-6-2-%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E7%9A%84%E7%94%A8%E9%80%94"><span class="toc-text">1.6.2 反向代理的用途</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-7-%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86%E5%92%8C%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">1.7 正向代理和反向代理的区别</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%B0-SSH-%E9%9A%A7%E9%81%93"><span class="toc-text">贰 SSH 隧道</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E4%BB%8B%E7%BB%8D"><span class="toc-text">2.1 介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E5%89%8D%E6%8F%90"><span class="toc-text">2.2 前提</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E5%A4%8D%E7%8E%B0"><span class="toc-text">2.3 复现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-%E5%8F%82%E8%80%83"><span class="toc-text">2.4 参考</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%81-DNS%E9%9A%A7%E9%81%93"><span class="toc-text">叁 DNS隧道</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E4%BB%8B%E7%BB%8D"><span class="toc-text">3.1 介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E5%89%8D%E6%8F%90"><span class="toc-text">3.2 前提</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-%E5%A4%8D%E7%8E%B0"><span class="toc-text">3.3 复现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4-%E5%8F%82%E8%80%83"><span class="toc-text">3.4 参考</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%82%86-ICMP%E9%9A%A7%E9%81%93"><span class="toc-text">肆 ICMP隧道</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-%E4%BB%8B%E7%BB%8D"><span class="toc-text">4.1 介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-%E5%89%8D%E6%8F%90"><span class="toc-text">4.2 前提</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-%E5%A4%8D%E7%8E%B0"><span class="toc-text">4.3 复现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-4-%E5%8F%82%E8%80%83"><span class="toc-text">4.4 参考</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BC%8D-HTTP%E9%9A%A7%E9%81%93"><span class="toc-text">伍 HTTP隧道</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-%E4%BB%8B%E7%BB%8D"><span class="toc-text">5.1 介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2-%E5%89%8D%E6%8F%90"><span class="toc-text">5.2 前提</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-3-%E5%A4%8D%E7%8E%B0"><span class="toc-text">5.3 复现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-2-%E4%B8%8A%E4%BC%A0%E8%84%9A%E6%9C%AC"><span class="toc-text">6.2.2 上传脚本</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-4-%E5%8F%82%E8%80%83"><span class="toc-text">5.4 参考</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%99%86-%E5%B0%8F%E7%BB%93"><span class="toc-text">陆 小结</span></a></li></ol>
         </div>    
     </div>
      -->
@@ -699,7 +780,7 @@ sudo ./pingtunnel -type server -key 密码
         <script>
             var v = new Viewer({
                 basePath: "/model",
-                role: "bisimai_2",
+                role: "huonululu_3",
                 mobile: true,
             });
         </script>
