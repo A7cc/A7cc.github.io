@@ -115,10 +115,11 @@
     top: 5vh;
     position: sticky;
 }
-#article-card .card-cls {
-    box-shadow: 0 0 20px #d9d9d980;
-}
 
+#home-card .card-cls,
+#article-card .card-cls {
+    box-shadow: 0 0 20px #7c7c7c80;
+}
 #home-card #card-div,
 #article-card #card-div {
     overflow: auto;
@@ -133,7 +134,6 @@
 #article-card #card-div .avatar {
     padding: 20px 0 0 0;
     border-radius: 50%;
-    height: 140px;
     margin: auto;
     text-align: center;
     width: 140px;
