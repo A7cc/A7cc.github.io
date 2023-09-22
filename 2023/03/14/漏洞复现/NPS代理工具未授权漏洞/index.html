@@ -218,17 +218,17 @@
                 
                 <span class="tag">
                     
-                    <a href="/tags/%E4%BB%A3%E7%90%86/" style="color: #ffa2c4">代理</a>
+                    <a href="/tags/%E4%BB%A3%E7%90%86/" style="color: #ff7d73">代理</a>
                 </span>
                 
                 <span class="tag">
                     
-                    <a href="/tags/%E5%8F%8D%E5%88%B6/" style="color: #ff7d73">反制</a>
+                    <a href="/tags/%E5%8F%8D%E5%88%B6/" style="color: #00bcd4">反制</a>
                 </span>
                 
                 <span class="tag">
                     
-                    <a href="/tags/%E6%9C%AA%E6%8E%88%E6%9D%83/" style="color: #00a596">未授权</a>
+                    <a href="/tags/%E6%9C%AA%E6%8E%88%E6%9D%83/" style="color: #03a9f4">未授权</a>
                 </span>
                 
             </span>
@@ -302,7 +302,7 @@ except BaseException as err:
     
     <div id="article-card">
         <div id="card-style">
-    <div id="card-div">
+    <div id="card-div" class="card-cls">
         <div class="avatar">
             <img src="/images/f6e2b991f74bfd7b88c3ab1a3d513b94.jpg" alt="avatar" />
         </div>
@@ -374,6 +374,7 @@ except BaseException as err:
 <div id="card-style-fun">
     
     <br />
+    <!-- 今日诗句 -->
     <div id="card-div">
         <div class="good-sentence">
             <div class="toolio">
@@ -386,6 +387,11 @@ except BaseException as err:
                 <div id="sentenceid" onload="getsentence();"></div>
             </div>
         </div>
+    </div>
+    <br />
+    <!-- 日期信息 -->
+    <div id="card-div">
+        <img src="https://tool.lu/netcard/">
     </div>
     
 </div>
@@ -452,7 +458,7 @@ except BaseException as err:
         <script>
             var v = new Viewer({
                 basePath: "/model",
-                role: "beierfasite_2",
+                role: "heitaizi_2",
                 mobile: true,
             });
         </script>

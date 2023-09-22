@@ -115,17 +115,19 @@
     top: 5vh;
     position: sticky;
 }
+#article-card .card-cls {
+    box-shadow: 0 0 20px #d9d9d980;
+}
 
 #home-card #card-div,
 #article-card #card-div {
     overflow: auto;
     width: 300px;
-    background: #fff;
+    background: #f6f8fa;
     border-radius: 10px;
     text-align: center;
     position: sticky;
     border: none;
-    box-shadow: 0 0 20px #d9d9d980;
 }
 #home-card #card-div .avatar,
 #article-card #card-div .avatar {
