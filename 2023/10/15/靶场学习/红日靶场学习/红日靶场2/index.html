@@ -1,0 +1,574 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <head>
+        <meta charset="utf-8" />
+        <title>红日靶场2学习 | 小C♥天天</title>
+        <meta name="author" content="小C&天天" />
+        <meta name="description" content="^v^" />
+        <meta name="keywords" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <link rel="icon" href="/images/icon.jpg" />
+        <link rel="preconnect" href="https://cdn.staticfile.org" />
+<script src="https://cdn.staticfile.org/vue/3.3.4/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/6.4.0/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.loli.net" />
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" />
+<script> const mixins = {}; </script>
+
+<!-- 兼容不同版本的浏览器 -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<!-- 高亮代码 -->
+<script src="https://cdn.staticfile.org/highlight.js/11.8.0/highlight.min.js"></script>
+<script src="https://cdn.staticfile.org/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/11.8.0/styles/github.min.css"/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<!-- 使用 KaTeX 渲染数学公式 -->
+<script src="https://cdn.staticfile.org/KaTeX/0.16.8/katex.min.js"></script>
+<script src="https://cdn.staticfile.org/KaTeX/0.16.8/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/KaTeX/0.16.8/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<!-- 简单的点击图片放大缩小的预览 -->
+<script src="/js/lib/preview.js"></script>
+
+
+<!-- 看板娘 -->
+<script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+
+
+
+<!-- 评论设置 -->
+
+<script
+    src="https://giscus.app/client.js"
+    data-repo="A7cc/giscus-comments"
+    data-repo-id="R_kgDOKKSvfw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOKKSvf84CYyp2"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="https://static-argvchs.netlify.app/css/giscus.css"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+<script src="https://cdn.bootcdn.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<link rel="stylesheet" href="/css/main.css" />
+
+    <meta name="generator" content="Hexo 6.2.0"></head>
+    <body>
+        <div id="layout">
+            <!-- 页面加载 -->
+            <transition name="fade">
+                <div id="loading" v-show="loading">
+                    <div id="loading-circle">
+                        <h2>LOADING</h2>
+                        <p>正在加载</p>
+                        <img src="/images/afde9fa65a5742a90b51d6e1211e841e.gif" />
+                    </div>
+                </div>
+            </transition>
+            <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>小C♥天天</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;文章</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+        <a href="/tools">
+            <i class="fa-solid fa-tools fa-fw"></i>
+            <span>&ensp;工具</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;小C♥天天</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                    </div>
+                </a>
+                
+                <a href="/tools">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tools fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">工具</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+            <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+                <div id="article-posts-wrap" true ref="homePostsWrap">
+    <div class="article">
+        <div>
+            <h1>红日靶场2学习</h1>
+        </div>
+        <div class="info">
+            <span class="date">
+                <span class="icon">
+                    <i class="fa-solid fa-calendar fa-fw"></i>
+                </span>
+                2023/10/15
+            </span>
+            
+            <span class="category">
+                <a href="/categories/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA/">
+                    <span class="icon">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </span>
+                    红日靶场
+                </a>
+            </span>
+            
+            
+            <span class="tags">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                
+                
+                <span class="tag">
+                    
+                    <a href="/tags/%E9%9D%B6%E6%9C%BA/" style="color: #00a596">靶机</a>
+                </span>
+                
+                <span class="tag">
+                    
+                    <a href="/tags/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA/" style="color: #ff7d73">红日靶场</a>
+                </span>
+                
+            </span>
+            
+        </div>
+        
+        <div class="content" v-pre>
+            <h1 id="壹-介绍"><a href="#壹-介绍" class="headerlink" title="壹 介绍"></a>壹 介绍</h1><p>靶场名字：红日靶场2</p>
+<p>靶场URL：<a target="_blank" rel="noopener" href="http://vulnstack.qiyuanxuetang.net/vuln/detail/3/">传送门</a></p>
+<span id="more"></span>
+<p>靶场说明：</p>
+<pre><code class="bash">靶场有三台机器，属于(de1ay.com)域：
+1台Web服务器
+    - 2张网卡（一个内网和一个外网），这个机器有个坑需要先恢复快照3
+    - OS：Windows 2008(64)
+    - 应用：Weblogic 10.3.6、MSSQL 2008、360杀软
+    - 使用账户：WEB\de1ay 密码：1qaz@WSX 登录，登录后会失效，后面修改为Demo.com@0（该密码需要和域管相同）
+1台DC域控
+    - 1张内网网卡
+    - OS：Windows 2012(64)
+    - 应用：AD域
+    - 使用administrator/1qaz@WSX登录，登录后会失效，后面修改为Demo.com@0
+1台PC域内机器
+    - 2张网卡（一个内网和一个外网）
+    - OS：Windows 7(32)
+    - 应用：360杀软
+    - 使用administrator/1qaz@WSX登录，登录后会失效，后面修改为Demo.com@0
+
+注意：
+- 外网网段根据实际情况，但是被靶场作者写死为192.168.111.201，需要自行修改dhcp获取，本次的IP段为： 192.168.1.0/24
+- 内网网段为：10.10.10.0/24
+- WEB服务器需要进入目录C:\Oracle\Middleware\user_projects\domains\base_domain，运行statweblogic服务，以管理员身份运行
+
+知识：
+- Bypass UAC
+- Windows系统NTLM获取（理论知识：Windows认证）
+- Access Token利用（MSSQL利用）
+- WMI利用
+- 网页代理，二层代理，特殊协议代理（DNS，ICMP）
+- 域内信息收集
+- 域漏洞利用：SMB relay，EWS relay，PTT(PTC)，MS14-068，GPP，SPN利用
+- 域凭证收集
+- 后门技术（黄金票据/白银票据/Sid History/MOF
+</code></pre>
+<p>拓扑图：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA2/image-20231015085443672.png" alt="image-20231015085443672"></p>
+<h1 id="贰-攻略"><a href="#贰-攻略" class="headerlink" title="贰 攻略"></a>贰 攻略</h1><p>先用<code>fscan</code>进行信息收集：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA2/image-20231015090423671.png" alt="image-20231015090423671"></p>
+<p>发现<code>192.168.1.12</code>存在<code>weblogic</code>和<code>ms17010</code>，并且<code>weblogic</code>存在<code>CVE_2016_0638</code>漏洞：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA2/image-20231015085556890.png" alt="image-20231015085556890"></p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA2/image-20231015085656816.png" alt="image-20231015085656816"></p>
+<p>查看是否有杀软：<code>tasklist /SVC</code></p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA2/image-20231015085748784.png" alt="image-20231015085748784"></p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA2/image-20231015085915298.png" alt="image-20231015085915298"></p>
+<p>存在<code>360</code>杀软，使用工具免杀一下<code>webshell</code>：<br><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA2/image-20231014111738672.png" alt="image-20231014111738672"></p>
+<p>上传<code>webshell</code>，路径在<code>C:/Oracle/Middleware/user_projects/domains/base_domain/servers/AdminServer/tmp/_WL_internal/wls-wsat/54p17w/war/shell.jsp</code>下：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA2/image-20231015090035022.png" alt="image-20231015090035022"></p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA2/image-20231015090306007.png" alt="image-20231015090306007"></p>
+<p>信息收集：</p>
+<pre><code class="bash">ipconfig /all
+- 存在域环境 de1ay.com
+- 192.168.1.12
+- 10.10.10.80
+</code></pre>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA2/image-20231014112210660.png" alt="image-20231014112210660"></p>
+<p>上CS，因为机器有<code>360</code>杀软，需要做免杀：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA2/image-20231015100052528.png" alt="image-20231015100052528"></p>
+<p>尝试提权，使用<code>Sweetpotato</code>提权：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA2/image-20231015100303000.png" alt="image-20231015100303000"></p>
+<p>遇事不决先抓取密码：</p>
+<ul>
+<li>logonpasswords</li>
+</ul>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA2/image-20231015100525586.png" alt="image-20231015100525586"></p>
+<ul>
+<li>hashdump</li>
+</ul>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA2/image-20231015100622022.png" alt="image-20231015100622022"></p>
+<p>查看凭据：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA2/image-20231015100633144.png" alt="image-20231015100633144"></p>
+<p>这时候可以尝试远程把<code>360</code>关了：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA2/image-20231015102145638.png" alt="image-20231015102145638"></p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA2/image-20231015102235129.png" alt="image-20231015102235129"></p>
+<p>接着进一步信息收集，上<code>fscan</code>扫描：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA2/image-20231015102550797.png" alt="image-20231015102550797"></p>
+<p>用<code>fscan</code>扫描，得到的机器，不能加入到<code>cs</code>中，所以尝试<code>cs</code>的扫描功能：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA2/image-20231015104405868.png" alt="image-20231015104405868"></p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA2/image-20231015104417749.png" alt="image-20231015104417749"></p>
+<p>查看域环境信息：</p>
+<ul>
+<li>查看域用户：<code>net user /domain</code></li>
+</ul>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA2/image-20231015102924767.png" alt="image-20231015102924767"></p>
+<ul>
+<li>查看域管：<code>net group &quot;domain admins&quot; /domain</code></li>
+</ul>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA2/image-20231015103124810.png" alt="image-20231015103124810"></p>
+<ul>
+<li>查看域内主机：<code>net group &quot;domain computers&quot; /domain</code></li>
+</ul>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA2/image-20231015103405840.png" alt="image-20231015103405840"></p>
+<ul>
+<li>查看域控：<code>net  group &quot;domain controllers&quot; /domain</code></li>
+</ul>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA2/image-20231015103628391.png" alt="image-20231015103628391"></p>
+<p>确认<code>DC</code>域控：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA2/image-20231015104114741.png" alt="image-20231015104114741"></p>
+<p>其实前面已经可以确定，有另外两台机器，一台域控，一台域内用户，尝试经典的<code>psh</code>，这里使用密码喷洒尝试其他机器是否可以登录，这里需要注意由于是内网机器需要设置<code>SMB</code>正向连接监听器：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA2/image-20231015104944757.png" alt="image-20231015104944757"></p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA2/image-20231015105100282.png" alt="image-20231015105100282"></p>
+<p>继续收集信息（票据、<code>ip</code>等）：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA2/image-20231015105334720.png" alt="image-20231015105334720"></p>
+<p>当然我们也可以用<code>Administrator</code>去喷洒所有域内用户，需要用<code>psexec_psh</code>：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA2/image-20231015110629248.png" alt="image-20231015110629248"></p>
+<p>拿下<code>PC</code>主机：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA2/image-20231015110910568.png" alt="image-20231015110910568"></p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA2/image-20231015110937435.png" alt="image-20231015110937435"></p>
+
+        </div>
+        
+        
+        <div id="comment">
+            <div id="giscus-container" class="giscus"></div>
+        </div>
+        
+    </div>
+    
+    <div id="article-card">
+        <div id="card-style">
+    <div id="card-div" class="card-cls">
+        <div class="avatar">
+            <img src="/images/f6e2b991f74bfd7b88c3ab1a3d513b94.jpg" alt="avatar" />
+        </div>
+        <div class="name">小C&amp;天天</div>
+        <div class="description">
+            <p>修学储能 先博后渊</p>
+
+        </div>
+        
+        <div class="icon-links">
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://github.com/A7cc">
+                    <i class="fa-brands fa-github fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.qq.com/">
+                    <i class="fa-brands fa-qq fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.weibo.com/">
+                    <i class="fa-brands fa-weibo fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://google.com/">
+                    <i class="fa-brands fa-google fa-fw"></i>
+                </a>
+            </span>
+            
+        </div>
+        
+        
+        <div class="friend-links">
+            
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="http://www.wgs6km.top/">kyrieee</a>
+            </span>
+            
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="https://tonyd0g.gitee.io/">tonyd0g</a>
+            </span>
+            
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="https://ruyueattention.github.io/">ruyueattention</a>
+            </span>
+            
+        </div>
+        
+    </div>
+    
+    <!-- <br /> -->
+    <!-- 目录 -->
+    <!-- 
+    <div id="card-div">
+        <div id="toc" class="toc-article">
+            <strong class="toc-title">文章目录</strong>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A3%B9-%E4%BB%8B%E7%BB%8D"><span class="toc-text">壹 介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%B0-%E6%94%BB%E7%95%A5"><span class="toc-text">贰 攻略</span></a></li></ol>
+        </div>    
+    </div>
+     -->
+</div>
+
+<div id="card-style-fun">
+    
+    <br />
+    <!-- 今日诗句 -->
+    <div id="card-div">
+        <div class="good-sentence">
+            <div class="toolio">
+                <div class="circle"><span class="red"></span></div>
+                <div class="circle"><span class="yellow"></span></div>
+                <div class="circle"><span class="green"></span></div>
+                <div class="circle"><span class="text">今日诗句</span></div>
+            </div>
+            <div class="sentence">
+                <div id="sentenceid" onload="getsentence();"></div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <!-- 日期信息 -->
+    <div id="card-div">
+        <img src="//api.vvhan.com/api/ipCard?tip=A7cc" width="300" height="180">
+    </div>
+    
+</div>
+
+
+
+    </div>
+    
+</div>
+                <!-- 页脚 -->
+                <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+            <script>
+                var now = new Date(); 
+                function createtime() { 
+                    var grt= new Date("07/10/2022 00:00:00");
+                    now.setTime(now.getTime()+250); 
+                    days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+                    hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+                    if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+                    mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+                    seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+                    snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+                    document.getElementById("timeDate").innerHTML = "已运行 "+dnum+" 天 "; 
+                    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+                } 
+            setInterval("createtime()",250);
+            </script>
+        </div>
+        <div>
+            &copy;
+            2022 - 2023 小C♥天天
+            <span class="footer-icon">
+                <i class="fa-brands fa-github fa-fw"></i>
+            </span>
+            &commat;小C&amp;天天
+        </div>
+        <div>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX</a> 
+        </div>
+        
+    </div>
+</footer>
+
+            </div>
+            <!-- 简单的点击图片放大缩小的预览 -->
+            
+            <div name="fade">
+                <div id="preview" ref="preview" v-show="previewShow">
+                    <img id="preview-content" ref="previewContent" />
+                </div>
+            </div>
+            
+        </div>
+        <!-- 看板娘 -->
+        
+        <div id="L2dCanvas"></div>
+        <script src="/js/lib/live2d.min.js"></script>
+        <!-- 设置随机模板 -->
+        
+        <script>
+            var v = new Viewer({
+                basePath: "/model",
+                role: "tianlangxing_3",
+                mobile: true,
+            });
+        </script>
+        
+        <!-- 诗句 -->
+        
+        <script>
+            // // 每隔10分钟执行一次getsentence这个函数
+            window.setInterval(getsentence, 100*60*5);
+            function getsentence() {
+                // 这里没有考虑IE浏览器，如果需要择if判断加
+                var xhr = new XMLHttpRequest();  
+                xhr.open('GET', "https://zj.v.api.aa1.cn/api/wenan-shici/?type=json",true);
+                xhr.send(JSON.stringify(null));
+                xhr.onreadystatechange = function () {
+                    if (xhr.status === 200 && xhr.readyState === 4) {
+                        //js处理数据
+                        // xhr.responseText.match(/content":(".+?")/g)
+                        getdata = JSON.parse(xhr.responseText).msg;
+                    }else{
+                        getdata = "长风破浪会有时，直挂云帆济沧海。——李白《行路难》";
+                    }
+                    document.getElementById("sentenceid").innerHTML = getdata;
+                }
+            }
+            window.onload = getsentence;
+        </script>
+        
+        <!-- 点击 -->
+        <script>
+            let body = document.getElementsByTagName('body')[0];
+            body.addEventListener('click', (e) => {
+                let contentArr = ['✊','😘','😍','😊','😭','😡','😋','👍','🐷','😱','💷','💵','×','🆗','№','⭐','🌙','♥','💴','☀','🐎','🐂','🐏','√'];
+                let randomNum = function (n) {
+                    return Math.floor(Math.random() * n)
+                }
+                let span = document.createElement('span');
+                span.innerHTML = `${contentArr[randomNum(contentArr.length)]}`;
+                span.style.color = `rgb(${randomNum(256)},${randomNum(256)},${randomNum(256)})`;
+                span.style.position = 'absolute';
+                span.style.top = `${e.pageY}px`;
+                span.style.left = `${e.pageX}px`;
+                span.style.transition = 'all 1s ease';
+                span.style.zIndex = 20000;
+                body.appendChild(span)
+                setTimeout(()=>{
+                    span.style.top = span.offsetTop - 100 + 'px';
+                    span.style.opacity = 0;
+                    setTimeout(()=>{span.remove()},700)
+                },0)
+            })
+        </script>
+        <!-- 流星背景特效 -->
+        
+        <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/meteorbackground.js"></script>
+        
+        <script src="/js/main.js"></script>
+    </body>
+</html>

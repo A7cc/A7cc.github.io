@@ -3,7 +3,7 @@
 <html lang="zh-Hans">
     <head>
         <meta charset="utf-8" />
-        <title>MoneyBox靶机学习 | 小C♥天天</title>
+        <title>DRIFTINGBLUES靶机学习 | 小C♥天天</title>
         <meta name="author" content="小C&天天" />
         <meta name="description" content="^v^" />
         <meta name="keywords" content="" />
@@ -192,7 +192,7 @@
                 <div id="article-posts-wrap" true ref="homePostsWrap">
     <div class="article">
         <div>
-            <h1>MoneyBox靶机学习</h1>
+            <h1>DRIFTINGBLUES靶机学习</h1>
         </div>
         <div class="info">
             <span class="date">
@@ -223,51 +223,62 @@
                     <a href="/tags/%E9%9D%B6%E6%9C%BA/" style="color: #ffa2c4">靶机</a>
                 </span>
                 
+                <span class="tag">
+                    
+                    <a href="/tags/vulnhub/" style="color: #00bcd4">vulnhub</a>
+                </span>
+                
             </span>
             
         </div>
         
         <div class="content" v-pre>
-            <h1 id="壹-题目信息"><a href="#壹-题目信息" class="headerlink" title="壹 题目信息"></a>壹 题目信息</h1><p>名字：<code>MoneyBox</code><br>靶机地址：<a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/moneybox-1,653/">传送门</a><br>靶机<code>IP</code>：<code>192.168.239.146</code></p>
+            <h1 id="壹-题目信息"><a href="#壹-题目信息" class="headerlink" title="壹 题目信息"></a>壹 题目信息</h1><p>名字：<code>DRIFTINGBLUES</code><br>靶机地址：<a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/driftingblues-3,656/">传送门</a><br>靶机<code>IP</code>：<code>192.168.239.149</code></p>
 <span id="more"></span>
 
-<h1 id="贰-解题"><a href="#贰-解题" class="headerlink" title="贰 解题"></a>贰 解题</h1><p>直接扫描端口服务：</p>
-<pre><code class="bash">nmap -sn 192.168.239.1/24
-nmap -sS -p 1-65535 -v 192.168.239.146
+<h1 id="贰-解题"><a href="#贰-解题" class="headerlink" title="贰 解题"></a>贰 解题</h1><p>扫描端口：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/DRIFTINGBLUES%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221107181316505.png" alt="image-20221107181316505"></p>
+<p>访问80，发现没有可用，最多有几个人名：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/DRIFTINGBLUES%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221107181659095.png" alt="image-20221107181659095"></p>
+<p>接着扫描目录：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/DRIFTINGBLUES%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221107181637965.png" alt="image-20221107181637965"></p>
+<p>逐个访问，发现：</p>
+<pre><code class="bash">/phpmyadmin/是一长串abc，没什么利用，待定
+/privacy/是一长串ab，没什么利用，待定
+/secret/是一长串a，没什么利用，待定
+/wp-admin/是wp框架，但是没有图片，待定
+/robots.txt，给了一个路径/eventadmins
 </code></pre>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/MoneyBox%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102112147750.png" alt="image-20221102112147750"></p>
-<p>存在web和ftp服务，首先尝试从web突破：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/MoneyBox%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102112605119.png" alt="image-20221102112605119"></p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/MoneyBox%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102112643971.png" alt="image-20221102112643971"></p>
-<p>访问<code>http://192.168.239.146/blogs/</code>：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/MoneyBox%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102112715539.png" alt="image-20221102112715539"></p>
-<p>在前端源代码中，发现问题<code>the hint is the another secret directory is S3cr3t-T3xt</code>：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/MoneyBox%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102112901611.png" alt="image-20221102112901611"></p>
-<p>根据线索继续搜索，发现<code>..Secret Key 3xtr4ctd4t4 </code>：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/MoneyBox%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102113021774.png" alt="image-20221102113021774"></p>
-<p>此时发现已经没有任何利用价值了，尝试ftp，发现能匿名访问，发现一张图片，先下载下来：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/MoneyBox%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102130910898.png" alt="image-20221102130910898"></p>
-<p>使用steghide查看图片隐藏的内容，需要密码，即前面获取到的<code>3xtr4ctd4t4</code>，得到一个data：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/MoneyBox%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102131631584.png" alt="image-20221102131631584"></p>
-<p>获得用户名：<code>renu</code>，并且文本提示弱口令，尝试爆破<code>ssh</code>：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/MoneyBox%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102131913203.png" alt="image-20221102131913203"></p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/MoneyBox%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102132112291.png" alt="image-20221102132112291"></p>
-<p>获得<code>renu\987654321</code>，登录获得第一个<code>flag1</code>：<code>us3r1&#123;F14g:0ku74tbd3777y4&#125;</code></p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/MoneyBox%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102132520897.png" alt="image-20221102132520897"></p>
-<p>尝试提权，没有可以利用的，但是发现了一个<code>lily</code>用户，并且获取到了<code>flag2</code>：<code>us3r&#123;F14g:tr5827r5wu6nklao&#125;</code></p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/MoneyBox%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102133944297.png" alt="image-20221102133944297"></p>
-<p>同时还发现可以使用<code>renu</code>免密登录：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/MoneyBox%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102133831169.png" alt="image-20221102133831169"></p>
-<p>查看用户权限：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/MoneyBox%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102140333355.png" alt="image-20221102140333355"></p>
-<p>发现能用<code>perl</code>，那就用<code>perl</code>提权：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/MoneyBox%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102140833843.png" alt="image-20221102140833843"></p>
-<pre><code class="bash">sudo perl -e &#39;exec &quot;/bin/sh&quot;;&#39;
-</code></pre>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/MoneyBox%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102140724445.png" alt="image-20221102140724445"></p>
-<p>获得<code>flag3</code>：<code>r00t&#123;H4ckth3p14n3t&#125;</code></p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/DRIFTINGBLUES%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221107182154409.png" alt="image-20221107182154409"></p>
+<p>路径<code>/eventadmins</code>又给了一个<code>/littlequeenofspades.html</code>：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/DRIFTINGBLUES%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221107182204889.png" alt="image-20221107182204889"></p>
+<p>继续访问发现存在<code>base64</code>编码<code>aW50cnVkZXI/IEwyRmtiV2x1YzJacGVHbDBMbkJvY0E9PQ==</code>，解码后是：<code>intruder? L2FkbWluc2ZpeGl0LnBocA==</code>，继续解码<code>/adminsfixit.php</code>：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/DRIFTINGBLUES%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221107182440111.png" alt="image-20221107182440111"></p>
+<p>访问页面发现是<code>ssh</code>日志中毒，每过一分钟获取一次<code>/var/log/auth.log</code>日志信息：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/DRIFTINGBLUES%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221107183401528.png" alt="image-20221107183401528"></p>
+<p>尝试利用<code>ssh</code>登录写一句话木马：<img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/DRIFTINGBLUES%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221107185519009.png" alt="image-20221107185519009"></p>
+<p>然后去访问页面<code>http://192.168.239.149/adminsfixit.php</code>，即可使用蚁剑连接：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/DRIFTINGBLUES%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221107185536724.png" alt="image-20221107185536724"></p>
+<p>信息收集一波，发现有一个用户的<code>.ssh</code>允许其他用户修改：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/DRIFTINGBLUES%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221108102919003.png" alt="image-20221108102919003"></p>
+<p>尝试添加免密登录：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/DRIFTINGBLUES%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221108103614479.png" alt="image-20221108103614479"></p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/DRIFTINGBLUES%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221108103628702.png" alt="image-20221108103628702"></p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/DRIFTINGBLUES%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221108103917683.png" alt="image-20221108103917683"></p>
+<p>获取第一个<code>flag</code>：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/DRIFTINGBLUES%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221108104225145.png" alt="image-20221108104225145"></p>
+<p>这里看攻略的，有一个<code>getinfo</code>，不是本来的二进制文件，尝试运行：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/DRIFTINGBLUES%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221108104747491.png" alt="image-20221108104747491"></p>
+<p>查看内容可以发现是用的<code>ip add</code>的命令执行的：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/DRIFTINGBLUES%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221108104847933.png" alt="image-20221108104847933"></p>
+<p>写一个名为<code>ip</code>的<code>shell</code>文件，更改环境变量并运行：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/DRIFTINGBLUES%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221108105735138.png" alt="image-20221108105735138"></p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/DRIFTINGBLUES%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221108110128822.png" alt="image-20221108110128822"></p>
+<p>原理：由于<code>getinfo</code>是以<code>root</code>权限运行的，并且运行<code>ip</code>这个命令，所以我们可以尝试通过<code>getinfo</code>运行<code>ip</code>获取一个<code>root</code>权限的<code>shell</code>，即：<code>/bin/bash -i </code>，但是有一个问题我们要如何让<code>ip</code>这个命令更改为运行<code>/bin/bash -i</code>这个命令呢？我们可以通过写一个名为<code>ip</code>的<code>shell</code>文件到<code>/tmp</code>目录下，将<code>/tmp</code>设置为最先的环境命令，因为环境命令是从前面开始一个一个往后查询的，所以使用<code>export PATH=/tmp/:$PATH</code> 设置，最后运行<code>getinfo</code>即可获取<code>root</code>权限。然后查看<code>flag</code>：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/DRIFTINGBLUES%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221108111442721.png" alt="image-20221108111442721"></p>
 <h1 id="叁-需要学习的知识"><a href="#叁-需要学习的知识" class="headerlink" title="叁 需要学习的知识"></a>叁 需要学习的知识</h1><ul>
-<li><code>perl</code>提权</li>
+<li>ssh日志中毒，ssh登录写一句话木马</li>
+<li>提权</li>
 </ul>
 
         </div>
@@ -437,7 +448,7 @@ nmap -sS -p 1-65535 -v 192.168.239.146
         <script>
             var v = new Viewer({
                 basePath: "/model",
-                role: "huangjiafangzhou_3",
+                role: "zhala_2",
                 mobile: true,
             });
         </script>

