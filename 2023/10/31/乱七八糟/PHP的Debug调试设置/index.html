@@ -3,7 +3,7 @@
 <html lang="zh-Hans">
     <head>
         <meta charset="utf-8" />
-        <title>hello | 小C♥天天</title>
+        <title>PHP的Debug调试设置 | 小C♥天天</title>
         <meta name="author" content="小C&天天" />
         <meta name="description" content="^v^" />
         <meta name="keywords" content="" />
@@ -192,22 +192,22 @@
                 <div id="article-posts-wrap" true ref="homePostsWrap">
     <div class="article">
         <div>
-            <h1>hello</h1>
+            <h1>PHP的Debug调试设置</h1>
         </div>
         <div class="info">
             <span class="date">
                 <span class="icon">
                     <i class="fa-solid fa-calendar fa-fw"></i>
                 </span>
-                2023/3/14
+                2023/10/31
             </span>
             
             <span class="category">
-                <a href="/categories/hexo/">
+                <a href="/categories/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/">
                     <span class="icon">
                         <i class="fa-solid fa-bookmark fa-fw"></i>
                     </span>
-                    hexo
+                    乱七八糟
                 </a>
             </span>
             
@@ -220,7 +220,12 @@
                 
                 <span class="tag">
                     
-                    <a href="/tags/hexo/" style="color: #ff7d73">hexo</a>
+                    <a href="/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/" style="color: #00bcd4">小技巧</a>
+                </span>
+                
+                <span class="tag">
+                    
+                    <a href="/tags/%E4%BB%A3%E7%A0%81%E8%B0%83%E8%AF%95/" style="color: #ffa2c4">代码调试</a>
                 </span>
                 
             </span>
@@ -228,20 +233,38 @@
         </div>
         
         <div class="content" v-pre>
-            <p>欢迎来到<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>！这是你的第一篇帖子。<a target="_blank" rel="noopener" href="https://hexo.io/docs/">查看文档</a>了解更多信息。如果您在使用Hexo时遇到任何问题，可以在<a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">疑难解答</a>中找到答案，也可以在<a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>上询问我。</p>
-<span id="more"></span>
-<h2 id="快速启动"><a href="#快速启动" class="headerlink" title="快速启动"></a>快速启动</h2><h3 id="创建新帖子"><a href="#创建新帖子" class="headerlink" title="创建新帖子"></a>创建新帖子</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;
+            <h1 id="壹-介绍"><a href="#壹-介绍" class="headerlink" title="壹 介绍"></a>壹 介绍</h1><p>本篇文章配置的<code>Debug</code>调试环境为：</p>
+<table>
+<thead>
+<tr>
+<th>工具名字</th>
+<th>版本（版本都不做规定）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PHP</td>
+<td>5.6.9nts</td>
+</tr>
+<tr>
+<td>phpstudy</td>
+<td>8.1.1.3</td>
+</tr>
+<tr>
+<td>vscode</td>
+<td>1.77.3</td>
+</tr>
+</tbody></table>
+<h1 id="贰-配置"><a href="#贰-配置" class="headerlink" title="贰 配置"></a>贰 配置</h1><p>首先安装<code>PHPstudy</code>工具和<code>Vscode</code>工具：<br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/PHP%E7%9A%84Debug%E8%B0%83%E8%AF%95%E8%AE%BE%E7%BD%AE/7e258b7663c557aa8b7e1119f7fa1291.png" alt="7e258b7663c557aa8b7e1119f7fa1291.png"><br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/PHP%E7%9A%84Debug%E8%B0%83%E8%AF%95%E8%AE%BE%E7%BD%AE/b4b163c58058554f3d9c655582d95f08.png" alt="b4b163c58058554f3d9c655582d95f08.png"><br>然后在<code>PHPstudy</code>工具中选择软件管理<code>-&gt;</code>系统环境<code>-&gt;</code>选项<code>PHP</code>的<code>5.6.9nts</code>版本：<br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/PHP%E7%9A%84Debug%E8%B0%83%E8%AF%95%E8%AE%BE%E7%BD%AE/1b5898b8ebbb4738cc3044fc3522dabb.png" alt="1b5898b8ebbb4738cc3044fc3522dabb.png"><br>下载完成后，在<code>PHP</code>设置中选择扩展组件，选中<code>XDebug</code>调试组件，设置要监听的端口（后面会用到），下面的<code>Profiler</code>输出与<code>Trace</code>输出功能根据个人需求勾选：<br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/PHP%E7%9A%84Debug%E8%B0%83%E8%AF%95%E8%AE%BE%E7%BD%AE/6734a92743c87606b67c83776102a85b.png" alt="6734a92743c87606b67c83776102a85b.png"><br>设置完后选择<code>php</code>对应版本的<code>php.ini</code>文件，在<code>php.ini</code>中搜索<code>Xdebug</code>，设置参数（这些参数后面安装<code>vscode</code>有提示）：</p>
+<pre><code class="base">xdebug.remote_enable = On（On或者1都可以）
+xdebug.remote_autostart = 1
+xdebug.remote_port = 9000
 </code></pre>
-<p>更多信息: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="运行服务器"><a href="#运行服务器" class="headerlink" title="运行服务器"></a>运行服务器</h3><pre><code class="bash">$ hexo server
+<p><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/PHP%E7%9A%84Debug%E8%B0%83%E8%AF%95%E8%AE%BE%E7%BD%AE/8ab6dc4184c40b68c80b0656ae67ecf4.png" alt="8ab6dc4184c40b68c80b0656ae67ecf4.png"><br>接着在<code>Vscode</code>中安装<code>phpdebug</code>插件：<br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/PHP%E7%9A%84Debug%E8%B0%83%E8%AF%95%E8%AE%BE%E7%BD%AE/8d9495f5bbc39b2d898aa63f72243718.png" alt="8d9495f5bbc39b2d898aa63f72243718.png"><br>可以看到需要设置<code>php.ini</code>的配置：<br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/PHP%E7%9A%84Debug%E8%B0%83%E8%AF%95%E8%AE%BE%E7%BD%AE/7a8bd28ea571d08a2249f4273e660333.png" alt="7a8bd28ea571d08a2249f4273e660333.png"><br>安装完后进入设置页面搜索<code>php</code>，添加<code>php</code>可执行文件路径，：</p>
+<pre><code class="base">// php的debug，注意php.validate.executablePath与php.debug.executablePath保持一致
+&quot;php.validate.executablePath&quot;: &quot;phpstudy_pro安装路径下/Extensions/php/php5.6.9nts/php.exe&quot;,
+&quot;php.debug.executablePath&quot;: &quot;phpstudy_pro安装路径下/Extensions/php/php5.6.9nts/php.exe&quot;
 </code></pre>
-<p>更多信息: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h3><pre><code class="bash">$ hexo generate
-</code></pre>
-<p>更多信息: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="部署到远程站点"><a href="#部署到远程站点" class="headerlink" title="部署到远程站点"></a>部署到远程站点</h3><pre><code class="bash">$ hexo deploy
-</code></pre>
-<p>更多信息: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<p><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/PHP%E7%9A%84Debug%E8%B0%83%E8%AF%95%E8%AE%BE%E7%BD%AE/6a57be0fdfddb4b79968139e631c8ee6.png" alt="6a57be0fdfddb4b79968139e631c8ee6.png"><br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/PHP%E7%9A%84Debug%E8%B0%83%E8%AF%95%E8%AE%BE%E7%BD%AE/798410a14147fa4f7fce374a97337c7d.png" alt="798410a14147fa4f7fce374a97337c7d.png"><br>在这里基本上已经设置完成了，后面由于不同项目需要进行对应设置，进入要调试的代码，通过<code>vscode</code>打开，然后进入<code>debug</code>模块：<br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/PHP%E7%9A%84Debug%E8%B0%83%E8%AF%95%E8%AE%BE%E7%BD%AE/31cc225aff343894cb015c79dfde9cfa.png" alt="31cc225aff343894cb015c79dfde9cfa.png"><br>选择创建<code>launch.json</code>文件，选择<code>php</code>调试器：<br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/PHP%E7%9A%84Debug%E8%B0%83%E8%AF%95%E8%AE%BE%E7%BD%AE/a038dd71b2743400ae60da2154b12ce4.png" alt="a038dd71b2743400ae60da2154b12ce4.png"><br>可以发现项目中多了一个<code>.vscode</code>文件夹，文件夹中有<code>launch.json</code>文件：<br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/PHP%E7%9A%84Debug%E8%B0%83%E8%AF%95%E8%AE%BE%E7%BD%AE/78cbcf7182723c6bdce3f22d3c6a309c.png" alt="78cbcf7182723c6bdce3f22d3c6a309c.png"><br>设置<code>launch.json</code>文件中的端口信息与前面一致：<br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/PHP%E7%9A%84Debug%E8%B0%83%E8%AF%95%E8%AE%BE%E7%BD%AE/b415cfc3a085cf31ca91c4c00d71dd6b.png" alt="b415cfc3a085cf31ca91c4c00d71dd6b.png"><br>接着监听<code>Xdebug</code>：<br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/PHP%E7%9A%84Debug%E8%B0%83%E8%AF%95%E8%AE%BE%E7%BD%AE/1330e4f47080619497530951fc787a62.png" alt="1330e4f47080619497530951fc787a62.png"><br>最后打断点（选择对应代码的红点即可开启断点），运行<code>phpstudy</code>，通过浏览器访问项目：<br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/PHP%E7%9A%84Debug%E8%B0%83%E8%AF%95%E8%AE%BE%E7%BD%AE/76c5209b2dc254608f97ba5daf4a208e.png" alt="76c5209b2dc254608f97ba5daf4a208e.png"></p>
 
         </div>
         
@@ -317,7 +340,7 @@
     <div id="card-div">
         <div id="toc" class="toc-article">
             <strong class="toc-title">文章目录</strong>
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E5%90%AF%E5%8A%A8"><span class="toc-text">快速启动</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%96%B0%E5%B8%96%E5%AD%90"><span class="toc-text">创建新帖子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">运行服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E9%9D%99%E6%80%81%E6%96%87%E4%BB%B6"><span class="toc-text">生成静态文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2%E5%88%B0%E8%BF%9C%E7%A8%8B%E7%AB%99%E7%82%B9"><span class="toc-text">部署到远程站点</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A3%B9-%E4%BB%8B%E7%BB%8D"><span class="toc-text">壹 介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%B0-%E9%85%8D%E7%BD%AE"><span class="toc-text">贰 配置</span></a></li></ol>
         </div>    
     </div>
      -->
@@ -410,7 +433,7 @@
         <script>
             var v = new Viewer({
                 basePath: "/model",
-                role: "deyizhi_3",
+                role: "aimierbeierding_2",
                 mobile: true,
             });
         </script>
