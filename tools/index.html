@@ -49,7 +49,8 @@
 
 
 <link rel="stylesheet" href="/css/tools.css" />
-<script src="/js/tools/jquery-2.1.0.min.js"></script>
+<script src="/js/lib/jquery-2.1.0.min.js"></script>
+<script src="/js/tools/tools.js"></script>
 
 <script src="https://cdn.bootcdn.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
 <link rel="stylesheet" href="/css/main.css" />
@@ -190,76 +191,24 @@
     <div id="tools-wrap">
         <div class="tools-column">
             <div class="food">
-            <span class="title">🍪 一会吃啥？</span>
-            <div class="description">一会吃<b id="what">什么？</b></div>
-            <div class="actions">
-                <button class="accept" id="start">开始</button>
+                <span class="title">🍪 一会吃啥？</span>
+                <div class="description">一会吃<b id="foodwhat">什么？</b></div>
+            </br>
+                <div class="actions">
+                    <button class="accept" id="foodstart">开始</button>
+                </div>
             </div>
-            <script type="text/javascript">
-                var MOFUN = window.MOFUN || {};
-                MOFUN.random = function(max, min) {
-                    max = max || 100;
-                    min = min || 0;
-                    return Math.ceil(Math.random() * (max - min) + min);
-                }
-                MOFUN.remove = function(ele) {
-                    ele && ele.parentNode.removeChild(ele);
-                };
-                $(function() {
-                    var running = 0,
-                        what = $("#what"),
-                        btn = $("#start"),
-                        book = [
-                            ["早上",
-                                "面包 蛋糕 荷包蛋 烧饼 饽饽 油条 馄饨 火腿 面条 小笼包  玉米粥 肉包 山东煎饼 饺子 煎蛋 烧卖 生煎 锅贴 包子 酸奶 苹果 梨 香蕉 皮蛋瘦肉粥 蛋挞 南瓜粥 煎饼 玉米糊 泡面 粥 馒头 燕麦片 水煮蛋 米粉 豆浆 牛奶 花卷 豆腐脑 煎饼果子 小米粥 黑米糕 鸡蛋饼 牛奶布丁 水果沙拉 鸡蛋羹 南瓜馅饼 鸡蛋灌饼 奶香小馒头 汉堡包 披萨 八宝粥 三明治 豆沙红薯饼 驴肉火烧 粥 粢饭糕 蒸饺 白粥"
-                            ],
-                            ["中午",
-                                "海南粉 抱罗粉 文昌鸡饭 火锅 炒粉 盖浇饭 砂锅 大排档 米线 满汉全席 西餐 麻辣烫 自助餐 炒面 快餐 水果 西北风 馄饨 火锅 烧烤 泡面 速冻水饺 日本料理 涮羊肉 味千拉面 肯德基 面包 扬州炒饭 自助餐 茶餐厅 海底捞 咖啡 比萨 麦当劳 兰州拉面 沙县小吃 烤鱼 海鲜 铁板烧 韩国料理 粥 快餐 萨莉亚 桂林米粉 东南亚菜 甜点 农家菜 川菜 粤菜 湘菜 本帮菜 竹笋烤肉 蛋包饭 粥"
-                            ],
-                            ["晚上",
-                                "盖浇饭 砂锅 大排档 米线 满汉全席 西餐 麻辣烫 自助餐 炒面 快餐 水果 西北风 馄饨 火锅 烧烤 泡面 速冻水饺 日本料理 涮羊肉 味千拉面 肯德基 面包 扬州炒饭 自助餐 茶餐厅 海底捞 咖啡 比萨 麦当劳 兰州拉面 沙县小吃 烤鱼 海鲜 铁板烧 韩国料理 粥 快餐 萨莉亚 桂林米粉 东南亚菜 甜点 农家菜 川菜 粤菜 湘菜 本帮菜 竹笋烤肉"
-                            ]
-                        ],
-                        list = book[1][1];
-                        times = 0,
-                        timer = 0;
-            
-                    btn.val("开始").removeAttr("disabled").click(function() {
-                        var l = list.replace(/ +/g, " ").replace(/^ | $/g, "").split(" ");
-                        if (l.length == 1 && l[0] != "") return alert("→_→ 耍我是吧，一个有什么好选的！");
-                        if (l.length == 1) return alert("啥也没有，吃西北风去啊？");
-                        if (!running) {
-                            times++;
-                            if (times == 3) {
-                                btn.val("继续");
-                                return false;
-                            }
-                            $(this).val("停止");
-                            timer = setInterval(function() {
-                                var r = MOFUN.random(l.length),
-                                    food = l[r - 1],
-                                    rTop = MOFUN.random($(document).height()),
-                                    rLeft = MOFUN.random($(document).width() - 50),
-                                    rSize = MOFUN.random(37, 14);
-                                what.html(food);
-                            }, 60);
-                            running = 1;
-                            $("#shareto").fadeOut(function() {
-                                $(this).remove()
-                            });
-                        } else {
-                            btn.val("不行，换一个");
-                            clearInterval(timer);
-                            running = 0;
-                        };
-                    });
-            
-                    document.onkeydown = function(e) {
-                        e = e || window.event;
-                        if (e.keyCode == 32) $("#start").trigger("click");
-                    };
-                });
-            </script>
+        </div>
+        <div class="tools-column">
+            <div class="food">
+                <span class="title">💵 人民币大写转换器</span>
+                <div class="description">输入小写数字金额：</div>
+                <input type="text" value="100" name="Digits" id="Digits">
+                </br>
+            </br>
+                <div class="actions">
+                    <button class="accept" onclick="Digits.value = convertCurrency(Digits.value);">开始</button>
+                </div>
             </div>
         </div>
     </div>
@@ -321,7 +270,7 @@
         <script>
             var v = new Viewer({
                 basePath: "/model",
-                role: "dafeng_2",
+                role: "huangjiafangzhou_3",
                 mobile: true,
             });
         </script>
