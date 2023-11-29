@@ -190,25 +190,19 @@
     </header>
     <div id="tools-wrap">
         <div class="tools-column">
-            <div class="food">
-                <span class="title">🍪 一会吃啥？</span>
-                <div class="description">一会吃<b id="foodwhat">什么？</b></div>
-            </br>
-                <div class="actions">
-                    <button class="accept" id="foodstart">开始</button>
-                </div>
+            <div class="tools-names">
+                <span class="title">🍪 一会吃啥？</span><button class="accept" id="foodstart">开始</button>
+            </div>
+            <div class="tools-body">
+                <div class="description">一会吃<span id="foodwhat">什么？</span></div>
             </div>
         </div>
         <div class="tools-column">
-            <div class="food">
-                <span class="title">💵 人民币大写转换器</span>
-                <div class="description">输入小写数字金额：</div>
-                <input type="text" value="100" name="Digits" id="Digits">
-                </br>
-            </br>
-                <div class="actions">
-                    <button class="accept" onclick="Digits.value = convertCurrency(Digits.value);">开始</button>
-                </div>
+            <div class="tools-names">
+                <span class="title">💵 人民币大写转换器</span><button class="accept" onclick="Money.value = convertCurrency(Money.value);">转换</button>
+            </div>
+            <div class="tools-body">
+                <div class="description">输入小写数字金额：<input type="text" placeholder="100" name="Money" class="Money" id="Money"></div>
             </div>
         </div>
     </div>
@@ -270,7 +264,7 @@
         <script>
             var v = new Viewer({
                 basePath: "/model",
-                role: "huangjiafangzhou_3",
+                role: "genaisennao_2",
                 mobile: true,
             });
         </script>

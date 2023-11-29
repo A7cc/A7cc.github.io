@@ -84,15 +84,15 @@ function convertCurrency(currencyDigits) {
     // 验证输入字符串
         currencyDigits = currencyDigits.toString();
         if (currencyDigits == "") {
-            alert("Empty input!");
+            alert("没有输入值！");
             return "";
         }
         if (currencyDigits.match(/[^,.\d]/) != null) {
-            alert("Invalid characters in the input string!");
+            alert("输入字符串中存在无效字符！");
             return "";
         }
         if ((currencyDigits).match(/^((\d{1,3}(,\d{3})*(.((\d{3},)*\d{1,3}))?)|(\d+(.\d+)?))$/) == null) {
-            alert("Illegal format of digit number!");
+            alert("数字格式非法！");
             return "";
         }
     
@@ -101,7 +101,7 @@ function convertCurrency(currencyDigits) {
         currencyDigits = currencyDigits.replace(/^0+/, "");    // Trim zeros at the beginning.
         // Assert the number is not greater than the maximum number.
         if (Number(currencyDigits) > MAXIMUM_NUMBER) {
-            alert("Too large a number to convert!");
+            alert("数字太大，无法转换！");
             return "";
         }
     
