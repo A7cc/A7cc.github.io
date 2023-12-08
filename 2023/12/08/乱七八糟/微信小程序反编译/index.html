@@ -1,0 +1,501 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <head>
+        <meta charset="utf-8" />
+        <title>微信小程序反编译 | 小C♥天天</title>
+        <meta name="author" content="小C&天天" />
+        <meta name="description" content="^v^" />
+        <meta name="keywords" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <link rel="icon" href="/images/icon.jpg" />
+        <link rel="preconnect" href="https://cdn.staticfile.org" />
+<script src="https://cdn.staticfile.org/vue/3.3.4/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/6.4.0/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.loli.net" />
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" />
+<script> const mixins = {}; </script>
+
+<!-- 兼容不同版本的浏览器 -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<!-- 高亮代码 -->
+<script src="https://cdn.staticfile.org/highlight.js/11.8.0/highlight.min.js"></script>
+<script src="https://cdn.staticfile.org/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/11.8.0/styles/github.min.css"/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<!-- 使用 KaTeX 渲染数学公式 -->
+<script src="https://cdn.staticfile.org/KaTeX/0.16.8/katex.min.js"></script>
+<script src="https://cdn.staticfile.org/KaTeX/0.16.8/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/KaTeX/0.16.8/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<!-- 简单的点击图片放大缩小的预览 -->
+<script src="/js/lib/preview.js"></script>
+
+
+<!-- 看板娘 -->
+<script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+
+
+<!-- 侧边小功能-->
+
+
+
+<!-- 评论设置 -->
+
+<script
+    src="https://giscus.app/client.js"
+    data-repo="A7cc/giscus-comments"
+    data-repo-id="R_kgDOKKSvfw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOKKSvf84CYyp2"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="https://static-argvchs.netlify.app/css/giscus.css"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+<script src="https://cdn.bootcdn.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<link rel="stylesheet" href="/css/main.css" />
+
+    <meta name="generator" content="Hexo 6.2.0"></head>
+    <body>
+        <div id="layout">
+            <!-- 页面加载 -->
+            <transition name="fade">
+                <div id="loading" v-show="loading">
+                    <div id="loading-circle">
+                        <h2>LOADING</h2>
+                        <p>正在加载</p>
+                        <img src="/images/afde9fa65a5742a90b51d6e1211e841e.gif" />
+                    </div>
+                </div>
+            </transition>
+            <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>小C♥天天</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;文章</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+        <a href="/tools">
+            <i class="fa-solid fa-tools fa-fw"></i>
+            <span>&ensp;工具</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;小C♥天天</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                    </div>
+                </a>
+                
+                <a href="/tools">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tools fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">工具</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+            <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+                <div id="article-posts-wrap" true ref="homePostsWrap">
+    <div class="article">
+        <div>
+            <h1>微信小程序反编译</h1>
+        </div>
+        <div class="info">
+            <span class="date">
+                <span class="icon">
+                    <i class="fa-solid fa-calendar fa-fw"></i>
+                </span>
+                2023/12/8
+            </span>
+            
+            <span class="category">
+                <a href="/categories/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/">
+                    <span class="icon">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </span>
+                    乱七八糟
+                </a>
+            </span>
+            
+            
+            <span class="tags">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                
+                
+                <span class="tag">
+                    
+                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="color: #00a596">微信小程序</a>
+                </span>
+                
+                <span class="tag">
+                    
+                    <a href="/tags/%E9%80%86%E5%90%91/" style="color: #ffa2c4">逆向</a>
+                </span>
+                
+            </span>
+            
+        </div>
+        
+        <div class="content" v-pre>
+            <h1 id="壹-简介"><a href="#壹-简介" class="headerlink" title="壹 简介"></a>壹 简介</h1><p>在平时做微信小程序测试中，有的时候需要获取里面的域名或者<code>ip</code>等，这时候我们可以将微信小程序进行反编译获取源码。</p>
+<table>
+<thead>
+<tr>
+<th>工具</th>
+<th>版本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>node</code></td>
+<td><code>18.4.0</code></td>
+</tr>
+<tr>
+<td><code>unveilr</code></td>
+<td><code>2.0.1</code></td>
+</tr>
+<tr>
+<td>微信</td>
+<td><code>3.9.8.15</code></td>
+</tr>
+</tbody></table>
+<h1 id="贰-小程序反编译"><a href="#贰-小程序反编译" class="headerlink" title="贰 小程序反编译"></a>贰 小程序反编译</h1><h2 id="2-1-node下载"><a href="#2-1-node下载" class="headerlink" title="2.1 node下载"></a>2.1 node下载</h2><p>安装过程一路<code>NEXT</code>即可，注意将<code>node</code>设置为环境变量，安装完成后，通过<code>node -v</code>查看版本，出现下面界面说明安装成功！<br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91/638aa46a98203b01473065513da63a1c.png" alt="638aa46a98203b01473065513da63a1c.png"><br><code>node</code>的官网：<a target="_blank" rel="noopener" href="https://nodejs.org/en">传送门</a><br>安装教程可以参考这篇：<a target="_blank" rel="noopener" href="https://blog.csdn.net/thefg/article/details/132410794">2023年最新Node.js安装详细教程及node.js配置</a></p>
+<h2 id="2-2-小程序解密"><a href="#2-2-小程序解密" class="headerlink" title="2.2 小程序解密"></a>2.2 小程序解密</h2><p>首先我们需要加载和运行小程序，在微信中随机搜索一个小程序，然后打开获取小程序包，微信小程序每个地方每个页面都点一下，让其加载完全，否则解密的小程序代码会不全：<br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91/dd41dfa0e3f04a6cec6f51ed8a42c93a.png" alt="dd41dfa0e3f04a6cec6f51ed8a42c93a.png"><br>然后在微信中打开设置<code>=》</code>文件管理，需要注意的是这里他打开的文件夹需要跳转到上一级也就是<code>WeChat Files</code>，然后点击<code>Applet</code>，这时候会多出来一个<code>wxaaaaaaaaa</code>形式的文件夹，这个文件夹就是我们需要反编译的小程序：<br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91/cf6d222f5ba8e65f0854e5552dab9b68.png" alt="cf6d222f5ba8e65f0854e5552dab9b68.png"><br>可以看到进入<code>wxaaaaaaaaa</code>形式的文件夹后有会数字文件夹，文字文件夹里面就是我们需要的小程序，注意这个<code>__APP__.wxapkg</code>是主包，其他的都是分包：<br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91/8e2eac2c9abc9354b13c27ea12071e4b.png" alt="8e2eac2c9abc9354b13c27ea12071e4b.png"><br>接着我们使用工具<a target="_blank" rel="noopener" href="https://u.openal.lat/"><code>unveilr.exe</code></a>去反编译小程序包，出现<code>Storage has written xx files</code>，说明解压包成功：</p>
+<pre><code class="bash"># 编译命令
+unveilr.exe [小程序文件夹内全部后缀为.wxapkg的文件]
+</code></pre>
+<p><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91/adedf603d608da8acae56249f562f9dc.png" alt="adedf603d608da8acae56249f562f9dc.png"><br>生成一个<code>__APP__</code>，该压缩包就是我们要的小程序反编译代码：<br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91/a42a6ff17e427889952c1add9c3aff9a.png" alt="a42a6ff17e427889952c1add9c3aff9a.png"><br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91/e4b670dbc807918bbf5da97d85987539.png" alt="e4b670dbc807918bbf5da97d85987539.png"><br>接着测试使用微信开发者工具打开该压缩包项目：<br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91/c241f318949665b8989553861ad9ae93.png" alt="c241f318949665b8989553861ad9ae93.png"><br>这里的<code>AppID</code>需要我们注册申请，而且我们还要确定文件夹下是<code>app.js</code>还是<code>game.js</code>，根据这两个文件来确定是小程序还是游戏，其他的就按照下图操作（这里这个小程序是小游戏，不是小程序）：<br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91/a14d25abfed95f4128fbe5f818b0794e.png" alt="a14d25abfed95f4128fbe5f818b0794e.png"><br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91/a06a03bd91cecf0d03e66d6d21597efe.png" alt="a06a03bd91cecf0d03e66d6d21597efe.png"><br>打开成功，有一些小程序可以运行，有一些可能需要配置其他内容信息，但是基本上整体的反编译就是这样：<br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91/569941f42e5422678a1f7d262aa178fc.png" alt="569941f42e5422678a1f7d262aa178fc.png"></p>
+<h2 id="2-3-小程序结构说明"><a href="#2-3-小程序结构说明" class="headerlink" title="2.3 小程序结构说明"></a>2.3 小程序结构说明</h2><p><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91/bd9152974eca6f1f353098a178278b51.png" alt="bd9152974eca6f1f353098a178278b51.png"><br><code>pages</code>是微信小程序里的页面<br><code>utils</code>是包含了一些小程序需要的依赖<br><code>app.js</code>是运行小程序的关键，<code>game.js</code>是运行游戏的关键，没有是运行不起来的</p>
+<h2 id="2-4-小结"><a href="#2-4-小结" class="headerlink" title="2.4 小结"></a>2.4 小结</h2><p>其实反编译一般的小程序前端都是可以的反编译的，只是部分比较复杂，建议找没有后端的小程序反编译，因为有后端反编译了也没啥用，除非自己写后台或者使用别人接口，当然如果需要获取小程序的的域名或者<code>IP</code>可以通过这种方式获取。</p>
+<h1 id="叁-问题"><a href="#叁-问题" class="headerlink" title="叁 问题"></a>叁 问题</h1><h2 id="3-1-设置微信开发者工具不需要校验合法域名"><a href="#3-1-设置微信开发者工具不需要校验合法域名" class="headerlink" title="3.1 设置微信开发者工具不需要校验合法域名"></a>3.1 设置微信开发者工具不需要校验合法域名</h2><p>在运行微信开发者工具时，我们在详细里选择本地设置选择不校验合法域名。<br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91/53fa37f85e7d064da08b640eeeea3c46.png" alt="53fa37f85e7d064da08b640eeeea3c46.png"></p>
+<h2 id="3-2-需要注意打开的小程序"><a href="#3-2-需要注意打开的小程序" class="headerlink" title="3.2 需要注意打开的小程序"></a>3.2 需要注意打开的小程序</h2><h1 id="肆-参考"><a href="#肆-参考" class="headerlink" title="肆 参考"></a>肆 参考</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1ZQ4y1x7Rv">微信小程序反编译，解包</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1ih4y1Q7s1">微信小程序解包｜反编译｜逆向工具 unveilr</a></li>
+</ul>
+
+        </div>
+        
+        
+        <div id="comment">
+            <div id="giscus-container" class="giscus"></div>
+        </div>
+        
+    </div>
+    
+    <div id="article-card">
+        <div id="card-style">
+    <div id="card-div" class="card-cls">
+        <div class="avatar">
+            <img src="/images/f6e2b991f74bfd7b88c3ab1a3d513b94.jpg" alt="avatar" />
+        </div>
+        <div class="name">小C&amp;天天</div>
+        <div class="description">
+            <p>修学储能 先博后渊</p>
+
+        </div>
+        
+        <div class="icon-links">
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://github.com/A7cc">
+                    <i class="fa-brands fa-github fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.qq.com/">
+                    <i class="fa-brands fa-qq fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.weibo.com/">
+                    <i class="fa-brands fa-weibo fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://google.com/">
+                    <i class="fa-brands fa-google fa-fw"></i>
+                </a>
+            </span>
+            
+        </div>
+        
+        
+        <div class="friend-links">
+            
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="http://www.wgs6km.top/">kyrieee</a>
+            </span>
+            
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="https://tonyd0g.gitee.io/">tonyd0g</a>
+            </span>
+            
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="https://ruyueattention.github.io/">ruyueattention</a>
+            </span>
+            
+        </div>
+        
+    </div>
+    
+    <!-- <br /> -->
+    <!-- 目录 -->
+    <!-- 
+    <div id="card-div">
+        <div id="toc" class="toc-article">
+            <strong class="toc-title">文章目录</strong>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A3%B9-%E7%AE%80%E4%BB%8B"><span class="toc-text">壹 简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%B0-%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91"><span class="toc-text">贰 小程序反编译</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-node%E4%B8%8B%E8%BD%BD"><span class="toc-text">2.1 node下载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E5%B0%8F%E7%A8%8B%E5%BA%8F%E8%A7%A3%E5%AF%86"><span class="toc-text">2.2 小程序解密</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84%E8%AF%B4%E6%98%8E"><span class="toc-text">2.3 小程序结构说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-%E5%B0%8F%E7%BB%93"><span class="toc-text">2.4 小结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%81-%E9%97%AE%E9%A2%98"><span class="toc-text">叁 问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E8%AE%BE%E7%BD%AE%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7%E4%B8%8D%E9%9C%80%E8%A6%81%E6%A0%A1%E9%AA%8C%E5%90%88%E6%B3%95%E5%9F%9F%E5%90%8D"><span class="toc-text">3.1 设置微信开发者工具不需要校验合法域名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E6%89%93%E5%BC%80%E7%9A%84%E5%B0%8F%E7%A8%8B%E5%BA%8F"><span class="toc-text">3.2 需要注意打开的小程序</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%82%86-%E5%8F%82%E8%80%83"><span class="toc-text">肆 参考</span></a></li></ol>
+        </div>    
+    </div>
+     -->
+</div>
+
+<div id="card-style-fun">
+    
+    <!-- 今日诗句 -->
+    <br />
+    <div id="card-div">
+        <div class="good-sentence">
+            <div class="toolio">
+                <div class="circle"><span class="red"></span></div>
+                <div class="circle"><span class="yellow"></span></div>
+                <div class="circle"><span class="green"></span></div>
+                <div class="circle"><span class="text">今日诗句</span></div>
+            </div>
+            <div class="sentence">
+                <div id="sentenceid" onload="getsentence();"></div>
+            </div>
+        </div>
+    </div>
+    <!-- 日期信息 -->
+    <br />
+    <div id="card-div">
+        <img src="//api.vvhan.com/api/ipCard?tip=A7cc" width="300" height="180">
+    </div>
+    
+</div>
+
+
+
+    </div>
+    
+</div>
+                <!-- 页脚 -->
+                <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+            <script>
+                var now = new Date(); 
+                function createtime() { 
+                    var grt= new Date("07/10/2022 00:00:00");
+                    now.setTime(now.getTime()+250); 
+                    days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+                    hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+                    if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+                    mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+                    seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+                    snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+                    document.getElementById("timeDate").innerHTML = "已运行 "+dnum+" 天 "; 
+                    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+                } 
+            setInterval("createtime()",250);
+            </script>
+        </div>
+        <div>
+            &copy;
+            2022 - 2023 小C♥天天
+            <span class="footer-icon">
+                <i class="fa-brands fa-github fa-fw"></i>
+            </span>
+            &commat;小C&amp;天天
+        </div>
+        <div>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX</a> 
+        </div>
+        
+    </div>
+</footer>
+
+            </div>
+            <!-- 简单的点击图片放大缩小的预览 -->
+            
+            <div name="fade">
+                <div id="preview" ref="preview" v-show="previewShow">
+                    <img id="preview-content" ref="previewContent" />
+                </div>
+            </div>
+            
+        </div>
+        <!-- 看板娘 -->
+        
+        <div id="L2dCanvas"></div>
+        <script src="/js/lib/live2d.min.js"></script>
+        <!-- 设置随机模板 -->
+        
+        <script>
+            var v = new Viewer({
+                basePath: "/model",
+                role: "heitaizi_2",
+                mobile: true,
+            });
+        </script>
+        
+        <!-- 诗句 -->
+        
+        <script>
+            // // 每隔10分钟执行一次getsentence这个函数
+            window.setInterval(getsentence, 100*60*5);
+            function getsentence() {
+                // 这里没有考虑IE浏览器，如果需要择if判断加
+                var xhr = new XMLHttpRequest();  
+                xhr.open('GET', "https://zj.v.api.aa1.cn/api/wenan-shici/?type=json",true);
+                xhr.send(JSON.stringify(null));
+                xhr.onreadystatechange = function () {
+                    if (xhr.status === 200 && xhr.readyState === 4) {
+                        //js处理数据
+                        // xhr.responseText.match(/content":(".+?")/g)
+                        getdata = JSON.parse(xhr.responseText).msg;
+                    }else{
+                        getdata = "长风破浪会有时，直挂云帆济沧海。——李白《行路难》";
+                    }
+                    document.getElementById("sentenceid").innerHTML = getdata;
+                }
+            }
+            window.onload = getsentence;
+        </script>
+        
+        <!-- 点击 -->
+        <script>
+            let body = document.getElementsByTagName('body')[0];
+            body.addEventListener('click', (e) => {
+                let contentArr = ['✊','😘','😍','😊','😭','😡','😋','👍','🐷','😱','💷','💵','×','🆗','№','⭐','🌙','♥','💴','☀','🐎','🐂','🐏','√'];
+                let randomNum = function (n) {
+                    return Math.floor(Math.random() * n)
+                }
+                let span = document.createElement('span');
+                span.innerHTML = `${contentArr[randomNum(contentArr.length)]}`;
+                span.style.color = `rgb(${randomNum(256)},${randomNum(256)},${randomNum(256)})`;
+                span.style.position = 'absolute';
+                span.style.top = `${e.pageY}px`;
+                span.style.left = `${e.pageX}px`;
+                span.style.transition = 'all 1s ease';
+                span.style.zIndex = 20000;
+                body.appendChild(span)
+                setTimeout(()=>{
+                    span.style.top = span.offsetTop - 100 + 'px';
+                    span.style.opacity = 0;
+                    setTimeout(()=>{span.remove()},700)
+                },0)
+            })
+        </script>
+        <!-- 流星背景特效 -->
+        
+        <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/meteorbackground.js"></script>
+        
+        <script src="/js/main.js"></script>
+    </body>
+</html>

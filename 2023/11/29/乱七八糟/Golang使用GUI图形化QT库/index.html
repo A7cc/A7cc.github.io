@@ -1,0 +1,631 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <head>
+        <meta charset="utf-8" />
+        <title>Golang使用GUI图形化QT库 | 小C♥天天</title>
+        <meta name="author" content="小C&天天" />
+        <meta name="description" content="^v^" />
+        <meta name="keywords" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <link rel="icon" href="/images/icon.jpg" />
+        <link rel="preconnect" href="https://cdn.staticfile.org" />
+<script src="https://cdn.staticfile.org/vue/3.3.4/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/6.4.0/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.loli.net" />
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" />
+<script> const mixins = {}; </script>
+
+<!-- 兼容不同版本的浏览器 -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<!-- 高亮代码 -->
+<script src="https://cdn.staticfile.org/highlight.js/11.8.0/highlight.min.js"></script>
+<script src="https://cdn.staticfile.org/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/11.8.0/styles/github.min.css"/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<!-- 使用 KaTeX 渲染数学公式 -->
+<script src="https://cdn.staticfile.org/KaTeX/0.16.8/katex.min.js"></script>
+<script src="https://cdn.staticfile.org/KaTeX/0.16.8/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/KaTeX/0.16.8/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<!-- 简单的点击图片放大缩小的预览 -->
+<script src="/js/lib/preview.js"></script>
+
+
+<!-- 看板娘 -->
+<script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+
+
+<!-- 侧边小功能-->
+
+
+
+<!-- 评论设置 -->
+
+<script
+    src="https://giscus.app/client.js"
+    data-repo="A7cc/giscus-comments"
+    data-repo-id="R_kgDOKKSvfw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOKKSvf84CYyp2"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="https://static-argvchs.netlify.app/css/giscus.css"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+<script src="https://cdn.bootcdn.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<link rel="stylesheet" href="/css/main.css" />
+
+    <meta name="generator" content="Hexo 6.2.0"></head>
+    <body>
+        <div id="layout">
+            <!-- 页面加载 -->
+            <transition name="fade">
+                <div id="loading" v-show="loading">
+                    <div id="loading-circle">
+                        <h2>LOADING</h2>
+                        <p>正在加载</p>
+                        <img src="/images/afde9fa65a5742a90b51d6e1211e841e.gif" />
+                    </div>
+                </div>
+            </transition>
+            <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>小C♥天天</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;文章</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+        <a href="/tools">
+            <i class="fa-solid fa-tools fa-fw"></i>
+            <span>&ensp;工具</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;小C♥天天</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                    </div>
+                </a>
+                
+                <a href="/tools">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tools fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">工具</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+            <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+                <div id="article-posts-wrap" true ref="homePostsWrap">
+    <div class="article">
+        <div>
+            <h1>Golang使用GUI图形化QT库</h1>
+        </div>
+        <div class="info">
+            <span class="date">
+                <span class="icon">
+                    <i class="fa-solid fa-calendar fa-fw"></i>
+                </span>
+                2023/11/29
+            </span>
+            
+            <span class="category">
+                <a href="/categories/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/">
+                    <span class="icon">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </span>
+                    乱七八糟
+                </a>
+            </span>
+            
+            
+            <span class="tags">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                
+                
+                <span class="tag">
+                    
+                    <a href="/tags/Golang/" style="color: #03a9f4">Golang</a>
+                </span>
+                
+                <span class="tag">
+                    
+                    <a href="/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/" style="color: #ff7d73">小技巧</a>
+                </span>
+                
+                <span class="tag">
+                    
+                    <a href="/tags/Qt/" style="color: #03a9f4">Qt</a>
+                </span>
+                
+            </span>
+            
+        </div>
+        
+        <div class="content" v-pre>
+            <h1 id="壹-介绍"><a href="#壹-介绍" class="headerlink" title="壹 介绍"></a>壹 介绍</h1><p><code>Qt</code>是一个跨平台的<code>C++</code>开发库，主要用来开发图形用户界面（<code>Graphical User Interface-GUI</code>）程序，当然也可以开发不带界面的命令行（<code>Command User Interface-CUI</code>）程序。<code>Qt</code>是纯<code>C++</code>开发的，<code>Qt</code>还存在<code>Python</code>、<code>Ruby</code>、<code>Perl</code>等语言的绑定， 也就是说可以使用其他编程语言开发基于<code>Qt</code>的程序。<font color="red">这里我们主要讲解<code>golang</code>安装使用<code>Qt</code>库，<code>golang</code>版本为<code>1.18</code></font>。</p>
+<h1 id="贰-安装必要的插件"><a href="#贰-安装必要的插件" class="headerlink" title="贰 安装必要的插件"></a>贰 安装必要的插件</h1><h2 id="2-1-QtDesigner可视化工具"><a href="#2-1-QtDesigner可视化工具" class="headerlink" title="2.1 QtDesigner可视化工具"></a>2.1 QtDesigner可视化工具</h2><p><code>QtDesigner</code>可视化工具是<code>Qt</code>程序<code>UI</code>界面的实现工具，使用<code>Qt Designer</code>可以拖拽、点击完成<code>GUI</code>界面设计，并且设计完成的<code>.ui</code>程序可以转换成其他编程语言文件。<br>该工具的安装的话，如果在<code>Qt</code>官网安装会很大，但是用<code>python</code>去安装会更方便，而且也更小巧。可以参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_40883833/article/details/126333030">QT designer安装及运用</a></p>
+<h2 id="2-2-goqtuic工具"><a href="#2-2-goqtuic工具" class="headerlink" title="2.2 goqtuic工具"></a>2.2 goqtuic工具</h2><p><code>goqtuic</code>工具主要是将<code>ui</code>文件转成<code>golang</code>文件。我们在终端运行下面命令，执行完后会在<code>%GOPATH%/bin</code>目录下生成<code>goqtuic.exe</code>执行程序（需要注意安装该工具需要将<code>GO111MODULE</code>设置为<code>auto</code>并且安装<code>git</code>工具）：</p>
+<pre><code class="golang">go get -u -v github.com/stephenlyu/goqtuic
+</code></pre>
+<p><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/Golang%E4%BD%BF%E7%94%A8GUI%E5%9B%BE%E5%BD%A2%E5%8C%96QT%E5%BA%93/0ba645cd2ead5da1fd46f094e9955b1b.png" alt="0ba645cd2ead5da1fd46f094e9955b1b.png"><br>我们在终端运行<code>goqtuic.exe -h</code>出现下面程序说明安装成功：<br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/Golang%E4%BD%BF%E7%94%A8GUI%E5%9B%BE%E5%BD%A2%E5%8C%96QT%E5%BA%93/8a178e5beb6861582ee7f13779edba59.png" alt="8a178e5beb6861582ee7f13779edba59.png"></p>
+<h2 id="2-3-Qt支持Golang的环境"><a href="#2-3-Qt支持Golang的环境" class="headerlink" title="2.3 Qt支持Golang的环境"></a>2.3 Qt支持Golang的环境</h2><p>先下载<code>mingw64</code>环境包，链接为<a target="_blank" rel="noopener" href="https://github.com/therecipe/env_windows_amd64_513">传送门</a>， 下载后解压，将其文件夹放到<code>GOPATH</code>下， 修改<code>env_windows_amd64_513\5.13.0\mingw73_64\bin\qtenv2.bat </code>内容：</p>
+<pre><code class="golang">@echo off
+echo Setting up environment for Qt usage...
+set PATH=C:\Users\admin\go\bin\env_windows_amd64\5.13.0\mingw73_64\bin;C:/Users/admin/go/bin/env_windows_amd64_Tools/mingw730_64\bin;%PATH%
+echo To export the current PATH to your default CMD or PS env run
+echo ------------------------
+echo set PATH &quot;%PATH%&quot;
+echo ------------------------
+echo and re-open the command line window
+</code></pre>
+<blockquote>
+<p>说明：<br><code>C:\Users\admin\go\bin\env_windows_amd64\5.13.0\mingw73_64\bin;</code>和<code>C:/Users/admin/go/bin/env_windows_amd64_Tools/mingw730_64\bin;</code>需要根据实际情况修改。</p>
+</blockquote>
+<p>将<code>mingw73_64\bin</code>添加到系统环境中：<br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/Golang%E4%BD%BF%E7%94%A8GUI%E5%9B%BE%E5%BD%A2%E5%8C%96QT%E5%BA%93/aa9dfdf1785d4845346faf4e588b1bc0.png" alt="aa9dfdf1785d4845346faf4e588b1bc0.png"><br>然后下载<code>golang</code>的<code>Qt</code>库源码：<a target="_blank" rel="noopener" href="https://github.com/therecipe/qt">官网</a><br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/Golang%E4%BD%BF%E7%94%A8GUI%E5%9B%BE%E5%BD%A2%E5%8C%96QT%E5%BA%93/01f533d89d7918fad0a42ce44ba63642.png" alt="01f533d89d7918fad0a42ce44ba63642.png"><br>开始编译：</p>
+<pre><code class="bash">cd xx\qt\cmd
+go build ./qtsetup/
+go build ./qtminimal/
+go build ./qtdeploy/
+go build ./qtminimal/
+go build ./qtrcc/
+</code></pre>
+<p><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/Golang%E4%BD%BF%E7%94%A8GUI%E5%9B%BE%E5%BD%A2%E5%8C%96QT%E5%BA%93/719613cf8241e85a730909916ff4f2a0.png" alt="719613cf8241e85a730909916ff4f2a0.png"><br>完成前期工作！</p>
+<h1 id="叁-使用"><a href="#叁-使用" class="headerlink" title="叁 使用"></a>叁 使用</h1><p>首先使用<code>QtDesigner</code>设计运行的图形界面，例如下面这样：<br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/Golang%E4%BD%BF%E7%94%A8GUI%E5%9B%BE%E5%BD%A2%E5%8C%96QT%E5%BA%93/b237bb38b8380778eb0343775d9a1479.png" alt="b237bb38b8380778eb0343775d9a1479.png"><br>保存为<code>login.ui</code>，接着使用<code>goqtuic</code>工具将<code>login.ui</code>转成<code>golang</code>代码：</p>
+<pre><code class="bash"># -go-ui-dir表示将转码好的golang代码放到对应的指定文件夹文件夹下
+# -ui-file表示要被转码的ui代码，该ui代码是由QtDesigner可视化工具生成的
+goqtuic.exe -go-ui-dir=&quot;uifile&quot; -ui-file=&quot;login.ui&quot; 
+</code></pre>
+<p>运行完上面命令后，会在<code>ui</code>代码所在目录下有了新的目录<code>uifile</code>，而且<code>uifile</code>目录下有经过转码后的<code>golang</code>文件。<br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/Golang%E4%BD%BF%E7%94%A8GUI%E5%9B%BE%E5%BD%A2%E5%8C%96QT%E5%BA%93/9bd9f726b1040b35038d314c7f2d3776.png" alt="9bd9f726b1040b35038d314c7f2d3776.png"><br>编写<code>golang</code>代码：</p>
+<ul>
+<li><code>main.go</code><br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/Golang%E4%BD%BF%E7%94%A8GUI%E5%9B%BE%E5%BD%A2%E5%8C%96QT%E5%BA%93/426d29a9849466234db67cf20b2a543f.png" alt="426d29a9849466234db67cf20b2a543f.png"></li>
+</ul>
+<pre><code class="golang">package main
+
+import (
+    &quot;demo/uifile&quot;
+    &quot;os&quot;
+
+    &quot;github.com/therecipe/qt/core&quot;
+    &quot;github.com/therecipe/qt/widgets&quot;
+)
+
+func main() &#123;
+    widget := widgets.NewQApplication(len(os.Args), os.Args)
+
+    mainwindows := widgets.NewQMainWindow(nil, core.Qt__Window) // 创建主窗体
+    loginUI := uifile.UILoginMainWindow&#123;&#125;
+    loginUI.SetupUI(mainwindows) // 将UI初始化给创建的mainwindows
+    mainwindows.Show()           // 显示
+
+    widget.Exec()
+&#125;
+</code></pre>
+<ul>
+<li><code>uifile/login_ui.go</code><br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/Golang%E4%BD%BF%E7%94%A8GUI%E5%9B%BE%E5%BD%A2%E5%8C%96QT%E5%BA%93/f845a1c01627a815db1636ebe6843590.png" alt="f845a1c01627a815db1636ebe6843590.png"></li>
+</ul>
+<pre><code class="golang">// WARNING! All changes made in this file will be lost!
+package uifile
+
+import (
+    &quot;github.com/therecipe/qt/core&quot;
+    &quot;github.com/therecipe/qt/widgets&quot;
+)
+
+type UILoginMainWindow struct &#123;
+    Centralwidget *widgets.QWidget
+    VerticalLayout *widgets.QVBoxLayout
+    HorizontalLayout *widgets.QHBoxLayout
+    Label *widgets.QLabel
+    LineEdit *widgets.QLineEdit
+    HorizontalLayout2 *widgets.QHBoxLayout
+    Label2 *widgets.QLabel
+    LineEdit2 *widgets.QLineEdit
+    HorizontalLayout3 *widgets.QHBoxLayout
+    HorizontalSpacer *widgets.QSpacerItem
+    PushButton *widgets.QPushButton
+    HorizontalSpacer2 *widgets.QSpacerItem
+    Menubar *widgets.QMenuBar
+&#125;
+
+func (this *UILoginMainWindow) SetupUI(MainWindow *widgets.QMainWindow) &#123;
+    MainWindow.SetObjectName(&quot;MainWindow&quot;)
+    MainWindow.SetGeometry(core.NewQRect4(0, 0, 332, 147))
+    this.Centralwidget = widgets.NewQWidget(MainWindow, core.Qt__Widget)
+    this.Centralwidget.SetObjectName(&quot;Centralwidget&quot;)
+    this.VerticalLayout = widgets.NewQVBoxLayout2(this.Centralwidget)
+    this.VerticalLayout.SetObjectName(&quot;verticalLayout&quot;)
+    this.VerticalLayout.SetContentsMargins(0, 0, 0, 0)
+    this.VerticalLayout.SetSpacing(0)
+    this.HorizontalLayout = widgets.NewQHBoxLayout2(this.Centralwidget)
+    this.HorizontalLayout.SetObjectName(&quot;horizontalLayout&quot;)
+    this.HorizontalLayout.SetContentsMargins(0, 0, 0, 0)
+    this.HorizontalLayout.SetSpacing(0)
+    this.Label = widgets.NewQLabel(this.Centralwidget, core.Qt__Widget)
+    this.Label.SetObjectName(&quot;Label&quot;)
+    this.HorizontalLayout.AddWidget(this.Label, 0, 0)
+    this.LineEdit = widgets.NewQLineEdit(this.Centralwidget)
+    this.LineEdit.SetObjectName(&quot;LineEdit&quot;)
+    this.HorizontalLayout.AddWidget(this.LineEdit, 0, 0)
+    this.VerticalLayout.AddLayout(this.HorizontalLayout, 0)
+    this.HorizontalLayout2 = widgets.NewQHBoxLayout2(this.Centralwidget)
+    this.HorizontalLayout2.SetObjectName(&quot;horizontalLayout_2&quot;)
+    this.HorizontalLayout2.SetContentsMargins(0, 0, 0, 0)
+    this.HorizontalLayout2.SetSpacing(0)
+    this.Label2 = widgets.NewQLabel(this.Centralwidget, core.Qt__Widget)
+    this.Label2.SetObjectName(&quot;Label2&quot;)
+    this.HorizontalLayout2.AddWidget(this.Label2, 0, 0)
+    this.LineEdit2 = widgets.NewQLineEdit(this.Centralwidget)
+    this.LineEdit2.SetObjectName(&quot;LineEdit2&quot;)
+    this.HorizontalLayout2.AddWidget(this.LineEdit2, 0, 0)
+    this.VerticalLayout.AddLayout(this.HorizontalLayout2, 0)
+    this.HorizontalLayout3 = widgets.NewQHBoxLayout2(this.Centralwidget)
+    this.HorizontalLayout3.SetObjectName(&quot;horizontalLayout_3&quot;)
+    this.HorizontalLayout3.SetContentsMargins(0, 0, 0, 0)
+    this.HorizontalLayout3.SetSpacing(0)
+    this.HorizontalSpacer = widgets.NewQSpacerItem(40, 20, widgets.QSizePolicy__Expanding, widgets.QSizePolicy__Minimum)
+    this.HorizontalLayout3.AddItem(this.HorizontalSpacer)
+    this.PushButton = widgets.NewQPushButton(this.Centralwidget)
+    this.PushButton.SetObjectName(&quot;PushButton&quot;)
+    this.HorizontalLayout3.AddWidget(this.PushButton, 0, 0)
+    this.HorizontalSpacer2 = widgets.NewQSpacerItem(40, 20, widgets.QSizePolicy__Expanding, widgets.QSizePolicy__Minimum)
+    this.HorizontalLayout3.AddItem(this.HorizontalSpacer2)
+    this.VerticalLayout.AddLayout(this.HorizontalLayout3, 0)
+    MainWindow.SetCentralWidget(this.Centralwidget)
+    this.Menubar = widgets.NewQMenuBar(MainWindow)
+    this.Menubar.SetObjectName(&quot;Menubar&quot;)
+    this.Menubar.SetGeometry(core.NewQRect4(0, 0, 332, 23))
+    MainWindow.SetMenuBar(this.Menubar)
+    this.RetranslateUi(MainWindow)
+
+&#125;
+
+func (this *UILoginMainWindow) RetranslateUi(MainWindow *widgets.QMainWindow) &#123;
+    _translate := core.QCoreApplication_Translate
+    MainWindow.SetWindowTitle(_translate(&quot;MainWindow&quot;, &quot;MainWindow&quot;, &quot;&quot;, -1))
+    this.Label.SetText(_translate(&quot;MainWindow&quot;, &quot;用户名&quot;, &quot;&quot;, -1))
+    this.Label2.SetText(_translate(&quot;MainWindow&quot;, &quot;密  码&quot;, &quot;&quot;, -1))
+    this.PushButton.SetText(_translate(&quot;MainWindow&quot;, &quot;登录&quot;, &quot;&quot;, -1))
+&#125;
+</code></pre>
+<p>开始编译：</p>
+<pre><code class="bash"># mod
+go mod init demo
+go mod tidy
+# 安装依赖
+go mod vendor
+# 生成GUI界面
+qtdeploy.exe -qt_dir=&quot;C:\GoPath\bin\env_windows_amd64_513&quot; -qt_version=&quot;5.13.0&quot; build desktop .
+</code></pre>
+<p><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/Golang%E4%BD%BF%E7%94%A8GUI%E5%9B%BE%E5%BD%A2%E5%8C%96QT%E5%BA%93/d5607e95e275c0f804a27241a92a9378.png" alt="d5607e95e275c0f804a27241a92a9378.png"><br>如果运行没有报错，会在当前目录下生成<code>windows</code>和<code>deploy</code>目录，其中<code>deploy\windows</code>目录下有执行文件，就是我们生成的<code>GUI</code>界面，双击运行。<br><img src="/images/%E4%B9%B1%E4%B8%83%E5%85%AB%E7%B3%9F/Golang%E4%BD%BF%E7%94%A8GUI%E5%9B%BE%E5%BD%A2%E5%8C%96QT%E5%BA%93/ed02eda8e7940948e018a95d37ba9914.png" alt="ed02eda8e7940948e018a95d37ba9914.png"></p>
+<h1 id="肆-参考"><a href="#肆-参考" class="headerlink" title="肆 参考"></a>肆 参考</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/linyfeng/p/11223707.html">Qt Designer工具的使用</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/halo_hsuh/article/details/106818987">Golang中使用Qt库(therecipe&#x2F;qt)+QtDesigner + Goland (一) 环境搭建</a></li>
+</ul>
+
+        </div>
+        
+        
+        <div id="comment">
+            <div id="giscus-container" class="giscus"></div>
+        </div>
+        
+    </div>
+    
+    <div id="article-card">
+        <div id="card-style">
+    <div id="card-div" class="card-cls">
+        <div class="avatar">
+            <img src="/images/f6e2b991f74bfd7b88c3ab1a3d513b94.jpg" alt="avatar" />
+        </div>
+        <div class="name">小C&amp;天天</div>
+        <div class="description">
+            <p>修学储能 先博后渊</p>
+
+        </div>
+        
+        <div class="icon-links">
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://github.com/A7cc">
+                    <i class="fa-brands fa-github fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.qq.com/">
+                    <i class="fa-brands fa-qq fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.weibo.com/">
+                    <i class="fa-brands fa-weibo fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://google.com/">
+                    <i class="fa-brands fa-google fa-fw"></i>
+                </a>
+            </span>
+            
+        </div>
+        
+        
+        <div class="friend-links">
+            
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="http://www.wgs6km.top/">kyrieee</a>
+            </span>
+            
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="https://tonyd0g.gitee.io/">tonyd0g</a>
+            </span>
+            
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="https://ruyueattention.github.io/">ruyueattention</a>
+            </span>
+            
+        </div>
+        
+    </div>
+    
+    <!-- <br /> -->
+    <!-- 目录 -->
+    <!-- 
+    <div id="card-div">
+        <div id="toc" class="toc-article">
+            <strong class="toc-title">文章目录</strong>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A3%B9-%E4%BB%8B%E7%BB%8D"><span class="toc-text">壹 介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%B0-%E5%AE%89%E8%A3%85%E5%BF%85%E8%A6%81%E7%9A%84%E6%8F%92%E4%BB%B6"><span class="toc-text">贰 安装必要的插件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-QtDesigner%E5%8F%AF%E8%A7%86%E5%8C%96%E5%B7%A5%E5%85%B7"><span class="toc-text">2.1 QtDesigner可视化工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-goqtuic%E5%B7%A5%E5%85%B7"><span class="toc-text">2.2 goqtuic工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-Qt%E6%94%AF%E6%8C%81Golang%E7%9A%84%E7%8E%AF%E5%A2%83"><span class="toc-text">2.3 Qt支持Golang的环境</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%81-%E4%BD%BF%E7%94%A8"><span class="toc-text">叁 使用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%82%86-%E5%8F%82%E8%80%83"><span class="toc-text">肆 参考</span></a></li></ol>
+        </div>    
+    </div>
+     -->
+</div>
+
+<div id="card-style-fun">
+    
+    <!-- 今日诗句 -->
+    <br />
+    <div id="card-div">
+        <div class="good-sentence">
+            <div class="toolio">
+                <div class="circle"><span class="red"></span></div>
+                <div class="circle"><span class="yellow"></span></div>
+                <div class="circle"><span class="green"></span></div>
+                <div class="circle"><span class="text">今日诗句</span></div>
+            </div>
+            <div class="sentence">
+                <div id="sentenceid" onload="getsentence();"></div>
+            </div>
+        </div>
+    </div>
+    <!-- 日期信息 -->
+    <br />
+    <div id="card-div">
+        <img src="//api.vvhan.com/api/ipCard?tip=A7cc" width="300" height="180">
+    </div>
+    
+</div>
+
+
+
+    </div>
+    
+</div>
+                <!-- 页脚 -->
+                <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+            <script>
+                var now = new Date(); 
+                function createtime() { 
+                    var grt= new Date("07/10/2022 00:00:00");
+                    now.setTime(now.getTime()+250); 
+                    days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+                    hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+                    if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+                    mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+                    seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+                    snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+                    document.getElementById("timeDate").innerHTML = "已运行 "+dnum+" 天 "; 
+                    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+                } 
+            setInterval("createtime()",250);
+            </script>
+        </div>
+        <div>
+            &copy;
+            2022 - 2023 小C♥天天
+            <span class="footer-icon">
+                <i class="fa-brands fa-github fa-fw"></i>
+            </span>
+            &commat;小C&amp;天天
+        </div>
+        <div>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX</a> 
+        </div>
+        
+    </div>
+</footer>
+
+            </div>
+            <!-- 简单的点击图片放大缩小的预览 -->
+            
+            <div name="fade">
+                <div id="preview" ref="preview" v-show="previewShow">
+                    <img id="preview-content" ref="previewContent" />
+                </div>
+            </div>
+            
+        </div>
+        <!-- 看板娘 -->
+        
+        <div id="L2dCanvas"></div>
+        <script src="/js/lib/live2d.min.js"></script>
+        <!-- 设置随机模板 -->
+        
+        <script>
+            var v = new Viewer({
+                basePath: "/model",
+                role: "tierbici_2",
+                mobile: true,
+            });
+        </script>
+        
+        <!-- 诗句 -->
+        
+        <script>
+            // // 每隔10分钟执行一次getsentence这个函数
+            window.setInterval(getsentence, 100*60*5);
+            function getsentence() {
+                // 这里没有考虑IE浏览器，如果需要择if判断加
+                var xhr = new XMLHttpRequest();  
+                xhr.open('GET', "https://zj.v.api.aa1.cn/api/wenan-shici/?type=json",true);
+                xhr.send(JSON.stringify(null));
+                xhr.onreadystatechange = function () {
+                    if (xhr.status === 200 && xhr.readyState === 4) {
+                        //js处理数据
+                        // xhr.responseText.match(/content":(".+?")/g)
+                        getdata = JSON.parse(xhr.responseText).msg;
+                    }else{
+                        getdata = "长风破浪会有时，直挂云帆济沧海。——李白《行路难》";
+                    }
+                    document.getElementById("sentenceid").innerHTML = getdata;
+                }
+            }
+            window.onload = getsentence;
+        </script>
+        
+        <!-- 点击 -->
+        <script>
+            let body = document.getElementsByTagName('body')[0];
+            body.addEventListener('click', (e) => {
+                let contentArr = ['✊','😘','😍','😊','😭','😡','😋','👍','🐷','😱','💷','💵','×','🆗','№','⭐','🌙','♥','💴','☀','🐎','🐂','🐏','√'];
+                let randomNum = function (n) {
+                    return Math.floor(Math.random() * n)
+                }
+                let span = document.createElement('span');
+                span.innerHTML = `${contentArr[randomNum(contentArr.length)]}`;
+                span.style.color = `rgb(${randomNum(256)},${randomNum(256)},${randomNum(256)})`;
+                span.style.position = 'absolute';
+                span.style.top = `${e.pageY}px`;
+                span.style.left = `${e.pageX}px`;
+                span.style.transition = 'all 1s ease';
+                span.style.zIndex = 20000;
+                body.appendChild(span)
+                setTimeout(()=>{
+                    span.style.top = span.offsetTop - 100 + 'px';
+                    span.style.opacity = 0;
+                    setTimeout(()=>{span.remove()},700)
+                },0)
+            })
+        </script>
+        <!-- 流星背景特效 -->
+        
+        <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/meteorbackground.js"></script>
+        
+        <script src="/js/main.js"></script>
+    </body>
+</html>
