@@ -168,4 +168,4 @@ function convertCurrency(currencyDigits) {
         }
         outputCharacters = CN_SYMBOL + outputCharacters;
         return outputCharacters;
-    }
+}
