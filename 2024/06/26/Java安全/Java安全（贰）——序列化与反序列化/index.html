@@ -1,0 +1,821 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <head>
+        <meta charset="utf-8" />
+        <title>Java安全（贰）——序列化与反序列化 | 小C♥天天</title>
+        <meta name="author" content="小C&天天" />
+        <meta name="description" content="^v^" />
+        <meta name="keywords" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <link rel="icon" href="/images/icon.jpg" />
+        <link rel="preconnect" href="https://cdn.staticfile.org" />
+<script src="https://cdn.staticfile.org/vue/3.3.4/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/6.4.0/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.loli.net" />
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" />
+<script> const mixins = {}; </script>
+
+<!-- 兼容不同版本的浏览器 -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<!-- 高亮代码 -->
+<script src="https://cdn.staticfile.org/highlight.js/11.8.0/highlight.min.js"></script>
+<script src="https://cdn.staticfile.org/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/11.8.0/styles/github.min.css"/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<!-- 使用 KaTeX 渲染数学公式 -->
+<script src="https://cdn.staticfile.org/KaTeX/0.16.8/katex.min.js"></script>
+<script src="https://cdn.staticfile.org/KaTeX/0.16.8/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/KaTeX/0.16.8/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<!-- 简单的点击图片放大缩小的预览 -->
+<script src="/js/lib/preview.js"></script>
+
+
+<!-- 看板娘 -->
+<script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+
+
+<!-- 侧边小功能-->
+
+
+
+<!-- 评论设置 -->
+
+<script
+    src="https://giscus.app/client.js"
+    data-repo="A7cc/giscus-comments"
+    data-repo-id="R_kgDOKKSvfw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOKKSvf84CYyp2"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="https://static-argvchs.netlify.app/css/giscus.css"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+<script src="https://cdn.bootcdn.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<link rel="stylesheet" href="/css/main.css" />
+
+    <meta name="generator" content="Hexo 6.2.0"></head>
+    <body>
+        <div id="layout">
+            <!-- 页面加载 -->
+            <transition name="fade">
+                <div id="loading" v-show="loading">
+                    <div id="loading-circle">
+                        <h2>LOADING</h2>
+                        <p>正在加载</p>
+                        <img src="/images/afde9fa65a5742a90b51d6e1211e841e.gif" />
+                    </div>
+                </div>
+            </transition>
+            <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>小C♥天天</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;文章</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+        <a href="/tools">
+            <i class="fa-solid fa-tools fa-fw"></i>
+            <span>&ensp;工具</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;小C♥天天</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                    </div>
+                </a>
+                
+                <a href="/tools">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tools fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">工具</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+            <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+                <div id="article-posts-wrap" true ref="homePostsWrap">
+    <div class="article">
+        <div>
+            <h1>Java安全（贰）——序列化与反序列化</h1>
+        </div>
+        <div class="info">
+            <span class="date">
+                <span class="icon">
+                    <i class="fa-solid fa-calendar fa-fw"></i>
+                </span>
+                2024/6/26
+            </span>
+            
+            <span class="category">
+                <a href="/categories/Java%E5%AE%89%E5%85%A8/">
+                    <span class="icon">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </span>
+                    Java安全
+                </a>
+            </span>
+            
+            
+            <span class="tags">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                
+                
+                <span class="tag">
+                    
+                    <a href="/tags/Java/" style="color: #ffa2c4">Java</a>
+                </span>
+                
+                <span class="tag">
+                    
+                    <a href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" style="color: #00a596">代码审计</a>
+                </span>
+                
+                <span class="tag">
+                    
+                    <a href="/tags/%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" style="color: #03a9f4">序列化与反序列化</a>
+                </span>
+                
+            </span>
+            
+        </div>
+        
+        <div class="content" v-pre>
+            <h1 id="壹-介绍"><a href="#壹-介绍" class="headerlink" title="壹 介绍"></a>壹 介绍</h1><h2 id="1-1-为什么要学习序列化与反序列化？"><a href="#1-1-为什么要学习序列化与反序列化？" class="headerlink" title="1.1 为什么要学习序列化与反序列化？"></a>1.1 为什么要学习序列化与反序列化？</h2><p>平时我们进行远程通信时，需要互相传输各种类型的数据，如：文本、图片、视频等，这些数据都可以通过二进制流的方式在网络上进行传送，并且有固定的<code>MIME</code>和后缀名进行识别，那么当两个<code>Java</code>进程进行通讯时，能否使用二进制流进行传输呢？当然可以，但是这种二进制流并没有固定的<code>MIME</code>和后缀名进行识别，而是以字节序列与对象进行转换传输的，我们又将这种转换称为<strong>序列化</strong>。发送方需要把一个<code>Java</code>对象传输给接收方时，发送方需要将这个<code>Java</code>对象转换为字节序列，然后通过网络传送到接收方，接收方接收到字节序列后，将其恢复成<code>Java</code>对象。当然，这种转换不仅仅是局限于<code>Java</code>这个语言，当然还包括其他语言，如<code>PHP</code>、<code>Python</code>等。</p>
+<h2 id="1-2-介绍"><a href="#1-2-介绍" class="headerlink" title="1.2 介绍"></a>1.2 介绍</h2><p><code>Java</code>序列化是指把<code>Java</code>对象转换为字节序列的过程，<code>Java</code>中的<code>ObjectOutputStream</code>类里的<code>writeObject()</code>方法可以实现序列化，而<code>Java</code>反序列化是指把字节序列恢复为<code>Java</code>对象的过程，<code>Java</code>中的<code>ObjectInputStream</code>类里的<code>readObject()</code>方法可以实现反序列化。</p>
+<h2 id="1-3-应用场景"><a href="#1-3-应用场景" class="headerlink" title="1.3 应用场景"></a>1.3 应用场景</h2><ul>
+<li>当我们需要把内存中的对象状态保存到一个文件中或者数据库的时候</li>
+<li>当我们需要通过<code>Socket</code>在网络上传输对象的时候</li>
+<li>当我们需要通过<code>RMI</code>传输对象的时候</li>
+</ul>
+<blockquote>
+<p><code>RMI</code>全称是<code>Remote Method Invocation</code>，远程方法调用。从这个名字就可以看出，它其实与<code>RPC</code>的功能应用场景应该是差不多的，他们的功能是让<code>A</code>程序调⽤<code>B</code>程序上的方法，实现程序间的方法的互相调用，这两个程序可以是运行在相同计算机上的不同进程中，也可以是运行在网络上的不同计算机中，只不过<code>RMI</code>是<code>Java</code>独有的一种机制。</p>
+</blockquote>
+<h2 id="1-4-Java序列化需要注意的点"><a href="#1-4-Java序列化需要注意的点" class="headerlink" title="1.4 Java序列化需要注意的点"></a>1.4 Java序列化需要注意的点</h2><ul>
+<li><p>1、需要对象继承<code>Serializable</code>接口（这是一个空接口）或者<code>Externalizable</code>接口才能进行序列化操作<br>要被进行序列化的对象，该对象必须继承<code>Serializable</code>接口或者<code>Externalizable</code>接口，才能进行序列化操作。</p>
+</li>
+<li><p>2、成员变量必须可以序列化<br>如果所要序列化的对象的成员属性中含有对其他对象的引用，要求所引用的对象也必须是可序列化的（也就是说实现<code>serializable</code>接口），否则会序列化失败。这是因为<code>Java</code>的序列化会将一个类中所有的成员变量，包括引用的成员变量保存下来（深度复制），这就会导致要求引用类型必须也要实现<code>java.io.Serializable</code>接口。</p>
+</li>
+<li><p>3、<code>transient</code>关键字，可避免被序列化<br>用<code>transient</code>修饰的属性，可以避免被序列化</p>
+</li>
+<li><p>4、无法更新状态<br>由于<code>Java</code>序列化算法不会重复序列化同一个对象，如果对象的内容更改后，再次序列化，并不会再次将此对象转换为字节序列。</p>
+</li>
+<li><p>5、类的<code>serialVersionUID</code>必须与序列化时的版本号匹配<br><code>serialVersionUID</code>是序列化版本号，用来保证序列化后的字节序列没有被改动过，反序列化回来后和原来的程序是兼容的。<code>serialVersionUID</code>不会自动改变，而是留给程序员手动更改的一个版本号标志位。更改了序列化文件的程序员一并更改版本号提示后来的人文件被更改过。如果在反序列化时，类的<code>serialVersionUID</code>与序列化时的版本号不匹配，那么会抛出<code>InvalidClassException</code>异常，表示类的版本不兼容，无法进行反序列化。</p>
+</li>
+</ul>
+<h1 id="贰-Java序列化和反序列化的实现"><a href="#贰-Java序列化和反序列化的实现" class="headerlink" title="贰 Java序列化和反序列化的实现"></a>贰 Java序列化和反序列化的实现</h1><h2 id="2-1-原生的反序列化api"><a href="#2-1-原生的反序列化api" class="headerlink" title="2.1 原生的反序列化api"></a>2.1 原生的反序列化api</h2><p>在<code>Java</code>的<code>JDK</code>类库中存在原生的反序列化<code>api</code>，当然市面上也有第三方组件提供的反序列化<code>api</code>，例如：<code>fastjson</code>、<code>jackson</code>，这里我们至少对原生的反序列化进行学习。</p>
+<p>首先介绍两个主角：<code>Java</code>中的<code>ObjectOutputStream</code>类里的<code>writeObject()</code>方法和<code>Java</code>中的<code>ObjectInputStream</code>类里的<code>readObject()</code>方法。</p>
+<ul>
+<li><code>java.io.ObjectOutputStream</code>类表示对象输出流，它的<code>writeObject</code>方法可以对参数指定的对象进行序列化，把得到的字节序列写到一个目标输出流中。</li>
+<li><code>java.io.ObjectInputStream</code>类表示对象输入流，它的<code>readObject</code>方法从输入流中读取字节序列，再把它们反序列化成为一个对象，并将其返回。</li>
+</ul>
+<h2 id="2-2-调用实现序列化和反序列化api"><a href="#2-2-调用实现序列化和反序列化api" class="headerlink" title="2.2 调用实现序列化和反序列化api"></a>2.2 调用实现序列化和反序列化api</h2><p>我们定义了两个方法分别是用于序列化的<code>Serializable_ok</code>方法和用于反序列化的<code>UnSerializable_ok</code>方法，这两个方法的逻辑就是通过获取传递来的参数对其进行序列化和反序列化：</p>
+<pre><code class="Java">package com.demo.serializable;
+import java.io.*;
+public class Serializable01 &#123;
+    public void Serializable_ok(Object obj) throws IOException &#123;
+        // 新建一个serializable.ser文件用来存储后续序列化的数据
+        FileOutputStream fileOutputStream = new FileOutputStream(&quot;serializable.ser&quot;);
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+        // 将获取到的对象进行序列化，并存入到serializable.ser文件中
+        objectOutputStream.writeObject(obj);
+        objectOutputStream.close();
+    &#125;
+    public Object UnSerializable_ok(String file) throws IOException, ClassNotFoundException &#123;
+        // 获取file文件中的序列化内容
+        FileInputStream fileInputStream = new FileInputStream(file);
+        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+        // 将序列化内容转换为Java对象，并返回
+        Object o = objectInputStream.readObject();
+        return o;
+    &#125;
+&#125;
+</code></pre>
+<h2 id="2-2-对于Java序列化需要注意点的代码实现"><a href="#2-2-对于Java序列化需要注意点的代码实现" class="headerlink" title="2.2 对于Java序列化需要注意点的代码实现"></a>2.2 对于Java序列化需要注意点的代码实现</h2><h3 id="2-2-1-需要对象继承Serializable接口或者Externalizable接口才能进行序列化操作"><a href="#2-2-1-需要对象继承Serializable接口或者Externalizable接口才能进行序列化操作" class="headerlink" title="2.2.1 需要对象继承Serializable接口或者Externalizable接口才能进行序列化操作"></a>2.2.1 需要对象继承Serializable接口或者Externalizable接口才能进行序列化操作</h3><p>要被进行序列化的对象，该对象必须继承<code>Serializable</code>接口或者<code>Externalizable</code>接口，才能进行序列化操作。这里我们创建了一个<code>UserStudent1</code>类，并且没有继承<code>Serializable</code>接口或者<code>Externalizable</code>接口，运行后出现错误警告：</p>
+<pre><code class="Java">package com.demo.serializable;
+import java.io.IOException;
+class UserStudent1 &#123;
+    public String Name;
+    public UserStudent1(String name)&#123;
+        this.Name = name;
+    &#125;
+    @Override
+    public String toString() &#123; return &quot;UserStudent1&#123;&quot; + &quot;Name=&#39;&quot; + Name + &#39;\&#39;&#39; + &#39;&#125;&#39;; &#125;
+&#125;
+public class Run &#123;
+    public static void main(String[] args) throws IOException, ClassNotFoundException &#123;
+        UserStudent1 student = new UserStudent1(&quot;a7cc&quot;);
+        // 创建自定义序列化类
+        Serializable01 serializableOk = new Serializable01();
+        // 序列化
+        serializableOk.Serializable_ok(student);
+        // 反序列化
+        UserStudent1 s1 = (UserStudent1)serializableOk.UnSerializable_ok(&quot;serializable.ser&quot;);
+        System.out.println(s1);
+    &#125;
+&#125;
+</code></pre>
+<p><img src="/images/Java%E5%AE%89%E5%85%A8/%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/560e0cb3673e3fd551196871f4962599.png" alt="560e0cb3673e3fd551196871f4962599.png"></p>
+<h3 id="2-2-2-成员变量必须可以序列化"><a href="#2-2-2-成员变量必须可以序列化" class="headerlink" title="2.2.2 成员变量必须可以序列化"></a>2.2.2 成员变量必须可以序列化</h3><p>如果所要序列化的对象的成员属性中含有对其他对象的引用，要求所引用的对象也必须是可序列化的（也就是说实现<code>serializable</code>接口），否则会序列化失败。这是因为<code>Java</code>的序列化会将一个类中所有的成员变量，包括引用的成员变量保存下来（深度复制），这就会导致要求引用类型必须也要实现<code>java.io.Serializable</code>接口。下面代码中，<code>Other</code>类是没有继承了<code>Serializable</code>的，这时候就会报错：</p>
+<pre><code class="Java">package com.demo.serializable;
+import java.io.IOException;
+import java.io.Serializable;
+// Other类是没有继承了Serializable的
+class Other &#123;&#125;
+// 如果继承了Serializable，就不会报错
+// class Other implements Serializable &#123;&#125;
+// UserStudent1类是继承了Serializable的
+class UserStudent1 implements Serializable &#123;
+    // String类是继承了Serializable的
+    public String Name;
+    // Other类是没有继承了Serializable的
+    public Other other;
+    public UserStudent1(String name,Other other)&#123;
+        this.Name = name;
+        this.other = other;
+    &#125;
+    @Override
+    public String toString() &#123; return &quot;UserStudent1&#123;&quot; + &quot;Name=&#39;&quot; + Name + &#39;\&#39;&#39; + &quot;, Other=&#39;&quot; + Other + &#39;\&#39;&#39; + &#39;&#125;&#39;; &#125;
+&#125;
+public class Run &#123;
+    public static void main(String[] args) throws IOException, ClassNotFoundException &#123;
+        UserStudent1 student = new UserStudent1(&quot;a7cc&quot;,new Other());
+        // 创建自定义序列化类
+        Serializable01 serializableOk = new Serializable01();
+        // 序列化
+        serializableOk.Serializable_ok(student);
+        // 反序列化
+        UserStudent1 s1 = (UserStudent1)serializableOk.UnSerializable_ok(&quot;serializable.ser&quot;);
+        System.out.println(s1);
+    &#125;
+&#125;
+</code></pre>
+<p><img src="/images/Java%E5%AE%89%E5%85%A8/%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/c6575674c14bd5bdcaed2b228805f75a.png" alt="c6575674c14bd5bdcaed2b228805f75a.png"></p>
+<h3 id="2-2-3-transient关键字，可避免被序列化"><a href="#2-2-3-transient关键字，可避免被序列化" class="headerlink" title="2.2.3 transient关键字，可避免被序列化"></a>2.2.3 transient关键字，可避免被序列化</h3><p>用<code>transient</code>修饰的属性，可以避免被序列化。</p>
+<pre><code class="Java">package com.demo.serializable;
+import java.io.IOException;
+import java.io.Serializable;
+class UserStudent1 implements Serializable &#123;
+    // Name没有被transient关键字修饰
+    public String Name;
+    // Other被transient关键字修饰
+    public transient String Other;
+
+    public UserStudent1(String name, String other)&#123;
+        this.Name = name;
+        this.Other = other;
+    &#125;
+
+    @Override
+    public String toString() &#123; return &quot;UserStudent1&#123;&quot; + &quot;Name=&#39;&quot; + Name + &#39;\&#39;&#39; + &quot;, Other=&#39;&quot; + Other + &#39;\&#39;&#39; + &#39;&#125;&#39;; &#125;
+&#125;
+public class Run &#123;
+    public static void main(String[] args) throws IOException, ClassNotFoundException &#123;
+        UserStudent1 student = new UserStudent1(&quot;a7cc&quot;,&quot;11111111111&quot;);
+        // 创建自定义序列化类
+        Serializable01 serializableOk = new Serializable01();
+        // 序列化
+        serializableOk.Serializable_ok(student);
+        // 反序列化
+        UserStudent1 s1 = (UserStudent1)serializableOk.UnSerializable_ok(&quot;serializable.ser&quot;);
+        System.out.println(s1);
+    &#125;
+&#125;
+</code></pre>
+<p><img src="/images/Java%E5%AE%89%E5%85%A8/%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/5f4da63e4dd6e08f17348b96063e5ddb.png" alt="5f4da63e4dd6e08f17348b96063e5ddb.png"></p>
+<p>可以发现<code>Other</code>的值并不是<code>11111111111</code>而是为<code>null</code>，说明用<code>transient</code>修饰的属性是不能被序列化的。</p>
+<h3 id="2-2-4-无法更新状态"><a href="#2-2-4-无法更新状态" class="headerlink" title="2.2.4 无法更新状态"></a>2.2.4 无法更新状态</h3><p>由于<code>Java</code>序列化算法不会重复序列化同一个对象，如果对象的内容更改后，再次序列化，并不会再次将此对象转换为字节序列。下面我们对<code>student</code>进行序列化两次，可以发现只对第一次序列化生效：</p>
+<pre><code class="Java">package com.demo.serializable;
+import java.io.*;
+
+class UserStudent1 implements Serializable &#123;
+    public String Name;
+    public UserStudent1(String name)&#123;
+        this.Name = name;
+    &#125;
+    @Override
+    public String toString() &#123; return &quot;UserStudent1&#123;&quot; + &quot;Name=&#39;&quot; + Name + &#39;\&#39;&#39; + &#39;&#125;&#39;; &#125;
+    &#125;
+public class Run &#123;
+    public static void main(String[] args) throws IOException, ClassNotFoundException &#123;
+        UserStudent1 student = new UserStudent1(&quot;a7cc&quot;);
+        // 创建自定义序列化类
+        // 新建一个文件用来存储后续序列化的数据
+        FileOutputStream fileOutputStream = new FileOutputStream(&quot;serializable.ser&quot;);
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+        // 将获取到的对象进行序列化，并存入到serializable.ser文件中
+        objectOutputStream.writeObject(student);
+        // 改变对象的Name值后再进行序列化
+        student.Name = &quot;ok&quot;;
+        objectOutputStream.writeObject(student);
+
+        // 反序列化
+        // 获取file文件中的序列化内容
+        FileInputStream fileInputStream = new FileInputStream(&quot;serializable.ser&quot;);
+        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+        // 将序列化内容转换为Java对象，并返回
+        Object o1 = objectInputStream.readObject();
+        System.out.println(o1);
+    &#125;
+&#125;
+</code></pre>
+<p><img src="/images/Java%E5%AE%89%E5%85%A8/%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/9ab57fb2faf3ddb4c3ec5a6a908735ce.png" alt="9ab57fb2faf3ddb4c3ec5a6a908735ce.png"></p>
+<h3 id="2-2-5-类的serialVersionUID必须与序列化时的版本号匹配"><a href="#2-2-5-类的serialVersionUID必须与序列化时的版本号匹配" class="headerlink" title="2.2.5 类的serialVersionUID必须与序列化时的版本号匹配"></a>2.2.5 类的serialVersionUID必须与序列化时的版本号匹配</h3><p><code>serialVersionUID</code>是序列化版本号，用来保证序列化后的字节序列没有被改动过，反序列化回来后和原来的程序是兼容的。<code>serialVersionUID</code>不会自动改变，而是留给程序员手动更改的一个版本号标志位。更改了序列化文件的程序员一并更改版本号提示后来的人文件被更改过。<code>Java</code>的序列化机制是通过判断运行时类的<code>serialVersionUID</code>来验证版本一致性的，在进行反序列化时，<code>JVM</code>会把传进来的字节流中的<code>serialVersionUID</code>与本地实体类中的<code>serialVersionUID</code>进行比较，如果相同则认为是一致的，便可以进行反序列化，否则就会抛出<code>InvalidClassException</code>异常，表示类的版本不兼容，无法进行反序列化，即序列化<code>ID</code>是为了保证成功进行反序列化。我们在进行序列化时，加了一个<code>serialVersionUID</code>字段，这便是序列化<code>ID</code>。</p>
+<p><img src="/images/Java%E5%AE%89%E5%85%A8/%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/dffcf6ae4e2a2c93f05a09d2adefd49c.png" alt="dffcf6ae4e2a2c93f05a09d2adefd49c.png"></p>
+<h2 id="2-2-实现序列化和反序列化的完整操作"><a href="#2-2-实现序列化和反序列化的完整操作" class="headerlink" title="2.2 实现序列化和反序列化的完整操作"></a>2.2 实现序列化和反序列化的完整操作</h2><p>要想对对象进行序列化和反序列化操作，那么就需要对象继承<code>Serializable</code>接口（这是一个空接口）或者<code>Externalizable</code>接口，才能进行序列化操作，否则会报错。例如下面这个例子，我们定义一个<code>UserStudent</code>类，该类继承了<code>Serializable</code>接口：</p>
+<pre><code class="Java">package com.demo.serializable;
+import java.io.Serializable;
+public class UserStudent implements Serializable &#123;
+    // 名字
+    public String Name;
+    // 年龄
+    private int Age;
+    // 无参构造方法
+    public UserStudent()&#123;&#125;
+    // 有参构造方法
+    public UserStudent(String name)&#123;
+        this.Name = name;
+    &#125;
+    // 多个有参
+    public UserStudent(String name,int age)&#123;
+        this.Name = name;
+        this.Age = age;
+    &#125;
+    // 私有的构造方法
+    private UserStudent(int age)&#123;
+        this.Age = age;
+    &#125;
+    public void Run1()&#123; System.out.println(&quot;上课1&quot;); &#125;
+    private String Run2(String name)&#123; return &quot;上课2&quot;+name; &#125;
+    @Override
+    public String toString() &#123; return &quot;Student&#123;&quot; + &quot;Name=&#39;&quot; + Name + &#39;\&#39;&#39; + &quot;, Age=&quot; + Age + &#39;\&#39;&#39; + &#39;&#125;&#39;; &#125;
+&#125;
+</code></pre>
+<p>接着编写一个简单的运行程序来运行序列化和反序列化操作，这里的<code>Serializable01</code>类在前面已经实现了：</p>
+<pre><code class="Java">package com.demo.serializable;
+import java.io.IOException;
+public class Run &#123;
+    public static void main(String[] args) throws IOException, ClassNotFoundException &#123;
+        UserStudent student = new UserStudent();
+        student.Name = &quot;a7cc&quot;;
+        // 创建自定义序列化类
+        Serializable01 serializableOk = new Serializable01();
+        // 序列化
+        serializableOk.Serializable_ok(student);
+        // 反序列化
+        UserStudent s1 = (UserStudent)serializableOk.UnSerializable_ok(&quot;serializable.ser&quot;);
+        System.out.println(s1);
+    &#125;
+&#125;
+</code></pre>
+<p>可以发现运行后会有一个<code>serializable.ser</code>生成，并且内容是乱码，这就是序列化后的数据：</p>
+<p><img src="/images/Java%E5%AE%89%E5%85%A8/%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/350f9ce3b1abf79f7f63b0481d8dec72.png" alt="350f9ce3b1abf79f7f63b0481d8dec72.png"></p>
+<p>上图中的<code>AC ED</code>表示头部（<code>Header</code>），<code>Java</code>序列化文件的标识符，<code>00 05</code>表示版本号，版本号为<code>5</code>，剩下后面就是该对象被序列化后的数据，我们也能很清晰的看到类的名字、变量的值等信息。反序列化后输出的内容：</p>
+<p><img src="/images/Java%E5%AE%89%E5%85%A8/%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/b962cf9889864d7819815bb56847e6e3.png" alt="b962cf9889864d7819815bb56847e6e3.png"></p>
+<h1 id="叁-Java反序列化安全问题"><a href="#叁-Java反序列化安全问题" class="headerlink" title="叁 Java反序列化安全问题"></a>叁 Java反序列化安全问题</h1><h2 id="3-1-readObject方法与writeObject方法"><a href="#3-1-readObject方法与writeObject方法" class="headerlink" title="3.1 readObject方法与writeObject方法"></a>3.1 readObject方法与writeObject方法</h2><p>通过上面的例子和代码，我们可以发现序列化存储的东西仅仅只是成员变量，而类内部的方法是不会存储的，所以如果我们仅仅只是使用前面的<code>objectOutputStream</code>实现的<code>writeObject</code>方法和<code>objectInputStream</code>实现的<code>readObject</code>，那么在很大程度上存在一定的局限性，加上有可能有一些属性我们只需要其中的一部分，例如一个属性是<code>200</code>长度的数组，实际上我们只需要其中的<code>20</code>个，这时候需要通过<code>transient</code>将其去除，但是其中需要的<code>20</code>个长度就需要通过另一种方式获得，基于这两个条件，这时候我们就要在当前对象类里去重写<code>writeObject</code>或者<code>readObject</code>方法，使得更加灵活，具体重写的格式：</p>
+<pre><code class="Java">private void writeObject(java.io.ObjectOutputStream s)throws java.io.IOException
+private void readObject(java.io.ObjectInputStream s)throws java.io.IOException, ClassNotFoundException
+</code></pre>
+<p>要怎么编写呢？以<code>writeObject</code>为例，我们先在要被序列化的对象中定义<code>writeObject</code>方法：</p>
+<pre><code class="Java">private void writeObject(java.io.ObjectOutputStream s) throws java.io.IOE xception&#123;
+    // 先调用 defaultWriteObject() 方法序列化对象中非transient修饰的属性
+    s.defaultWriteObject();
+    // 然后实现被transient修饰的属性进行自定义序列化，在要将其序列化的时候使用s.writeObject方法进行自定义序列化
+    。。。。
+    s.writeObject(xxxxx);
+&#125;
+</code></pre>
+<p>举一个例子：</p>
+<pre><code class="Java">package com.demo.serializable;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+class UserStudent1 implements Serializable &#123;
+    // Name没有被transient关键字修饰
+    public String Name;
+    // Other被transient关键字修饰
+    public transient int[] Other;
+    public UserStudent1(String name)&#123;
+        this.Name = name;
+        this.Other = new int[100];
+        // 给前面30个元素进行初始化
+        for (int i = 0; i &lt; 30; i++) &#123;
+            this.Other[i] = i;
+        &#125;
+    &#125;
+    // 重写实现writeObject方法
+    private void writeObject(ObjectOutputStream s) throws IOException &#123;
+        // 先调用 defaultWriteObject() 方法序列化对象中非transient修饰的属性
+        s.defaultWriteObject();
+        // 然后实现被transient修饰的属性进行自定义序列化，在要将其序列化的时候使用s.writeObject方法进行自定义序列化
+        for (int i = 0; i &lt; 30; i++)&#123;
+            s.writeObject(Other[i]);
+        &#125;
+    &#125;
+    // 重写实现readObject方法
+    private void readObject(ObjectInputStream s) throws IOException, ClassNotFoundException &#123;
+        // 先调用 defaultReadObject() 方法反序列化对象中非transient修饰的属性
+        s.defaultReadObject();
+        // 然后实现被transient修饰的属性进行自定义序列化，在要将其序列化的时候使用s.readObject方法进行自定义序列化
+        Other = new int[30];
+        for (int i = 0; i &lt; 30; i++) &#123;
+            Other[i] = (int) s.readObject();
+        &#125;
+    &#125;
+    @Override
+    public String toString() &#123; return &quot;UserStudent1&#123;&quot; + &quot;Name=&#39;&quot; + Name + &#39;\&#39;&#39; + &quot;, Other=&#39;&quot; + Other + &#39;\&#39;&#39; + &#39;&#125;&#39;; &#125;
+    &#125;
+    public class Run &#123;
+    public static void main(String[] args) throws IOException, ClassNotFoundException &#123;
+        UserStudent1 student = new UserStudent1(&quot;a7cc&quot;);
+        // 创建自定义序列化类
+        Serializable01 serializableOk = new Serializable01();
+        // 序列化
+        serializableOk.Serializable_ok(student);
+        // 反序列化
+        UserStudent1 s1 = (UserStudent1)serializableOk.UnSerializable_ok(&quot;serializable.ser&quot;);
+        System.out.println(s1);
+    &#125;
+&#125;
+</code></pre>
+<h2 id="3-2-反序列化漏洞"><a href="#3-2-反序列化漏洞" class="headerlink" title="3.2 反序列化漏洞"></a>3.2 反序列化漏洞</h2><p>由于<code>Java</code>运行开发者重写<code>readObject</code>方法，并且该方法会自动执行，这就使得攻击者在服务器上拥有运行代码的能力，这就存在了一定的安全风险。例如下面这段代码，我们在<code>UserStudent</code>类里重写了<code>readObject</code>这个方法，并且在方法内加入了恶意代码：</p>
+<pre><code class="Java">package com.demo.serializable;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
+class UserStudent1 implements Serializable &#123;
+    public String Name;
+    public UserStudent1(String name)&#123;
+        this.Name = name;
+    &#125;
+    // 重写了readObject这个方法，并且方法内加入了恶意代码
+    private void readObject(ObjectInputStream s) throws IOException, ClassNotFoundException &#123;
+        s.defaultReadObject();
+        // 加入了弹计算器的代码
+        Runtime.getRuntime().exec(&quot;calc&quot;);
+    &#125;
+    @Override
+    public String toString() &#123; return &quot;UserStudent1&#123;&quot; + &quot;Name=&#39;&quot; + Name + &#39;\&#39;&#39; + &#39;&#125;&#39;; &#125;
+    &#125;
+    public class Run &#123;
+    public static void main(String[] args) throws IOException, ClassNotFoundException &#123;
+        UserStudent1 student = new UserStudent1(&quot;a7cc&quot;);
+        // 创建自定义序列化类
+        Serializable01 serializableOk = new Serializable01();
+        // 序列化
+        serializableOk.Serializable_ok(student);
+        // 反序列化
+        UserStudent1 s1 = (UserStudent1)serializableOk.UnSerializable_ok(&quot;serializable.ser&quot;);
+        System.out.println(s1);
+    &#125;
+&#125;
+</code></pre>
+<p><img src="/images/Java%E5%AE%89%E5%85%A8/%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/64107a4bf1aba224a09240ad9b08fab5.png" alt="64107a4bf1aba224a09240ad9b08fab5.png"></p>
+<p>可以发现弹出了计算器，实现了我们需要的恶意代码。为什么我们要找反序列化的漏洞，而不是序列化漏洞？首先序列化一般是在我们机器的本地，然后经过序列化后传入到服务器中，进行反序列化，所以序列化一般是在本地，去挖掘该漏洞，显然没有任何意义，当然除非通过社工的方式将写好的序列化<code>RCE</code>文件给别人，远控其他人，这时候我们为啥不直接丢给木马呢？这样性价比肯定比序列化漏洞来的更实在，而反序列化一般发生在服务器，<code>payload</code>是我们可控的，所以我们更多是挖掘反序列化漏洞。</p>
+<h2 id="3-3-反序列化漏洞条件"><a href="#3-3-反序列化漏洞条件" class="headerlink" title="3.3 反序列化漏洞条件"></a>3.3 反序列化漏洞条件</h2><p>通过前面的例子我们可以重写<code>readObject</code>方法，并且可以造成<code>RCE</code>，但是根据上面的例子我们可以很清楚的发现，该<code>RCE</code>的情况比较苛刻，首先服务器本地代码中必须存在一个类重写了<code>readObject</code>，然后重写的<code>readObject</code>里还需要存在恶意代码，并且该类还需要知道内部结构，很明显这是只有在<code>CTF</code>中出题人专门编写的代码才有可能存在这种情况，现实生活中，应该不会有这种奇葩的事情操作，那么除了这种方法我们还有其他的方法可以利用反序列化漏洞吗？</p>
+<ul>
+<li>入口类的<code>readObject</code>直接调用危险操作</li>
+<li>入口类参数中包含可控类，该类有危险方法，且<code>readObject</code>时调用</li>
+<li>入口类参数中包含可控类，该类调用了其他有危险方法的类，且<code>readObject</code>时调用</li>
+<li>构造函数或静态代码块等类加载时隐式执行</li>
+</ul>
+<p><font color="red">这里需要说明入口类，就是上面例子中的<code>UserStudent1</code>类，说白了，入口类是我们使用程序输入数据最先接触的类。</font></p>
+<h3 id="3-3-1-入口类的readObject直接调用危险操作"><a href="#3-3-1-入口类的readObject直接调用危险操作" class="headerlink" title="3.3.1 入口类的readObject直接调用危险操作"></a>3.3.1 入口类的readObject直接调用危险操作</h3><p>这种操作其实就是前面弹计算机的操作，我们需要把恶意的代码写到服务器其中一个类中，然后调用该类，该方法前面也说了基本上可以忽略。</p>
+<h3 id="3-3-2-入口类参数中包含可控类，该类有危险方法，且readObject时调用"><a href="#3-3-2-入口类参数中包含可控类，该类有危险方法，且readObject时调用" class="headerlink" title="3.3.2 入口类参数中包含可控类，该类有危险方法，且readObject时调用"></a>3.3.2 入口类参数中包含可控类，该类有危险方法，且readObject时调用</h3><p>在反序列化时虽然没有直接执行恶意操作，但是在<code>readObject</code>时调用了该类存在的其他方法间接执行危险方法，造成<code>RCE</code>等，举个例子：<code>A</code>类重写了<code>readObject</code>方法，并且<code>readObject</code>方法内没有恶意代码，但是该类的其他方法存在一些危险操作，如<code>http</code>请求、文件上传等，这时候如果<code>A</code>类重写的<code>readObject</code>方法内调用了这些危险方法，那么就可能存在反序列化漏洞。这个场景其实和<code>URLDNS</code>链差不多。</p>
+<h3 id="3-3-3-入口类参数中包含可控类，该类调用了其他有危险方法的类，且readObject时调用"><a href="#3-3-3-入口类参数中包含可控类，该类调用了其他有危险方法的类，且readObject时调用" class="headerlink" title="3.3.3 入口类参数中包含可控类，该类调用了其他有危险方法的类，且readObject时调用"></a>3.3.3 入口类参数中包含可控类，该类调用了其他有危险方法的类，且readObject时调用</h3><p>这种方式其实就是第二种方式再套一层类，有点像套娃，一层套一层，并且这些危险类的调用是在<code>readObject</code>时调用的。说白了就是那些利用链。</p>
+<h3 id="3-3-4-构造函数或静态代码块等类加载时隐式执行"><a href="#3-3-4-构造函数或静态代码块等类加载时隐式执行" class="headerlink" title="3.3.4 构造函数或静态代码块等类加载时隐式执行"></a>3.3.4 构造函数或静态代码块等类加载时隐式执行</h3><p>这种方式其实就是构造函数或者静态代码块在程序运行前会进行类的加载并且做一些初始化操作，可能会调用一些危险方法或者是人为写入一些危险方法，这些都是默认执行的，这种方式相对比较底层，可以看一些关于类初始化的视频或者文章来进行研究。个人感觉从某种意义上并不是反序列化漏洞，而是由于其在初始化类时执行的，无论是什么类都会执行里面的代码，故感觉不算是反序列化漏洞。</p>
+<h2 id="3-4-反序列化漏洞流程"><a href="#3-4-反序列化漏洞流程" class="headerlink" title="3.4 反序列化漏洞流程"></a>3.4 反序列化漏洞流程</h2><p>对于反序列化漏洞，首先我们需要有一个入口类，该类需要满足可以序列化和反序列化、重写<code>readObject</code>方法、并且在<code>readObject</code>时调用其他类或者危险方法，如果需要通过其他类去完善该利用链，那么同样需要找到对应的调用链子，直到出现可执行的<code>sink</code>点，这时候就是一个反序列化漏洞流程。</p>
+<h1 id="肆-参考"><a href="#肆-参考" class="headerlink" title="肆 参考"></a>肆 参考</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/Joker_ZJN/article/details/131423423">详解JAVA序列化</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/mocas_wang/article/details/107621010">java序列化与反序列化全讲解</a></li>
+</ul>
+
+        </div>
+        
+        
+        <div id="comment">
+            <div id="giscus-container" class="giscus"></div>
+        </div>
+        
+    </div>
+    
+    <div id="article-card">
+        <div id="card-style">
+    <div id="card-div" class="card-cls">
+        <div class="avatar">
+            <img src="/images/f6e2b991f74bfd7b88c3ab1a3d513b94.jpg" alt="avatar" />
+        </div>
+        <div class="name">小C&amp;天天</div>
+        <div class="description">
+            <p>修学储能 先博后渊</p>
+
+        </div>
+        
+        <div class="icon-links">
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://github.com/A7cc">
+                    <i class="fa-brands fa-github fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.qq.com/">
+                    <i class="fa-brands fa-qq fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.weibo.com/">
+                    <i class="fa-brands fa-weibo fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://google.com/">
+                    <i class="fa-brands fa-google fa-fw"></i>
+                </a>
+            </span>
+            
+        </div>
+        
+        
+        <div class="friend-links">
+            
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="http://www.wgs6km.top/">kyrieee</a>
+            </span>
+            
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="https://tonyd0g.gitee.io/">tonyd0g</a>
+            </span>
+            
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="https://ruyueattention.github.io/">ruyueattention</a>
+            </span>
+            
+        </div>
+        
+    </div>
+    
+    <!-- <br /> -->
+    <!-- 目录 -->
+    <!-- 
+    <div id="card-div">
+        <div id="toc" class="toc-article">
+            <strong class="toc-title">文章目录</strong>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A3%B9-%E4%BB%8B%E7%BB%8D"><span class="toc-text">壹 介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%AD%A6%E4%B9%A0%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%EF%BC%9F"><span class="toc-text">1.1 为什么要学习序列化与反序列化？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E4%BB%8B%E7%BB%8D"><span class="toc-text">1.2 介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">1.3 应用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-Java%E5%BA%8F%E5%88%97%E5%8C%96%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E7%82%B9"><span class="toc-text">1.4 Java序列化需要注意的点</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%B0-Java%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-text">贰 Java序列化和反序列化的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E5%8E%9F%E7%94%9F%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96api"><span class="toc-text">2.1 原生的反序列化api</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E8%B0%83%E7%94%A8%E5%AE%9E%E7%8E%B0%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96api"><span class="toc-text">2.2 调用实现序列化和反序列化api</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E5%AF%B9%E4%BA%8EJava%E5%BA%8F%E5%88%97%E5%8C%96%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%82%B9%E7%9A%84%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-text">2.2 对于Java序列化需要注意点的代码实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-1-%E9%9C%80%E8%A6%81%E5%AF%B9%E8%B1%A1%E7%BB%A7%E6%89%BFSerializable%E6%8E%A5%E5%8F%A3%E6%88%96%E8%80%85Externalizable%E6%8E%A5%E5%8F%A3%E6%89%8D%E8%83%BD%E8%BF%9B%E8%A1%8C%E5%BA%8F%E5%88%97%E5%8C%96%E6%93%8D%E4%BD%9C"><span class="toc-text">2.2.1 需要对象继承Serializable接口或者Externalizable接口才能进行序列化操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-2-%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E5%BF%85%E9%A1%BB%E5%8F%AF%E4%BB%A5%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-text">2.2.2 成员变量必须可以序列化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-3-transient%E5%85%B3%E9%94%AE%E5%AD%97%EF%BC%8C%E5%8F%AF%E9%81%BF%E5%85%8D%E8%A2%AB%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-text">2.2.3 transient关键字，可避免被序列化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-4-%E6%97%A0%E6%B3%95%E6%9B%B4%E6%96%B0%E7%8A%B6%E6%80%81"><span class="toc-text">2.2.4 无法更新状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-5-%E7%B1%BB%E7%9A%84serialVersionUID%E5%BF%85%E9%A1%BB%E4%B8%8E%E5%BA%8F%E5%88%97%E5%8C%96%E6%97%B6%E7%9A%84%E7%89%88%E6%9C%AC%E5%8F%B7%E5%8C%B9%E9%85%8D"><span class="toc-text">2.2.5 类的serialVersionUID必须与序列化时的版本号匹配</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E5%AE%9E%E7%8E%B0%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E5%AE%8C%E6%95%B4%E6%93%8D%E4%BD%9C"><span class="toc-text">2.2 实现序列化和反序列化的完整操作</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%81-Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98"><span class="toc-text">叁 Java反序列化安全问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-readObject%E6%96%B9%E6%B3%95%E4%B8%8EwriteObject%E6%96%B9%E6%B3%95"><span class="toc-text">3.1 readObject方法与writeObject方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E"><span class="toc-text">3.2 反序列化漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%9D%A1%E4%BB%B6"><span class="toc-text">3.3 反序列化漏洞条件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-1-%E5%85%A5%E5%8F%A3%E7%B1%BB%E7%9A%84readObject%E7%9B%B4%E6%8E%A5%E8%B0%83%E7%94%A8%E5%8D%B1%E9%99%A9%E6%93%8D%E4%BD%9C"><span class="toc-text">3.3.1 入口类的readObject直接调用危险操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-2-%E5%85%A5%E5%8F%A3%E7%B1%BB%E5%8F%82%E6%95%B0%E4%B8%AD%E5%8C%85%E5%90%AB%E5%8F%AF%E6%8E%A7%E7%B1%BB%EF%BC%8C%E8%AF%A5%E7%B1%BB%E6%9C%89%E5%8D%B1%E9%99%A9%E6%96%B9%E6%B3%95%EF%BC%8C%E4%B8%94readObject%E6%97%B6%E8%B0%83%E7%94%A8"><span class="toc-text">3.3.2 入口类参数中包含可控类，该类有危险方法，且readObject时调用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-3-%E5%85%A5%E5%8F%A3%E7%B1%BB%E5%8F%82%E6%95%B0%E4%B8%AD%E5%8C%85%E5%90%AB%E5%8F%AF%E6%8E%A7%E7%B1%BB%EF%BC%8C%E8%AF%A5%E7%B1%BB%E8%B0%83%E7%94%A8%E4%BA%86%E5%85%B6%E4%BB%96%E6%9C%89%E5%8D%B1%E9%99%A9%E6%96%B9%E6%B3%95%E7%9A%84%E7%B1%BB%EF%BC%8C%E4%B8%94readObject%E6%97%B6%E8%B0%83%E7%94%A8"><span class="toc-text">3.3.3 入口类参数中包含可控类，该类调用了其他有危险方法的类，且readObject时调用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-4-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E6%88%96%E9%9D%99%E6%80%81%E4%BB%A3%E7%A0%81%E5%9D%97%E7%AD%89%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%97%B6%E9%9A%90%E5%BC%8F%E6%89%A7%E8%A1%8C"><span class="toc-text">3.3.4 构造函数或静态代码块等类加载时隐式执行</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%B5%81%E7%A8%8B"><span class="toc-text">3.4 反序列化漏洞流程</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%82%86-%E5%8F%82%E8%80%83"><span class="toc-text">肆 参考</span></a></li></ol>
+        </div>    
+    </div>
+     -->
+</div>
+
+<div id="card-style-fun">
+    
+    <!-- 今日诗句 -->
+    <br />
+    <div id="card-div">
+        <div class="good-sentence">
+            <div class="toolio">
+                <div class="circle"><span class="red"></span></div>
+                <div class="circle"><span class="yellow"></span></div>
+                <div class="circle"><span class="green"></span></div>
+                <div class="circle"><span class="text">今日诗句</span></div>
+            </div>
+            <div class="sentence">
+                <div id="sentenceid" onload="getsentence();"></div>
+            </div>
+        </div>
+    </div>
+    <!-- 日期信息 -->
+    <br />
+    <div id="card-div">
+        <img src="//api.vvhan.com/api/ipCard?tip=A7cc" width="300" height="180">
+    </div>
+    
+</div>
+
+
+
+    </div>
+    
+</div>
+                <!-- 页脚 -->
+                <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+            <script>
+                var now = new Date(); 
+                function createtime() { 
+                    var grt= new Date("07/10/2022 00:00:00");
+                    now.setTime(now.getTime()+250); 
+                    days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+                    hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+                    if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+                    mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+                    seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+                    snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+                    document.getElementById("timeDate").innerHTML = "已运行 "+dnum+" 天 "; 
+                    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+                } 
+            setInterval("createtime()",250);
+            </script>
+        </div>
+        <div>
+            &copy;
+            2022 - 2024 小C♥天天
+            <span class="footer-icon">
+                <i class="fa-brands fa-github fa-fw"></i>
+            </span>
+            &commat;小C&amp;天天
+        </div>
+        <div>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX</a> 
+        </div>
+        
+    </div>
+</footer>
+
+            </div>
+            <!-- 简单的点击图片放大缩小的预览 -->
+            
+            <div name="fade">
+                <div id="preview" ref="preview" v-show="previewShow">
+                    <img id="preview-content" ref="previewContent" />
+                </div>
+            </div>
+            
+        </div>
+        <!-- 看板娘 -->
+        
+        <div id="L2dCanvas"></div>
+        <script src="/js/lib/live2d.min.js"></script>
+        <!-- 设置随机模板 -->
+        
+        <script>
+            var v = new Viewer({
+                basePath: "/model",
+                role: "huangjiafangzhou_3",
+                mobile: true,
+            });
+        </script>
+        
+        <!-- 诗句 -->
+        
+        <script>
+            // // 每隔10分钟执行一次getsentence这个函数
+            window.setInterval(getsentence, 100*60*5);
+            function getsentence() {
+                // 这里没有考虑IE浏览器，如果需要择if判断加
+                var xhr = new XMLHttpRequest();  
+                xhr.open('GET', "https://zj.v.api.aa1.cn/api/wenan-shici/?type=json",true);
+                xhr.send(JSON.stringify(null));
+                xhr.onreadystatechange = function () {
+                    if (xhr.status === 200 && xhr.readyState === 4) {
+                        //js处理数据
+                        // xhr.responseText.match(/content":(".+?")/g)
+                        getdata = JSON.parse(xhr.responseText).msg;
+                    }else{
+                        getdata = "长风破浪会有时，直挂云帆济沧海。——李白《行路难》";
+                    }
+                    document.getElementById("sentenceid").innerHTML = getdata;
+                }
+            }
+            window.onload = getsentence;
+        </script>
+        
+        <!-- 点击 -->
+        <script>
+            let body = document.getElementsByTagName('body')[0];
+            body.addEventListener('click', (e) => {
+                let contentArr = ['✊','😘','😍','😊','😭','😡','😋','👍','🐷','😱','💷','💵','×','🆗','№','⭐','🌙','♥','💴','☀','🐎','🐂','🐏','√'];
+                let randomNum = function (n) {
+                    return Math.floor(Math.random() * n)
+                }
+                let span = document.createElement('span');
+                span.innerHTML = `${contentArr[randomNum(contentArr.length)]}`;
+                span.style.color = `rgb(${randomNum(256)},${randomNum(256)},${randomNum(256)})`;
+                span.style.position = 'absolute';
+                span.style.top = `${e.pageY}px`;
+                span.style.left = `${e.pageX}px`;
+                span.style.transition = 'all 1s ease';
+                span.style.zIndex = 20000;
+                body.appendChild(span)
+                setTimeout(()=>{
+                    span.style.top = span.offsetTop - 100 + 'px';
+                    span.style.opacity = 0;
+                    setTimeout(()=>{span.remove()},700)
+                },0)
+            })
+        </script>
+        <!-- 流星背景特效 -->
+        
+        <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/meteorbackground.js"></script>
+        
+        <script src="/js/main.js"></script>
+    </body>
+</html>

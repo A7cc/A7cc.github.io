@@ -1,0 +1,765 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <head>
+        <meta charset="utf-8" />
+        <title>Java安全（壹）——反射 | 小C♥天天</title>
+        <meta name="author" content="小C&天天" />
+        <meta name="description" content="^v^" />
+        <meta name="keywords" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <link rel="icon" href="/images/icon.jpg" />
+        <link rel="preconnect" href="https://cdn.staticfile.org" />
+<script src="https://cdn.staticfile.org/vue/3.3.4/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/6.4.0/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.loli.net" />
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" />
+<script> const mixins = {}; </script>
+
+<!-- 兼容不同版本的浏览器 -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<!-- 高亮代码 -->
+<script src="https://cdn.staticfile.org/highlight.js/11.8.0/highlight.min.js"></script>
+<script src="https://cdn.staticfile.org/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/11.8.0/styles/github.min.css"/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<!-- 使用 KaTeX 渲染数学公式 -->
+<script src="https://cdn.staticfile.org/KaTeX/0.16.8/katex.min.js"></script>
+<script src="https://cdn.staticfile.org/KaTeX/0.16.8/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/KaTeX/0.16.8/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<!-- 简单的点击图片放大缩小的预览 -->
+<script src="/js/lib/preview.js"></script>
+
+
+<!-- 看板娘 -->
+<script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+
+
+<!-- 侧边小功能-->
+
+
+
+<!-- 评论设置 -->
+
+<script
+    src="https://giscus.app/client.js"
+    data-repo="A7cc/giscus-comments"
+    data-repo-id="R_kgDOKKSvfw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOKKSvf84CYyp2"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="https://static-argvchs.netlify.app/css/giscus.css"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+<script src="https://cdn.bootcdn.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<link rel="stylesheet" href="/css/main.css" />
+
+    <meta name="generator" content="Hexo 6.2.0"></head>
+    <body>
+        <div id="layout">
+            <!-- 页面加载 -->
+            <transition name="fade">
+                <div id="loading" v-show="loading">
+                    <div id="loading-circle">
+                        <h2>LOADING</h2>
+                        <p>正在加载</p>
+                        <img src="/images/afde9fa65a5742a90b51d6e1211e841e.gif" />
+                    </div>
+                </div>
+            </transition>
+            <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>小C♥天天</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;文章</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+        <a href="/tools">
+            <i class="fa-solid fa-tools fa-fw"></i>
+            <span>&ensp;工具</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;小C♥天天</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                    </div>
+                </a>
+                
+                <a href="/tools">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tools fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">工具</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+            <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+                <div id="article-posts-wrap" true ref="homePostsWrap">
+    <div class="article">
+        <div>
+            <h1>Java安全（壹）——反射</h1>
+        </div>
+        <div class="info">
+            <span class="date">
+                <span class="icon">
+                    <i class="fa-solid fa-calendar fa-fw"></i>
+                </span>
+                2024/6/26
+            </span>
+            
+            <span class="category">
+                <a href="/categories/Java%E5%AE%89%E5%85%A8/">
+                    <span class="icon">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </span>
+                    Java安全
+                </a>
+            </span>
+            
+            
+            <span class="tags">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                
+                
+                <span class="tag">
+                    
+                    <a href="/tags/Java/" style="color: #ff7d73">Java</a>
+                </span>
+                
+                <span class="tag">
+                    
+                    <a href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" style="color: #00bcd4">代码审计</a>
+                </span>
+                
+                <span class="tag">
+                    
+                    <a href="/tags/%E5%8F%8D%E5%B0%84/" style="color: #ff7d73">反射</a>
+                </span>
+                
+            </span>
+            
+        </div>
+        
+        <div class="content" v-pre>
+            <h1 id="壹-介绍"><a href="#壹-介绍" class="headerlink" title="壹 介绍"></a>壹 介绍</h1><h2 id="1-1-为什么使用反射？"><a href="#1-1-为什么使用反射？" class="headerlink" title="1.1 为什么使用反射？"></a>1.1 为什么使用反射？</h2><p>学任何东西的动力的来源就是知道其使用的价值，为什么使用反射？举一个例子，当我们在写代码并且编译后，需要动态加载一个<code>jar</code>包文件，这时候我们按照正常逻辑编写代码一般都会将这个文件在编写代码的时候就进行列举和写入，这时候就会出现一个问题，当后面我们需要更新迭代更多类似的<code>jar</code>包文件时，那么我们就需要去重新编译程序运行，当然对于小程序来说，这个重启操作是轻而易举的，但是对于大型服务或者是企业级服务的时候，重启服务是一项需要慎重的事情，这时候就需要通过动态加载，我们可以将程序模型写出来，然后通过接口去获取加载这些<code>jar</code>包，包括获取这个程序内部的结构，例如：类、方法、属性，并通过这些来运行必要的程序步骤，这时候<code>Reflection</code>（反射）便应运而生。</p>
+<p>个人理解在开发角度使用反射，更多是为了方便去动态加载获取程序的结构内容来进行开发，而从安全角度使用反射，更多是为了获取程序内部的恶意类来动态加载恶意<code>payload</code>实现恶意操作目的，说白了，一个是为了创造，一个是为了破坏。</p>
+<h2 id="1-2-静态语言和动态语言"><a href="#1-2-静态语言和动态语言" class="headerlink" title="1.2 静态语言和动态语言"></a>1.2 静态语言和动态语言</h2><ul>
+<li><p>动态语言是一类在运行时可以改变其结构的语言：例如新的函数、对象、甚至代码可以被引进，已有的函数可以被删除或是其他结构上的变化。通俗点说就是在运行时代码可以根据某些条件改变自身结构。主要动态语言：<code>Object-C</code>、<code>C#</code>、<code>JavaScript</code>、<code>PHP</code>、<code>Python</code>等。</p>
+</li>
+<li><p>静态语言与动态语言相对应的，运行时结构不可变的语言就是静态语言，如：<code>Java</code>、<code>C</code>、<code>C++</code>，<code>Java</code>不是动态语言，但<code>Java</code>可以称之为准动态语言，即<code>Java</code>有一定的动态性，我们可以利用反射机制获得类似动态语言的特性，<code>Java</code>的动态性让编程的时候更加灵活！</p>
+</li>
+</ul>
+<p>举个例子：</p>
+<pre><code class="JavaScript">function f()&#123;
+    var x = &quot;var a = 3;var b = 5; alert(a+b);&quot;
+    eval(x);
+&#125;
+</code></pre>
+<p>在这段代码中<code>x</code>内的值可以是字符串，也可以是执行的代码，我们可以通过<code>eval</code>将其字符串转为代码执行，但是在<code>Java</code>中就不能这样，该类型是字符串，那么就是字符串类型，并不会改变为其他类型，所以动态语言与静态语言的区别就是在运行时代码可以根据某些条件改变了自身结构，例如这里变量<code>x</code>通过<code>eval</code>将其数据改变为代码，而不是字符串，而<code>Java</code>、<code>C/C++</code>这种强类型语言，在编译前就已经将变量的类型进行了定义，往往运行时是改变不了其类型的，当然可以用一些特殊技术，例如：<code>Java</code>反射。</p>
+<h2 id="1-3-介绍"><a href="#1-3-介绍" class="headerlink" title="1.3 介绍"></a>1.3 介绍</h2><p><code>Reflection</code>（反射）是<code>Java</code>被视为动态语言的关键，<code>Java</code>的反射机制允许程序在执行期借助于<code>Reflection API</code>获得任何类的内部信息，并能直接操作任意对象的内部属性及方法。</p>
+<pre><code class="Java">Student s1 = new Student();
+</code></pre>
+<p>上面是一个平时我们创建类的格式，当程序运行时，程序会生成一个<code>Student.class</code>文件，然后通过<code>JVM</code>的类加载器将<code>Student.class</code>文件进行加载，接着在堆内存的方法区中产生一个<code>Student</code>类对应的<code>Class</code>对象（一个类只有一个<code>Class</code>对象），这个<code>Class</code>对象就包含了<code>Student</code>类的所有结构信息。这个<code>Class</code>对象就像镜子一样，通过这个镜子我们可以获取到到<code>Student</code>类的结构，所以我们形象称自为：反射。</p>
+<blockquote>
+<p><code>Class</code>类就是反射的核心，是一个特殊的类，用来描述所有类的结构信息，<code>Class</code>类只能由系统创建对象，一个加载的类在<code>JVM</code>中只会有一个<code>Class</code>实例，不同的加载类在<code>JVM</code>中的<code>Class</code>实例是不同的，一个<code>Class</code>对象对应的是一个加载在<code>JVM</code>中的一个<code>.class</code>文件，所以要使用反射，首先要获取相应类的<code>Class</code>对象。</p>
+</blockquote>
+<p>正常方式：引入需要的包名 <code>=&gt;</code> 通过<code>new</code>实例化 <code>=&gt;</code> 取得实例化对象</p>
+<pre><code class="Java">Student s1 = new Student();
+</code></pre>
+<p>反射方式：实例化对象 <code>=&gt;</code> <code>Class.forName()</code>方法 <code>=&gt;</code> 得到完整的包名</p>
+<pre><code class="Java">Class c = Class.forName(&quot;com.demo.student&quot;);
+</code></pre>
+<p>可以看到两种方式就行镜子的对照一样，正常方式是通过包获取对象，反射方式是通过对象获取包。</p>
+<h2 id="1-4-优缺点"><a href="#1-4-优缺点" class="headerlink" title="1.4 优缺点"></a>1.4 优缺点</h2><ul>
+<li>使用反射优点：可以实现动态创建对象和编译，体现初很大的灵活性</li>
+<li>使用反射缺点：对性能有一定影响，使用反射基本上是一种解释性操作，相对于我们告诉<code>JVM</code>我们需要做什么，然后它满足我们要求，这类操作显然比<code>JVM</code>自动去操作要慢。</li>
+</ul>
+<h1 id="贰-获取Class类的方式"><a href="#贰-获取Class类的方式" class="headerlink" title="贰 获取Class类的方式"></a>贰 获取Class类的方式</h1><p>在<code>Java</code>编程中，首先我们需要获取到一个类，然后才能使用这个类内部的一些方法和属性，那么要怎么获取呢？这里有三种方法：</p>
+<ul>
+<li>通过<code>.class</code>静态属性</li>
+<li>通过<code>getClass()</code>方法</li>
+<li>通过<code>Class.forName(&quot;完整的类名&quot;)</code>方法</li>
+</ul>
+<p>这三种方式各有千秋。后面的文章会用<code>Student</code>类，这里将代码提供出来，方便查看：</p>
+<pre><code class="Java">package com.demo.annotation;
+import java.util.Arrays;
+public class Student implements Interface1 &#123;
+    // 名字
+    public String Name;
+    // 年龄
+    private int Age;
+    // 爱好
+    private String[] Like;
+    // 班级
+    private String Classname;
+    // 无参构造方法
+    public Student()&#123;&#125;
+    // 有参构造方法
+    public Student(String name)&#123;
+        this.Name = name;
+    &#125;
+    // 多个有参
+    public Student(String name,int age)&#123;
+        this.Name = name;
+        this.Age = age;
+    &#125;
+    // 私有的构造方法
+    private Student(int age)&#123;
+        this.Age = age;
+    &#125;
+    public void Run1()&#123;
+        System.out.println(&quot;上课1&quot;);
+    &#125;
+    public String Run2(String name)&#123; return &quot;上课2&quot;+name; &#125;
+    private void Run3()&#123;
+        System.out.println(&quot;上课3&quot;);
+    &#125;
+    private void Run4(String name)&#123;
+        System.out.println(&quot;上课4&quot;+name);
+    &#125;
+    @Override
+    public String toString() &#123; return &quot;Student&#123;&quot; + &quot;Name=&#39;&quot; + Name + &#39;\&#39;&#39; + &quot;, Age=&quot; + Age + &quot;, Like=&quot; + Arrays.toString(Like) + &quot;, Classname=&#39;&quot; + Classname + &#39;\&#39;&#39; + &#39;&#125;&#39;; &#125;
+&#125;
+</code></pre>
+<h2 id="2-1-通过-class静态属性"><a href="#2-1-通过-class静态属性" class="headerlink" title="2.1 通过.class静态属性"></a>2.1 通过.class静态属性</h2><p>若已知具体的类，通过类的<code>class</code>属性获取，该方法最为安全可靠，但是不方便，需要知道具体的类。</p>
+<pre><code class="Java">package com.demo.reflection;
+import com.demo.Student;
+public class GetClassTest &#123;
+    public static void main(String[] args) &#123;
+        // 2.第一种获取Class对象方式
+        // 通过类名.class获取到
+        // 需要引入包名
+        Class&lt;Student&gt; studentClass3 = Student.class;
+&#125;
+</code></pre>
+<h2 id="2-2-通过getClass-方法"><a href="#2-2-通过getClass-方法" class="headerlink" title="2.2 通过getClass()方法"></a>2.2 通过getClass()方法</h2><p>若已知某个类的实例，调用该实例的<code>getClass()</code>方法获取<code>Class</code>对象。</p>
+<pre><code class="Java">package com.demo.reflection;
+import com.demo.Student;
+public class GetClassTest &#123;
+    public static void main(String[] args) &#123;
+        // 1.第二种获取Class对象的方式
+        // 通过对象.getClass()获取
+        // 需要引入包名
+        Student student1 = new Student();
+        Class&lt;? extends Student&gt; studentClass1 = student1.getClass();
+&#125;
+</code></pre>
+<h2 id="2-3-通过Class-forName-“完整的类名”-方法"><a href="#2-3-通过Class-forName-“完整的类名”-方法" class="headerlink" title="2.3 通过Class.forName(“完整的类名”)方法"></a>2.3 通过Class.forName(“完整的类名”)方法</h2><p>若已知一个类的全类名，且该类在类路径下，可通过<code>Class</code>类的静态方法<code>forName()</code>获取，可能抛出<code>ClassNotFoundException</code>，这种方式就是我们平时常用的反射方式，这种方式虽然方便获取任意类，但是程序性能是最差的。</p>
+<pre><code class="Java">package com.demo.reflection;
+public class GetClassTest &#123;
+    public static void main(String[] args) throws ClassNotFoundException &#123;
+        // 3.第三种获取Class对象的方式
+        // 通过Class.forName(&quot;完整的类名&quot;);
+        // 可以发现该步骤不需要引入包名，但是由于获取的包不确定存在所以需要抛出异常
+        Class&lt;?&gt; studentClass4 = Class.forName(&quot;com.demo.reflection.Student&quot;);
+&#125;
+</code></pre>
+<p>需要简单说明一下<code>Class.forName</code>方法，该方法存在两个重载方法：</p>
+<pre><code class="Java">Class&lt;?&gt; forName(String className)
+Class&lt;?&gt; forName(String className, boolean initialize, ClassLoader loader)
+</code></pre>
+<p>首先说明参数<code>className</code>表示类名，就是我们传递进去的完整类名，<code>initialize</code>参数表示是否进行类的初始化，<code>loader</code>参数是一个加载器，告诉<code>Java</code>虚拟机如何加载这个类。</p>
+<p>其实通过源码可以发现，第一个<code>forName</code>方法与第二个<code>forName</code>方法的关系如下：</p>
+<pre><code class="Java"># 第一个forName
+forName(className)
+# 等价于
+# 第二个forName
+forName(className, true, currentLoader)
+</code></pre>
+<p>需要注意的是通过<code>Class.forName</code>方法并不会将类进行初始化和构造方法也不会执行，即使<code>initialize=true</code>，这里我们就不具体展开可以看下面的参考中的<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1p4411P7V3?p=10">狂神说的<code>bilibili</code></a>或者是<a target="_blank" rel="noopener" href="https://t.zsxq.com/vIVqj"><code>phith0n</code>的<code>Java</code>安全漫谈</a>。</p>
+<h1 id="叁-通过反射获取Class类内部结构信息"><a href="#叁-通过反射获取Class类内部结构信息" class="headerlink" title="叁 通过反射获取Class类内部结构信息"></a>叁 通过反射获取Class类内部结构信息</h1><p>当我们获取了<code>Class</code>类后，我们就要去通过<code>Constructor</code>（构造方法）实例化对象，然后获取这个对象里面的<code>Field</code>（属性）、<code>Method</code>（方法）、<code>Superclass</code>（父类）、<code>Interface</code>（接口）、<code>Annotation</code>（注解）等。</p>
+<pre><code class="Java">package com.demo.reflection;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+
+public class GetClassInfo &#123;
+    public static void main(String[] args) throws ClassNotFoundException, NoSuchFieldException, NoSuchMethodException &#123;
+        Class&lt;?&gt; studentClass1 = Class.forName(&quot;com.demo.annotation.Student&quot;);
+        // =======获取类的其他信息=======
+        // 获取包名+类名
+        System.out.println(studentClass1.getName());
+        // 获取类名
+        System.out.println(studentClass1.getSimpleName());
+        // 获取包名
+        System.out.println(studentClass.getPackage());
+        // 获取父类
+        System.out.println(studentClass.getSuperclass());
+        // 获取接口
+        System.out.println(studentClass.getInterfaces());
+        
+        // =======获取类内部属性=======
+        // 1.只获取 public 修饰的属性
+        Field[] fields1 = studentClass1.getFields();
+        for (Field field : fields1)&#123;
+            System.out.println(field);
+        &#125;
+        // 2.获取指定的 public 修饰的属性，这里的参数是类的属性名字
+        Field fields2 = studentClass1.getField(&quot;Name&quot;);
+        System.out.println(fields2);
+        // 3.获取全部属性
+        Field[] declaredFields1 = studentClass1.getDeclaredFields();
+        for (Field declaredField : declaredFields1)&#123;
+            System.out.println(declaredField);
+        &#125;
+        // 4.获取指定的属性，这里的参数是类的属性名字
+        Field declaredFields2 = studentClass1.getDeclaredField(&quot;Age&quot;);
+        System.out.println(declaredFields2);
+
+        // =======获取构造方法=======
+        // 1.获取所有 public 修饰的构造方法对象，是通过Class.getConstructors()方法获取
+        Constructor&lt;?&gt;[] constructors1 = studentClass1.getConstructors();
+        for (Constructor&lt;?&gt; constructor : constructors1)&#123;
+            System.out.println(constructor);
+        &#125;
+        // 2.获取某个指定的 public 修饰的构造方法对象，是通过Class.getConstructor(&quot;参数的类型&quot;)方法获取
+        // 这个方法的参数需要与构造方法的参数类型一致，例如：String类型就是String.class
+        Constructor&lt;?&gt; constructor2 = studentClass1.getConstructor(String.class);
+        System.out.println(constructor2);
+
+        // 3.获取所有的构造方法对象，是通过Class.getDeclaredConstructors()方法获取
+        Constructor&lt;?&gt;[] constructors3 = studentClass1.getDeclaredConstructors();
+        for (Constructor&lt;?&gt; constructor : constructors3)&#123;
+            System.out.println(constructor);
+        &#125;
+        // 4.获取某个指定的构造方法对象，是通过Class.getDeclaredConstructor(&quot;参数的类型&quot;)方法获取
+        Constructor&lt;?&gt; constructors4 = studentClass1.getDeclaredConstructor(int.class);
+        System.out.println(constructors4);
+
+        // =======获取方法=======
+        // 1.获取本类及其父类的所有 public 修饰的方法对象
+        Method[] methods1 = studentClass1.getMethods();
+        for (Method method: methods1)&#123;
+            System.out.println(method);
+        &#125;
+        // 2.获取本类及其父类的指定的 public 修饰的方法对象
+        Method run1 = studentClass1.getMethod(&quot;Run1&quot;, null);
+        System.out.println(run1);
+        Method run2 = studentClass1.getMethod(&quot;Run2&quot;, String.class);
+        System.out.println(run2);
+        // 3.获取本类的所有方法对象
+        Method[] declaredMethods1 = studentClass1.getDeclaredMethods();
+        for (Method method: declaredMethods1)&#123;
+            System.out.println(method);
+        &#125;
+        // 4.获取本类的指定方法对象
+        Method run3 = studentClass1.getDeclaredMethod(&quot;Run3&quot;);
+        System.out.println(run3);
+        Method run4 = studentClass1.getDeclaredMethod(&quot;Run4&quot;, String.class);
+        System.out.println(run4);
+    &#125;
+&#125;
+</code></pre>
+<p>通过上面的方法获取<code>Class</code>对象的内部结构信息，我们可以知道主要有两大类方法分别是获取<code>public</code>修饰的结构信息和获取全部的结构信息，方法的区别就是有没有<code>Declared</code>。</p>
+<h1 id="肆-通过反射技术动态创建对象"><a href="#肆-通过反射技术动态创建对象" class="headerlink" title="肆 通过反射技术动态创建对象"></a>肆 通过反射技术动态创建对象</h1><p>前面我们已经获取到了<code>Class</code>类对象中的结构信息，这时候我们就需要通过这些信息去创建实例化一个对象，我们可以通过<code>newInstance()</code>方法进行创建对象，通过<code>invoke()</code>方法来激活使用对象，通过<code>setAccessible()</code>方法来设置开放访问权限。</p>
+<pre><code class="Java">package com.demo.reflection;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+public class newClass &#123;
+    public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchFieldException &#123;
+        // 1.获取Class对象
+        Class&lt;?&gt; studentClass = Class.forName(&quot;com.demo.annotation.Student&quot;);
+        // ==========创建构造方法==========
+        // 2.获取构造方法，这里我们可以理解为我们要去写一个构造方法的模型
+        Constructor&lt;?&gt; constructor = studentClass.getConstructor(String.class);
+        // 3.通过构造器创建对象，这里的参数与构造方法对应，这里可以理解为我们写了模型后在程序中执行该构造方法
+        Object o = constructor.newInstance(&quot;Demo&quot;);
+        // 输出toString默认方法的值
+        System.out.println(o);
+        // ==========创建普通方法==========
+        // 4.通过反射获取其内部普通方法，这里我们可以理解为我们要去写一个普通方法的模型
+        Method run2 = studentClass.getDeclaredMethod(&quot;Run2&quot;, String.class);
+        // 5.如果是私有的方法或者属性，那么就需要开放访问权限，如果不是可以不写
+        // run2.setAccessible(true);
+        // 6.通过invoke方法将Student类中的Run2方法激活并使用，其中第一个参数是被激活的方法对象，后面是该被激活方法需要的方法参数值，这里可以理解为我们写了模型后在程序中执行该普通方法
+        // 注意这里需要使用到前面构造器创建的对象，只有这样我们才能找到是哪个对象使用的方法
+        Object ok = run2.invoke(o,&quot;ok1&quot;);
+        System.out.println(ok);
+        // ==========创建获取属性==========
+        // 7.通过Class对象来获取类内部定义的某个特定成员变量
+        Field name = studentClass.getField(&quot;Name&quot;);
+        // 8.如果是私有的方法或者属性，那么就需要开放访问权限，如果不是可以不写
+        // name.setAccessible(true);
+        // 9.通过set设置属性，get获取属性值
+        name.set(o,&quot;名字内容&quot;);
+        System.out.println(name.get(o));
+    &#125;
+&#125;
+</code></pre>
+<h1 id="伍-通过反射弹出计算器"><a href="#伍-通过反射弹出计算器" class="headerlink" title="伍 通过反射弹出计算器"></a>伍 通过反射弹出计算器</h1><p>通过<code>Runtime</code>类中的<code>exec</code>执行命令，弹出计算器，<code>Runtime</code>类的构造器是私有方法，需要通过<code>getRuntime</code>来构造对象。</p>
+<pre><code class="Java">package com.demo.reflection;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+public class Test01 &#123;
+    public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, IOException, InvocationTargetException, InstantiationException, IllegalAccessException &#123;
+        // ===========正常写法，通过 Runtime 弹计算器===========
+        Runtime.getRuntime().exec(&quot;calc&quot;);
+        // ===========通过反射方式弹计算器===========
+        // 1.获取Class对象
+        Class&lt;?&gt; aClass = Class.forName(&quot;java.lang.Runtime&quot;);
+        // 由于使用Runtime的构造方法是私有，所以我们直接获取getRuntime这个public方法构造一个对象
+        Method getRuntime = aClass.getMethod(&quot;getRuntime&quot;);
+        // 激活方法，构造Runtime对象
+        Object invoke1 = getRuntime.invoke(aClass);
+        // 获取exec方法
+        Method exec = aClass.getMethod(&quot;exec&quot;,String.class);
+        // 激活方法
+        exec.invoke(invoke1,&quot;calc&quot;);
+        // ===========缩减为一句话===========
+        // 这里可以使用多个Class.forName(&quot;java.lang.Runtime&quot;)是因为每个加载类都有一个共同的Class类，所以无论用多少次，该类的Class类都一样
+        Class.forName(&quot;java.lang.Runtime&quot;).getMethod(&quot;exec&quot;,String.class).invoke(Class.forName(&quot;java.lang.Runtime&quot;).getMethod(&quot;getRuntime&quot;).invoke(Class.forName(&quot;java.lang.Runtime&quot;)),&quot;calc&quot;);
+    &#125;
+&#125;
+</code></pre>
+<h1 id="陆-小结"><a href="#陆-小结" class="headerlink" title="陆 小结"></a>陆 小结</h1><p>我们来理解一下这句话：<code>Java</code>可以利用反射机制获得类似动态语言的特性。首先<code>Java</code>是一个静态语言，例如：</p>
+<pre><code class="Java">public void printok(String str) &#123;
+    for (int i = 0; i &lt; 10; i++) &#123;
+        System.out.println(str);
+    &#125;
+&#125;
+</code></pre>
+<p>这段代码我们是可以分析出其确定的功能和会输出的结果的，并且传入的参数也是可以确定的，而下面这段代码，就显得很模糊：</p>
+<pre><code class="Java">public void execute(String className, String methodName) throws Exception &#123;
+    Class clazz = Class.forName(className);
+    clazz.getMethod(methodName).invoke(clazz.newInstance());
+&#125;
+</code></pre>
+<p>传入的参数<code>methodName</code>会由于传入的<code>className</code>不同输出的结果也不同，及时传入的参数都是字符串，但是通过反射进行调用，我们并不知道其表现的功能是什么，这就体现了通过反射使得<code>Java</code>具有动态特性。</p>
+<h1 id="陆-参考"><a href="#陆-参考" class="headerlink" title="陆 参考"></a>陆 参考</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1PK411m7H4">为什么要学习反射？</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1p4411P7V3">狂神说Java</a></li>
+<li><a target="_blank" rel="noopener" href="https://t.zsxq.com/vIVqj">Java安全漫谈</a></li>
+</ul>
+
+        </div>
+        
+        
+        <div id="comment">
+            <div id="giscus-container" class="giscus"></div>
+        </div>
+        
+    </div>
+    
+    <div id="article-card">
+        <div id="card-style">
+    <div id="card-div" class="card-cls">
+        <div class="avatar">
+            <img src="/images/f6e2b991f74bfd7b88c3ab1a3d513b94.jpg" alt="avatar" />
+        </div>
+        <div class="name">小C&amp;天天</div>
+        <div class="description">
+            <p>修学储能 先博后渊</p>
+
+        </div>
+        
+        <div class="icon-links">
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://github.com/A7cc">
+                    <i class="fa-brands fa-github fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.qq.com/">
+                    <i class="fa-brands fa-qq fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.weibo.com/">
+                    <i class="fa-brands fa-weibo fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://google.com/">
+                    <i class="fa-brands fa-google fa-fw"></i>
+                </a>
+            </span>
+            
+        </div>
+        
+        
+        <div class="friend-links">
+            
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="http://www.wgs6km.top/">kyrieee</a>
+            </span>
+            
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="https://tonyd0g.gitee.io/">tonyd0g</a>
+            </span>
+            
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="https://ruyueattention.github.io/">ruyueattention</a>
+            </span>
+            
+        </div>
+        
+    </div>
+    
+    <!-- <br /> -->
+    <!-- 目录 -->
+    <!-- 
+    <div id="card-div">
+        <div id="toc" class="toc-article">
+            <strong class="toc-title">文章目录</strong>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A3%B9-%E4%BB%8B%E7%BB%8D"><span class="toc-text">壹 介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8%E5%8F%8D%E5%B0%84%EF%BC%9F"><span class="toc-text">1.1 为什么使用反射？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E9%9D%99%E6%80%81%E8%AF%AD%E8%A8%80%E5%92%8C%E5%8A%A8%E6%80%81%E8%AF%AD%E8%A8%80"><span class="toc-text">1.2 静态语言和动态语言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-%E4%BB%8B%E7%BB%8D"><span class="toc-text">1.3 介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="toc-text">1.4 优缺点</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%B0-%E8%8E%B7%E5%8F%96Class%E7%B1%BB%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="toc-text">贰 获取Class类的方式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E9%80%9A%E8%BF%87-class%E9%9D%99%E6%80%81%E5%B1%9E%E6%80%A7"><span class="toc-text">2.1 通过.class静态属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E9%80%9A%E8%BF%87getClass-%E6%96%B9%E6%B3%95"><span class="toc-text">2.2 通过getClass()方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E9%80%9A%E8%BF%87Class-forName-%E2%80%9C%E5%AE%8C%E6%95%B4%E7%9A%84%E7%B1%BB%E5%90%8D%E2%80%9D-%E6%96%B9%E6%B3%95"><span class="toc-text">2.3 通过Class.forName(“完整的类名”)方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%81-%E9%80%9A%E8%BF%87%E5%8F%8D%E5%B0%84%E8%8E%B7%E5%8F%96Class%E7%B1%BB%E5%86%85%E9%83%A8%E7%BB%93%E6%9E%84%E4%BF%A1%E6%81%AF"><span class="toc-text">叁 通过反射获取Class类内部结构信息</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%82%86-%E9%80%9A%E8%BF%87%E5%8F%8D%E5%B0%84%E6%8A%80%E6%9C%AF%E5%8A%A8%E6%80%81%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1"><span class="toc-text">肆 通过反射技术动态创建对象</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BC%8D-%E9%80%9A%E8%BF%87%E5%8F%8D%E5%B0%84%E5%BC%B9%E5%87%BA%E8%AE%A1%E7%AE%97%E5%99%A8"><span class="toc-text">伍 通过反射弹出计算器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%99%86-%E5%B0%8F%E7%BB%93"><span class="toc-text">陆 小结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%99%86-%E5%8F%82%E8%80%83"><span class="toc-text">陆 参考</span></a></li></ol>
+        </div>    
+    </div>
+     -->
+</div>
+
+<div id="card-style-fun">
+    
+    <!-- 今日诗句 -->
+    <br />
+    <div id="card-div">
+        <div class="good-sentence">
+            <div class="toolio">
+                <div class="circle"><span class="red"></span></div>
+                <div class="circle"><span class="yellow"></span></div>
+                <div class="circle"><span class="green"></span></div>
+                <div class="circle"><span class="text">今日诗句</span></div>
+            </div>
+            <div class="sentence">
+                <div id="sentenceid" onload="getsentence();"></div>
+            </div>
+        </div>
+    </div>
+    <!-- 日期信息 -->
+    <br />
+    <div id="card-div">
+        <img src="//api.vvhan.com/api/ipCard?tip=A7cc" width="300" height="180">
+    </div>
+    
+</div>
+
+
+
+    </div>
+    
+</div>
+                <!-- 页脚 -->
+                <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+            <script>
+                var now = new Date(); 
+                function createtime() { 
+                    var grt= new Date("07/10/2022 00:00:00");
+                    now.setTime(now.getTime()+250); 
+                    days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+                    hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+                    if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+                    mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+                    seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+                    snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+                    document.getElementById("timeDate").innerHTML = "已运行 "+dnum+" 天 "; 
+                    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+                } 
+            setInterval("createtime()",250);
+            </script>
+        </div>
+        <div>
+            &copy;
+            2022 - 2024 小C♥天天
+            <span class="footer-icon">
+                <i class="fa-brands fa-github fa-fw"></i>
+            </span>
+            &commat;小C&amp;天天
+        </div>
+        <div>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX</a> 
+        </div>
+        
+    </div>
+</footer>
+
+            </div>
+            <!-- 简单的点击图片放大缩小的预览 -->
+            
+            <div name="fade">
+                <div id="preview" ref="preview" v-show="previewShow">
+                    <img id="preview-content" ref="previewContent" />
+                </div>
+            </div>
+            
+        </div>
+        <!-- 看板娘 -->
+        
+        <div id="L2dCanvas"></div>
+        <script src="/js/lib/live2d.min.js"></script>
+        <!-- 设置随机模板 -->
+        
+        <script>
+            var v = new Viewer({
+                basePath: "/model",
+                role: "dunkeerke_2",
+                mobile: true,
+            });
+        </script>
+        
+        <!-- 诗句 -->
+        
+        <script>
+            // // 每隔10分钟执行一次getsentence这个函数
+            window.setInterval(getsentence, 100*60*5);
+            function getsentence() {
+                // 这里没有考虑IE浏览器，如果需要择if判断加
+                var xhr = new XMLHttpRequest();  
+                xhr.open('GET', "https://zj.v.api.aa1.cn/api/wenan-shici/?type=json",true);
+                xhr.send(JSON.stringify(null));
+                xhr.onreadystatechange = function () {
+                    if (xhr.status === 200 && xhr.readyState === 4) {
+                        //js处理数据
+                        // xhr.responseText.match(/content":(".+?")/g)
+                        getdata = JSON.parse(xhr.responseText).msg;
+                    }else{
+                        getdata = "长风破浪会有时，直挂云帆济沧海。——李白《行路难》";
+                    }
+                    document.getElementById("sentenceid").innerHTML = getdata;
+                }
+            }
+            window.onload = getsentence;
+        </script>
+        
+        <!-- 点击 -->
+        <script>
+            let body = document.getElementsByTagName('body')[0];
+            body.addEventListener('click', (e) => {
+                let contentArr = ['✊','😘','😍','😊','😭','😡','😋','👍','🐷','😱','💷','💵','×','🆗','№','⭐','🌙','♥','💴','☀','🐎','🐂','🐏','√'];
+                let randomNum = function (n) {
+                    return Math.floor(Math.random() * n)
+                }
+                let span = document.createElement('span');
+                span.innerHTML = `${contentArr[randomNum(contentArr.length)]}`;
+                span.style.color = `rgb(${randomNum(256)},${randomNum(256)},${randomNum(256)})`;
+                span.style.position = 'absolute';
+                span.style.top = `${e.pageY}px`;
+                span.style.left = `${e.pageX}px`;
+                span.style.transition = 'all 1s ease';
+                span.style.zIndex = 20000;
+                body.appendChild(span)
+                setTimeout(()=>{
+                    span.style.top = span.offsetTop - 100 + 'px';
+                    span.style.opacity = 0;
+                    setTimeout(()=>{span.remove()},700)
+                },0)
+            })
+        </script>
+        <!-- 流星背景特效 -->
+        
+        <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/meteorbackground.js"></script>
+        
+        <script src="/js/main.js"></script>
+    </body>
+</html>
