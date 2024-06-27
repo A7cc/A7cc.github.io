@@ -1,0 +1,1312 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    <head>
+        <meta charset="utf-8" />
+        <title>爬虫库——net_http库 | 小C♥天天</title>
+        <meta name="author" content="小C&天天" />
+        <meta name="description" content="^v^" />
+        <meta name="keywords" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <link rel="icon" href="/images/icon.jpg" />
+        <link rel="preconnect" href="https://cdn.staticfile.org" />
+<script src="https://cdn.staticfile.org/vue/3.3.4/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/6.4.0/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.loli.net" />
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" />
+<script> const mixins = {}; </script>
+
+<!-- 兼容不同版本的浏览器 -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<!-- 高亮代码 -->
+<script src="https://cdn.staticfile.org/highlight.js/11.8.0/highlight.min.js"></script>
+<script src="https://cdn.staticfile.org/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/11.8.0/styles/github.min.css"/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<!-- 使用 KaTeX 渲染数学公式 -->
+<script src="https://cdn.staticfile.org/KaTeX/0.16.8/katex.min.js"></script>
+<script src="https://cdn.staticfile.org/KaTeX/0.16.8/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/KaTeX/0.16.8/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<!-- 简单的点击图片放大缩小的预览 -->
+<script src="/js/lib/preview.js"></script>
+
+
+<!-- 看板娘 -->
+<script src="https://cdn.staticfile.org/pixi.js/4.6.1/pixi.min.js"></script>
+
+
+<!-- 侧边小功能-->
+
+
+
+<!-- 评论设置 -->
+
+<script
+    src="https://giscus.app/client.js"
+    data-repo="A7cc/giscus-comments"
+    data-repo-id="R_kgDOKKSvfw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOKKSvf84CYyp2"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="https://static-argvchs.netlify.app/css/giscus.css"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+<script src="https://cdn.bootcdn.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<link rel="stylesheet" href="/css/main.css" />
+
+    <meta name="generator" content="Hexo 6.2.0"></head>
+    <body>
+        <div id="layout">
+            <!-- 页面加载 -->
+            <transition name="fade">
+                <div id="loading" v-show="loading">
+                    <div id="loading-circle">
+                        <h2>LOADING</h2>
+                        <p>正在加载</p>
+                        <img src="/images/afde9fa65a5742a90b51d6e1211e841e.gif" />
+                    </div>
+                </div>
+            </transition>
+            <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>小C♥天天</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;文章</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+        <a href="/tools">
+            <i class="fa-solid fa-tools fa-fw"></i>
+            <span>&ensp;工具</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;小C♥天天</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">文章</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                    </div>
+                </a>
+                
+                <a href="/tools">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tools fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">工具</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+            <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+                <div id="article-posts-wrap" true ref="homePostsWrap">
+    <div class="article">
+        <div>
+            <h1>爬虫库——net_http库</h1>
+        </div>
+        <div class="info">
+            <span class="date">
+                <span class="icon">
+                    <i class="fa-solid fa-calendar fa-fw"></i>
+                </span>
+                2024/6/27
+            </span>
+            
+            <span class="category">
+                <a href="/categories/Go%E7%9B%B8%E5%85%B3/">
+                    <span class="icon">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </span>
+                    Go相关
+                </a>
+            </span>
+            
+            
+            <span class="tags">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                
+                
+                <span class="tag">
+                    
+                    <a href="/tags/Golang/" style="color: #00bcd4">Golang</a>
+                </span>
+                
+                <span class="tag">
+                    
+                    <a href="/tags/%E7%88%AC%E8%99%AB/" style="color: #00a596">爬虫</a>
+                </span>
+                
+            </span>
+            
+        </div>
+        
+        <div class="content" v-pre>
+            <h1 id="壹-简介"><a href="#壹-简介" class="headerlink" title="壹 简介"></a>壹 简介</h1><p>随着万维网的迅速发展，加上大数据的出现，快速提取并利用大量的有效数据信息成了焦点，<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/5162711?fr=aladdin">网络爬虫</a>也应运而生。网络爬虫是一种按照一定的规则，自动地抓取万维网信息的程序或者脚本(这是百度百科对爬虫的解释)。</p>
+<p>在Golang的语言中，我们使用<code>net/http</code>、<a target="_blank" rel="noopener" href="http://go-colly.org/"><code>Colly</code></a>、<a target="_blank" rel="noopener" href="https://github.com/levigross/grequests"><code>Goquery</code></a>等，其中第一个是内置库，可以进行简单的爬虫，而后面两个是爬虫框架，这篇文章主要讲解<code>net/http</code>。</p>
+<h1 id="贰-安装以及引用"><a href="#贰-安装以及引用" class="headerlink" title="贰 安装以及引用"></a>贰 安装以及引用</h1><p>内置库，不需要安装。</p>
+<p>引用：</p>
+<pre><code class="go">import &quot;net/http&quot;
+</code></pre>
+<h1 id="叁-方法说明"><a href="#叁-方法说明" class="headerlink" title="叁 方法说明"></a>叁 方法说明</h1><h2 id="3-1-获取响应"><a href="#3-1-获取响应" class="headerlink" title="3.1 获取响应"></a>3.1 获取响应</h2><h3 id="3-1-1-构造请求——http-NewRequest"><a href="#3-1-1-构造请求——http-NewRequest" class="headerlink" title="3.1.1 构造请求——http.NewRequest"></a>3.1.1 构造请求——http.NewRequest</h3><p>格式：</p>
+<pre><code class="go">func NewRequest(method, url string, body io.Reader) (*Request, error)
+// method：请求模式，值一般为：http.Method+请求模式，如http.MethodGet等，下面有请求模式常量
+// url：就是请求的URL地址
+// body：请求的数据
+// 返回请求结构体和错误类型
+</code></pre>
+<h3 id="3-1-2-发起请求——http-DefaultClient-Do"><a href="#3-1-2-发起请求——http-DefaultClient-Do" class="headerlink" title="3.1.2 发起请求——http.DefaultClient.Do"></a>3.1.2 发起请求——http.DefaultClient.Do</h3><p>格式：</p>
+<pre><code class="go">func (c *Client) Do(req *Request) (*Response, error)
+// req：构造的请求体，http.NewRequest返回的值
+// 返回响应和错误类型
+</code></pre>
+<p><font color="red"><code>http.DefaultClient</code>的底层实际是一个<code>&amp;Client&#123;&#125;</code>类型，使用使用<code>http.DefaultClient.Do</code>，就是使用<code>&amp;Client&#123;&#125;</code>类型的<code>Do</code>方法。</font></p>
+<h3 id="3-1-3-请求模式常量"><a href="#3-1-3-请求模式常量" class="headerlink" title="3.1.3 请求模式常量"></a>3.1.3 请求模式常量</h3><pre><code class="go">const (
+    MethodGet     = &quot;GET&quot;
+    MethodHead    = &quot;HEAD&quot;
+    MethodPost    = &quot;POST&quot;
+    MethodPut     = &quot;PUT&quot;
+    MethodPatch   = &quot;PATCH&quot; // RFC 5789
+    MethodDelete  = &quot;DELETE&quot;
+    MethodConnect = &quot;CONNECT&quot;
+    MethodOptions = &quot;OPTIONS&quot;
+    MethodTrace   = &quot;TRACE&quot;
+)
+</code></pre>
+<h3 id="3-1-4-例子"><a href="#3-1-4-例子" class="headerlink" title="3.1.4 例子"></a>3.1.4 例子</h3><pre><code class="go">package main
+
+import (
+    &quot;fmt&quot;
+    &quot;io/ioutil&quot;
+    &quot;net/http&quot;
+)
+
+func main() &#123;
+    // 构造请求
+    // http://httpbin.org/网站是用来测试http的访问
+    request, err := http.NewRequest(http.MethodGet, &quot;http://httpbin.org/get&quot;, nil)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] http.NewRequest Error：&quot;, err)
+        return
+    &#125;
+    // 发起请求
+    resp, err := http.DefaultClient.Do(request)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] http.DefaultClient.Do Errot：&quot;, err)
+        return
+    &#125;
+    // 使用defer在最后关闭连接
+    defer resp.Body.Close()
+    // 显示响应信息
+    // resp.Body就是响应信息，但是要输出到终端，自己实现比较麻烦，所以需要使用ioutil库进行终端输出
+    body, err := ioutil.ReadAll(resp.Body)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] ioutil.ReadAll Error：&quot;, err)
+        return
+    &#125;
+    // 这里的body是[]uint8类型需要转换成字符串才会打印出来
+    fmt.Printf(&quot;%s&quot;, body)
+&#125;
+</code></pre>
+<p>这里需要说明对应Get和Post请求，有现成的<code>http.Get</code>和<code>http.Post</code>，上面方法是这两种方法的底层，只是官方给出来比较便捷的请求方式，建议使用上面的方法，有利于理解。</p>
+<h2 id="3-2-设置请求参数信息（在构造请求时设置）"><a href="#3-2-设置请求参数信息（在构造请求时设置）" class="headerlink" title="3.2 设置请求参数信息（在构造请求时设置）"></a>3.2 设置请求参数信息（在构造请求时设置）</h2><h3 id="3-2-1-请求体的常量信息"><a href="#3-2-1-请求体的常量信息" class="headerlink" title="3.2.1 请求体的常量信息"></a>3.2.1 请求体的常量信息</h3><p>要想设置请求参数，我们先来了解请求体的常量信息。</p>
+<pre><code class="go">type URL struct &#123;
+    Scheme      string			// 协议，http或者https等
+    Opaque      string    // 编码不透明数据
+    User        *Userinfo // 请求的用户名和密码信息
+    Host        string    // 请求的IP或者IP:端口
+    Path        string    // 请求路径
+    RawPath     string    // 编码路径提示
+    ForceQuery  bool      // 表示RawQuery带不带?，默认false，带?
+    RawQuery    string    // 参数, 不带?
+    Fragment    string    // 用于引用的片段，不带#号
+    RawFragment string    // 编码片段提示
+&#125;
+</code></pre>
+<p>从上面我们可以知道要加入参数我们可以设置<code>RawQuery</code>。</p>
+<h3 id="3-2-2-追加参数——Add"><a href="#3-2-2-追加参数——Add" class="headerlink" title="3.2.2 追加参数——Add"></a>3.2.2 追加参数——Add</h3><p>当然可以直接使用<code>RawQuery</code>设置参数，但是为了方便参数设置，在net.url中存在一个<code>url.Values</code>类型，其底层是map类型，可以通过Add（这个是追加设置）和Set（这个是清空然后再设置）进行设置。</p>
+<p>格式：</p>
+<pre><code class="go">func (v Values) Set(key, value string)
+// key：键
+// value：值
+// 底层就是追加一个参数
+</code></pre>
+<h3 id="3-2-3-设置参数——Set"><a href="#3-2-3-设置参数——Set" class="headerlink" title="3.2.3 设置参数——Set"></a>3.2.3 设置参数——Set</h3><p>格式：</p>
+<pre><code class="go">func (v Values) Add(key, value string)
+// key：键
+// value：值
+// 底层就是用append追加一个参数
+</code></pre>
+<h3 id="3-2-4-例子"><a href="#3-2-4-例子" class="headerlink" title="3.2.4 例子"></a>3.2.4 例子</h3><pre><code class="go">package main
+
+import (
+    &quot;fmt&quot;
+    &quot;net/http&quot;
+    &quot;net/url&quot;
+)
+
+func main() &#123;
+    // 构造请求
+    request, err := http.NewRequest(http.MethodGet, &quot;http://httpbin.org/get&quot;, nil)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] http.NewRequest Error：&quot;, err)
+        return
+    &#125;
+    // 设置参数
+    // 初始化url.Values类型
+    val_url_head := url.Values&#123;&#125;
+    // 设置name、age参数，键值都要字符串
+    val_url_head.Set(&quot;name&quot;, &quot;text&quot;)
+    val_url_head.Set(&quot;age&quot;, &quot;1&quot;)
+    // 将参数追加到请求体中
+    // 如果直接赋值，是将map赋值给request.URL.RawQuery，而request.URL.RawQuery接收的是字符串，所以需要进行Encode()编码
+    request.URL.RawQuery = val_url_head.Encode()
+    fmt.Println(val_url_head.Encode()) //age=1&amp;name=text，根据原理我们直接在后面加这个字符串都行
+    fmt.Println(request.URL.String())  //http://httpbin.org/get?age=1&amp;name=text
+&#125;
+</code></pre>
+<h2 id="3-3-设置请求头信息（在构造请求时设置）"><a href="#3-3-设置请求头信息（在构造请求时设置）" class="headerlink" title="3.3 设置请求头信息（在构造请求时设置）"></a>3.3 设置请求头信息（在构造请求时设置）</h2><p>如果我们需要设置请求头，如UA，那么我们需要使用请求体的Header。</p>
+<pre><code class="go">type Header map[string][]string
+// 可以看到本质是一个map，同样我们可以使用Add和Set，与上面说的url.Values类型差不多
+</code></pre>
+<p>例子：</p>
+<pre><code>package main
+
+import (
+    &quot;fmt&quot;
+    &quot;io/ioutil&quot;
+    &quot;net/http&quot;
+)
+
+func main() &#123;
+    // 构造请求
+    request, err := http.NewRequest(http.MethodGet, &quot;http://httpbin.org/get&quot;, nil)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] http.NewRequest Error：&quot;, err)
+        return
+    &#125;
+    // 使用request.Header.Set设置请求头信息
+    request.Header.Set(&quot;User-Agent&quot;, &quot;as&quot;)
+    // 发起请求
+    resp, err := http.DefaultClient.Do(request)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] http.DefaultClient.Do Errot：&quot;, err)
+        return
+    &#125;
+    // 使用defer在最后关闭连接
+    defer resp.Body.Close()
+    // 显示响应信息
+    // resp.Body就是响应信息，但是要输出到终端，自己实现比较麻烦，所以需要使用ioutil库进行终端输出
+    body, err := ioutil.ReadAll(resp.Body)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] ioutil.ReadAll Error：&quot;, err)
+        return
+    &#125;
+    // 这里的body是[]uint8类型需要转换成字符串才会打印出来
+    fmt.Printf(&quot;%s&quot;, body)
+&#125;
+</code></pre>
+<h2 id="3-4-设置post请求的数据（在构造请求时设置）"><a href="#3-4-设置post请求的数据（在构造请求时设置）" class="headerlink" title="3.4 设置post请求的数据（在构造请求时设置）"></a>3.4 设置post请求的数据（在构造请求时设置）</h2><p>post请求往往需要请求数据，这些数据可能是data、json、文件等格式，我们可以在<code>http.NewRequest</code>的第三个<code>body</code>参数中设置请求数据，注意需要的是<code>io.Reader</code>类型。</p>
+<h3 id="3-4-1-data格式的请求"><a href="#3-4-1-data格式的请求" class="headerlink" title="3.4.1 data格式的请求"></a>3.4.1 data格式的请求</h3><p>对于data格式的请求，我们可以使用传入参数，但是由于我们使用<code>url.Values</code>构造的数据是<code>string</code>类型，所以我们可以使用<code>strings.NewReader</code>方法将字符串转换为<code>io.Reader</code>类型。</p>
+<pre><code class="go">package main
+
+import (
+    &quot;fmt&quot;
+    &quot;io/ioutil&quot;
+    &quot;net/http&quot;
+    &quot;net/url&quot;
+    &quot;strings&quot;
+)
+
+func main() &#123;
+    // 可以直接在url.Values&#123;&#125;加参数，不过为了讲解多种方法，这里就忽略了
+    data := url.Values&#123;&#125;
+    data.Set(&quot;name&quot;, &quot;A7cc&quot;)
+    data.Set(&quot;Age&quot;, &quot;18&quot;)
+    // 构造请求
+    // 可以看到第三个是请求信息data，
+    request, err := http.NewRequest(http.MethodPost, &quot;http://httpbin.org/post&quot;, strings.NewReader(data.Encode()))
+    if err != nil &#123;
+        fmt.Println(&quot;[-] http.NewRequest Error：&quot;, err)
+        return
+    &#125;
+    // 发起请求
+    resp, err := http.DefaultClient.Do(request)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] http.DefaultClient.Do Errot：&quot;, err)
+        return
+    &#125;
+    // 使用defer在最后关闭连接
+    defer resp.Body.Close()
+    // 显示响应信息
+    // resp.Body就是响应信息，但是要输出到终端，就需要使用ioutil库进行终端输出
+    body, err := ioutil.ReadAll(resp.Body)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] ioutil.ReadAll Error：&quot;, err)
+        return
+    &#125;
+    // 这里的body是[]uint8类型需要转换成字符串才会打印出来
+    fmt.Printf(&quot;%s&quot;, body)
+&#125;
+</code></pre>
+<h3 id="3-4-2-json格式的请求"><a href="#3-4-2-json格式的请求" class="headerlink" title="3.4.2 json格式的请求"></a>3.4.2 json格式的请求</h3><p>对于json格式的请求，我们使用的是<code>json</code>格式，那么我们就需要<code>json</code>库。</p>
+<pre><code class="go">package main
+
+import (
+    &quot;bytes&quot;
+    &quot;encoding/json&quot;
+    &quot;fmt&quot;
+    &quot;io/ioutil&quot;
+    &quot;net/http&quot;
+)
+
+func main() &#123;
+    // 构造一个结构体类型
+    jsondata := struct &#123;
+        // 可以看到属性改为json格式
+        Name string `json:&quot;name&quot;`
+        Age  int    `json:&quot;age&quot;`
+    &#125;&#123;
+        Name: &quot;A7cc&quot;,
+        Age:  18,
+    &#125;
+    // 进行反序列化
+    data, _ := json.Marshal(jsondata)
+    // 构造请求
+    // 可以看到第三个是请求信息data，由于是byte格式使用使用bytes
+    request, err := http.NewRequest(http.MethodPost, &quot;http://httpbin.org/post&quot;, bytes.NewReader(data))
+    if err != nil &#123;
+        fmt.Println(&quot;[-] http.NewRequest Error：&quot;, err)
+        return
+    &#125;
+
+    // 发起请求
+    resp, err := http.DefaultClient.Do(request)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] http.DefaultClient.Do Errot：&quot;, err)
+        return
+    &#125;
+    // 使用defer在最后关闭连接
+    defer resp.Body.Close()
+    // 显示响应信息
+    // resp.Body就是响应信息，但是要输出到终端，就需要使用ioutil库进行终端输出
+    body, err := ioutil.ReadAll(resp.Body)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] ioutil.ReadAll Error：&quot;, err)
+        return
+    &#125;
+    // 这里的body是[]uint8类型需要转换成字符串才会打印出来
+    fmt.Printf(&quot;%s&quot;, body)
+&#125;
+</code></pre>
+<h3 id="3-4-3-文件格式的请求（了解就行）"><a href="#3-4-3-文件格式的请求（了解就行）" class="headerlink" title="3.4.3 文件格式的请求（了解就行）"></a>3.4.3 文件格式的请求（了解就行）</h3><p>对于文件上传，我们需要构建文件上传body，同时在请求头需要设置<code>multipart/form-data</code>，在传统的Post数据请求时，只能上传名字，例如文件名，而文件内部的数据，在这种情况下是不能上传的，所以需要设置<code>multipart/form-data</code>类型，来上传文件数据。</p>
+<pre><code class="go">package main
+
+import (
+    &quot;bytes&quot;
+    &quot;fmt&quot;
+    &quot;io&quot;
+    &quot;io/ioutil&quot;
+    &quot;mime/multipart&quot;
+    &quot;net/http&quot;
+    &quot;os&quot;
+)
+
+func postFile() &#123;
+    body := &amp;bytes.Buffer&#123;&#125;
+    writer := multipart.NewWriter(body)
+    // 这里这步操作是设置参数
+    // WriteField方法需要两个参数，第一个是请求的字段名，第二个是值
+    writer.WriteField(&quot;words&quot;, &quot;123&quot;)
+
+    // 这里这步操作是上传文件
+    // CreateFormFile方法需要两个参数，第一个是请求的字段名，第二个是文件名
+    upfilewriter1, _ := writer.CreateFormFile(&quot;uploadfile1&quot;, &quot;file1&quot;)
+    // 打开文件
+    upfile1, _ := os.Open(&quot;./file1&quot;)
+    // 关闭
+    defer upfile1.Close()
+    // 将文件copy到body中
+    io.Copy(upfilewriter1, upfile1)
+    // 第二个文件
+    upfilewriter2, _ := writer.CreateFormFile(&quot;uploadfile2&quot;, &quot;file2&quot;)
+    // 打开文件
+    upfile2, _ := os.Open(&quot;./file2&quot;)
+    // 关闭
+    defer upfile2.Close()
+    // 将文件copy到body中
+    io.Copy(upfilewriter2, upfile2)
+    // 这里是为了闭合文件字，而且这是构造完文件数据和其他上传的参数后才执行的
+    writer.Close()
+
+    // 输出
+    // 输出文件的上传数据
+    fmt.Println(body.String())
+    // 输出multipart/form-data
+    fmt.Println(writer.FormDataContentType())
+
+    // 请求
+    resp, err := http.Post(&quot;http://httpbin.org/post&quot;, writer.FormDataContentType(), body)
+    if err != nil &#123;
+        fmt.Println(&quot;err：http.Post&quot;)
+    &#125;
+    // 关闭
+    defer resp.Body.Close()
+    data, _ := ioutil.ReadAll(resp.Body)
+    // 输出
+    fmt.Printf(&quot;%s&quot;, data)
+&#125;
+
+func main() &#123;
+    postFile()
+&#125;
+</code></pre>
+<h2 id="3-5-获取响应状态码（在获取响应后设置）"><a href="#3-5-获取响应状态码（在获取响应后设置）" class="headerlink" title="3.5 获取响应状态码（在获取响应后设置）"></a>3.5 获取响应状态码（在获取响应后设置）</h2><p>如果需要获取响应码，我们可以通过<code>Status</code>（状态码信息，string类型）和<code>StatusCode</code>（单纯状态码，int类型）。</p>
+<pre><code class="go">// 构造请求
+    request, err := http.NewRequest(http.MethodGet, &quot;http://httpbin.org/get&quot;, nil)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] http.NewRequest Error：&quot;, err)
+        return
+    &#125;
+    // 发起请求
+    resp, err := http.DefaultClient.Do(request)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] http.DefaultClient.Do Errot：&quot;, err)
+        return
+    &#125;
+    // 使用defer在最后关闭连接
+    defer resp.Body.Close()
+    // 获取响应状态码
+    fmt.Println(&quot;状态信息：&quot;, resp.Status, &quot;\t状态码：&quot;, resp.StatusCode) // 状态信息： 200 OK       状态码： 200
+</code></pre>
+<h2 id="3-6-获取响应头（在获取响应后设置）"><a href="#3-6-获取响应头（在获取响应后设置）" class="headerlink" title="3.6 获取响应头（在获取响应后设置）"></a>3.6 获取响应头（在获取响应后设置）</h2><p>如果我们要获取响应头信息，可以使用<code>resp.Header</code>，返回的是map类型，所以可以使用对应的键指定。</p>
+<pre><code class="go">package main
+
+import (
+    &quot;fmt&quot;
+    &quot;io/ioutil&quot;
+    &quot;net/http&quot;
+)
+
+func main() &#123;
+    // 构造请求
+    request, err := http.NewRequest(http.MethodGet, &quot;http://httpbin.org/get&quot;, nil)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] http.NewRequest Error：&quot;, err)
+        return
+    &#125;
+    // 发起请求
+    resp, err := http.DefaultClient.Do(request)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] http.DefaultClient.Do Errot：&quot;, err)
+        return
+    &#125;
+    // 使用defer在最后关闭连接
+    defer resp.Body.Close()
+    fmt.Println(&quot;响应头信息：&quot;, resp.Header) //响应头信息： map[Access-Control-Allow-Credentials:[true] Access-Control-Allow-Origin:[*] Connection:[keep-alive] Content-Length:[270] Content-Type:[application/json] Date:[Mon, 04 Apr 2022 16:50:01 GMT] Server:[gunicorn/19.9.0]]
+    fmt.Println(&quot;响应头信息：&quot;, resp.Header.Get(&quot;Content-Type&quot;))	// 响应头信息： application/json
+    // 如果要获取单个，在这里建议使用Get，而不是map的键值对获取方式，因为Get可以区分大小写
+&#125;
+</code></pre>
+<h2 id="3-7-获取响应编码（在获取响应后设置）"><a href="#3-7-获取响应编码（在获取响应后设置）" class="headerlink" title="3.7 获取响应编码（在获取响应后设置）"></a>3.7 获取响应编码（在获取响应后设置）</h2><ul>
+<li>通过<code>content-type=&quot;text/html;charset=utf-8&quot;</code></li>
+<li>html的head标签中的meta标签，例如：<code>&lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html;charset=utf-8&quot;&gt;</code></li>
+<li>通过网页的头部进行猜测，比较麻烦，一般情况下前面两种就可以识别绝大多数编码。</li>
+</ul>
+<p>这里介绍使用库<code>golang.org/x/net/html</code>——获取编码信息，</p>
+<pre><code class="go">package main
+
+import (
+    &quot;bufio&quot;
+    &quot;fmt&quot;
+    &quot;net/http&quot;
+
+    &quot;golang.org/x/net/html/charset&quot;
+)
+
+func main() &#123;
+    // 构造请求
+    request, err := http.NewRequest(http.MethodGet, &quot;https://baidu.com&quot;, nil)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] http.NewRequest Error：&quot;, err)
+        return
+    &#125;
+    // 发起请求
+    resp, err := http.DefaultClient.Do(request)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] http.DefaultClient.Do Errot：&quot;, err)
+        return
+    &#125;
+    // 使用defer在最后关闭连接
+    defer resp.Body.Close()
+    // 下面就是获取编码
+    // 获取前1024个字节
+    r := bufio.NewReader(resp.Body)
+    b, err := r.Peek(1024)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] r.Peek Errot：&quot;, err)
+        return
+    &#125;
+    // 返回值有三个
+    // 第一个是编码的结构体
+    // 第二个是编码的名称，可以忽略
+    // 第三个是是否是正确的编码，可以忽略
+    e, _, _ := charset.DetermineEncoding(b, resp.Header.Get(&quot;content-type&quot;))
+    // 获取成功并输出
+    fmt.Println(e)
+&#125;
+</code></pre>
+<h2 id="3-8-重定向的限制与禁止（在构造请求时设置）"><a href="#3-8-重定向的限制与禁止（在构造请求时设置）" class="headerlink" title="3.8 重定向的限制与禁止（在构造请求时设置）"></a>3.8 重定向的限制与禁止（在构造请求时设置）</h2><p>当我们要限制或者禁用重定向时，我们可以通过重写<code>Client</code>的<code>CheckRedirect</code>这个方法，在<code>http</code>请求中这个方法就是对重定向进行设置的，由于发起请求的底层就是使用了<code>&amp;Client&#123;&#125;</code>的<code>Do</code>方法。其实在<code>http.DefaultClient</code>里面有限制重定向次数，次数为10，原理和我们现在说的一样，获取<code>via</code>（已经请求过的请求，就是历史请求）的长度来做到限制。</p>
+<p>上面是限制重定向次数，那么如果禁止重定向，我们只需要判断是否存在重定向就行，不需要判断<code>via</code>的值长度，返回错误。</p>
+<pre><code class="go">package main
+
+import (
+    &quot;errors&quot;
+    &quot;fmt&quot;
+    &quot;io/ioutil&quot;
+    &quot;net/http&quot;
+)
+
+func main() &#123;
+    // 限制重定向次数
+    // 由于发起请求的底层就是使用了&amp;Client&#123;&#125;的Do方法，使用我们这里重写Client的CheckRedirect这个方法，在http请求中这个方法就是对重定向进行设置的
+    // 在这里我们直接将func(req *http.Request, via []*http.Request) error这个匿名方法赋值给http.DefaultClient.CheckRedirect也是可以的，这里由于想扩展开来说，就新建了一个&amp;http.Client类型，http.DefaultClient本质就是&amp;http.Client类型
+    client := &amp;http.Client&#123;
+        CheckRedirect: func(req *http.Request, via []*http.Request) error &#123;
+            // req是这次的请求
+            // via是已经请求过的请求，就是历史请求，通过获取历史请求的长度来做到限制
+            fmt.Println(len(via))
+            if len(via) &gt; 1 &#123;
+                // 这是给一个报错，然后终止请求
+                return errors.New(&quot;超过重定向次数&quot;)
+                // 如果需要进行请求我们可以返回一个不进行下次请求进入上次请求的结果错误
+                // return http.ErrUseLastResponse
+            &#125;
+            return nil
+        &#125;,
+    &#125;
+    // 	// 禁止重定向
+    // 	client := &amp;http.Client&#123;
+    // 		CheckRedirect: func(req *http.Request, via []*http.Request) error &#123;
+    // 			// 当发生重定向时我们直接返回一个不进行下次请求进入上次请求的结果错误
+    // 			return http.ErrUseLastResponse
+    // 		&#125;,
+    // 	&#125;
+    // 构造请求
+    request, err := http.NewRequest(http.MethodGet, &quot;https://image.baidu.com/asasa&quot;, nil)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] http.NewRequest Error：&quot;, err)
+        return
+    &#125;
+
+    // 发起请求
+    resp, err := client.Do(request)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] http.DefaultClient.Do Errot：&quot;, err)
+        return
+    &#125;
+    // 使用defer在最后关闭连接
+    defer resp.Body.Close()
+    // 显示响应状态码信息
+    fmt.Println(resp.StatusCode)
+    // 显示最后请求的URL
+    fmt.Println(resp.Request.URL)
+&#125;
+</code></pre>
+<h2 id="3-9-cookie（看情况）"><a href="#3-9-cookie（看情况）" class="headerlink" title="3.9 cookie（看情况）"></a>3.9 cookie（看情况）</h2><h3 id="3-9-1-cookie"><a href="#3-9-1-cookie" class="headerlink" title="3.9.1 cookie"></a>3.9.1 cookie</h3><p>cookie一般用来维持http连接的会话状态，具体的cookie介绍可以看<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Cookies">这篇文章</a>，这里我们主要讲解Go语言如何使用cookie。</p>
+<p>要想获取cookie，我们需要访问网站，然后使用<code>Cookies()</code>从A（当前响应）中获取cookie，接着我们打开另一个请求B，将之前A的cookie赋值给现在这个请求B，这时我们可以使用B的<code>AddCookie</code>方法发起请求，这样就实现了<code>Cookie</code>请求。</p>
+<pre><code class="go">package main
+
+import (
+    &quot;fmt&quot;
+    &quot;io/ioutil&quot;
+    &quot;net/http&quot;
+)
+
+func main() &#123;
+    // 这里之所以禁用重定向是因为这个例子http://httpbin.org/cookies/set在获取cookie时会重定向到http://httpbin.org/cookies，这时候cookie会被清空，所以使用禁用重定向
+    http.DefaultClient.CheckRedirect = func(req *http.Request, via []*http.Request) error &#123;
+        return http.ErrUseLastResponse
+    &#125;
+    // 构造第一次请求
+    request1, err := http.NewRequest(http.MethodGet, &quot;http://httpbin.org/cookies/set?name=a7cc&amp;passwd=123456&quot;, nil)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] http.NewRequest Error：&quot;, err)
+        return
+    &#125;
+
+    // 发起第一次请求
+    resp1, err := http.DefaultClient.Do(request1)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] client.Do Errot：&quot;, err)
+        return
+    &#125;
+    // 使用defer在最后关闭连接
+    defer resp1.Body.Close()
+    // 构造第二次请求
+    request2, err := http.NewRequest(http.MethodGet, &quot;http://httpbin.org/cookies&quot;, nil)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] http.NewRequest Error：&quot;, err)
+        return
+    &#125;
+    // 将第一次响应的Cookie赋值给第二次请求
+    // 这里之所以用client.Do而不用http.DefaultClient.Do()，是因为这个例子的网站有重定向问题，如果没有我们可以直接赋值
+    for _, cookie := range resp1.Cookies() &#123;
+        request2.AddCookie(cookie)
+    &#125;
+    // 发起第二次请求
+    resp2, err := http.DefaultClient.Do(request2)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] client.Do Errot：&quot;, err)
+        return
+    &#125;
+    // 使用defer在最后关闭连接
+    defer resp2.Body.Close()
+    // 显示响应状态码信息
+    body, err := ioutil.ReadAll(resp2.Body)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] ioutil.ReadAll Errot：&quot;, err)
+        return
+    &#125;
+    fmt.Printf(&quot;Cookie:%s&quot;, body)
+&#125;
+</code></pre>
+<h3 id="3-9-2-cookiejar"><a href="#3-9-2-cookiejar" class="headerlink" title="3.9.2 cookiejar"></a>3.9.2 cookiejar</h3><p>上面的例子显然太繁琐，那么我们要如何简化呢？Go语言使用一个叫<code>Cookie jar</code>的设置来对cookie进行存储设置。我们只需要实例化一个<code>cookiejar</code>，然后将这个<code>cookiejar</code>赋值给发起请求操作的<code>http.DefaultClient</code>的<code>Jar</code>中。</p>
+<pre><code class="go">package main
+
+import (
+    &quot;fmt&quot;
+    &quot;io/ioutil&quot;
+    &quot;net/http&quot;
+    &quot;net/http/cookiejar&quot;
+)
+
+func main() &#123;
+    // 实例化一个cookiejar
+    val_jar, err := cookiejar.New(nil)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] cookiejar.New Errot：&quot;, err)
+        return
+    &#125;
+    // 将创建的cookiejar赋值给要发起请求的http.DefaultClient中
+    http.DefaultClient.Jar = val_jar
+
+    // 构造第一次请求
+    request1, err := http.NewRequest(http.MethodGet, &quot;http://httpbin.org/cookies/set?name=a7cc&amp;passwd=123456&quot;, nil)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] http.NewRequest Error：&quot;, err)
+        return
+    &#125;
+    // 发起第一次请求
+    resp1, err := http.DefaultClient.Do(request1)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] client.Do Errot：&quot;, err)
+        return
+    &#125;
+    // 使用defer在最后关闭连接
+    defer resp1.Body.Close()
+    // 到了这里就可以再次使用http.DefaultClient进行请求了，因为这个已经包含了cookie，直接使用http.DefaultClient.Do去请求登陆后的链接即可，由于没有现成的环境，我们进行简单的描述即可，下面的这个例子如果拿去运行是会出现404页面的，因为这里没有实际的例子去访问，就照猫画虎搞了一下
+    request2, err := http.NewRequest(&quot;GET&quot;, &quot;http://httpbin.org/cookies/get?name=a7cc&amp;passwd=123456&quot;, nil)
+    if err != nil &#123;
+        log.Panicln(err)
+    &#125;
+    request2.Header.Add(&quot;User-Agent&quot;, &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:88.0) Gecko/20100101 Firefox/88.0&quot;)
+    // 注意这里的http.DefaultClient是包含了cookie的，前面的http.DefaultClient是没有cookie
+    resp2, err := http.DefaultClient.Do(request2)
+    if err != nil &#123;
+        log.Panicln(err)
+    &#125;
+    defer resp2.Body.Close()
+    // 显示响应状态码信息
+    body, err := ioutil.ReadAll(resp2.Body)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] ioutil.ReadAll Errot：&quot;, err)
+        return
+    &#125;
+    fmt.Printf(&quot;有cookie后请求的内容:%s&quot;, body)
+&#125;
+</code></pre>
+<p><code>Cookie</code>是有超时时间的，那么我们会发现上面每次请求<code>Cookie</code>过期时间是很久，但是我们只要关闭程序，<code>Cookie</code>就不可以使用了，原因是cookie有两种，一种是会话期的cookie，也就是上面用的，存活期只在程序运行时，另一种是持久化，不管有没有关闭会话，都存储才一个地方，当<code>Cookie</code>过期时才真正过期。当然会话期<code>cookie</code>已经可以满足基本的请求。</p>
+<h3 id="3-9-3-cookie持久化"><a href="#3-9-3-cookie持久化" class="headerlink" title="3.9.3 cookie持久化"></a>3.9.3 cookie持久化</h3><p>在Go的内置库中，只能使用会话期的<code>Cookie</code>，而如果要使用持久化<code>Cookie</code>，则需要使用第三方库：<code>https://github.com/juju/persistent-cookiejar</code>。</p>
+<pre><code class="go">package main
+
+import (
+    &quot;fmt&quot;
+    &quot;io/ioutil&quot;
+    &quot;net/http&quot;
+    &quot;github.com/juju/persistent-cookiejar&quot;
+)
+
+func main() &#123;
+    // 实例化一个cookiejar
+    // 关于persistent-cookiejar使用，我们只需要将上面的例子中的cookiejar.New(nil)改成cookiejar2.New(nil)，然后将jar保存。
+    val_jar, err := cookiejar2.New(nil)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] cookiejar.New Errot：&quot;, err)
+        return
+    &#125;
+    // 将创建的cookiejar赋值给要发起请求的http.DefaultClient中
+    http.DefaultClient.Jar = val_jar
+
+    // 构造第一次请求
+    request1, err := http.NewRequest(http.MethodGet, &quot;http://httpbin.org/cookies/set?name=a7cc&amp;passwd=123456&quot;, nil)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] http.NewRequest Error：&quot;, err)
+        return
+    &#125;
+
+    // 发起第一次请求
+    resp1, err := http.DefaultClient.Do(request1)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] client.Do Errot：&quot;, err)
+        return
+    &#125;
+    // 保存请求，之后就可以不用登录，直接使用，这里没用设置登录例子，将就一下吧。。。。
+    // 保存的cookiejar放在当前文件夹下的.go-cookies
+    jar.save()
+    // 使用defer在最后关闭连接
+    defer resp1.Body.Close()
+    // 显示响应状态码信息
+    body, err := ioutil.ReadAll(resp1.Body)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] ioutil.ReadAll Errot：&quot;, err)
+        return
+    &#125;
+    fmt.Printf(&quot;Cookie:%s&quot;, body)
+&#125;
+</code></pre>
+<h2 id="3-10-请求超时（在构造请求时设置）"><a href="#3-10-请求超时（在构造请求时设置）" class="headerlink" title="3.10 请求超时（在构造请求时设置）"></a>3.10 请求超时（在构造请求时设置）</h2><p>我们通常说的请求超时是指http会话请求的整个阶段，当然这整个阶段有很多时间，在没有备注的情况下，我们说的请求超时是http会话请求的整个阶段超时。详细了解看<a target="_blank" rel="noopener" href="https://colobu.com/2016/07/01/the-complete-guide-to-golang-net-http-timeouts/">这篇文章</a>。</p>
+<pre><code class="go">package main
+
+import (
+    &quot;fmt&quot;
+    &quot;io/ioutil&quot;
+    &quot;net/http&quot;
+    &quot;time&quot;
+)
+
+func main() &#123;
+    // http.DefaultClient.Timeout只是简单的请求超时设置，这里我们设置10秒
+    http.DefaultClient.Timeout = 1 * time.Second
+    // // http.DefaultClient.Transport是对详细的请求超时进行设置，了解就行
+    // http.DefaultClient.Transport = &amp;http.Transport&#123;
+    // 	DialContext: func(ctx context.Context, network, addr string) (net.Conn, error) &#123;
+    // 		return net.DialTimeout(network, addr, 2*time.Second)
+    // 	&#125;,
+    // 	ResponseHeaderTimeout: 5 * time.Second,
+    // 	TLSHandshakeTimeout:   2 * time.Second,
+    // 	IdleConnTimeout:       60 * time.Second,
+    // &#125;
+    // 构造第一次请求
+    request1, err := http.NewRequest(http.MethodGet, &quot;http://google.com&quot;, nil)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] http.NewRequest Error：&quot;, err)
+        return
+    &#125;
+
+    // 发起第一次请求
+    resp1, err := http.DefaultClient.Do(request1)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] client.Do Errot：&quot;, err)
+        return
+    &#125;
+    // 使用defer在最后关闭连接
+    defer resp1.Body.Close()
+    // 显示响应状态码信息
+    body, err := ioutil.ReadAll(resp1.Body)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] ioutil.ReadAll Errot：&quot;, err)
+        return
+    &#125;
+    fmt.Printf(&quot;Cookie:%s&quot;, body)
+&#125;
+</code></pre>
+<h2 id="3-11-设置代理（在构造请求时设置）"><a href="#3-11-设置代理（在构造请求时设置）" class="headerlink" title="3.11 设置代理（在构造请求时设置）"></a>3.11 设置代理（在构造请求时设置）</h2><p>代理一般有http、socks5等，在Go语言中设置代理，只需要添加一个代理，然后将其赋值给<code>Transport</code>参数的<code>Proxy</code>中。</p>
+<pre><code class="go">package main
+
+import (
+    &quot;fmt&quot;
+    &quot;io/ioutil&quot;
+    &quot;net/http&quot;
+    &quot;net/url&quot;
+)
+
+func main() &#123;
+    // 由于Proxy参数接收的是一个URL类型所以我们使用url.Parse将socks5://127.0.0.1:1080转换成URL格式
+    // 这个是socks5代理
+    proxyURL, err := url.Parse(&quot;socks5://127.0.0.1:1080&quot;)
+    // // 这个是http代理
+    // proxyURL, err := url.Parse(&quot;http://127.0.0.1:8080&quot;)
+    // fmt.Printf(&quot;%T&quot;, proxyURL)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] url.Parse Error：&quot;, err)
+        return
+    &#125;
+    // 设置代理
+    http.DefaultClient.Transport = &amp;http.Transport&#123;
+        // 设置代理的关键参数Proxy
+        Proxy: http.ProxyURL(proxyURL),
+    &#125;
+    // 构造第一次请求
+    request1, err := http.NewRequest(http.MethodGet, &quot;https://google.com&quot;, nil)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] http.NewRequest Error：&quot;, err)
+        return
+    &#125;
+
+    // 发起第一次请求
+    resp1, err := http.DefaultClient.Do(request1)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] client.Do Errot：&quot;, err)
+        return
+    &#125;
+    // 使用defer在最后关闭连接
+    defer resp1.Body.Close()
+    // 显示响应状态码信息
+    body, err := ioutil.ReadAll(resp1.Body)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] ioutil.ReadAll Errot：&quot;, err)
+        return
+    &#125;
+    fmt.Printf(&quot;%s&quot;, body)
+&#125;
+</code></pre>
+<h2 id="3-12-client端忽略证书的校验"><a href="#3-12-client端忽略证书的校验" class="headerlink" title="3.12 client端忽略证书的校验"></a>3.12 client端忽略证书的校验</h2><p>有点时候有些网站由于使用不知名CA签发的证书，会出现一个页面拦截，需要我们确认，但是我们需要通过爬虫进入的话不能手动点击确认，我们可以使用client端忽略证书的校验方法进行通过。</p>
+<pre><code class="go">package main
+
+import (
+    &quot;crypto/tls&quot;
+    &quot;fmt&quot;
+    &quot;io/ioutil&quot;
+    &quot;net/http&quot;
+    &quot;net/url&quot;
+    &quot;strings&quot;
+)
+
+func main() &#123;
+    // 忽略对证书的校验，设置tls.Config的InsecureSkipVerify为true，client将不再对服务端的证书进行校验
+    tr := &amp;http.Transport&#123;
+        TLSClientConfig: &amp;tls.Config&#123;InsecureSkipVerify: true&#125;,
+    &#125;
+    client := &amp;http.Client&#123;Transport: tr&#125;
+    // 设置数据包
+    data := url.Values&#123;&#125;
+    data.Set(&quot;name&quot;, &quot;A7cc&quot;)
+    data.Set(&quot;Age&quot;, &quot;18&quot;)
+    // 构造请求
+    requ, err := http.NewRequest(&quot;POST&quot;, &quot;http://httpbin.org/post&quot;, strings.NewReader(data.Encode()))
+    // 设置请求头信息
+    requ.Header.Set(&quot;User-Agent&quot;, &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:88.0) Gecko/20100101 Firefox/88.0&quot;)
+    requ.Header.Set(&quot;Content-Type&quot;, &quot;application/x-www-form-urlencoded;charset=utf-8&quot;)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] http.NewRequest Error：&quot;, err.Error())
+        return
+    &#125;
+    // 发起请求，不过这里可以看到使用的是结果设置的client而不是http.DefaultClient
+    resp, err := client.Do(requ)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] client.Do Errot：&quot;, err)
+        return
+    &#125;
+    // 使用defer在最后关闭连接
+    defer resp.Body.Close()
+    // 显示响应状态码信息
+    body, err := ioutil.ReadAll(resp.Body)
+    if err != nil &#123;
+        fmt.Println(&quot;[-] ioutil.ReadAll Errot：&quot;, err)
+        return
+    &#125;
+    fmt.Printf(&quot;%s&quot;, body)
+&#125;
+</code></pre>
+<h1 id="肆-使用"><a href="#肆-使用" class="headerlink" title="肆 使用"></a>肆 使用</h1><p>具体使用在方法说明里，这里就是一个简单代理，主要是懒。</p>
+<pre><code class="go">package main
+
+import (
+    &quot;crypto/tls&quot;
+    &quot;fmt&quot;
+    &quot;io/ioutil&quot;
+    &quot;net/http&quot;
+    &quot;net/url&quot;
+    &quot;strings&quot;
+)
+
+func run(Url string) ([]byte, int, error) &#123;
+    // 由于Proxy参数接收的是一个URL类型所以我们使用url.Parse将socks5://127.0.0.1:1080转换成URL格式
+    // 这个是socks5代理
+    // proxyURL, err := url.Parse(&quot;socks5://127.0.0.1:1080&quot;)
+    // 这个是http代理
+    proxyURL, err := url.Parse(&quot;http://127.0.0.1:8080&quot;)
+    if err != nil &#123;
+        return nil, 0, err
+    &#125;
+    // 设置代理
+    http.DefaultClient.Transport = &amp;http.Transport&#123;
+        // 设置代理的关键参数Proxy
+        Proxy: http.ProxyURL(proxyURL),
+        // 忽略对证书的校验，设置tls.Config的InsecureSkipVerify为true，client将不再对服务端的证书进行校验
+        TLSClientConfig: &amp;tls.Config&#123;InsecureSkipVerify: true&#125;,
+    &#125;
+    // 可以直接在url.Values&#123;&#125;加参数，不过为了讲解多种方法，这里就忽略了
+    data := url.Values&#123;&#125;
+    data.Set(&quot;name&quot;, &quot;A7cc&quot;)
+    data.Set(&quot;Age&quot;, &quot;18&quot;)
+    // 构造第一次请求
+    request1, err := http.NewRequest(http.MethodPost, Url, strings.NewReader(data.Encode()))
+    if err != nil &#123;
+        return nil, 0, err
+    &#125;
+    // 使用request.Header.Set设置请求头信息
+    request1.Header.Set(&quot;User-Agent&quot;, &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/118.0&quot;)
+
+    // 发起第一次请求
+    resp1, err := http.DefaultClient.Do(request1)
+    if err != nil &#123;
+        return nil, 0, err
+    &#125;
+    // 使用defer在最后关闭连接
+    defer resp1.Body.Close()
+    // 显示响应状态码信息
+    // go1.16H后建议使用io.ReadAll
+    body, err := ioutil.ReadAll(resp1.Body)
+    if err != nil &#123;
+        return nil, 0, err
+    &#125;
+    return body, resp1.StatusCode, nil
+&#125;
+func main() &#123;
+    b, code, err := run(&quot;https://www.baidu.com&quot;)
+    if err != nil &#123;
+        fmt.Println(err.Error())
+    &#125;
+    fmt.Println(string(b), code)
+&#125;
+</code></pre>
+<h1 id="伍-参考"><a href="#伍-参考" class="headerlink" title="伍 参考"></a>伍 参考</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://www.apiref.com/go-zh/net_http.htm">package http</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Cookies">HTTP cookies</a></li>
+<li><a target="_blank" rel="noopener" href="https://colobu.com/2016/07/01/the-complete-guide-to-golang-net-http-timeouts/">Go net&#x2F;http 超时机制完全手册</a></li>
+</ul>
+
+        </div>
+        
+        
+        <div id="comment">
+            <div id="giscus-container" class="giscus"></div>
+        </div>
+        
+    </div>
+    
+    <div id="article-card">
+        <div id="card-style">
+    <div id="card-div" class="card-cls">
+        <div class="avatar">
+            <img src="/images/f6e2b991f74bfd7b88c3ab1a3d513b94.jpg" alt="avatar" />
+        </div>
+        <div class="name">小C&amp;天天</div>
+        <div class="description">
+            <p>修学储能 先博后渊</p>
+
+        </div>
+        
+        <div class="icon-links">
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://github.com/A7cc">
+                    <i class="fa-brands fa-github fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.qq.com/">
+                    <i class="fa-brands fa-qq fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://www.weibo.com/">
+                    <i class="fa-brands fa-weibo fa-fw"></i>
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://google.com/">
+                    <i class="fa-brands fa-google fa-fw"></i>
+                </a>
+            </span>
+            
+        </div>
+        
+        
+        <div class="friend-links">
+            
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="http://www.wgs6km.top/">kyrieee</a>
+            </span>
+            
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="https://tonyd0g.gitee.io/">tonyd0g</a>
+            </span>
+            
+            <span class="friend-link">
+                <a target="_blank" rel="noopener" href="https://ruyueattention.github.io/">ruyueattention</a>
+            </span>
+            
+        </div>
+        
+    </div>
+    
+    <!-- <br /> -->
+    <!-- 目录 -->
+    <!-- 
+    <div id="card-div">
+        <div id="toc" class="toc-article">
+            <strong class="toc-title">文章目录</strong>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A3%B9-%E7%AE%80%E4%BB%8B"><span class="toc-text">壹 简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%B0-%E5%AE%89%E8%A3%85%E4%BB%A5%E5%8F%8A%E5%BC%95%E7%94%A8"><span class="toc-text">贰 安装以及引用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%81-%E6%96%B9%E6%B3%95%E8%AF%B4%E6%98%8E"><span class="toc-text">叁 方法说明</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E8%8E%B7%E5%8F%96%E5%93%8D%E5%BA%94"><span class="toc-text">3.1 获取响应</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-1-%E6%9E%84%E9%80%A0%E8%AF%B7%E6%B1%82%E2%80%94%E2%80%94http-NewRequest"><span class="toc-text">3.1.1 构造请求——http.NewRequest</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-2-%E5%8F%91%E8%B5%B7%E8%AF%B7%E6%B1%82%E2%80%94%E2%80%94http-DefaultClient-Do"><span class="toc-text">3.1.2 发起请求——http.DefaultClient.Do</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-3-%E8%AF%B7%E6%B1%82%E6%A8%A1%E5%BC%8F%E5%B8%B8%E9%87%8F"><span class="toc-text">3.1.3 请求模式常量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-4-%E4%BE%8B%E5%AD%90"><span class="toc-text">3.1.4 例子</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E8%AE%BE%E7%BD%AE%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0%E4%BF%A1%E6%81%AF%EF%BC%88%E5%9C%A8%E6%9E%84%E9%80%A0%E8%AF%B7%E6%B1%82%E6%97%B6%E8%AE%BE%E7%BD%AE%EF%BC%89"><span class="toc-text">3.2 设置请求参数信息（在构造请求时设置）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-1-%E8%AF%B7%E6%B1%82%E4%BD%93%E7%9A%84%E5%B8%B8%E9%87%8F%E4%BF%A1%E6%81%AF"><span class="toc-text">3.2.1 请求体的常量信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-2-%E8%BF%BD%E5%8A%A0%E5%8F%82%E6%95%B0%E2%80%94%E2%80%94Add"><span class="toc-text">3.2.2 追加参数——Add</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-3-%E8%AE%BE%E7%BD%AE%E5%8F%82%E6%95%B0%E2%80%94%E2%80%94Set"><span class="toc-text">3.2.3 设置参数——Set</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-4-%E4%BE%8B%E5%AD%90"><span class="toc-text">3.2.4 例子</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-%E8%AE%BE%E7%BD%AE%E8%AF%B7%E6%B1%82%E5%A4%B4%E4%BF%A1%E6%81%AF%EF%BC%88%E5%9C%A8%E6%9E%84%E9%80%A0%E8%AF%B7%E6%B1%82%E6%97%B6%E8%AE%BE%E7%BD%AE%EF%BC%89"><span class="toc-text">3.3 设置请求头信息（在构造请求时设置）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4-%E8%AE%BE%E7%BD%AEpost%E8%AF%B7%E6%B1%82%E7%9A%84%E6%95%B0%E6%8D%AE%EF%BC%88%E5%9C%A8%E6%9E%84%E9%80%A0%E8%AF%B7%E6%B1%82%E6%97%B6%E8%AE%BE%E7%BD%AE%EF%BC%89"><span class="toc-text">3.4 设置post请求的数据（在构造请求时设置）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-1-data%E6%A0%BC%E5%BC%8F%E7%9A%84%E8%AF%B7%E6%B1%82"><span class="toc-text">3.4.1 data格式的请求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-2-json%E6%A0%BC%E5%BC%8F%E7%9A%84%E8%AF%B7%E6%B1%82"><span class="toc-text">3.4.2 json格式的请求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-3-%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E7%9A%84%E8%AF%B7%E6%B1%82%EF%BC%88%E4%BA%86%E8%A7%A3%E5%B0%B1%E8%A1%8C%EF%BC%89"><span class="toc-text">3.4.3 文件格式的请求（了解就行）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-5-%E8%8E%B7%E5%8F%96%E5%93%8D%E5%BA%94%E7%8A%B6%E6%80%81%E7%A0%81%EF%BC%88%E5%9C%A8%E8%8E%B7%E5%8F%96%E5%93%8D%E5%BA%94%E5%90%8E%E8%AE%BE%E7%BD%AE%EF%BC%89"><span class="toc-text">3.5 获取响应状态码（在获取响应后设置）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-6-%E8%8E%B7%E5%8F%96%E5%93%8D%E5%BA%94%E5%A4%B4%EF%BC%88%E5%9C%A8%E8%8E%B7%E5%8F%96%E5%93%8D%E5%BA%94%E5%90%8E%E8%AE%BE%E7%BD%AE%EF%BC%89"><span class="toc-text">3.6 获取响应头（在获取响应后设置）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-7-%E8%8E%B7%E5%8F%96%E5%93%8D%E5%BA%94%E7%BC%96%E7%A0%81%EF%BC%88%E5%9C%A8%E8%8E%B7%E5%8F%96%E5%93%8D%E5%BA%94%E5%90%8E%E8%AE%BE%E7%BD%AE%EF%BC%89"><span class="toc-text">3.7 获取响应编码（在获取响应后设置）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-8-%E9%87%8D%E5%AE%9A%E5%90%91%E7%9A%84%E9%99%90%E5%88%B6%E4%B8%8E%E7%A6%81%E6%AD%A2%EF%BC%88%E5%9C%A8%E6%9E%84%E9%80%A0%E8%AF%B7%E6%B1%82%E6%97%B6%E8%AE%BE%E7%BD%AE%EF%BC%89"><span class="toc-text">3.8 重定向的限制与禁止（在构造请求时设置）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-9-cookie%EF%BC%88%E7%9C%8B%E6%83%85%E5%86%B5%EF%BC%89"><span class="toc-text">3.9 cookie（看情况）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-9-1-cookie"><span class="toc-text">3.9.1 cookie</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-9-2-cookiejar"><span class="toc-text">3.9.2 cookiejar</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-9-3-cookie%E6%8C%81%E4%B9%85%E5%8C%96"><span class="toc-text">3.9.3 cookie持久化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-10-%E8%AF%B7%E6%B1%82%E8%B6%85%E6%97%B6%EF%BC%88%E5%9C%A8%E6%9E%84%E9%80%A0%E8%AF%B7%E6%B1%82%E6%97%B6%E8%AE%BE%E7%BD%AE%EF%BC%89"><span class="toc-text">3.10 请求超时（在构造请求时设置）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-11-%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86%EF%BC%88%E5%9C%A8%E6%9E%84%E9%80%A0%E8%AF%B7%E6%B1%82%E6%97%B6%E8%AE%BE%E7%BD%AE%EF%BC%89"><span class="toc-text">3.11 设置代理（在构造请求时设置）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-12-client%E7%AB%AF%E5%BF%BD%E7%95%A5%E8%AF%81%E4%B9%A6%E7%9A%84%E6%A0%A1%E9%AA%8C"><span class="toc-text">3.12 client端忽略证书的校验</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%82%86-%E4%BD%BF%E7%94%A8"><span class="toc-text">肆 使用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BC%8D-%E5%8F%82%E8%80%83"><span class="toc-text">伍 参考</span></a></li></ol>
+        </div>    
+    </div>
+     -->
+</div>
+
+<div id="card-style-fun">
+    
+    <!-- 今日诗句 -->
+    <br />
+    <div id="card-div">
+        <div class="good-sentence">
+            <div class="toolio">
+                <div class="circle"><span class="red"></span></div>
+                <div class="circle"><span class="yellow"></span></div>
+                <div class="circle"><span class="green"></span></div>
+                <div class="circle"><span class="text">今日诗句</span></div>
+            </div>
+            <div class="sentence">
+                <div id="sentenceid" onload="getsentence();"></div>
+            </div>
+        </div>
+    </div>
+    <!-- 日期信息 -->
+    <br />
+    <div id="card-div">
+        <img src="//api.vvhan.com/api/ipCard?tip=A7cc" width="300" height="180">
+    </div>
+    
+</div>
+
+
+
+    </div>
+    
+</div>
+                <!-- 页脚 -->
+                <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+            <script>
+                var now = new Date(); 
+                function createtime() { 
+                    var grt= new Date("07/10/2022 00:00:00");
+                    now.setTime(now.getTime()+250); 
+                    days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+                    hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+                    if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+                    mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+                    seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+                    snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+                    document.getElementById("timeDate").innerHTML = "已运行 "+dnum+" 天 "; 
+                    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+                } 
+            setInterval("createtime()",250);
+            </script>
+        </div>
+        <div>
+            &copy;
+            2022 - 2024 小C♥天天
+            <span class="footer-icon">
+                <i class="fa-brands fa-github fa-fw"></i>
+            </span>
+            &commat;小C&amp;天天
+        </div>
+        <div>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX</a> 
+        </div>
+        
+    </div>
+</footer>
+
+            </div>
+            <!-- 简单的点击图片放大缩小的预览 -->
+            
+            <div name="fade">
+                <div id="preview" ref="preview" v-show="previewShow">
+                    <img id="preview-content" ref="previewContent" />
+                </div>
+            </div>
+            
+        </div>
+        <!-- 看板娘 -->
+        
+        <div id="L2dCanvas"></div>
+        <script src="/js/lib/live2d.min.js"></script>
+        <!-- 设置随机模板 -->
+        
+        <script>
+            var v = new Viewer({
+                basePath: "/model",
+                role: "qibolin_2",
+                mobile: true,
+            });
+        </script>
+        
+        <!-- 诗句 -->
+        
+        <script>
+            // // 每隔10分钟执行一次getsentence这个函数
+            window.setInterval(getsentence, 100*60*5);
+            function getsentence() {
+                // 这里没有考虑IE浏览器，如果需要择if判断加
+                var xhr = new XMLHttpRequest();  
+                xhr.open('GET', "https://zj.v.api.aa1.cn/api/wenan-shici/?type=json",true);
+                xhr.send(JSON.stringify(null));
+                xhr.onreadystatechange = function () {
+                    if (xhr.status === 200 && xhr.readyState === 4) {
+                        //js处理数据
+                        // xhr.responseText.match(/content":(".+?")/g)
+                        getdata = JSON.parse(xhr.responseText).msg;
+                    }else{
+                        getdata = "长风破浪会有时，直挂云帆济沧海。——李白《行路难》";
+                    }
+                    document.getElementById("sentenceid").innerHTML = getdata;
+                }
+            }
+            window.onload = getsentence;
+        </script>
+        
+        <!-- 点击 -->
+        <script>
+            let body = document.getElementsByTagName('body')[0];
+            body.addEventListener('click', (e) => {
+                let contentArr = ['✊','😘','😍','😊','😭','😡','😋','👍','🐷','😱','💷','💵','×','🆗','№','⭐','🌙','♥','💴','☀','🐎','🐂','🐏','√'];
+                let randomNum = function (n) {
+                    return Math.floor(Math.random() * n)
+                }
+                let span = document.createElement('span');
+                span.innerHTML = `${contentArr[randomNum(contentArr.length)]}`;
+                span.style.color = `rgb(${randomNum(256)},${randomNum(256)},${randomNum(256)})`;
+                span.style.position = 'absolute';
+                span.style.top = `${e.pageY}px`;
+                span.style.left = `${e.pageX}px`;
+                span.style.transition = 'all 1s ease';
+                span.style.zIndex = 20000;
+                body.appendChild(span)
+                setTimeout(()=>{
+                    span.style.top = span.offsetTop - 100 + 'px';
+                    span.style.opacity = 0;
+                    setTimeout(()=>{span.remove()},700)
+                },0)
+            })
+        </script>
+        <!-- 流星背景特效 -->
+        
+        <canvas id="background" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1"></canvas>
+        <script src="/js/meteorbackground.js"></script>
+        
+        <script src="/js/main.js"></script>
+    </body>
+</html>
