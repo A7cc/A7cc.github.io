@@ -223,12 +223,12 @@
                 
                 <span class="tag">
                     
-                    <a href="/tags/Java/" style="color: #03a9f4">Java</a>
+                    <a href="/tags/Java/" style="color: #00bcd4">Java</a>
                 </span>
                 
                 <span class="tag">
                     
-                    <a href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" style="color: #00bcd4">代码审计</a>
+                    <a href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" style="color: #03a9f4">代码审计</a>
                 </span>
                 
             </span>
@@ -331,6 +331,14 @@ public class Run &#123;
 </code></pre>
 <p><img src="/images/Java%E5%AE%89%E5%85%A8/URLDNS%E9%93%BE/ce6046c5f0c01b9cca12960c0141d0d9.png" alt="ce6046c5f0c01b9cca12960c0141d0d9.png"></p>
 <p>其实前面序列化那一步我们只需要客户端生成，也就是我们自己生成的<code>payload</code>，后面的反序列化过程其实是服务器反序列化的过程，客户端的代码是我们可以控制的，服务端是不可以控制的，所以我们在复现时，一般只需要搭建后面的服务端，前面的客户端已经被工具化，如：<a target="_blank" rel="noopener" href="https://github.com/frohoff/ysoserial"><code>ysoserial</code></a>中的<code>src/main/java/ysoserial/payloads/URLDNS.java</code>文件就是实现了，这里之所以长篇大论就是为了体现出反射在反序列化中的重要性。</p>
+<h2 id="2-4-URLDNS链流程小结"><a href="#2-4-URLDNS链流程小结" class="headerlink" title="2.4 URLDNS链流程小结"></a>2.4 URLDNS链流程小结</h2><p><code>URLDNS</code>链调用流程：</p>
+<pre><code class="mermaid">graph LR
+A[HashMap.readObject] --&gt; B[HashMap.hash]
+B --&gt; C[URL.hashCode]
+C --&gt; D[URLStreamHandler.hashCode]
+D --&gt; E[URLStreamHandler.getHostAddress]
+</code></pre>
+<p>首先通过反序列化调用<code>HashMap.readObject()</code>，接着方法内调用<code>HashMap.hash()</code>，进而调用<code>key.hashCode()</code>，而这里的<code>key</code>被赋值为<code>URL</code>类型值，也就是调用了<code>URL.hashCode()</code>，进而调用<code>URLStreamHandler.hashCode()</code>，最后调用<code>URLStreamHandler.getHostAddress()</code>进行<code>DNS</code>请求，完成整个利用链调用。</p>
 <h1 id="叁-参考"><a href="#叁-参考" class="headerlink" title="叁 参考"></a>叁 参考</h1><ul>
 <li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV16h411z7o9">Java反序列化漏洞专题</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/frohoff/ysoserial/blob/master/src/main/java/ysoserial/payloads/URLDNS.java">ysoserial</a></li>
@@ -410,7 +418,7 @@ public class Run &#123;
     <div id="card-div">
         <div id="toc" class="toc-article">
             <strong class="toc-title">文章目录</strong>
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A3%B9-%E4%BB%8B%E7%BB%8D"><span class="toc-text">壹 介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-URLDNS%E9%93%BE"><span class="toc-text">1.1 URLDNS链</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E5%8E%9F%E7%90%86"><span class="toc-text">1.2 原理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%B0-%E5%88%86%E6%9E%90"><span class="toc-text">贰 分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-URLDNS%E7%9A%84sink%E7%82%B9%E5%88%86%E6%9E%90"><span class="toc-text">2.1 URLDNS的sink点分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-HashMap%E7%9A%84readObject%E6%96%B9%E6%B3%95%E5%88%86%E6%9E%90"><span class="toc-text">2.2 HashMap的readObject方法分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E5%AE%8C%E6%95%B4%E7%9A%84%E5%88%A9%E7%94%A8%E9%93%BE"><span class="toc-text">2.3 完整的利用链</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%81-%E5%8F%82%E8%80%83"><span class="toc-text">叁 参考</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A3%B9-%E4%BB%8B%E7%BB%8D"><span class="toc-text">壹 介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-URLDNS%E9%93%BE"><span class="toc-text">1.1 URLDNS链</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E5%8E%9F%E7%90%86"><span class="toc-text">1.2 原理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%B0-%E5%88%86%E6%9E%90"><span class="toc-text">贰 分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-URLDNS%E7%9A%84sink%E7%82%B9%E5%88%86%E6%9E%90"><span class="toc-text">2.1 URLDNS的sink点分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-HashMap%E7%9A%84readObject%E6%96%B9%E6%B3%95%E5%88%86%E6%9E%90"><span class="toc-text">2.2 HashMap的readObject方法分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E5%AE%8C%E6%95%B4%E7%9A%84%E5%88%A9%E7%94%A8%E9%93%BE"><span class="toc-text">2.3 完整的利用链</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-URLDNS%E9%93%BE%E6%B5%81%E7%A8%8B%E5%B0%8F%E7%BB%93"><span class="toc-text">2.4 URLDNS链流程小结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%81-%E5%8F%82%E8%80%83"><span class="toc-text">叁 参考</span></a></li></ol>
         </div>    
     </div>
      -->
@@ -470,7 +478,7 @@ public class Run &#123;
         </div>
         <div>
             &copy;
-            2022 - 2024 小C♥天天
+            2022 - 2025 小C♥天天
             <span class="footer-icon">
                 <i class="fa-brands fa-github fa-fw"></i>
             </span>
@@ -503,7 +511,7 @@ public class Run &#123;
         <script>
             var v = new Viewer({
                 basePath: "/model",
-                role: "dunkeerke_2",
+                role: "bisimai_2",
                 mobile: true,
             });
         </script>
