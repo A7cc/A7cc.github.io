@@ -199,9 +199,18 @@
 
 <div class="post">
     <a href="/2025/01/03/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/CodeQL%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%A3%B9%EF%BC%89%E2%80%94%E2%80%94%E4%BB%8B%E7%BB%8D%E5%92%8C%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/">
-        <h2 class="post-title"></h2>
+        <h2 class="post-title">CodeQL学习（壹）——介绍和简单使用</h2>
     </a>
     <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                代码审计
+            </a>
+        </span>
         
         <span class="date">
             <span class="icon">
@@ -215,193 +224,28 @@
     <div class="description">
         <div class="content" v-pre>
             
-            <p>[toc]</p>
-<h1 id="壹-CodeQL简介"><a href="#壹-CodeQL简介" class="headerlink" title="壹 CodeQL简介"></a>壹 CodeQL简介</h1><h2 id="1-1-介绍"><a href="#1-1-介绍" class="headerlink" title="1.1 介绍"></a>1.1 介绍</h2><p>在做代码审计的时候，会用到通过关键字查询的方式进行代码审计，但是这样做的弊端就是搜索出来的结果量太大了，而且可能项目里用不到开发者重写的危险函数（例如文件上传，可能项目之前有这个功能，后来换了一些架构就不用了，但是忘记删除了），这时候就在想是否是有一种方法或者规则集，进行过滤，也就是说通过自动化或者半自动化的方式对代码的漏洞点进行筛查，答案是有的。</p>
-<p>在说这种新型的代码审计方法之前，我们需要了解一个知识点：在代码自动化安全审计的理论当中，有一个最核心的三元组概念，就是<code>source</code>、<code>sink</code>和<code>sanitizer</code>。 </p>
-<ul>
-<li><code>source</code>：漏洞污染链条的输入点，比如获取<code>http</code>请求的参数部分，就是非常明显的<code>source</code>。</li>
-<li><code>sink</code>：漏洞污染链条的执行点，比如<code>SQL</code>注入漏洞，最终执行<code>SQL</code>语句的函数就是<code>sink</code>，这个函数可能是<code>query</code>或者<code>exeSql</code>，或者其它。</li>
-<li><code>sanitizer</code>：又叫净化函数，是指在整个的漏洞链条当中，如果存在一个方法阻断了整个传递链，使得<code>source</code>的恶意数据传递到<code>sink</code>点后，这些恶意数据已经被过滤过了或者说是被净化过了，那么这个方法就叫<code>sanitizer</code>。</li>
-</ul>
-<p>下面是大概的流程图：</p>
-<pre><code class="bash"># flow一般可以理解为数据从source到sink之间的流向经过的方法，有一些文章叫node（其实我们可以理解为node是一个一个的函数，然后多个node组成了flow这个数据流），如果flow存在一个方法阻断了整个传递链，那么这个方法就是sanitizer
-source（污点的来源、可控的参数点）-&gt; flow（一些对传入的参数进行编码或者过滤的过程）-&gt; sink（漏洞触发点、触发漏洞的方法）
-</code></pre>
-<p>根据前面的知识点，我们可以通过一套规则集进行查询匹配，例如我们将出现危险方法的地方为终点（<code>sink</code>），用户输入的数据为起点的规则（<code>source</code>），进行查询，这时候就提取出满足我们需要审计的一个可疑利用链，再通过人工进行审核，即可高效的完成代码审计（当然在实际应用中并不会这么简单），这个过程类似与数据库的查询，通过<code>SQL</code>语句去查询我们需要的内容，这个想法就是<code>CodeQL</code>的核心理念所在。而<a target="_blank" rel="noopener" href="https://codeql.github.com/"><code>CodeQL</code></a>就是一个会提取源码中的相关信息以及数据之间的相互关系，并根据这些信息生成数据库的强大的静态代码分析工具，在使用<code>CodeQL</code>时，我们就是将代码分析过程转化成了数据库查询过程，可以执行<code>CodeQL</code>查询（简称<code>QL</code>）来查询代码库。很多人用它都会利用已知的安全漏洞来挖掘类似的漏洞，但是个人觉得我们可以通过它来进行一些关键信息搜索，然后挖掘出自己独创的漏洞，因为这个工具本质就是一个代码搜索工具，与人工不同在于它可以进行<code>source</code>和<code>sink</code>数据流闭环。</p>
-<p><code>Github</code>为了解决其托管的海量项目的安全性问题，收购了<code>CodeQL</code>的创业公司，并宣布开源<code>CodeQL</code>的规则部分，这样全世界的安全工程师就可以贡献高效的<code>QL</code>审计规则给<code>Github</code>，帮助它解决托管项目的安全问题，所以除了官方的规则库外，我们也可以自定义规则完善我们的规则库。</p>
-<ul>
-<li><code>CodeQL</code>官网：<a target="_blank" rel="noopener" href="https://codeql.github.com/">跳转</a></li>
-<li><code>CodeQL</code>官方文档：<a target="_blank" rel="noopener" href="https://codeql.github.com/docs/codeql-overview/">跳转</a></li>
-<li><code>CodeQL</code>官方文档教程：<a target="_blank" rel="noopener" href="https://codeql.github.com/docs/codeql-overview/">跳转</a></li>
-</ul>
-<h2 id="1-2-原理"><a href="#1-2-原理" class="headerlink" title="1.2 原理"></a>1.2 原理</h2><p><code>CodeQL</code>的整体思路是把源代码转化成一个可查询的数据库，通过<code>Extractor</code>模块对源代码工程进行关键信息分析提取，提取完成后，所有分析所需的数据都会导入一个文件夹，这个就是<code>CodeQL</code>数据库，其中包括了源代码文件、关系数据、语言相关的<code>database schema</code>（<code>schema</code>定义了数据之间的相互关系）。<code>CodeQL</code>的数据库并没有使用现有的数据库技术，而是一套基于文件的自己的实现。</p>
-<blockquote>
-<p>不同类型代码生成的逻辑也不同：</p>
-<ul>
-<li>对于编译型语言，<code>Extractor</code>会监控编译过程，编译器每处理一个源代码文件，它都会收集源代码的相关信息，如：语法信息（<code>AST</code>抽象语法树）、语意信息（名称绑定、类型信息、运算操作等）、控制流、数据流等，同时也会复制一份源代码文件。</li>
-<li>对于解释性语言，<code>Extractor</code>则直接分析源代码，得到类似的相关信息。</li>
-</ul>
-</blockquote>
-<p><code>CodeQL</code>的工作流程如下图所示：</p>
-<p><img src="/images/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/CodeQL/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20241121161215.png" alt="微信截图_20241121161215.png"></p>
-<p>整体的工作流程分为四个模块：<br>提取数据库（<code>Extraction</code>）：对源代码工程进行关键信息分析提取，构成一个关系型数据库<code>CodeQL database</code>。<br>编译QL规则（<code>Query Compilation</code>）：将<code>QL</code>规则结合<code>QL</code>标准库编译，生成查询的执行计划。<br>执行QL查询（<code>Query Evaluation</code>）：在生成的<code>CodeQL</code>数据库上运行<code>QL</code>查询。<br>展示查询结果（<code>Query results</code>）：最终将查询结果展示给用户，方便用户进行进一步的人工审计分析。</p>
-<p>注意：由于<code>CodeQL</code>是需要项目能正常构建，然后拦截这些在构建中出现的编译命令，然后生成基于<code>AST</code>抽象语法树的数据库，所以当项目代码不能被正常构建的话是不能使用<code>CodeQL</code>的（这也是<code>CodeQL</code>的一个缺点之一），这里说的项目构建的意思就是<code>Java</code>代码只要可以打包构建起来，然后在构建过程中可以拦截所有的编译命令就能，生成<code>AST</code>抽象语法树的数据库，不一定需要正常运行。我们可以理解为代码是一堆电脑零件，构建就是组装成一个没有插电的电脑（不一定需要电脑运行起来），这时候<code>CodeQL</code>就可以将这些零件进行链接形成一个数据库，但是如果是散开的就无法进行链接索引。由于<code>CodeQL</code>主要做的是静态分析，只分析源代码，所以不依赖于项目是否运行起来，但是对于编译型语言来说，必须先能正确构建项目。</p>
-<h1 id="贰-安装"><a href="#贰-安装" class="headerlink" title="贰 安装"></a>贰 安装</h1><p><code>CodeQL</code>包含两部分：解析引擎、<code>SDK</code>规则库。</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/github/codeql-cli-binaries/releases">解析引擎</a>：不开源（但可以直接在官网下载二进制文件），用于解析我们编写的规则。</li>
-<li><a target="_blank" rel="noopener" href="https://github.com/github/codeql"><code>SDK</code>规则库</a>：完全开源，里面包含大部分现成的漏洞规则，也可以利用其编写自定义规则。</li>
-</ul>
-<p>首先我们选一个合适的路径然后创建<code>CodeQL</code>目录，然后在该目录下创建<code>codeql_Tool</code>、<code>codeql_Rule</code>、<code>databases</code>和<code>source</code>目录，分别用于安装<code>Codeql</code>解析引擎、<code>SDK</code>规则库、生成的源码数据库和被分析源代码，当然<code>databases</code>和<code>source</code>目录可以在别的位置，这里我只是喜欢放在一起做归档，看个人喜好：</p>
-<p><img src="/images/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/CodeQL/3d341aa3c02b78c5afa764220626b223.png" alt="3d341aa3c02b78c5afa764220626b223.png"></p>
-<p>接着下载对应系统的<a target="_blank" rel="noopener" href="https://github.com/github/codeql-cli-binaries/releases"><code>CodeQL</code>解析引擎</a>，然后在<code>codeql_Tool</code>下解压，将<code>CodeQL</code>可执行程序添加到环境变量中，方便命令行运行：</p>
-<p><img src="/images/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/CodeQL/8b741fbb243092bcb1dc0875fc1764dd.png" alt="8b741fbb243092bcb1dc0875fc1764dd.png"></p>
-<p>设置好后，输入<code>Codeql</code>出现下面内容，说明引擎安装完成：</p>
-<p><img src="/images/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/CodeQL/43c3557112be0faa002bf7855ca9bdc1.png" alt="43c3557112be0faa002bf7855ca9bdc1.png"></p>
-<p>然后下载<a target="_blank" rel="noopener" href="https://github.com/github/codeql"><code>SDK</code>规则库</a>，将其放到<code>codeql_Rule</code>中：</p>
-<p><img src="/images/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/CodeQL/d5f9cb1f110f0cc6beba1f636d7d90a4.png" alt="d5f9cb1f110f0cc6beba1f636d7d90a4.png"></p>
-<p>最后安装<code>Visual Studio Code</code>代码编辑器的<code>CodeQL</code>插件（<code>CodeQL</code>需要使用<code>Visual Studio Code</code>来开发和调试规则），配置一下上面我们安装的<code>CodeQL</code>引擎路径，完成<code>CodeQL</code>安装：</p>
-<p><img src="/images/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/CodeQL/80bbaee347536ac1466fcf0722f452cc.png" alt="80bbaee347536ac1466fcf0722f452cc.png"></p>
-<h1 id="叁-基础使用"><a href="#叁-基础使用" class="headerlink" title="叁 基础使用"></a>叁 基础使用</h1><h2 id="3-1-准备分析的代码"><a href="#3-1-准备分析的代码" class="headerlink" title="3.1 准备分析的代码"></a>3.1 准备分析的代码</h2><p>首先准备要扫描的代码，这里我们用<a target="_blank" rel="noopener" href="https://github.com/l4yn3/micro_service_seclab"><code>micro_service_seclab</code></a>这个靶场来做测试和教学（注意：需要切换到<code>master</code>分支，默认为<code>main</code>分支，存在异常）。将源码解压放到<code>source</code>目录中：</p>
-<p><img src="/images/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/CodeQL/f41c3ba5869c2e45a0b272e85dbcda99.png" alt="f41c3ba5869c2e45a0b272e85dbcda99.png"></p>
-<h2 id="3-2-生成数据库"><a href="#3-2-生成数据库" class="headerlink" title="3.2 生成数据库"></a>3.2 生成数据库</h2><p>由于<code>CodeQL</code>只可以对被解析引擎编译生成的抽象语法树（<code>AST</code>）结构数据库进行扫描，所以需要先生成目标数据库。而生成数据库分为两种：本地生成和在线生成。</p>
-<ul>
-<li>本地生成数据库：一般适合编译类语言，如<code>go</code>、<code>Java</code>、<code>Golang</code>等，这种方式需要按照前面的安装步骤去安装<code>CodeQL</code>引擎和规则库。</li>
-<li>在线生成数据库：一般适合解释性语言，如<code>Python</code>等，而这种方式完全不需要安装<code>CodeQL</code>引擎，只需要将代码放到<a target="_blank" rel="noopener" href="https://lgtm.com/dashboard">dashboard网站</a>上生成数据库，然后下载官方规则库。</li>
-</ul>
-<p><font color="red">注意：运行<code>CodeQL</code>生成数据库，前提是需要被审计的系统能正常打包或者正常构建起来。</font></p>
-<h3 id="3-2-1-本地生成（推荐）"><a href="#3-2-1-本地生成（推荐）" class="headerlink" title="3.2.1 本地生成（推荐）"></a>3.2.1 本地生成（推荐）</h3><pre><code class="bash">codeql database create 数据库名 --language=cpp --source-root=源码路径 --command=&quot;编译命令&quot;
-
-数据库名：代码数据库存放目录，可以相对路径也可以绝对路径，如果没有会自动创建目录
--command：参数如果不指定，会使用默认的编译命令和参数，一般编译型语言需要这个目录，python这种解释性语言可以不需要，像Java可能就需要设置mvn clean install --file pom.xml这种命令编译
--source-root：源码路径，可以相对路径也可以绝对路径
--overwrite：表示 create 的目标 database 对已有的 database 做覆盖
--language：要根据具体项目的编译语言指定
-
-# 例子，打开终端直接运行下面命令
-codeql database create 代码数据库存放目录 --language=java --command=&#39;mvn clean install --file pom.xml&#39; --source-root=源代码目录 --overwrite
-</code></pre>
-<p><img src="/images/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/CodeQL/d049a7cec41ca3e7d61a177194a12893.png" alt="d049a7cec41ca3e7d61a177194a12893.png"></p>
-<p>出现<code>Successfully</code>说明生成完成（注意项目代码要能打包或者运行起来，其实我们运行完后就会发现源码下多出了打包的程序）：</p>
-<p><img src="/images/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/CodeQL/f74b6424631101bc045ffbdef7b7a8a3.png" alt="f74b6424631101bc045ffbdef7b7a8a3.png"></p>
-<h3 id="3-2-2-在线生成（copy网上的教程，没用过）"><a href="#3-2-2-在线生成（copy网上的教程，没用过）" class="headerlink" title="3.2.2 在线生成（copy网上的教程，没用过）"></a>3.2.2 在线生成（copy网上的教程，没用过）</h3><p>没有找到对应功能，这里就用网上文章吧（后面有时间再研究）： <a target="_blank" rel="noopener" href="https://www.4hou.com/posts/yJOW">代码分析平台CodeQL学习手记（一）</a></p>
-<h3 id="3-2-3-语言对应关系"><a href="#3-2-3-语言对应关系" class="headerlink" title="3.2.3 语言对应关系"></a>3.2.3 语言对应关系</h3><p>其中语言对应关系如下：</p>
-<table>
-<thead>
-<tr>
-<th><code>Language</code></th>
-<th><code>Identity</code></th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>C/C++</code></td>
-<td><code>cpp</code></td>
-</tr>
-<tr>
-<td><code>C#</code></td>
-<td><code>csharp</code></td>
-</tr>
-<tr>
-<td><code>Go</code></td>
-<td><code>go</code></td>
-</tr>
-<tr>
-<td><code>Java</code></td>
-<td><code>java</code></td>
-</tr>
-<tr>
-<td><code>javascript/Typescript</code></td>
-<td><code>javascript</code></td>
-</tr>
-<tr>
-<td><code>Python</code></td>
-<td><code>python</code></td>
-</tr>
-</tbody></table>
-<blockquote>
-<p><code>CodeQL</code>支持的语言是有限的，详细可以参考：<a target="_blank" rel="noopener" href="https://codeql.github.com/docs/codeql-overview/supported-languages-and-frameworks/"><code>CodeQL</code>支持的语言和框架</a></p>
-</blockquote>
-<h2 id="3-2-选择规则"><a href="#3-2-选择规则" class="headerlink" title="3.2 选择规则"></a>3.2 选择规则</h2><p>再进行项目漏洞扫描前，我们需要选择规则来扫描，这里有两种：</p>
-<ul>
-<li>选择<code>CodeQL</code>内部的对应语言规则</li>
-<li>创建自定义规则</li>
-</ul>
-<h3 id="3-2-1-选择CodeQL内部的对应语言规则"><a href="#3-2-1-选择CodeQL内部的对应语言规则" class="headerlink" title="3.2.1 选择CodeQL内部的对应语言规则"></a>3.2.1 选择CodeQL内部的对应语言规则</h3><p>如果选择<code>CodeQL</code>内部规则，那么我们需要在对应规则文件夹下打开<code>Vscode</code>，这里我们把全部规则打开，方便寻找，我的<code>CodeQl</code>规则在<code>.\Codeql\codeql_Rule\</code>下，其中<code>.ql</code>后缀的文件都是规则文件，就是我们用于扫描代码的：</p>
-<p><img src="/images/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/CodeQL/3793f77a80108f2877b48dcea16527e8.png" alt="3793f77a80108f2877b48dcea16527e8.png"></p>
-<p>到这里我们就选择了官方的<code>CodeQL</code>规则。</p>
-<h3 id="3-2-2-创建自定义规则"><a href="#3-2-2-创建自定义规则" class="headerlink" title="3.2.2 创建自定义规则"></a>3.2.2 创建自定义规则</h3><p>如果我们需要创建自定义规则，首先创建一个新的自定义规则文件夹或者叫<code>QL</code>包，这里我们可以设置个名字<code>Test_rule</code>，然后再<code>QL</code>包下创建一个<code>qlpack.yml</code>文件（必需），内容如下：</p>
-<pre><code class="yml">name: test-query
-version: 0.0.1
-libraryPathDependencies: codeql-java
-</code></pre>
-<p><img src="/images/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/CodeQL/04878c396aa40f9589176f23e8de2d30.png" alt="04878c396aa40f9589176f23e8de2d30.png"></p>
-<blockquote>
-<p>需要注意：<code>QL</code>包目录的根目录下必须包含一个以<code>qlpack.yml</code>命名的文件，该文件包含<code>name</code>、<code>version</code>以及<code>libraryPathDependencies</code>字段属性。只有当自定义的<code>QL</code>包有<code>qlpack.yml</code>文件才能对对应语言进行正常编译、执行。<br>参考：<a target="_blank" rel="noopener" href="https://codeql.github.com/docs/codeql-cli/using-custom-queries-with-the-codeql-cli/">https://codeql.github.com/docs/codeql-cli/using-custom-queries-with-the-codeql-cli/</a></p>
-</blockquote>
-<p>到这里我们就创建了自定义的<code>CodeQL</code>规则文件夹。</p>
-<h2 id="3-3-进行项目漏洞扫描"><a href="#3-3-进行项目漏洞扫描" class="headerlink" title="3.3 进行项目漏洞扫描"></a>3.3 进行项目漏洞扫描</h2><p>选择好规则后，我们就要通过<code>QL</code>语句去扫描项目，有两种方式：</p>
-<ul>
-<li>通过<code>Vscode</code>对项目进行扫描</li>
-<li>通过命令行对项目进行扫描</li>
-</ul>
-<h3 id="3-3-1-通过Vscode对项目进行扫描"><a href="#3-3-1-通过Vscode对项目进行扫描" class="headerlink" title="3.3.1 通过Vscode对项目进行扫描"></a>3.3.1 通过Vscode对项目进行扫描</h3><p>这里我们用自定义的<code>QL</code>包文件夹来扫描，在刚刚的<code>QL</code>包文件夹内打开<code>Vscode</code>，然后选择<code>CodeQL</code>（如果用官方规则也是一样的步骤）：</p>
-<p><img src="/images/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/CodeQL/61d88ad39cc7cd3afb4339e06b6fb34f.png" alt="61d88ad39cc7cd3afb4339e06b6fb34f.png"></p>
-<p>添加刚刚生成的数据库到<code>Database</code>中：</p>
-<p><img src="/images/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/CodeQL/0de6e241bdc8b6d2e3411d1278c2de09.png" alt="0de6e241bdc8b6d2e3411d1278c2de09.png"></p>
-<p>会出现库信息：</p>
-<p><img src="/images/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/CodeQL/9e20ba8219ef1ee44900726c7c493307.png" alt="9e20ba8219ef1ee44900726c7c493307.png"></p>
-<p>接着右键点击<code>Add Database Source to Workspace</code>将其加入到工作区中（为了方便查看以及代码定位）：</p>
-<p><img src="/images/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/CodeQL/9f02888235213e75cdcca08f0534b9dc.png" alt="9f02888235213e75cdcca08f0534b9dc.png"></p>
-<p>接着新建一个<code>test.ql</code>文件，内容如下：</p>
-<pre><code class="bash">select &quot;hello word&quot;
-</code></pre>
-<p>右键点击<code>Run Query</code>运行（这里有好几个<code>Run Query</code>，根据个人需求选择即可），这只是一个简单输出<code>hello word</code>：</p>
-<p><img src="/images/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/CodeQL/f4a7d2899bfb82542a1dddcf8d65bdb1.png" alt="f4a7d2899bfb82542a1dddcf8d65bdb1.png"><br><img src="/images/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/CodeQL/086f2382a70ae856546284e829ed7eb5.png" alt="086f2382a70ae856546284e829ed7eb5.png"></p>
-<p>我们添加搜索<code>Java</code>模块，修改内容为：</p>
-<pre><code class="ql">// 内容可以不需要了解，只需要知道这是QL语言
-import java
-
-from Call c
-select c,&quot;This is a method call!&quot;
-</code></pre>
-<p>右键点击<code>Run Query</code>运行，由于我们加入了<code>Java</code>模块，这里就会对我们加载的源代码数据库进行搜索：</p>
-<p><img src="/images/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/CodeQL/2629bf40dc57e7619e0cb4bea6e9b9bb.png" alt="2629bf40dc57e7619e0cb4bea6e9b9bb.png"></p>
-<p>当然也可以选择多个规则文件进行扫描，这里我们在规则所在文件夹里，右键点击<code>CodeQL:Run Queries in Selected Files</code>，弹窗提示是否使用这些规则，点击<code>Yes</code>即可。</p>
-<p><img src="/images/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/CodeQL/4be7de4008db8a75d5d5c999bcb95448.png" alt="4be7de4008db8a75d5d5c999bcb95448.png"></p>
-<h3 id="3-3-2-通过命令行对项目进行扫描"><a href="#3-3-2-通过命令行对项目进行扫描" class="headerlink" title="3.3.2 通过命令行对项目进行扫描"></a>3.3.2 通过命令行对项目进行扫描</h3><p>当我们需要用命令行对项目进行扫描时，我们可以通过<code>codeql analyze</code>命令去执行单个<code>QL</code>文件、目录下所有<code>QL</code>文件或者查询<code>suite(.qls)</code>，其实我们用<code>vscode</code>编写<code>ql</code>规则和验证的时候，也是用到了<code>codeql</code>命令行操作，只不过<code>vscode</code>代替我们执行了命令。</p>
-<pre><code class="bash"># 这里以java为例子
-# 执行单个规则
-codeql database analyze 生成的数据库 codeql/ql/java/ql/examples/test.ql --format=csv --output=result.csv --rerun
-# 执行全部规则
-codeql database analyze 生成的数据库 codeql/ql/java/ql/src/codeql-suites/java-security-extended.qls --format=csv --output=result.csv --rerun
-
-# --format=csv：输出结果的格式,如sarif-latest可以输出json格式，csv输出csv格式，必填
-# --output=result.csv：输出结果路径，必填
-# 生成的数据库：分析的数据库路径，必填
-# codeql/ql/java/ql/examples/test.ql：使用的查询语句，必填
-</code></pre>
-<p><img src="/images/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/CodeQL/7e732e62b12a4fa995a2a07e34a46f22.png" alt="7e732e62b12a4fa995a2a07e34a46f22.png"></p>
-<p>出现<code>Interpreting results.</code>说明扫描完成，扫描的结果在当前目录下。</p>
-<p><img src="/images/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/CodeQL/e13eb9e66c134f83d5a40b5eed1daadf.png" alt="e13eb9e66c134f83d5a40b5eed1daadf.png"></p>
-<h2 id="3-4-规则富化"><a href="#3-4-规则富化" class="headerlink" title="3.4 规则富化"></a>3.4 规则富化</h2><p>接下来我们就可以进行对输出的结果进行筛选，规则富化（就是丰富规则内容），来进一步筛查有价值的利用链或者漏洞。其实就是在前面写的规则基础上不断丰富内容，将噪点（干扰的东西）减少，最后会得到我们需要的利用链或者漏洞，这是一个不断迭代的过程。</p>
-<blockquote>
-<p>注意：<br>对于自定义规则我们可以随便更改，但对于官方的规则，实际上已经很成熟了，但是难免需要修改，这时候建议是不要随意修改，而是新建一个副本，以防破坏原有的规则库，导致后面再用的时候恢复不了官方的，重新下载会比较麻烦。</p>
-</blockquote>
-<h1 id="肆-参考"><a href="#肆-参考" class="headerlink" title="肆 参考"></a>肆 参考</h1><ul>
-<li><a target="_blank" rel="noopener" href="https://codeql.github.com/docs/codeql-overview/">CodqQL官网</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_54129327/article/details/128188144">白盒代码审计工具——CodeQL安装与使用教程</a></li>
-<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/QuFf8P_ANCFgQRI1QTkuMA">白盒审计工具codeql的安装（踩坑）</a></li>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/479431942">CodeQL基础知识</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/web/283795.html">CodeQL从入门到放弃</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/2301_81464130/article/details/139719126">CodeQL从入门到入土</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/D_V_K_/article/details/107935368">CodeQL教程</a></li>
-</ul>
+            <p>在做代码审计的时候，会用到通过关键字查询的方式进行代码审计，但是这样做的弊端就是搜索出来的结果量太大了，而且可能项目里用不到开发者重写的危险函数（例如文件上传，可能项目之前有这个功能，后来换了一些架构就不用了，但是忘记删除了），这时候就在想是否是有一种方法或者规则集，进行过滤，也就是说通过自动化或者半自动化的方式对代码的漏洞点进行筛查，答案是有的。</p>
 
             
         </div>
     </div>
     <div class="post-tags">
         
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
         
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/CodeQL/" style="color: #ff7d73">CodeQL</a>
+        </span>
+        
+        <span class="tag">
+            
+            <a href="/tags/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" style="color: #ffa2c4">工具使用</a>
+        </span>
         
     </div>
     <a href="/2025/01/03/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/CodeQL%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%A3%B9%EF%BC%89%E2%80%94%E2%80%94%E4%BB%8B%E7%BB%8D%E5%92%8C%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="go-post">阅读全文</a>
@@ -454,7 +298,7 @@ codeql database analyze 生成的数据库 codeql/ql/java/ql/src/codeql-suites/j
         
         <span class="tag">
             
-            <a href="/tags/%E7%88%AC%E8%99%AB/" style="color: #ff7d73">爬虫</a>
+            <a href="/tags/%E7%88%AC%E8%99%AB/" style="color: #ffa2c4">爬虫</a>
         </span>
         
     </div>
@@ -503,12 +347,12 @@ codeql database analyze 生成的数据库 codeql/ql/java/ql/src/codeql-suites/j
         
         <span class="tag">
             
-            <a href="/tags/Java/" style="color: #00bcd4">Java</a>
+            <a href="/tags/Java/" style="color: #00a596">Java</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" style="color: #ffa2c4">代码审计</a>
+            <a href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" style="color: #ff7d73">代码审计</a>
         </span>
         
     </div>
@@ -557,17 +401,17 @@ codeql database analyze 生成的数据库 codeql/ql/java/ql/src/codeql-suites/j
         
         <span class="tag">
             
-            <a href="/tags/Java/" style="color: #00a596">Java</a>
+            <a href="/tags/Java/" style="color: #ffa2c4">Java</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" style="color: #ff7d73">代码审计</a>
+            <a href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" style="color: #00bcd4">代码审计</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" style="color: #03a9f4">序列化与反序列化</a>
+            <a href="/tags/%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" style="color: #ff7d73">序列化与反序列化</a>
         </span>
         
     </div>
@@ -616,17 +460,17 @@ codeql database analyze 生成的数据库 codeql/ql/java/ql/src/codeql-suites/j
         
         <span class="tag">
             
-            <a href="/tags/Java/" style="color: #ff7d73">Java</a>
+            <a href="/tags/Java/" style="color: #03a9f4">Java</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" style="color: #03a9f4">代码审计</a>
+            <a href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" style="color: #ffa2c4">代码审计</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/%E5%8F%8D%E5%B0%84/" style="color: #00a596">反射</a>
+            <a href="/tags/%E5%8F%8D%E5%B0%84/" style="color: #ff7d73">反射</a>
         </span>
         
     </div>
@@ -675,12 +519,12 @@ codeql database analyze 生成的数据库 codeql/ql/java/ql/src/codeql-suites/j
         
         <span class="tag">
             
-            <a href="/tags/Java/" style="color: #00a596">Java</a>
+            <a href="/tags/Java/" style="color: #ff7d73">Java</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" style="color: #00bcd4">代码审计</a>
+            <a href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" style="color: #ffa2c4">代码审计</a>
         </span>
         
     </div>
@@ -729,7 +573,7 @@ codeql database analyze 生成的数据库 codeql/ql/java/ql/src/codeql-suites/j
         
         <span class="tag">
             
-            <a href="/tags/Java/" style="color: #00bcd4">Java</a>
+            <a href="/tags/Java/" style="color: #03a9f4">Java</a>
         </span>
         
         <span class="tag">
@@ -783,12 +627,12 @@ codeql database analyze 生成的数据库 codeql/ql/java/ql/src/codeql-suites/j
         
         <span class="tag">
             
-            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="color: #00bcd4">微信小程序</a>
+            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="color: #03a9f4">微信小程序</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/%E9%80%86%E5%90%91/" style="color: #ffa2c4">逆向</a>
+            <a href="/tags/%E9%80%86%E5%90%91/" style="color: #ff7d73">逆向</a>
         </span>
         
     </div>
@@ -837,12 +681,12 @@ codeql database analyze 生成的数据库 codeql/ql/java/ql/src/codeql-suites/j
         
         <span class="tag">
             
-            <a href="/tags/%E4%BB%A3%E7%90%86/" style="color: #00bcd4">代理</a>
+            <a href="/tags/%E4%BB%A3%E7%90%86/" style="color: #00a596">代理</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/%E5%B7%A5%E5%85%B7/" style="color: #03a9f4">工具</a>
+            <a href="/tags/%E5%B7%A5%E5%85%B7/" style="color: #ffa2c4">工具</a>
         </span>
         
     </div>
@@ -891,7 +735,7 @@ codeql database analyze 生成的数据库 codeql/ql/java/ql/src/codeql-suites/j
         
         <span class="tag">
             
-            <a href="/tags/Python/" style="color: #03a9f4">Python</a>
+            <a href="/tags/Python/" style="color: #00bcd4">Python</a>
         </span>
         
     </div>
@@ -1082,7 +926,7 @@ codeql database analyze 生成的数据库 codeql/ql/java/ql/src/codeql-suites/j
         <script>
             var v = new Viewer({
                 basePath: "/model",
-                role: "dafeng_2",
+                role: "aimierbeierding_2",
                 mobile: true,
             });
         </script>

@@ -3,7 +3,7 @@
 <html lang="zh-Hans">
     <head>
         <meta charset="utf-8" />
-        <title> | 小C♥天天</title>
+        <title>CodeQL学习（壹）——介绍和简单使用 | 小C♥天天</title>
         <meta name="author" content="小C&天天" />
         <meta name="description" content="^v^" />
         <meta name="keywords" content="" />
@@ -195,7 +195,7 @@
                 <div id="article-posts-wrap" true ref="homePostsWrap">
     <div class="article">
         <div>
-            <h1></h1>
+            <h1>CodeQL学习（壹）——介绍和简单使用</h1>
         </div>
         <div class="info">
             <span class="date">
@@ -205,12 +205,38 @@
                 2025/1/3
             </span>
             
+            <span class="category">
+                <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">
+                    <span class="icon">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </span>
+                    代码审计
+                </a>
+            </span>
+            
+            
+            <span class="tags">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                
+                
+                <span class="tag">
+                    
+                    <a href="/tags/CodeQL/" style="color: #ff7d73">CodeQL</a>
+                </span>
+                
+                <span class="tag">
+                    
+                    <a href="/tags/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" style="color: #00a596">工具使用</a>
+                </span>
+                
+            </span>
             
         </div>
         
         <div class="content" v-pre>
-            <p>[toc]</p>
-<h1 id="壹-CodeQL简介"><a href="#壹-CodeQL简介" class="headerlink" title="壹 CodeQL简介"></a>壹 CodeQL简介</h1><h2 id="1-1-介绍"><a href="#1-1-介绍" class="headerlink" title="1.1 介绍"></a>1.1 介绍</h2><p>在做代码审计的时候，会用到通过关键字查询的方式进行代码审计，但是这样做的弊端就是搜索出来的结果量太大了，而且可能项目里用不到开发者重写的危险函数（例如文件上传，可能项目之前有这个功能，后来换了一些架构就不用了，但是忘记删除了），这时候就在想是否是有一种方法或者规则集，进行过滤，也就是说通过自动化或者半自动化的方式对代码的漏洞点进行筛查，答案是有的。</p>
+            <h1 id="壹-CodeQL简介"><a href="#壹-CodeQL简介" class="headerlink" title="壹 CodeQL简介"></a>壹 CodeQL简介</h1><h2 id="1-1-介绍"><a href="#1-1-介绍" class="headerlink" title="1.1 介绍"></a>1.1 介绍</h2><p>在做代码审计的时候，会用到通过关键字查询的方式进行代码审计，但是这样做的弊端就是搜索出来的结果量太大了，而且可能项目里用不到开发者重写的危险函数（例如文件上传，可能项目之前有这个功能，后来换了一些架构就不用了，但是忘记删除了），这时候就在想是否是有一种方法或者规则集，进行过滤，也就是说通过自动化或者半自动化的方式对代码的漏洞点进行筛查，答案是有的。</p>
 <p>在说这种新型的代码审计方法之前，我们需要了解一个知识点：在代码自动化安全审计的理论当中，有一个最核心的三元组概念，就是<code>source</code>、<code>sink</code>和<code>sanitizer</code>。 </p>
 <ul>
 <li><code>source</code>：漏洞污染链条的输入点，比如获取<code>http</code>请求的参数部分，就是非常明显的<code>source</code>。</li>
@@ -557,7 +583,7 @@ codeql database analyze 生成的数据库 codeql/ql/java/ql/src/codeql-suites/j
         <script>
             var v = new Viewer({
                 basePath: "/model",
-                role: "tianlangxing_3",
+                role: "deyizhi_3",
                 mobile: true,
             });
         </script>
